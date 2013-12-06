@@ -1,0 +1,12 @@
+<link rel="stylesheet" href="lib/js/zebradate/public/css/metallic.css" />
+
+<script src="lib/js/zebradate/public/javascript/zebra_datepicker.js"></script>
+
+<script>
+$(document).ready(function(){
+	$('#valor').Zebra_DatePicker({
+		format:'d/m/Y',
+		first_day_of_week:0
+	});
+});
+</script>

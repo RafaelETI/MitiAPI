@@ -1,0 +1,4 @@
+Options -indexes
+
+RewriteEngine On
+RewriteRule ^([^/?\.]+)$ /modelo/geral.php?arquivo=$1 [NC]

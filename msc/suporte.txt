@@ -1,0 +1,9 @@
+PHP 5.2+
+
+--------------------
+
+Recursos não utilizados por causa da compatibilidade:
+
+-anonymous functions (5.3)
+-goto (5.3)
+-finally (5.5)

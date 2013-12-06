@@ -1,0 +1,259 @@
+/*tudo*/
+*{
+	margin:0px;
+	padding:0px;
+}
+
+/*====================*/
+
+/*fonts*/
+@font-face{
+	font-family:'Abel';
+	src:url(../../font/abel.woff);
+}
+
+@font-face{
+	font-family:'Aubrey';
+	src:url(../../font/aubrey.woff);
+}
+
+@font-face{
+	font-family:'Jura';
+	src:url(../../font/jura_regular.woff);
+}
+
+/*====================*/
+
+/*pagina*/
+body{
+	background:#ddd;
+	padding:10px;
+}
+
+#geral{
+	text-align:center;
+	font:16px/30px Abel;
+	color:#555;
+	display:none;
+}
+
+/*====================*/
+
+/*tags e atributos, estrutura, menu*/
+header,caption,thead,tfoot,th[scope="row"],td.acoes{
+	color:#007e7a;
+	text-shadow:white 1px 1px 1px;
+	background:#a9c6c3;
+}
+
+/*====================*/
+
+/*tags e atributos*/
+/*divs*/
+div[id$="_oculto"]{
+	text-align:left;
+	display:none;
+	clear:left;
+}
+
+/*tabelas*/
+table{
+	border-collapse:collapse;
+}
+
+thead,tfoot,th[scope="row"],td.acoes{
+	height:30px;
+}
+
+th.acoes{
+	width:70px;
+}
+
+td.acoes{
+	text-align:left;
+}
+
+caption{
+	font-weight:bold;
+	margin-bottom:5px;
+}
+
+caption,th,td{
+	border:solid 1px gray;
+	padding:0px 5px;
+}
+
+td{
+	line-height:20px;
+}
+
+tfoot{
+	height:23px;
+}
+
+tfoot td{
+	padding:0px 5px;
+}
+
+/*tabelas com formulario*/
+form table,table input[type="text"],table input[type="password"],table textarea,table select{
+	width:100%;
+	max-width:600px;
+	text-align:left;
+}
+
+form th[scope="row"]{
+	width:25%;
+}
+
+form td{
+	border:none;
+	padding:0px 8px 0px 5px;
+}
+
+form td.acoes{
+	width:40px;
+	border:1px solid gray;
+}
+
+td.acoes form{
+	display:inline;
+}
+
+/*formularios*/
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus,select:focus{
+	border:1px solid black;
+}
+
+input[type="text"],input[type="password"]{
+	height:19px;
+}
+
+input[type="submit"],input[type="button"]{
+	height:26px;
+	padding:0px 5px;
+}
+
+textarea{
+	font-size:13px;
+	height:200px;
+}
+
+input[type="text"],input[type="password"],textarea,select{
+	color:#555;
+	font-family:Abel;
+	border:solid 1px #007e7a;
+	box-shadow:inset 1px 1px 5px 0px gray;
+	padding:1px;
+	margin:0px 5px 5px 0px;
+}
+
+input[type="submit"],input[type="button"]{
+	position:relative;
+	top:2px;
+}
+
+/*links*/
+a{
+	cursor:pointer;
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+/*====================*/
+
+/*estrutura*/
+header,section.conteudo{
+	border:outset 1px white;
+	box-shadow:5px 5px 5px 0px gray;
+}
+
+nav,section{
+	margin-bottom:20px;
+}
+
+header{
+	text-align:left;
+	font:bold 20px Jura;
+	padding:5px 10px;
+}
+
+header span{
+	font-size:15px;
+}
+
+section.conteudo{
+	background:#dce5e4;
+	margin-bottom:15px;
+	padding:15px;
+}
+
+/*====================*/
+
+/*menu*/
+nav header{
+	text-align:right;
+	padding-right:10px;
+}
+
+nav a{
+	text-decoration:none;
+	font-weight:bold;
+	text-shadow:black 0px 1px 0px;
+	background:#007e7a;
+	padding:2px 10px;
+	margin-right:5px;
+	border-radius:3px;
+	box-shadow:inset white 1px 1px 0px, black 1px 1px 0px;
+	color:white;
+	font-family:Aubrey;
+}
+
+/*====================*/
+
+/*classes*/
+/*divs*/
+div.esquerda{
+	float:left;
+}
+
+div.direita{
+	text-align:right;
+}
+
+/*tabelas de listagem*/
+table.lista{
+	width:100%;
+}
+
+table.lista .par{
+	background:#eee;
+}
+
+table.lista .par:hover{
+	background:linear-gradient(white,#bbb);
+}
+
+table.lista .impar{
+	background:#ccf;
+}
+
+table.lista .impar:hover{
+	background:linear-gradient(white,#9494ff);
+}
+
+/*formularios*/
+form.pequeno{
+	max-width:400px;
+}
+
+form .leitura{
+	background:#ddd;
+}
+
+/*status*/
+#status{
+	color:purple;
+}
