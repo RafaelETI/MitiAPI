@@ -1,8 +1,7 @@
 <?php
 require_once('mod/Config.php');
 
-$arquivo=$_GET['arquivo'];
-if($arquivo=='login'){$restrito='';}else{$restrito=true;}
+if($_GET['arquivo']=='login'){$restrito='';}else{$restrito=true;}
 
 $Config=new Config($restrito);
 
@@ -30,7 +29,7 @@ require_once('proc.php');
 <!--==========div==========-->
 <body>
 <div id="geral">
-<?php if($arquivo!='login'){ ?>
+<?php if($_GET['arquivo']!='login'){ ?>
 <div id="nav">
 	<div class="header">
 		<div class="esquerda">
@@ -75,7 +74,7 @@ require_once('proc.php');
 </div>
 <?php } ?>
 
-<?php require_once(basename($arquivo).'.php'); ?>
+<?php require_once(basename($_GET['arquivo']).'.php'); ?>
 </div>
 </body>
 </html>
