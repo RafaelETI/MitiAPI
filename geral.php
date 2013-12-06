@@ -1,8 +1,6 @@
 <?php
 require_once('mod/Config.php');
-
 if($_GET['arquivo']=='login'){$restrito='';}else{$restrito=true;}
-
 $Config=new Config($restrito);
 
 require_once('proc.php');
