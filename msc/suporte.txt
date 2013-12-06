@@ -2,8 +2,18 @@ PHP 5.2+
 
 --------------------
 
-Recursos não utilizados por causa da compatibilidade:
+Recursos não utilizados para compatibilidade:
 
--anonymous functions (5.3)
--goto (5.3)
--finally (5.5)
+- anonymous functions (5.3)
+- goto (5.3)
+- finally (5.5)
+
+====================
+
+IE 8+
+
+--------------------
+
+Recursos não utilizados para compatibilidade:
+
+- header, nav, section, footer

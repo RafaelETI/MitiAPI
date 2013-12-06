@@ -1,9 +1,9 @@
 <script src="js/teste.js"></script>
 
-<section>
-	<header>Teste</header>
+<div class="section">
+	<div class="header">Teste</div>
 	
-	<section class="conteudo">
+	<div class="section conteudo">
 		<form method="post" action="" enctype="multipart/form-data">
 			<table>
 				<tbody>
@@ -83,5 +83,5 @@
 				<tfoot><tr><th scope="row" colspan="3"><input type="submit" name="testar" value="Testar" /></th></tr></tfoot>
 			</table>
 		</form>
-	</section>
-</section>
+	</div>
+</div>

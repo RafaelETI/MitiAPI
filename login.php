@@ -1,7 +1,7 @@
 <script src="js/login.js"></script>
 
-<section>
-	<header>
+<div class="section">
+	<div class="header">
 		<div class="esquerda">
 			<?php echo SISTEMA; ?>
 			
@@ -14,9 +14,9 @@
 		</div>
 		
 		<div class="direita">Login</div>
-	</header>
+	</div>
 	
-	<section class="conteudo">
+	<div class="section conteudo">
 		<form method="post" action="" class="pequeno">
 			<table>
 				<tbody>
@@ -36,5 +36,5 @@
 				<tfoot><tr><th scope="row" colspan="3"><input type="submit" name="login" value="Entrar" /></th></tr></tfoot>
 			</table>
 		</form>
-	</section>
-</section>
+	</div>
+</div>

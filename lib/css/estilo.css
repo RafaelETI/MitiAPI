@@ -40,7 +40,7 @@ body{
 /*====================*/
 
 /*tags e atributos, estrutura, menu*/
-header,caption,thead,tfoot,th[scope="row"],td.acoes{
+div.header,caption,thead,tfoot,th[scope="row"],td.acoes{
 	color:#007e7a;
 	text-shadow:white 1px 1px 1px;
 	background:#a9c6c3;
@@ -165,26 +165,26 @@ a:hover{
 /*====================*/
 
 /*estrutura*/
-header,section.conteudo{
+div.header,div.section.conteudo{
 	border:outset 1px white;
 	box-shadow:5px 5px 5px 0px gray;
 }
 
-nav,section{
+div#nav,div.section{
 	margin-bottom:20px;
 }
 
-header{
+div.header{
 	text-align:left;
 	font:bold 20px Jura;
 	padding:5px 10px;
 }
 
-header span{
+div.header span{
 	font-size:15px;
 }
 
-section.conteudo{
+div.section.conteudo{
 	background:#dce5e4;
 	margin-bottom:15px;
 	padding:15px;
@@ -193,12 +193,12 @@ section.conteudo{
 /*====================*/
 
 /*menu*/
-nav header{
+div#nav div.header{
 	text-align:right;
 	padding-right:10px;
 }
 
-nav a{
+div#nav a{
 	text-decoration:none;
 	font-weight:bold;
 	text-shadow:black 0px 1px 0px;

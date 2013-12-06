@@ -31,8 +31,8 @@ require_once('proc.php');
 <body>
 <div id="geral">
 <?php if($arquivo!='login'){ ?>
-<nav>
-	<header>
+<div id="nav">
+	<div class="header">
 		<div class="esquerda">
 			<?php echo SISTEMA; ?>
 			
@@ -53,9 +53,9 @@ require_once('proc.php');
 			echo $_SESSION[SESSAO];
 			?>
 		</div>
-	</header>
+	</div>
 	
-	<section class="conteudo">
+	<div class="section conteudo">
 		<div class="esquerda">
 			<a id="teste" class="menu">Teste</a>
 		</div>
@@ -71,8 +71,8 @@ require_once('proc.php');
 			<a href="geral.php?arquivo=teste">Buscar</a>
 			<a href="geral.php?arquivo=teste">Cadastrar</a>
 		</div>
-	</section>
-</nav>
+	</div>
+</div>
 <?php } ?>
 
 <?php require_once(basename($arquivo).'.php'); ?>
