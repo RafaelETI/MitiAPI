@@ -1,5 +1,11 @@
 <?php
-class AR{
+abstract class AR{
+	protected $tabela;
+	protected $campos=array();
+	protected $tipos=array();
+	protected $tamanhos=array();
+	protected $pk;
+
 	public function getTabela(){
 		return $this->tabela;
 	}

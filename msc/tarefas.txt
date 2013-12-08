@@ -2,4 +2,4 @@
 
 =====Produção=====
 
-Desenvolver MitiCRUD.
+Desenvolver MitiCRUD: validacoes; tratamentos; joins.

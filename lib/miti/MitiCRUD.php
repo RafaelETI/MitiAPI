@@ -10,8 +10,32 @@ class MitiCRUD{
 		$this->ar=$ar;
 	}
 	
-	public function inserir(){
+	public function inserir($duplas){
+		//banco
+		$MitiBD=new MitiBD();
 		
+		$sql='insert into '.$this->ar->getTabela().'(';
+		
+		//construcao da string dos campos
+		$campos=array();
+		foreach($duplas as $i=>$v){$campos[]=$this->ar->getCampos()[$i];}
+		$sql.=implode(',',$campos);
+		
+		$sql.=')values(';
+		
+		//construcao da string dos valores
+		$values=array();
+		foreach($duplas as $i=>$v){
+			if($this->ar->getTipos()[$i]!='int'){$v='"'.$v.'"';}
+			$values[]=$v;
+		}
+		$sql.=implode(',',$values);
+		
+		$sql.=')';
+		
+		//requisicao
+		$MitiBD->requisitar($sql);
+		$MitiBD->fechar();
 	}
 	
 	public function definirCampos($indices){
@@ -92,8 +116,27 @@ class MitiCRUD{
 		return $MitiBD;
 	}
 	
-	public function alterar(){
+	public function alterar($duplas,$valor){
+		//banco
+		$MitiBD=new MitiBD();
 		
+		//construcao da string
+		$sql='update '.$this->ar->getTabela().' set ';
+		
+		$atribuicoes=array();
+		foreach($duplas as $i=>$v){
+			if($this->ar->getTipos()[$i]!='int'){$v='"'.$v.'"';}
+			$atribuicoes[]=$this->ar->getCampos()[$i].'='.$v;
+		}
+		
+		$sql.=implode(',',$atribuicoes);
+		
+		if($this->ar->getPkTipo()!='int'){$valor='"'.$valor.'"';}
+		$sql.=' where '.$this->ar->getPkCampo().'='.$valor;
+		
+		//requisicao
+		$MitiBD->requisitar($sql);
+		$MitiBD->fechar();
 	}
 	
 	public function deletar($valor){
