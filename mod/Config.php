@@ -27,7 +27,7 @@ class Config{
 		spl_autoload_register('miti_autoload');
 
 		//constantes
-		define('SISTEMA','Miti Modelo 2.2.47');
+		define('SISTEMA','Miti Modelo 2.2.48');
 		
 		define('BD_SERVIDOR','localhost');
 		define('BD_USUARIO','root');
