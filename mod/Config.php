@@ -15,7 +15,7 @@ class Config{
 		
 		//autoload
 		function miti_autoload($classe){
-			$pacotes=array('mod','lib/miti');
+			$pacotes=array('mod','lib/miti','ar');
 			
 			foreach($pacotes as $v){
 				if(file_exists($v.'/'.$classe.'.php')==true){
@@ -27,7 +27,7 @@ class Config{
 		spl_autoload_register('miti_autoload');
 
 		//constantes
-		define('SISTEMA','Miti Modelo 2.2.47');
+		define('SISTEMA','Miti Modelo 3.2.48');
 		
 		define('BD_SERVIDOR','localhost');
 		define('BD_USUARIO','root');

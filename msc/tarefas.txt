@@ -2,4 +2,4 @@
 
 =====Produção=====
 
-Pensar: MitiCRUD.
+Desenvolver MitiCRUD.
