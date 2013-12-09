@@ -8,8 +8,13 @@ class ARSessao extends AR{
 	);
 	
 	protected $tipos=array(
-		0=>'char',
-		1=>'char'
+		0=>'string',
+		1=>'string'
+	);
+	
+	protected $anulaveis=array(
+		0=>false,
+		1=>false
 	);
 	
 	protected $tamanhos=array(

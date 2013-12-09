@@ -3,6 +3,7 @@ abstract class AR{
 	protected $tabela;
 	protected $campos=array();
 	protected $tipos=array();
+	protected $anulaveis=array();
 	protected $tamanhos=array();
 	protected $pk;
 
@@ -16,6 +17,10 @@ abstract class AR{
 	
 	public function getTipos(){
 		return $this->tipos;
+	}
+	
+	public function getAnulaveis(){
+		return $this->anulaveis;
 	}
 	
 	public function getTamanhos(){

@@ -73,10 +73,11 @@
 									
 									$MitiCRUD=new MitiCRUD(new ARSessao());
 									//$MitiCRUD->inserir(array('ghijk','$1$U70u4Q91$SEwMPzWeQP1GIOCCOKydOG'));
-									//$MitiCRUD->alterar(array(1=>'$1$U70u4Q91$SEwMPzWeQP1GIOCCOKydOG'),'ghijk');
+									//$MitiCRUD->alterar(array(0=>'hijkl',1=>'$1$U70u4Q91$SEwMPzWeQP1GIOCCOKydOG'),'ghijk');
 									//$MitiCRUD->deletar('abcde');
 									$MitiCRUD->definirCampos(array(0,1));
 									$MitiBD=$MitiCRUD->ler();
+									
 									while(($sessao=$MitiBD->obterAssoc())==true){
 										echo $sessao['usuario'].' | '.$sessao['senha'].'<br />';
 									}
