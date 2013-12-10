@@ -9,17 +9,17 @@
 /*fonts*/
 @font-face{
 	font-family:'Abel';
-	src:url(../../font/abel.woff);
+	src:url(../font/abel.woff);
 }
 
 @font-face{
 	font-family:'Aubrey';
-	src:url(../../font/aubrey.woff);
+	src:url(../font/aubrey.woff);
 }
 
 @font-face{
 	font-family:'Jura';
-	src:url(../../font/jura_regular.woff);
+	src:url(../font/jura_regular.woff);
 }
 
 /*====================*/
@@ -155,6 +155,7 @@ input[type="submit"],input[type="button"]{
 
 /*links*/
 a{
+	text-decoration:none;
 	cursor:pointer;
 }
 
@@ -199,7 +200,6 @@ div#nav div.header{
 }
 
 div#nav a{
-	text-decoration:none;
 	font-weight:bold;
 	text-shadow:black 0px 1px 0px;
 	background:#007e7a;

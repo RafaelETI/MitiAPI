@@ -1,6 +1,6 @@
 <?php
 require_once('mod/Config.php');
-if($_GET['arquivo']=='login'){$restrito='';}else{$restrito=true;}
+if($_GET['arquivo']=='login'){$restrito=false;}else{$restrito=true;}
 new Config($restrito);
 
 require_once('proc.php');
@@ -10,18 +10,19 @@ require_once('proc.php');
 <head>
 <meta charset="iso-8859-1" />
 
-<title>Miti Modelo</title>
+<title><?php echo SISTEMA; ?></title>
 
 <meta name="author" content="Rafael Barros" />
 
-<link rel="shortcut icon" href="img/favicon.png" type="image/png" />
+<link rel="shortcut icon" href="img/fav.png" type="image/png" />
 
-<link rel="stylesheet" href="lib/css/estilo.css" />
+<link rel="stylesheet" href="css/geral.css" />
+<link rel="stylesheet" href="css/<?php echo basename($_GET['arquivo']); ?>.css" />
 <style></style>
 
 <script src="lib/js/jquery_min.js"></script>
-<script src="lib/js/funcoes.js"></script>
 <script src="js/geral.js"></script>
+<script src="js/<?php echo basename($_GET['arquivo']); ?>.js"></script>
 <script></script>
 </head>
 <!--==========div==========-->
@@ -46,8 +47,8 @@ require_once('proc.php');
 			
 			<?php
 			$MitiAssinatura=new MitiAssinatura();
-			$MitiAssinatura->htmlSpecialChars($_SESSION[SESSAO]);
-			echo $_SESSION[SESSAO];
+			$MitiAssinatura->htmlSpecialChars($_SESSION['login']);
+			echo $_SESSION['login'];
 			?>
 		</div>
 	</div>
@@ -64,9 +65,9 @@ require_once('proc.php');
 		</div>
 		
 		<div id="teste_oculto">
-			<a href="geral.php?arquivo=teste">Visualizar</a>
-			<a href="geral.php?arquivo=teste">Buscar</a>
-			<a href="geral.php?arquivo=teste">Cadastrar</a>
+			<a href="geral.php?arquivo=teste_vis">Visualização</a>
+			<a>Busca</a>
+			<a href="geral.php?arquivo=teste_ce">Cadastro</a>
 		</div>
 	</div>
 </div>

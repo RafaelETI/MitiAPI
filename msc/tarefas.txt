@@ -1,5 +1,8 @@
 =====Desenvolvimento=====
 
-=====ProduÃ§Ã£o=====
+=====Produção=====
 
-Pensar: MitiCRUD.
+Criar a páginas da tabela e formulário;
+Fazer a análise;
+Merge no "miticrud"
+Desenvolver o "MitiCRUD".

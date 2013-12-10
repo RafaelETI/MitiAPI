@@ -1,14 +1,13 @@
 <?php
 class Config{
-	public function __construct($restrito=false){
+	public function __construct($restrito){
 		//erros
 		//ini_set('display_errors',0);
 		
 		//sessao
 		session_start();
 		
-		define('SESSAO','login');
-		if($restrito==true&&isset($_SESSION[SESSAO])==false){
+		if($restrito==true&&isset($_SESSION['login'])==false){
 			$_SESSION['status']='Você não está autenticado';
 			header('location:geral.php?arquivo=login'); exit();
 		}
@@ -27,7 +26,7 @@ class Config{
 		spl_autoload_register('miti_autoload');
 
 		//constantes
-		define('SISTEMA','Miti Modelo 2.2.48');
+		define('SISTEMA','Miti Modelo 2.2.49');
 		
 		define('BD_SERVIDOR','localhost');
 		define('BD_USUARIO','root');

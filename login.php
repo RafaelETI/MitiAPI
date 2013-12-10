@@ -1,5 +1,3 @@
-<script src="js/login.js"></script>
-
 <div class="section">
 	<div class="header">
 		<div class="esquerda">
