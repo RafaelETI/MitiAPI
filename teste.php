@@ -71,15 +71,16 @@
 									//print_r($_POST);
 									//echo '</pre>';
 									
-									$MitiCRUD=new MitiCRUD(new ARSessao());
-									//$MitiCRUD->inserir(array('ghijk','$1$U70u4Q91$SEwMPzWeQP1GIOCCOKydOG'));
-									//$MitiCRUD->alterar(array(0=>'hijkl',1=>'$1$U70u4Q91$SEwMPzWeQP1GIOCCOKydOG'),'ghijk');
-									//$MitiCRUD->deletar('abcde');
-									$MitiCRUD->definirCampos(array(0,1));
+									$MitiCRUD=new MitiCRUD(new ARPessoas());
+									//$MitiCRUD->deletar(6);
+									//$MitiCRUD->inserir(array('nome'=>'Judith','sexo'=>1));
+									//$MitiCRUD->alterar(array('nome'=>'John'),3);
+									$MitiCRUD->juntar(new ARSexos(),'sexo','id');
+									$MitiCRUD->definirCampos(array('id','nome'),array('nome'));
 									$MitiBD=$MitiCRUD->ler();
 									
-									while(($sessao=$MitiBD->obterAssoc())==true){
-										echo $sessao['usuario'].' | '.$sessao['senha'].'<br />';
+									while(($pessoas=$MitiBD->obterAssoc())==true){
+										echo $pessoas['id'].' | '.$pessoas['nome'].' | '.$pessoas['sexos_nome'].'<br />';
 									}
 								}catch(Exception $e){
 									echo $e->getMessage();
