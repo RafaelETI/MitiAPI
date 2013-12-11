@@ -4,5 +4,4 @@
 
 Criar a páginas da tabela e formulário;
 Fazer a análise;
-Merge no "miticrud"
-Desenvolver o "MitiCRUD".
+Merge no "miticrud".
