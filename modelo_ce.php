@@ -10,7 +10,7 @@ if(isset($_GET['id'])==false){
 }
 ?>
 <div class="section">
-	<div class="header">Teste > <?php echo $header; ?></div>
+	<div class="header">Modelo > <?php echo $header; ?></div>
 	
 	<div class="section conteudo">
 		<form method="post" action="" enctype="multipart/form-data">
@@ -26,11 +26,11 @@ if(isset($_GET['id'])==false){
 						<th scope="row">Valor 2</th>
 						
 						<td>
-							<input type="radio" name="valor2" id="valor2_a" value="1" checked="checked" />
 							<label for="valor2_a">A</label>
-							&nbsp;&nbsp;
-							<input type="radio" name="valor2" id="valor2_b" value="2" />
+							<input type="radio" name="valor2" id="valor2_a" value="1" checked="checked" />
+							
 							<label for="valor2_b">B</label>
+							<input type="radio" name="valor2" id="valor2_b" value="2" />
 						</td>
 						
 						<td class="acoes" id="valor2_auxformcont"></td>
@@ -40,11 +40,11 @@ if(isset($_GET['id'])==false){
 						<th scope="row">Valores 3</th>
 						
 						<td>
-							<input type="checkbox" name="valor3" id="valor3_c" value="1" />
 							<label for="valor3_c">C</label>
-							&nbsp;&nbsp;
-							<input type="checkbox" name="valor3" id="valor3_d" value="2" />
+							<input type="checkbox" name="valor3" id="valor3_c" value="1" />
+							
 							<label for="valor3_d">D</label>
+							<input type="checkbox" name="valor3" id="valor3_d" value="2" />
 						</td>
 						
 						<td class="acoes" id="valor3_auxformcont"></td>
@@ -66,9 +66,9 @@ if(isset($_GET['id'])==false){
 					</tr>
 
 					<tr>
-						<th scope="row"><label for="arquivo">Arquivos</label></th>
+						<th scope="row"><label for="arquivos">Arquivos</label></th>
 						<td><input type="file" name="arquivos[]" id="arquivos" multiple="multiple" required="required" /></td>
-						<td class="acoes"></td>
+						<td class="acoes" id="valor4_auxformcont"></td>
 					<tr>
 					
 					<tr>
@@ -80,9 +80,9 @@ if(isset($_GET['id'])==false){
 				
 				<tfoot>
 					<tr>
-						<th scope="row" colspan="3">
+						<td colspan="3">
 							<input type="submit" name="<?php echo $name; ?>" value="<?php echo $value; ?>" />
-						</th>
+						</td>
 					</tr>
 				</tfoot>
 			</table>
