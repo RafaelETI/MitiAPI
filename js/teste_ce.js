@@ -5,6 +5,5 @@ inicio(function(){
 	
 	//auxFormCont
 	auxFormCont('valor',15);
-	auxFormCont('valor2',20);
-	auxFormCont('valor3',10);
+	auxFormCont('valor3',450);
 });

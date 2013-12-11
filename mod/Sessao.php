@@ -17,7 +17,7 @@ class Sessao{
 		if($sessao['senha']!=crypt($_POST['senha'],$sessao['senha'])){throw new Exception('Autenticação inválida');}
 		
 		//sessao
-		$_SESSION[SESSAO]=$_POST['usuario'];
+		$_SESSION['login']=$_POST['usuario'];
 	}
 	
 	public function logout(){

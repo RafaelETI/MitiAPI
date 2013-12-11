@@ -1,5 +1,5 @@
 =====Desenvolvimento=====
 
-=====ProduÃ§Ã£o=====
+=====Produção=====
 
-Desenvolver MitiCRUD: padronizar Ã­ndices; joins.
+Desenvolver MitiCRUD: padronizar í­ndices; joins.
