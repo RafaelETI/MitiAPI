@@ -1,0 +1,53 @@
+Miti Modelo (x)
+
+==========Menu==========
+
+Login: p. 1 (x)
+
+Modelo (x)
+	Visualização: p. 2 (x)
+	Busca (x)
+	Cadastro / Edição: p. 3 (x)
+	
+==========Páginas==========
+
+Login
+	Formulário
+		Usuário:1
+		Senha:1
+		
+--------------------
+
+1 Obrigatório
+
+====================
+
+Modelo
+	Visualização
+		Tabela
+			#
+			Coluna
+			Coluna 2
+			Coluna 3
+			Ações
+				E (Editar)
+				D (Deletar)
+				
+	Cadastro / Edição
+		Formulário
+			Valor:1
+			Valor 2:12
+			Valores 3:3
+			Valor 4:14
+			Arquivos:15
+			Valor 5:16
+			
+--------------------
+
+1 Obrigatório
+2 Radio
+3 Checkbox
+4 Select
+5 File
+6 Textarea
+

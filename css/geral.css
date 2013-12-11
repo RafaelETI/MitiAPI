@@ -1,12 +1,12 @@
-/*tudo*/
+/*==========tudo==========*/
+
 *{
 	margin:0px;
 	padding:0px;
 }
 
-/*====================*/
+/*==========fonts==========*/
 
-/*fonts*/
 @font-face{
 	font-family:'Abel';
 	src:url(../font/abel.woff);
@@ -22,9 +22,8 @@
 	src:url(../font/jura_regular.woff);
 }
 
-/*====================*/
+/*==========pagina==========*/
 
-/*pagina*/
 body{
 	background:#ddd;
 	padding:10px;
@@ -37,18 +36,16 @@ body{
 	display:none;
 }
 
-/*====================*/
+/*==========comum==========*/
 
-/*tags e atributos, estrutura, menu*/
 div.header,caption,thead,tfoot,th[scope="row"],td.acoes{
 	color:#007e7a;
 	text-shadow:white 1px 1px 1px;
 	background:#a9c6c3;
 }
 
-/*====================*/
+/*==========tags==========*/
 
-/*tags e atributos*/
 /*divs*/
 div[id$="_oculto"]{
 	text-align:left;
@@ -65,12 +62,9 @@ thead,tfoot,th[scope="row"],td.acoes{
 	height:30px;
 }
 
-th.acoes{
-	width:70px;
-}
-
 td.acoes{
-	text-align:left;
+	text-align:center;
+	width:70px;
 }
 
 caption{
@@ -78,7 +72,7 @@ caption{
 	margin-bottom:5px;
 }
 
-caption,th,td{
+caption,th,td,tfoot{
 	border:solid 1px gray;
 	padding:0px 5px;
 }
@@ -91,11 +85,16 @@ tfoot{
 	height:23px;
 }
 
-tfoot td{
-	padding:0px 5px;
+tfoot form{
+	display:inline;
 }
 
-/*tabelas com formulario*/
+tfoot div input[type="submit"]{
+	height:20px;
+	font-size:10px;
+}
+
+/*tabelas de formularios*/
 form table,table input[type="text"],table input[type="password"],table textarea,table select{
 	width:100%;
 	max-width:600px;
@@ -120,25 +119,11 @@ td.acoes form{
 	display:inline;
 }
 
+form tfoot{
+	height:35px;
+}
+
 /*formularios*/
-input[type="text"]:focus,input[type="password"]:focus,textarea:focus,select:focus{
-	border:1px solid black;
-}
-
-input[type="text"],input[type="password"]{
-	height:19px;
-}
-
-input[type="submit"],input[type="button"]{
-	height:26px;
-	padding:0px 5px;
-}
-
-textarea{
-	font-size:13px;
-	height:200px;
-}
-
 input[type="text"],input[type="password"],textarea,select{
 	color:#555;
 	font-family:Abel;
@@ -148,9 +133,26 @@ input[type="text"],input[type="password"],textarea,select{
 	margin:0px 5px 5px 0px;
 }
 
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus,select:focus{
+	border:1px solid black;
+}
+
+input[type="text"],input[type="password"]{
+	height:19px;
+}
+
+input[type="radio"],input[type="checkbox"]{
+	margin-right:15px;
+}
+
+textarea{
+	font-size:15px;
+	height:130px;
+}
+
 input[type="submit"],input[type="button"]{
-	position:relative;
-	top:2px;
+	height:26px;
+	padding:0px 5px;
 }
 
 /*links*/
@@ -163,9 +165,8 @@ a:hover{
 	text-decoration:underline;
 }
 
-/*====================*/
+/*==========estrutura==========*/
 
-/*estrutura*/
 div.header,div.section.conteudo{
 	border:outset 1px white;
 	box-shadow:5px 5px 5px 0px gray;
@@ -191,9 +192,8 @@ div.section.conteudo{
 	padding:15px;
 }
 
-/*====================*/
+/*==========menu==========*/
 
-/*menu*/
 div#nav div.header{
 	text-align:right;
 	padding-right:10px;
@@ -211,9 +211,8 @@ div#nav a{
 	font-family:Aubrey;
 }
 
-/*====================*/
+/*==========classes e ids==========*/
 
-/*classes*/
 /*divs*/
 div.esquerda{
 	float:left;
@@ -257,3 +256,4 @@ form .leitura{
 #status{
 	color:purple;
 }
+

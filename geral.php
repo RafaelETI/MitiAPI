@@ -55,7 +55,7 @@ require_once('proc.php');
 	
 	<div class="section conteudo">
 		<div class="esquerda">
-			<a id="teste" class="menu">Teste</a>
+			<a id="modelo" class="menu">Modelo</a>
 		</div>
 		
 		<div class="direita">
@@ -64,10 +64,10 @@ require_once('proc.php');
 			</form>
 		</div>
 		
-		<div id="teste_oculto">
-			<a href="geral.php?arquivo=teste_vis">Visualização</a>
+		<div id="modelo_oculto">
+			<a href="geral.php?arquivo=modelo_vis">Visualização</a>
 			<a>Busca</a>
-			<a href="geral.php?arquivo=teste_ce">Cadastro</a>
+			<a href="geral.php?arquivo=modelo_ce">Cadastro</a>
 		</div>
 	</div>
 </div>
