@@ -74,24 +74,6 @@ require_once('proc.php');
 <?php } ?>
 
 <?php require_once(basename($_GET['arquivo']).'.php'); ?>
-
-<?php
-try{
-	$MitiCRUD=new MitiCRUD(new ARPessoas());
-	//$MitiCRUD->deletar(6);
-	//$MitiCRUD->inserir(array('nome'=>'Judith','sexo'=>1));
-	//$MitiCRUD->alterar(array('nome'=>'John'),3);
-	$MitiCRUD->juntar(new ARSexos(),'sexo','id');
-	$MitiCRUD->definirCampos(array('id','nome'),array('nome'));
-	$MitiBD=$MitiCRUD->ler();
-	
-	while(($pessoas=$MitiBD->obterAssoc())==true){
-		echo $pessoas['id'].' | '.$pessoas['nome'].' | '.$pessoas['sexos_nome'].'<br />';
-	}
-}catch(Exception $e){
-	echo $e->getMessage();
-}
-?>
 </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 class MitiCRUD{
 	private $ar;
-	private $ar_fk;
+	private $ar2;
 	private $campos;
 	private $join='';
 	private $order_by='';
@@ -28,8 +28,6 @@ class MitiCRUD{
 		$values=array();
 		
 		foreach($duplas as $i=>$v){
-			$i=$this->obterIndice($i);
-		
 			//validacoes
 			if($this->ar->getAnulaveis()[$i]==false&&$v==''){throw new Exception('Informe um valor');}
 			if(strlen($v)>$this->ar->getTamanhos()[$i]){throw new Exception('Limite de caractéres excedido');}
@@ -100,7 +98,7 @@ class MitiCRUD{
 		return $MitiBD;
 	}
 	
-	public function alterar($duplas,$valor){
+	public function alterar($duplas,$pk){
 		//banco
 		$MitiBD=new MitiBD();
 		
@@ -110,9 +108,6 @@ class MitiCRUD{
 		$atribuicoes=array();
 		
 		foreach($duplas as $i=>$v){
-			$campo=$i;
-			$i=$this->obterIndice($i);
-		
 			//validacoes
 			if($this->ar->getAnulaveis()[$i]==false&&$v==''){throw new Exception('Informe um valor');}
 			if(strlen($v)>$this->ar->getTamanhos()[$i]){throw new Exception('Limite de caractéres excedido');}
@@ -128,13 +123,13 @@ class MitiCRUD{
 				settype($v,'int');
 			}
 			
-			$atribuicoes[]=$campo.'='.$v;
+			$atribuicoes[]=$i.'='.$v;
 		}
 		
 		$sql.=implode(',',$atribuicoes);
 		
-		if($this->ar->getPkTipo()!='number'){$valor='"'.$valor.'"';}
-		$sql.=' where '.$this->ar->getPkCampo().'='.$valor;
+		if($this->ar->getPkTipo()!='number'){$pk='"'.$pk.'"';}
+		$sql.=' where '.$this->ar->getPkCampo().'='.$pk;
 		
 		//exit($sql);
 		
@@ -164,24 +159,24 @@ class MitiCRUD{
 		$MitiBD->fechar();
 	}
 	
-	public function definirCampos($campos_pk,$campos_fk=array()){
+	public function definirCampos($campos,$campos2=array()){
 		//criacao da string da pk
-		$pks=array();
-		foreach($campos_pk as $v){$pks[]=$this->ar->getTabela().'.'.$v;}
-		$pks=implode(',',$pks);
+		$campos_ar=array();
+		foreach($campos as $v){$campos_ar[]=$this->ar->getTabela().'.'.$v;}
+		$campos_ar=implode(',',$campos_ar);
 		
 		//criacao da string da fk
-		$fks=array();
+		$campos_ar2=array();
 		
-		foreach($campos_fk as $v){
-			$fks[]=$this->ar_fk->getTabela().'.'.$v.
-			' as '.$this->ar_fk->getTabela().'_'.$v;
+		foreach($campos2 as $v){
+			$campos_ar2[]=$this->ar2->getTabela().'.'.$v.
+			' as '.$this->ar2->getTabela().'_'.$v;
 		}
 		
-		$fks=implode(',',$fks);
+		$campos_ar2=implode(',',$campos_ar2);
 		
 		//pk + fk
-		if($fks!=''){$campos=$pks.','.$fks;}
+		if($campos_ar2!=''){$campos=$campos_ar.','.$campos_ar2;}
 		
 		//exit($campos);
 		
@@ -189,15 +184,15 @@ class MitiCRUD{
 		$this->campos=$campos;
 	}
 	
-	public function juntar($ar,$pk,$fk){
+	public function juntar($ar2,$chave,$chave2){
 		//novo objeto
-		$this->ar_fk=$ar;
+		$this->ar2=$ar2;
 		
 		//construcao da string
 		$join='
-			join '.$this->ar_fk->getTabela().
-				' on '.$this->ar->getTabela().'.'.$pk.
-				'='.$this->ar_fk->getTabela().'.'.$fk
+			join '.$this->ar2->getTabela().
+				' on '.$this->ar->getTabela().'.'.$chave.
+				'='.$this->ar2->getTabela().'.'.$chave2
 		;
 		
 		//exit($join);
@@ -230,14 +225,6 @@ class MitiCRUD{
 		$limit=' limit '.$inicio.$casas;
 		
 		$this->limit=$limit;
-	}
-	
-	private function obterIndice($nome,$ar=null){
-		if($ar==null){$ar=$this->ar;}
-	
-		foreach($ar->getCampos() as $i=>$v){
-			if($v==$nome){return $i;}
-		}
 	}
 }
 ?>

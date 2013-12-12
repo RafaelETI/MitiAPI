@@ -1,6 +1,6 @@
 <?php
-class ARSexos extends AR{
-	protected $tabela='sexos';
+class AREstados extends AR{
+	protected $tabela='estados';
 	
 	protected $tipos=array(
 		'id'=>'number',
@@ -14,7 +14,7 @@ class ARSexos extends AR{
 	
 	protected $tamanhos=array(
 		'id'=>3,
-		'nome'=>10
+		'nome'=>20
 	);
 	
 	protected $pk='id';

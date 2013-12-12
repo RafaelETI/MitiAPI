@@ -2,4 +2,4 @@
 
 =====Produção=====
 
-Desenvolver MitiCRUD: padronizar í­ndices; joins.
+Desenvolver MitiCRUD: settype() variavel; joins.

@@ -2,30 +2,27 @@
 class ARPessoas extends AR{
 	protected $tabela='pessoas';
 	
-	protected $campos=array(
-		0=>'id',
-		1=>'nome',
-		2=>'sexo'
-	);
-	
 	protected $tipos=array(
-		0=>'number',
-		1=>'string',
-		2=>'number'
+		'id'=>'number',
+		'nome'=>'string',
+		'sexo'=>'number',
+		'estado'=>'number'
 	);
 	
 	protected $anulaveis=array(
-		0=>false,
-		1=>false,
-		2=>false
+		'id'=>false,
+		'nome'=>false,
+		'sexo'=>false,
+		'estado'=>false
 	);
 	
 	protected $tamanhos=array(
-		0=>3,
-		1=>100,
-		2=>3
+		'id'=>3,
+		'nome'=>100,
+		'sexo'=>3,
+		'estado'=>3
 	);
 	
-	protected $pk=0;
+	protected $pk='id';
 }
 ?>

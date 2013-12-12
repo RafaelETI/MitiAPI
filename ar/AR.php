@@ -1,7 +1,6 @@
 <?php
 abstract class AR{
 	protected $tabela;
-	protected $campos=array();
 	protected $tipos=array();
 	protected $anulaveis=array();
 	protected $tamanhos=array();
@@ -10,11 +9,7 @@ abstract class AR{
 	public function getTabela(){
 		return $this->tabela;
 	}
-	
-	public function getCampos(){
-		return $this->campos;
-	}
-	
+
 	public function getTipos(){
 		return $this->tipos;
 	}
@@ -28,7 +23,7 @@ abstract class AR{
 	}
 	
 	public function getPkCampo(){
-		return $this->campos[$this->pk];
+		return $this->pk;
 	}
 	
 	public function getPkTipo(){
