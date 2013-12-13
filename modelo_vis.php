@@ -1,21 +1,3 @@
-<?php
-try{
-	$MitiCRUD=new MitiCRUD(new ARPessoas());
-	//$MitiCRUD->deletar(4);
-	//$MitiCRUD->inserir(array('nome'=>'Judith','sexo'=>1));
-	//$MitiCRUD->alterar(array('nome'=>'Mark'),4);
-	$MitiCRUD->juntar(new ARSexos(),'sexo','id');
-	$MitiCRUD->definirCampos(array('id','nome'),array('nome'));
-	$MitiBD=$MitiCRUD->ler();
-	
-	while(($pessoas=$MitiBD->obterAssoc())==true){
-		echo $pessoas['id'].' | '.$pessoas['nome'].' | '.$pessoas['sexos_nome'].'<br />';
-	}
-}catch(Exception $e){
-	echo $e->getMessage();
-}
-?>
-
 <div class="section">
 	<div class="header">Modelo > Visualização</div>
 	

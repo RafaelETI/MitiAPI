@@ -1,7 +1,7 @@
 <?php
 class MitiCRUD{
 	private $ar;
-	private $ar2;
+	private $arx=array();
 	private $campos;
 	private $join='';
 	private $order_by='';
@@ -33,14 +33,14 @@ class MitiCRUD{
 			if(strlen($v)>$this->ar->getTamanhos()[$i]){throw new Exception('Limite de caractéres excedido');}
 			
 			//tratamentos
-			if($this->ar->getTipos()[$i]!='number'){
+			if($this->ar->getTipos()[$i]=='string'){
 				$MitiBD->escapar($v);
 			
 				if($v!='null'){
 					$v='"'.$v.'"';
 				}
 			}else{
-				settype($v,'int');
+				settype($v,$this->ar->getTipos()[$i]);
 			}
 			
 			$values[]=$v;
@@ -68,7 +68,7 @@ class MitiCRUD{
 			$MitiBD->escapar($v);
 			$v='"%'.$v.'%"';
 			
-			$where[]=$this->ar->getCampos()[$i].' like '.$v;
+			$where[]=$this->ar->getTabela().'.'.$i.' like '.$v;
 		}
 		
 		//construcao da string
@@ -113,14 +113,14 @@ class MitiCRUD{
 			if(strlen($v)>$this->ar->getTamanhos()[$i]){throw new Exception('Limite de caractéres excedido');}
 			
 			//tratamentos
-			if($this->ar->getTipos()[$i]!='number'){
+			if($this->ar->getTipos()[$i]=='string'){
 				$MitiBD->escapar($v);
 			
 				if($v!='null'){
 					$v='"'.$v.'"';
 				}
 			}else{
-				settype($v,'int');
+				settype($v,$this->ar->getTipos()[$i]);
 			}
 			
 			$atribuicoes[]=$i.'='.$v;
@@ -128,7 +128,7 @@ class MitiCRUD{
 		
 		$sql.=implode(',',$atribuicoes);
 		
-		if($this->ar->getPkTipo()!='number'){$pk='"'.$pk.'"';}
+		if($this->ar->getPkTipo()=='string'){$pk='"'.$pk.'"';}
 		$sql.=' where '.$this->ar->getPkCampo().'='.$pk;
 		
 		//exit($sql);
@@ -143,11 +143,11 @@ class MitiCRUD{
 		$MitiBD=new MitiBD();
 		
 		//tratamentos
-		if($this->ar->getPkTipo()!='number'){
+		if($this->ar->getPkTipo()=='string'){
 			$MitiBD->escapar($valor);
 			$valor='"'.$valor.'"';
 		}else{
-			settype($valor,'int');
+			settype($v,$this->ar->getTipos()[$i]);
 		}
 		
 		//requisicao
@@ -159,24 +159,26 @@ class MitiCRUD{
 		$MitiBD->fechar();
 	}
 	
-	public function definirCampos($campos,$campos2=array()){
-		//criacao da string da pk
+	public function definirCampos($ar_campos,$arx_campos=array()){
+		//criacao da string da ar
 		$campos_ar=array();
-		foreach($campos as $v){$campos_ar[]=$this->ar->getTabela().'.'.$v;}
+		foreach($ar_campos as $v){$campos_ar[]=$this->ar->getTabela().'.'.$v;}
 		$campos_ar=implode(',',$campos_ar);
 		
-		//criacao da string da fk
-		$campos_ar2=array();
+		//criacao da string das arx
+		$campos_arx=array();
 		
-		foreach($campos2 as $v){
-			$campos_ar2[]=$this->ar2->getTabela().'.'.$v.
-			' as '.$this->ar2->getTabela().'_'.$v;
+		foreach($this->arx as $i=>$o){
+			foreach($arx_campos[$i] as $v){
+				$campos_arx[]=$o->getTabela().'.'.$v.' as '.$o->getTabela().'_'.$v;
+			}
 		}
 		
-		$campos_ar2=implode(',',$campos_ar2);
+		$campos_arx=implode(',',$campos_arx);
 		
-		//pk + fk
-		if($campos_ar2!=''){$campos=$campos_ar.','.$campos_ar2;}
+		//ar + arx
+		$campos=$campos_ar;
+		if($campos_arx!=''){$campos.=','.$campos_arx;}
 		
 		//exit($campos);
 		
@@ -184,16 +186,21 @@ class MitiCRUD{
 		$this->campos=$campos;
 	}
 	
-	public function juntar($ar2,$chave,$chave2){
-		//novo objeto
-		$this->ar2=$ar2;
+	public function juntar($arx,$ar_chaves,$arx_chaves){
+		//novos objetos
+		foreach($arx as $o){
+			$this->arx[]=$o;
+		}
 		
 		//construcao da string
-		$join='
-			join '.$this->ar2->getTabela().
-				' on '.$this->ar->getTabela().'.'.$chave.
-				'='.$this->ar2->getTabela().'.'.$chave2
-		;
+		$join='';
+		
+		foreach($this->arx as $i=>$o){
+			$join.=' join '.$o->getTabela().
+					' on '.$this->ar->getTabela().'.'.$ar_chaves[$i].
+					'='.$o->getTabela().'.'.$arx_chaves[$i]
+			;
+		}
 		
 		//exit($join);
 		
@@ -205,16 +212,12 @@ class MitiCRUD{
 		$order_by=array();
 		
 		foreach($duplas as $i=>$v){
-			$order_by[]=$this->ar->getCampos()[$i].' '.$v;
+			$order_by[]=$this->ar->getTabela().'.'.$i.' '.$v;
 		}
 		
 		//construcao da string
-		if(isset($order_by[0])==true){
-			$order_by=implode(',',$order_by);
-			$order_by=' order by '.$order_by;
-		}else{
-			$order_by='';
-		}
+		$order_by=implode(',',$order_by);
+		$order_by=' order by '.$order_by;
 		
 		//atribuicao
 		$this->order_by=$order_by;
