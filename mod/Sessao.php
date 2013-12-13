@@ -6,11 +6,9 @@ class Sessao{
 		$MitiValidacao->vazio($_POST);
 		
 		//banco
-		$MitiBD=new MitiBD();
-		$MitiBD->escapar($_POST);
-		$sql='select senha from sessao where usuario="'.$_POST['usuario'].'"';
-		$MitiBD->requisitar($sql);
-		$MitiBD->fechar();
+		$MitiCRUD=new MitiCRUD(new ARSessao());
+		$MitiCRUD->definirCampos(array('senha'));
+		$MitiBD=$MitiCRUD->ler(array('usuario'=>array('=',$_POST['usuario'])));
 		
 		//autenticacao
 		$sessao=$MitiBD->obterAssoc();

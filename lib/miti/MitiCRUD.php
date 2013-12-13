@@ -65,10 +65,18 @@ class MitiCRUD{
 		
 		foreach($filtros as $i=>$v){
 			//tratamentos
-			$MitiBD->escapar($v);
-			$v='"%'.$v.'%"';
+			if($v[0]=='like'||$this->ar->getTipos()[$i]=='string'){$MitiBD->escapar($v[1]);}
 			
-			$where[]=$this->ar->getTabela().'.'.$i.' like '.$v;
+			if($v[0]=='like'){
+				$v[1]='"%'.$v[1].'%"';
+			}else if($this->ar->getTipos()[$i]=='string'){
+				$v[1]='"'.$v[1].'"';
+			}else{
+				settype($v[1],$this->ar->getTipos()[$i]);
+			}
+			
+			//criacao do vetor
+			$where[]=$this->ar->getTabela().'.'.$i.' '.$v[0].' '.$v[1];
 		}
 		
 		//construcao da string
@@ -186,7 +194,7 @@ class MitiCRUD{
 		$this->campos=$campos;
 	}
 	
-	public function juntar($arx,$ar_chaves,$arx_chaves){
+	public function juntar($arx,$tabelas,$ar_chaves,$arx_chaves){
 		//novos objetos
 		foreach($arx as $o){
 			$this->arx[]=$o;
@@ -197,7 +205,7 @@ class MitiCRUD{
 		
 		foreach($this->arx as $i=>$o){
 			$join.=' join '.$o->getTabela().
-					' on '.$this->ar->getTabela().'.'.$ar_chaves[$i].
+					' on '.$tabelas[$i].'.'.$ar_chaves[$i].
 					'='.$o->getTabela().'.'.$arx_chaves[$i]
 			;
 		}
