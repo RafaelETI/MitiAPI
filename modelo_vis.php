@@ -14,7 +14,7 @@
 			</thead>
 			
 			<tbody>
-				<tr class="par">
+				<tr>
 					<th scope="row">1</th>
 					<td title="Curabitur id justo mattis, euismod.">Curabitu...</td>
 					
@@ -38,7 +38,7 @@
 					</td>
 				</tr>
 				
-				<tr class="impar">
+				<tr>
 					<th scope="row">1</th>
 					<td title="Curabitur id justo mattis, euismod.">Curabitu...</td>
 					
@@ -62,7 +62,7 @@
 					</td>
 				</tr>
 				
-				<tr class="par">
+				<tr>
 					<th scope="row">1</th>
 					<td title="Curabitur id justo mattis, euismod.">Curabitu...</td>
 					
@@ -86,7 +86,7 @@
 					</td>
 				</tr>
 				
-				<tr class="impar">
+				<tr>
 					<th scope="row">1</th>
 					<td title="Curabitur id justo mattis, euismod.">Curabitu...</td>
 					
@@ -110,7 +110,7 @@
 					</td>
 				</tr>
 				
-				<tr class="par">
+				<tr>
 					<th scope="row">1</th>
 					<td title="Curabitur id justo mattis, euismod.">Curabitu...</td>
 					
@@ -134,7 +134,7 @@
 					</td>
 				</tr>
 				
-				<tr class="impar">
+				<tr>
 					<th scope="row">1</th>
 					<td title="Curabitur id justo mattis, euismod.">Curabitu...</td>
 					
@@ -158,7 +158,7 @@
 					</td>
 				</tr>
 				
-				<tr class="par">
+				<tr>
 					<th scope="row">1</th>
 					<td title="Curabitur id justo mattis, euismod.">Curabitu...</td>
 					
@@ -182,7 +182,7 @@
 					</td>
 				</tr>
 				
-				<tr class="impar">
+				<tr>
 					<th scope="row">1</th>
 					<td title="Curabitur id justo mattis, euismod.">Curabitu...</td>
 					
@@ -206,7 +206,7 @@
 					</td>
 				</tr>
 				
-				<tr class="par">
+				<tr>
 					<th scope="row">1</th>
 					<td title="Curabitur id justo mattis, euismod.">Curabitu...</td>
 					
@@ -230,7 +230,7 @@
 					</td>
 				</tr>
 				
-				<tr class="impar">
+				<tr>
 					<th scope="row">1</th>
 					<td title="Curabitur id justo mattis, euismod.">Curabitu...</td>
 					

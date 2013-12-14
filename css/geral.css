@@ -30,7 +30,6 @@ body{
 }
 
 #geral{
-	text-align:center;
 	font:16px/30px Abel;
 	color:#555;
 	display:none;
@@ -38,7 +37,7 @@ body{
 
 /*==========comum==========*/
 
-div.header,caption,thead,tfoot,th[scope="row"],td.acoes{
+div.header,caption,thead th,tfoot td,th[scope="row"],td:last-child{
 	color:#007e7a;
 	text-shadow:white 1px 1px 1px;
 	background:#a9c6c3;
@@ -47,24 +46,23 @@ div.header,caption,thead,tfoot,th[scope="row"],td.acoes{
 /*==========tags==========*/
 
 /*divs*/
+#nav .header div:first-child,#nav .conteudo div:first-child,tfoot div:first-child{
+	float:left;
+}
+
+#nav .conteudo div:nth-child(2),tfoot div:last-child{
+	text-align:right;
+}
+
 div[id$="_oculto"]{
-	text-align:left;
 	display:none;
 	clear:left;
 }
 
 /*tabelas*/
 table{
+	width:100%;
 	border-collapse:collapse;
-}
-
-thead,tfoot,th[scope="row"],td.acoes{
-	height:30px;
-}
-
-td.acoes{
-	text-align:center;
-	width:70px;
 }
 
 caption{
@@ -77,8 +75,41 @@ caption,th,td,tfoot{
 	padding:0px 5px;
 }
 
+thead,tfoot,th[scope="row"]{
+	height:30px;
+}
+
+table.lista tr:nth-child(odd){
+	background:#eee;
+}
+
+table.lista tr:nth-child(odd):hover{
+	background:linear-gradient(white,#bbb);
+}
+
+table.lista tr:nth-child(even){
+	background:#ccf;
+}
+
+table.lista tr:nth-child(even):hover{
+	background:linear-gradient(white,#9494ff);
+}
+
 td{
 	line-height:20px;
+}
+
+td:last-child{
+	text-align:center;
+	width:70px;
+}
+
+td:first-child{
+	text-align:left;
+}
+
+td:last-child form{
+	display:inline;
 }
 
 tfoot{
@@ -98,10 +129,10 @@ tfoot div input[type="submit"]{
 form table,table input[type="text"],table input[type="password"],table textarea,table select{
 	width:100%;
 	max-width:600px;
-	text-align:left;
 }
 
 form th[scope="row"]{
+	text-align:left;
 	width:25%;
 }
 
@@ -110,13 +141,9 @@ form td{
 	padding:0px 8px 0px 5px;
 }
 
-form td.acoes{
+form td:last-child{
 	width:40px;
 	border:1px solid gray;
-}
-
-td.acoes form{
-	display:inline;
 }
 
 form tfoot{
@@ -177,7 +204,6 @@ div#nav,div.section{
 }
 
 div.header{
-	text-align:left;
 	font:bold 20px Jura;
 	padding:5px 10px;
 }
@@ -214,34 +240,7 @@ div#nav a{
 /*==========classes e ids==========*/
 
 /*divs*/
-div.esquerda{
-	float:left;
-}
 
-div.direita{
-	text-align:right;
-}
-
-/*tabelas de listagem*/
-table.lista{
-	width:100%;
-}
-
-table.lista .par{
-	background:#eee;
-}
-
-table.lista .par:hover{
-	background:linear-gradient(white,#bbb);
-}
-
-table.lista .impar{
-	background:#ccf;
-}
-
-table.lista .impar:hover{
-	background:linear-gradient(white,#9494ff);
-}
 
 /*formularios*/
 form.pequeno{
