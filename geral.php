@@ -31,7 +31,7 @@ require_once('proc.php');
 <?php if($_GET['arquivo']!='login'){ ?>
 <div id="nav">
 	<div class="header">
-		<div class="esquerda">
+		<div>
 			<?php echo SISTEMA; ?>
 			
 			<span id="status">
@@ -42,7 +42,7 @@ require_once('proc.php');
 			</span>
 		</div>
 		
-		<div class="direita">
+		<div>
 			Usuário:
 			
 			<?php
@@ -54,11 +54,11 @@ require_once('proc.php');
 	</div>
 	
 	<div class="section conteudo">
-		<div class="esquerda">
+		<div>
 			<a id="modelo" class="menu">Modelo</a>
 		</div>
 		
-		<div class="direita">
+		<div>
 			<form method="post" action="">
 				<input type="submit" name="logout" value="Sair" />
 			</form>

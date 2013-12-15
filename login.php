@@ -1,6 +1,6 @@
 <div class="section">
 	<div class="header">
-		<div class="esquerda">
+		<div>
 			<?php echo SISTEMA; ?>
 			
 			<span id="status">
@@ -11,7 +11,7 @@
 			</span>
 		</div>
 		
-		<div class="direita">Login</div>
+		<div>Login</div>
 	</div>
 	
 	<div class="section conteudo">

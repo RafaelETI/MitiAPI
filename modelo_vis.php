@@ -258,7 +258,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="5">
-						<div class="esquerda">
+						<div>
 							<form method="get" action="">
 								<input type="hidden" name="arquivo" value="modelo_vis" />
 								<input type="hidden" name="mais" value="1" />
@@ -268,7 +268,7 @@
 							<span>Mostrando 10 de 497 registros</span>
 						</div>
 						
-						<div class="direita">Tempo da requisição: 0.0065 seg.</div>
+						<div>Tempo da requisição: 0.0065 seg.</div>
 					</td>
 				</tr>
 			</tfoot>

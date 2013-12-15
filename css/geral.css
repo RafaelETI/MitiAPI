@@ -9,17 +9,17 @@
 
 @font-face{
 	font-family:'Abel';
-	src:url(../font/abel.woff);
+	src:url('../font/abel.woff');
 }
 
 @font-face{
 	font-family:'Aubrey';
-	src:url(../font/aubrey.woff);
+	src:url('../font/aubrey.woff');
 }
 
 @font-face{
 	font-family:'Jura';
-	src:url(../font/jura_regular.woff);
+	src:url('../font/jura_regular.woff');
 }
 
 /*==========pagina==========*/
@@ -46,11 +46,11 @@ div.header,caption,thead th,tfoot td,th[scope="row"],td:last-child{
 /*==========tags==========*/
 
 /*divs*/
-#nav .header div:first-child,#nav .conteudo div:first-child,tfoot div:first-child{
+.header div:first-child,#nav .conteudo div:first-child,tfoot div:first-child{
 	float:left;
 }
 
-#nav .conteudo div:nth-child(2),tfoot div:last-child{
+#nav .conteudo div:nth-child(2),.header div:last-child,tfoot div:last-child{
 	text-align:right;
 }
 
