@@ -66,7 +66,7 @@ require_once('proc.php');
 		
 		<div id="modelo_oculto">
 			<a href="geral.php?arquivo=modelo_vis">Visualização</a>
-			<a>Busca</a>
+			<a href="geral.php?arquivo=modelo_bus">Busca</a>
 			<a href="geral.php?arquivo=modelo_ce">Cadastro</a>
 		</div>
 	</div>

@@ -21,13 +21,13 @@
 					<tr>
 						<th scope="row"><label for="usuario">Usuário</label></th>
 						<td><input type="text" name="usuario" id="usuario" required="required" /></td>
-						<td class="acoes"></td>
+						<td></td>
 					</tr>
 					
 					<tr>
 						<th scope="row"><label for="usuario">Senha</label></th>
 						<td><input type="password" name="senha" id="senha" required="required" /></td>
-						<td class="acoes"></td>
+						<td></td>
 					<tr>
 				</tbody>
 				

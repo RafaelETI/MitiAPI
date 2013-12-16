@@ -1,17 +1,21 @@
 <?php
 class Sessao{
+	private $MitiCRUD;
+	
+	public function __construct(){
+		$this->MitiCRUD=new MitiCRUD(new ARSessao());
+	}
+
 	public function login(){
 		//validacoes
 		$MitiValidacao=new MitiValidacao();
 		$MitiValidacao->vazio($_POST);
 		
 		//banco
-		$MitiCRUD=new MitiCRUD(new ARSessao());
-		$MitiCRUD->definirCampos(array('senha'));
-		$MitiBD=$MitiCRUD->ler(array('usuario'=>array('=',$_POST['usuario'])));
+		$this->MitiCRUD->definirCampos(array('senha'));
+		$sessao=$this->MitiCRUD->ler(array('usuario'=>array('=',$_POST['usuario'])))->obterAssoc();
 		
 		//autenticacao
-		$sessao=$MitiBD->obterAssoc();
 		if($sessao['senha']!=crypt($_POST['senha'],$sessao['senha'])){throw new Exception('Autenticação inválida');}
 		
 		//sessao

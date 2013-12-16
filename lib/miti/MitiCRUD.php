@@ -33,14 +33,15 @@ class MitiCRUD{
 			if(strlen($v)>$this->ar->getTamanhos()[$i]){throw new Exception('Limite de caractéres excedido');}
 			
 			//tratamentos
-			if($this->ar->getTipos()[$i]=='string'){
-				$MitiBD->escapar($v);
-			
-				if($v!='null'){
-					$v='"'.$v.'"';
-				}
+			if($v===''){
+				$v='null';
 			}else{
-				settype($v,$this->ar->getTipos()[$i]);
+				if($this->ar->getTipos()[$i]=='string'){
+					$MitiBD->escapar($v);
+					$v='"'.$v.'"';
+				}else{
+					settype($v,$this->ar->getTipos()[$i]);
+				}
 			}
 			
 			$values[]=$v;
@@ -121,14 +122,15 @@ class MitiCRUD{
 			if(strlen($v)>$this->ar->getTamanhos()[$i]){throw new Exception('Limite de caractéres excedido');}
 			
 			//tratamentos
-			if($this->ar->getTipos()[$i]=='string'){
-				$MitiBD->escapar($v);
-			
-				if($v!='null'){
-					$v='"'.$v.'"';
-				}
+			if($v===''){
+				$v='null';
 			}else{
-				settype($v,$this->ar->getTipos()[$i]);
+				if($this->ar->getTipos()[$i]=='string'){
+					$MitiBD->escapar($v);
+					$v='"'.$v.'"';
+				}else{
+					settype($v,$this->ar->getTipos()[$i]);
+				}
 			}
 			
 			$atribuicoes[]=$i.'='.$v;

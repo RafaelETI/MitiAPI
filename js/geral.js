@@ -52,6 +52,17 @@ function auxFormCont(id,quantidade){
 
 //==========pagina==========
 
+//puro
+inicio(function(){
+	//mensagem de exclusao
+	for(var x=0;x<getClass('del').length;x++){
+		getClass('del')[x].onsubmit=function(){
+			return confirm('Tem certeza que deseja deletar?');
+		};
+	}
+});
+
+//jquery
 $(document).ready(function(){
 	//efeito inicial
 	$('#geral').fadeIn(1000);
@@ -62,3 +73,4 @@ $(document).ready(function(){
 		$('#'+this.id+'_oculto').fadeIn(1000);
 	});
 });
+

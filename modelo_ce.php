@@ -1,11 +1,11 @@
 <?php
 if(isset($_GET['id'])==false){
 	$header='Cadastro';
-	$name='teste_cad';
+	$name='modelo_cad';
 	$value='Cadastrar';
 }else{
 	$header='Edição';
-	$name='teste_edi';
+	$name='modelo_edi';
 	$value='Editar';
 }
 ?>
@@ -19,7 +19,7 @@ if(isset($_GET['id'])==false){
 					<tr>
 						<th scope="row"><label for="valor">Valor</label></th>
 						<td><input type="text" name="valor" id="valor" maxlength="15" required="required" /></td>
-						<td class="acoes" id="valor_auxformcont"></td>
+						<td id="valor_auxformcont"></td>
 					</tr>
 					
 					<tr>
@@ -33,7 +33,7 @@ if(isset($_GET['id'])==false){
 							<input type="radio" name="valor2" id="valor2_b" value="2" />
 						</td>
 						
-						<td class="acoes" id="valor2_auxformcont"></td>
+						<td id="valor2_auxformcont"></td>
 					</tr>
 					
 					<tr>
@@ -47,7 +47,7 @@ if(isset($_GET['id'])==false){
 							<input type="checkbox" name="valor3" id="valor3_d" value="2" />
 						</td>
 						
-						<td class="acoes" id="valor3_auxformcont"></td>
+						<td id="valor3_auxformcont"></td>
 					</tr>
 					
 					<tr>
@@ -62,19 +62,19 @@ if(isset($_GET['id'])==false){
 							</select>
 						</td>
 						
-						<td class="acoes" id="valor4_auxformcont"></td>
+						<td id="valor4_auxformcont"></td>
 					</tr>
 
 					<tr>
 						<th scope="row"><label for="arquivos">Arquivos</label></th>
 						<td><input type="file" name="arquivos[]" id="arquivos" multiple="multiple" required="required" /></td>
-						<td class="acoes" id="valor4_auxformcont"></td>
+						<td id="valor4_auxformcont"></td>
 					<tr>
 					
 					<tr>
 						<th scope="row"><label for="valor5">Valor 5</label></th>
 						<td><textarea name="valor5" id="valor5" maxlength="500" required="required"></textarea></td>
-						<td class="acoes" id="valor5_auxformcont"></td>
+						<td id="valor5_auxformcont"></td>
 					</tr>
 				</tbody>
 				

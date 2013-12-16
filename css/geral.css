@@ -239,8 +239,12 @@ div#nav a{
 
 /*==========classes e ids==========*/
 
-/*divs*/
+/*status*/
+#status{
+	color:purple;
+}
 
+/*divs*/
 
 /*formularios*/
 form.pequeno{
@@ -251,8 +255,11 @@ form .leitura{
 	background:#ddd;
 }
 
-/*status*/
-#status{
-	color:purple;
+form.busca select:first-child{
+	width:45px;
+}
+
+form.busca input:not([type="submit"]),form.busca select{
+	width:83%;
 }
 

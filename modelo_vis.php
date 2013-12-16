@@ -24,14 +24,14 @@
 					
 					<td title="498.9">498.9</td>
 					
-					<td title="" class="acoes">
+					<td>
 						<form method="get" action="">
 							<input type="hidden" name="arquivo" value="modelo_ce" />
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" id="modelo_del">
+						<form method="post" action="" class="del">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -48,14 +48,14 @@
 					
 					<td title="498.9">498.9</td>
 					
-					<td title="" class="acoes">
+					<td>
 						<form method="get" action="">
 							<input type="hidden" name="arquivo" value="modelo_ce" />
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" id="modelo_del">
+						<form method="post" action="" class="del">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -72,14 +72,14 @@
 					
 					<td title="498.9">498.9</td>
 					
-					<td title="" class="acoes">
+					<td>
 						<form method="get" action="">
 							<input type="hidden" name="arquivo" value="modelo_ce" />
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" id="modelo_del">
+						<form method="post" action="" class="del">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -96,14 +96,14 @@
 					
 					<td title="498.9">498.9</td>
 					
-					<td title="" class="acoes">
+					<td>
 						<form method="get" action="">
 							<input type="hidden" name="arquivo" value="modelo_ce" />
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" id="modelo_del">
+						<form method="post" action="" class="del">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -120,14 +120,14 @@
 					
 					<td title="498.9">498.9</td>
 					
-					<td title="" class="acoes">
+					<td>
 						<form method="get" action="">
 							<input type="hidden" name="arquivo" value="modelo_ce" />
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" id="modelo_del">
+						<form method="post" action="" class="del">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -144,14 +144,14 @@
 					
 					<td title="498.9">498.9</td>
 					
-					<td title="" class="acoes">
+					<td>
 						<form method="get" action="">
 							<input type="hidden" name="arquivo" value="modelo_ce" />
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" id="modelo_del">
+						<form method="post" action="" class="del">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -168,14 +168,14 @@
 					
 					<td title="498.9">498.9</td>
 					
-					<td title="" class="acoes">
+					<td>
 						<form method="get" action="">
 							<input type="hidden" name="arquivo" value="modelo_ce" />
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" id="modelo_del">
+						<form method="post" action="" class="del">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -192,14 +192,14 @@
 					
 					<td title="498.9">498.9</td>
 					
-					<td title="" class="acoes">
+					<td>
 						<form method="get" action="">
 							<input type="hidden" name="arquivo" value="modelo_ce" />
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" id="modelo_del">
+						<form method="post" action="" class="del">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -216,14 +216,14 @@
 					
 					<td title="498.9">498.9</td>
 					
-					<td title="" class="acoes">
+					<td>
 						<form method="get" action="">
 							<input type="hidden" name="arquivo" value="modelo_ce" />
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" id="modelo_del">
+						<form method="post" action="" class="del">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -240,14 +240,14 @@
 					
 					<td title="498.9">498.9</td>
 					
-					<td title="" class="acoes">
+					<td>
 						<form method="get" action="">
 							<input type="hidden" name="arquivo" value="modelo_ce" />
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" id="modelo_del">
+						<form method="post" action="" class="del">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
