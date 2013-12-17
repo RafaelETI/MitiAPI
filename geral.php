@@ -46,8 +46,8 @@ require_once('proc.php');
 			Usuário:
 			
 			<?php
-			$MitiAssinatura=new MitiAssinatura();
-			$MitiAssinatura->htmlSpecialChars($_SESSION['login']);
+			$MitiTratamento=new MitiTratamento();
+			$MitiTratamento->htmlSpecialChars($_SESSION['login']);
 			echo $_SESSION['login'];
 			?>
 		</div>
