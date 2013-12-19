@@ -244,8 +244,6 @@ div#nav a{
 	color:purple;
 }
 
-/*divs*/
-
 /*formularios*/
 form.pequeno{
 	max-width:400px;
@@ -261,5 +259,14 @@ form.busca select:first-child{
 
 form.busca input:not([type="submit"]),form.busca select{
 	width:83%;
+}
+
+/*outros*/
+.centro{
+	text-align:center;
+}
+
+.direita{
+	text-align:right;
 }
 

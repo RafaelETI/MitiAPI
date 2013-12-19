@@ -1,8 +1,32 @@
 <?php
 class MitiData{
-	public function inverter(&$data){
+	public function inverterEUA(&$data){
 		$partes=explode('/',$data);
 		$data=$partes[2].'-'.$partes[1].'-'.$partes[0];
+	}
+	
+	public function inverterBR(&$data){
+		$partes=explode('-',$data);
+		$data=$partes[2].'/'.$partes[1].'/'.$partes[0];
+	}
+	
+	public function obterDiaSemana($data,$curto=true){
+		$partes=explode('-',$data);
+		$data=date_create();
+		date_date_set($data,$partes[0],$partes[1],$partes[2]);
+		$dia=date_format($data,'l');
+		
+		if($dia=='Sunday'){$dia='Domingo';}
+		else if($dia=='Monday'){$dia='Segunda';}
+		else if($dia=='Tuesday'){$dia='Terça';}
+		else if($dia=='Wednesday'){$dia='Quarta';}
+		else if($dia=='Thursday'){$dia='Quita';}
+		else if($dia=='Friday'){$dia='Sexta';}
+		else if($dia=='Saturday'){$dia='Sábado';}
+		
+		if($curto==true){$dia=substr($dia,0,3);}
+		
+		return $dia;
 	}
 	
 	public function obterMes(&$mes){
@@ -30,24 +54,6 @@ class MitiData{
 			$mes='Novembro';
 		}else if($mes==12){
 			$mes='Dezembro';
-		}
-	}
-	
-	public function obterDiaSemana(&$dia){
-		if($dia==1){
-			$dia='Domingo';
-		}else if($dia==2){
-			$dia='Segunda';
-		}else if($dia==3){
-			$dia='Terça';
-		}else if($dia==4){
-			$dia='Quarta';
-		}else if($dia==5){
-			$dia='Quinta';
-		}else if($dia==6){
-			$dia='Sexta';
-		}else if($dia==7){
-			$dia='Sábado';
 		}
 	}
 }

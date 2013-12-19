@@ -22,7 +22,7 @@
 						Proin tincidunt lorem tortor, ut cursus urna convallis non. Proin.
 					</td>
 					
-					<td title="498.9">498.9</td>
+					<td class="direita" title="498.9">498.9</td>
 					
 					<td>
 						<form method="get" action="">
@@ -46,7 +46,7 @@
 						Proin tincidunt lorem tortor, ut cursus urna convallis non. Proin.
 					</td>
 					
-					<td title="498.9">498.9</td>
+					<td class="direita" title="498.9">498.9</td>
 					
 					<td>
 						<form method="get" action="">
@@ -70,7 +70,7 @@
 						Proin tincidunt lorem tortor, ut cursus urna convallis non. Proin.
 					</td>
 					
-					<td title="498.9">498.9</td>
+					<td class="direita" title="498.9">498.9</td>
 					
 					<td>
 						<form method="get" action="">
@@ -94,7 +94,7 @@
 						Proin tincidunt lorem tortor, ut cursus urna convallis non. Proin.
 					</td>
 					
-					<td title="498.9">498.9</td>
+					<td class="direita" title="498.9">498.9</td>
 					
 					<td>
 						<form method="get" action="">
@@ -118,7 +118,7 @@
 						Proin tincidunt lorem tortor, ut cursus urna convallis non. Proin.
 					</td>
 					
-					<td title="498.9">498.9</td>
+					<td class="direita" title="498.9">498.9</td>
 					
 					<td>
 						<form method="get" action="">
@@ -142,7 +142,7 @@
 						Proin tincidunt lorem tortor, ut cursus urna convallis non. Proin.
 					</td>
 					
-					<td title="498.9">498.9</td>
+					<td class="direita" title="498.9">498.9</td>
 					
 					<td>
 						<form method="get" action="">
@@ -166,7 +166,7 @@
 						Proin tincidunt lorem tortor, ut cursus urna convallis non. Proin.
 					</td>
 					
-					<td title="498.9">498.9</td>
+					<td class="direita" title="498.9">498.9</td>
 					
 					<td>
 						<form method="get" action="">
@@ -190,7 +190,7 @@
 						Proin tincidunt lorem tortor, ut cursus urna convallis non. Proin.
 					</td>
 					
-					<td title="498.9">498.9</td>
+					<td class="direita" title="498.9">498.9</td>
 					
 					<td>
 						<form method="get" action="">
@@ -214,7 +214,7 @@
 						Proin tincidunt lorem tortor, ut cursus urna convallis non. Proin.
 					</td>
 					
-					<td title="498.9">498.9</td>
+					<td class="direita" title="498.9">498.9</td>
 					
 					<td>
 						<form method="get" action="">
@@ -238,7 +238,7 @@
 						Proin tincidunt lorem tortor, ut cursus urna convallis non. Proin.
 					</td>
 					
-					<td title="498.9">498.9</td>
+					<td class="direita" title="498.9">498.9</td>
 					
 					<td>
 						<form method="get" action="">
