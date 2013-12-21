@@ -3,6 +3,7 @@ if(isset($_GET['id'])==false){
 	$header='Cadastro';
 	$name='modelo_cad';
 	$value='Cadastrar';
+	$_GET['id']='';
 }else{
 	$header='Edição';
 	$name='modelo_edi';
@@ -14,11 +15,17 @@ if(isset($_GET['id'])==false){
 	
 	<div class="section conteudo">
 		<form method="post" action="" enctype="multipart/form-data">
+			<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
+		
 			<table>
 				<tbody>
 					<tr>
 						<th scope="row"><label for="valor">Valor</label></th>
-						<td><input type="text" name="valor" id="valor" maxlength="15" required="required" /></td>
+						
+						<td>
+							<input type="text" name="valor" id="valor" maxlength="15" required="required" />
+						</td>
+						
 						<td id="valor_auxformcont"></td>
 					</tr>
 					
@@ -73,7 +80,11 @@ if(isset($_GET['id'])==false){
 					
 					<tr>
 						<th scope="row"><label for="valor5">Valor 5</label></th>
-						<td><textarea name="valor5" id="valor5" maxlength="500" required="required"></textarea></td>
+						
+						<td>
+							<textarea name="valor5" id="valor5" maxlength="500" required="required"></textarea>
+						</td>
+						
 						<td id="valor5_auxformcont"></td>
 					</tr>
 				</tbody>

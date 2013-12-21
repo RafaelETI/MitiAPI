@@ -54,7 +54,10 @@ class MitiCRUD{
 		
 		//requisicao
 		$MitiBD->requisitar($sql);
+		$id=$MitiBD->obterId();
 		$MitiBD->fechar();
+		
+		return $id;
 	}
 	
 	public function ler($filtros=array()){
