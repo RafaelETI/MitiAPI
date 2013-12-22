@@ -73,4 +73,3 @@ $(document).ready(function(){
 		$('#'+this.id+'_oculto').fadeIn(1000);
 	});
 });
-

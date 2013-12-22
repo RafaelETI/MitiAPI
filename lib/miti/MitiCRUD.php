@@ -160,7 +160,7 @@ class MitiCRUD{
 			$MitiBD->escapar($valor);
 			$valor='"'.$valor.'"';
 		}else{
-			settype($v,$this->ar->getTipos()[$i]);
+			settype($v,$this->ar->getPkTipo());
 		}
 		
 		//requisicao
