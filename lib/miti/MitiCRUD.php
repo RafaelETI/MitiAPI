@@ -1,6 +1,9 @@
 <?php
 class MitiCRUD{
 	private $ar;
+	private $tipos;
+	private $anulaveis;
+	private $tamanhos;
 	private $arx=array();
 	private $campos;
 	private $join='';
@@ -9,6 +12,9 @@ class MitiCRUD{
 	
 	public function __construct($ar){
 		$this->ar=$ar;
+		$this->tipos=$ar->getTipos();
+		$this->anulaveis=$ar->getAnulaveis();
+		$this->tamanhos=$ar->getTamanhos();
 	}
 	
 	public function inserir($duplas){
@@ -29,18 +35,18 @@ class MitiCRUD{
 		
 		foreach($duplas as $i=>$v){
 			//validacoes
-			if($this->ar->getAnulaveis()[$i]==false&&$v==''){throw new Exception('Informe um valor');}
-			if(strlen($v)>$this->ar->getTamanhos()[$i]){throw new Exception('Limite de caractéres excedido');}
+			if($this->anulaveis[$i]==false&&$v==''){throw new Exception('Informe um valor');}
+			if(strlen($v)>$this->tamanhos[$i]){throw new Exception('Limite de caractéres excedido');}
 			
 			//tratamentos
 			if($v===''){
 				$v='null';
 			}else{
-				if($this->ar->getTipos()[$i]=='string'){
+				if($this->tipos[$i]=='string'){
 					$MitiBD->escapar($v);
 					$v='"'.$v.'"';
 				}else{
-					settype($v,$this->ar->getTipos()[$i]);
+					settype($v,$this->tipos[$i]);
 				}
 			}
 			
@@ -69,14 +75,14 @@ class MitiCRUD{
 		
 		foreach($filtros as $i=>$v){
 			//tratamentos
-			if($v[0]=='like'||$this->ar->getTipos()[$i]=='string'){$MitiBD->escapar($v[1]);}
+			if($v[0]=='like'||$this->tipos[$i]=='string'){$MitiBD->escapar($v[1]);}
 			
 			if($v[0]=='like'){
 				$v[1]='"%'.$v[1].'%"';
-			}else if($this->ar->getTipos()[$i]=='string'){
+			}else if($this->tipos[$i]=='string'){
 				$v[1]='"'.$v[1].'"';
 			}else{
-				settype($v[1],$this->ar->getTipos()[$i]);
+				settype($v[1],$this->tipos[$i]);
 			}
 			
 			//criacao do vetor
@@ -121,18 +127,18 @@ class MitiCRUD{
 		
 		foreach($duplas as $i=>$v){
 			//validacoes
-			if($this->ar->getAnulaveis()[$i]==false&&$v==''){throw new Exception('Informe um valor');}
-			if(strlen($v)>$this->ar->getTamanhos()[$i]){throw new Exception('Limite de caractéres excedido');}
+			if($this->anulaveis[$i]==false&&$v==''){throw new Exception('Informe um valor');}
+			if(strlen($v)>$this->tamanhos[$i]){throw new Exception('Limite de caractéres excedido');}
 			
 			//tratamentos
 			if($v===''){
 				$v='null';
 			}else{
-				if($this->ar->getTipos()[$i]=='string'){
+				if($this->tipos[$i]=='string'){
 					$MitiBD->escapar($v);
 					$v='"'.$v.'"';
 				}else{
-					settype($v,$this->ar->getTipos()[$i]);
+					settype($v,$this->tipos[$i]);
 				}
 			}
 			

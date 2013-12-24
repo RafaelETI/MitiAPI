@@ -13,8 +13,8 @@
 						
 						<td>
 							<select name="op" id="op">
-								<option value="like">like</option>
 								<option value="=">=</option>
+								<option value="like">like</option>
 								<option value="<"><</option>
 								<option value=">">></option>
 								<option value="!=">!=</option>
