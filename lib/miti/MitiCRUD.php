@@ -60,10 +60,9 @@ class MitiCRUD{
 		
 		//requisicao
 		$MitiBD->requisitar($sql);
-		$id=$MitiBD->obterId();
 		$MitiBD->fechar();
 		
-		return $id;
+		return $MitiBD;
 	}
 	
 	public function ler($filtros=array()){
@@ -155,6 +154,8 @@ class MitiCRUD{
 		//requisicao
 		$MitiBD->requisitar($sql);
 		$MitiBD->fechar();
+		
+		return $MitiBD;
 	}
 	
 	public function deletar($valor){
@@ -176,6 +177,8 @@ class MitiCRUD{
 		
 		$MitiBD->requisitar($sql);
 		$MitiBD->fechar();
+		
+		return $MitiBD;
 	}
 	
 	public function definirCampos($ar_campos,$arx_campos=array()){
