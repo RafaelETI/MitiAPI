@@ -18,12 +18,12 @@ class MitiStatus{
 	public function obterAlerta($mensagem,$url){
 		$this->sucesso($mensagem);
 	
-		return
-			'<script>'.
-				'alert("'.$mensagem.'");'.
-				'location.href="'.$url.'";'.
-			'</script>'
-		;
+		return '
+			<script>
+				alert("'.$mensagem.'");
+				location.href="'.$url.'";
+			</script>
+		';
 	}
 }
 ?>

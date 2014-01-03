@@ -1,16 +1,6 @@
 <div class="section">
 	<div class="header">
-		<div>
-			<?php echo SISTEMA; ?>
-			
-			<span id="status">
-				<?php
-				$MitiStatus=new MitiStatus();
-				echo $MitiStatus->obterMensagem();
-				?>
-			</span>
-		</div>
-		
+		<div><?php echo SISTEMA; ?> <span id="status"><?php echo $MitiStatus->obterMensagem(); ?></span></div>
 		<div>Login</div>
 	</div>
 	

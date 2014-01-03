@@ -4,6 +4,9 @@ if($_GET['arquivo']=='login'){$restrito=false;}else{$restrito=true;}
 new Config($restrito);
 
 require_once('proc.php');
+
+$MitiStatus=new MitiStatus();
+$MitiTratamento=new MitiTratamento();
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -29,48 +32,30 @@ require_once('proc.php');
 <body>
 <div id="geral">
 <?php if($_GET['arquivo']!='login'){ ?>
-<div id="nav">
-	<div class="header">
-		<div>
-			<?php echo SISTEMA; ?>
-			
-			<span id="status">
-				<?php
-				$MitiStatus=new MitiStatus();
-				echo $MitiStatus->obterMensagem();
-				?>
-			</span>
+	<div id="nav">
+		<div class="header">
+			<div><?php echo SISTEMA; ?> <span id="status"><?php echo $MitiStatus->obterMensagem(); ?></span></div>
+			<div>Usuário: <?php $MitiTratamento->htmlSpecialChars($_SESSION['login']); echo $_SESSION['login']; ?></div>
 		</div>
 		
-		<div>
-			Usuário:
-			
-			<?php
-			$MitiTratamento=new MitiTratamento();
-			$MitiTratamento->htmlSpecialChars($_SESSION['login']);
-			echo $_SESSION['login'];
-			?>
+		<div class="section conteudo">
+			<div>
+				<a id="modelo" class="menu">Modelo</a>
+			</div>
+		
+			<div>
+				<form method="post" action="">
+					<input type="submit" name="logout" value="Sair" />
+				</form>
+			</div>
+		
+			<div id="modelo_oculto">
+				<a href="geral.php?arquivo=modelo_vis">Visualização</a>
+				<a href="geral.php?arquivo=modelo_bus">Busca</a>
+				<a href="geral.php?arquivo=modelo_ce">Cadastro</a>
+			</div>
 		</div>
 	</div>
-	
-	<div class="section conteudo">
-		<div>
-			<a id="modelo" class="menu">Modelo</a>
-		</div>
-		
-		<div>
-			<form method="post" action="">
-				<input type="submit" name="logout" value="Sair" />
-			</form>
-		</div>
-		
-		<div id="modelo_oculto">
-			<a href="geral.php?arquivo=modelo_vis">Visualização</a>
-			<a href="geral.php?arquivo=modelo_bus">Busca</a>
-			<a href="geral.php?arquivo=modelo_ce">Cadastro</a>
-		</div>
-	</div>
-</div>
 <?php } ?>
 
 <?php require_once(basename($_GET['arquivo']).'.php'); ?>

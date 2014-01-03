@@ -3,6 +3,8 @@ class MitiBD{
 	private $conexao;
 	private $requisicao;
 	private $tempo;
+	private $afetados;
+	private $id;
 	
 	public function __construct($servidor=BD_SERVIDOR,$usuario=BD_USUARIO,$senha=BD_SENHA,$banco=BD_BANCO){
 		$this->conexao=new mysqli($servidor,$usuario,$senha,$banco);
@@ -11,6 +13,14 @@ class MitiBD{
 	
 	public function getTempo(){
 		return $this->tempo;
+	}
+	
+	public function getAfetados(){
+		return $this->afetados;
+	}
+	
+	public function getId(){
+		return $this->id;
 	}
 	
 	public function escapar(&$string){
@@ -27,22 +37,21 @@ class MitiBD{
 	}
 	
 	public function requisitar($sql){
+		//requisicao
 		$micro=array(microtime(true));
 		$this->requisicao=$this->conexao->query($sql);
 		$micro[1]=microtime(true);
 		
+		//desempenho
 		$MitiDesempenho=new MitiDesempenho();
 		$this->tempo=$MitiDesempenho->medirTempoExecucao($micro);
 		
+		//erro
 		if($this->conexao->error!=false){throw new Exception('Houve um erro ao realizar a requisição');}
-	}
-	
-	public function obterAfetados(){
-		return $this->conexao->affected_rows;
-	}
-	
-	public function obterId(){
-		return $this->conexao->insert_id;
+		
+		//infos
+		$this->afetados=$this->conexao->affected_rows;
+		$this->id=$this->conexao->insert_id;
 	}
 	
 	public function fechar(){

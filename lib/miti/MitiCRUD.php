@@ -56,8 +56,6 @@ class MitiCRUD{
 		
 		$sql.=')';
 		
-		//exit($sql);
-		
 		//requisicao
 		$MitiBD->requisitar($sql);
 		$MitiBD->fechar();
@@ -106,8 +104,6 @@ class MitiCRUD{
 			$this->limit
 		;
 		
-		//exit($sql);
-		
 		//requisicao
 		$MitiBD->requisitar($sql);
 		$MitiBD->fechar();
@@ -149,8 +145,6 @@ class MitiCRUD{
 		if($this->ar->getPkTipo()=='string'){$pk='"'.$pk.'"';}
 		$sql.=' where '.$this->ar->getPkCampo().'='.$pk;
 		
-		//exit($sql);
-		
 		//requisicao
 		$MitiBD->requisitar($sql);
 		$MitiBD->fechar();
@@ -172,8 +166,6 @@ class MitiCRUD{
 		
 		//requisicao
 		$sql='delete from '.$this->ar->getTabela().' where '.$this->ar->getPkCampo().'='.$valor;
-		
-		//exit($sql);
 		
 		$MitiBD->requisitar($sql);
 		$MitiBD->fechar();
@@ -202,8 +194,6 @@ class MitiCRUD{
 		$campos=$campos_ar;
 		if($campos_arx!=''){$campos.=','.$campos_arx;}
 		
-		//exit($campos);
-		
 		//atribuicao
 		$this->campos=$campos;
 	}
@@ -223,8 +213,6 @@ class MitiCRUD{
 					'='.$o->getTabela().'.'.$arx_chaves[$i]
 			;
 		}
-		
-		//exit($join);
 		
 		$this->join=$join;
 	}
