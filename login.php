@@ -1,7 +1,7 @@
 <div class="section">
 	<div class="header">
 		<div><?php echo SISTEMA; ?> <span id="status"><?php echo $MitiStatus->obterMensagem(); ?></span></div>
-		<div>Login</div>
+		<div class="ultimo_filho">Login</div>
 	</div>
 	
 	<div class="section conteudo">
@@ -11,13 +11,13 @@
 					<tr>
 						<th scope="row"><label for="usuario">Usuário</label></th>
 						<td><input type="text" name="usuario" id="usuario" required="required" /></td>
-						<td></td>
+						<td class="ultimo_filho"></td>
 					</tr>
 					
 					<tr>
 						<th scope="row"><label for="usuario">Senha</label></th>
 						<td><input type="password" name="senha" id="senha" required="required" /></td>
-						<td></td>
+						<td class="ultimo_filho"></td>
 					<tr>
 				</tbody>
 				

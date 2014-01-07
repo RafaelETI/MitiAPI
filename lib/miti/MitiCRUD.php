@@ -198,7 +198,7 @@ class MitiCRUD{
 		$this->campos=$campos;
 	}
 	
-	public function juntar($arx,$tabelas,$ar_chaves,$arx_chaves){
+	public function juntar($joins,$arx,$tabelas,$ar_chaves,$arx_chaves){
 		//novos objetos
 		foreach($arx as $o){
 			$this->arx[]=$o;
@@ -208,7 +208,7 @@ class MitiCRUD{
 		$join='';
 		
 		foreach($this->arx as $i=>$o){
-			$join.=' join '.$o->getTabela().
+			$join.=' '.$joins[$i].' '.$o->getTabela().
 					' on '.$tabelas[$i].'.'.$ar_chaves[$i].
 					'='.$o->getTabela().'.'.$arx_chaves[$i]
 			;

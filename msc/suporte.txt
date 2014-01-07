@@ -17,4 +17,5 @@ IE 8+
 
 Recursos não utilizados para compatibilidade:
 
-- header, nav, section, footer (HTML 5)
+- header, nav, section, footer
+- nth-child, last-child

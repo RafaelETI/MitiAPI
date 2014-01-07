@@ -23,7 +23,7 @@
 							<input type="text" name="valor" id="valor" maxlength="15" />
 						</td>
 						
-						<td id="valor_auxformcont"></td>
+						<td class="ultimo_filho" id="valor_auxformcont"></td>
 					</tr>
 					
 					<tr>
@@ -46,7 +46,7 @@
 							</select>
 						</td>
 						
-						<td id="valor2_auxformcont"></td>
+						<td class="ultimo_filho" id="valor2_auxformcont"></td>
 					</tr>
 				</tbody>
 				

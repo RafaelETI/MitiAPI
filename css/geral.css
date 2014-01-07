@@ -37,7 +37,7 @@ body{
 
 /*==========comum==========*/
 
-div.header,caption,thead th,tfoot td,th[scope="row"],td:last-child{
+div.header,caption,thead th,tfoot td,th[scope="row"],td.ultimo_filho{
 	color:#007e7a;
 	text-shadow:white 1px 1px 1px;
 	background:#a9c6c3;
@@ -50,7 +50,12 @@ div.header,caption,thead th,tfoot td,th[scope="row"],td:last-child{
 	float:left;
 }
 
-#nav .conteudo div:nth-child(2),.header div:last-child,tfoot div:last-child{
+.header div.ultimo_filho,tfoot div.ultimo_filho{
+	text-align:right;
+}
+
+#nav .conteudo div:nth-child(2){
+	/*ie8*/
 	text-align:right;
 }
 
@@ -63,6 +68,10 @@ div[id$="_oculto"]{
 table{
 	width:100%;
 	border-collapse:collapse;
+}
+
+table.lista{
+	background:#eee;
 }
 
 caption{
@@ -99,7 +108,7 @@ td{
 	line-height:20px;
 }
 
-td:last-child{
+td.ultimo_filho{
 	text-align:center;
 	width:70px;
 }
@@ -108,7 +117,7 @@ td:first-child{
 	text-align:left;
 }
 
-td:last-child form{
+td.ultimo_filho form{
 	display:inline;
 }
 
@@ -141,7 +150,7 @@ form td{
 	padding:0px 8px 0px 5px;
 }
 
-form td:last-child{
+form td.ultimo_filho{
 	width:40px;
 	border:1px solid gray;
 }
