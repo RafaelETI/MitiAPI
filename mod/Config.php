@@ -2,6 +2,7 @@
 class Config{
 	public function __construct($restrito){
 		//erros
+		error_reporting(E_ALL);
 		//ini_set('display_errors',0);
 		
 		//sessao
