@@ -3,7 +3,7 @@ class Sessao{
 	private $MitiCRUD;
 	
 	public function __construct(){
-		$this->MitiCRUD=new MitiCRUD(new ARSessao());
+		$this->MitiCRUD=new MitiCRUD(new MitiAR('sessao'));
 	}
 
 	public function login(){

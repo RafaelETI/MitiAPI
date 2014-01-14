@@ -65,5 +65,9 @@ class MitiBD{
 	public function obterQuantidade(){
 		return $this->requisicao->num_rows;
 	}
+	
+	public function obterCampos(){
+		return $this->requisicao->fetch_fields();
+	}
 }
 ?>
