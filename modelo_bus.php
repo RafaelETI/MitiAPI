@@ -15,8 +15,8 @@
 							<select name="op" id="op">
 								<option value="like">like</option>
 								<option value="=">=</option>
-								<option value="<"><</option>
-								<option value=">">></option>
+								<option value="<">&lt;</option>
+								<option value=">">&gt;</option>
 								<option value="!=">!=</option>
 							</select>
 							
@@ -33,8 +33,8 @@
 							<select name="op2" id="op2">
 								<option value="=">=</option>
 								<option value="like">like</option>
-								<option value="<"><</option>
-								<option value=">">></option>
+								<option value="<">&lt;</option>
+								<option value=">">&gt;</option>
 								<option value="!=">!=</option>
 							</select>
 						

@@ -63,31 +63,55 @@ class MitiCRUD{
 		return $MitiBD;
 	}
 	
-	public function ler($filtros=array()){
+	public function ler($filtros=array(),$arx_filtros=array()){
 		//banco
 		$MitiBD=new MitiBD();
 		
 		//criacao do vetor
 		$where=array();
 		
-		foreach($filtros as $i=>$v){
-			//tratamentos
-			if($v[0]=='like'||$this->tipos[$i]=='string'){$MitiBD->escapar($v[1]);}
+		if(count($filtros)>0){
+			foreach($filtros as $i=>$v){
+				//tratamentos
+				if($v[0]=='like'||$this->tipos[$i]=='string'){$MitiBD->escapar($v[1]);}
 			
-			if($v[0]=='like'){
-				$v[1]='"%'.$v[1].'%"';
-			}else if($this->tipos[$i]=='string'){
-				$v[1]='"'.$v[1].'"';
-			}else{
-				settype($v[1],$this->tipos[$i]);
+				if($v[0]=='like'){
+					$v[1]='"%'.$v[1].'%"';
+				}else if($this->tipos[$i]=='string'){
+					$v[1]='"'.$v[1].'"';
+				}else{
+					settype($v[1],$this->tipos[$i]);
+				}
+			
+				//criacao do vetor
+				$where[]=$this->ar->getTabela().'.'.$i.' '.$v[0].' '.$v[1];
 			}
-			
-			//criacao do vetor
-			$where[]=$this->ar->getTabela().'.'.$i.' '.$v[0].' '.$v[1];
+		}
+		
+		if(count($arx_filtros)>0){
+			foreach($this->arx as $i=>$o){
+				foreach($arx_filtros[$i] as $j=>$v){
+					//tratamentos
+					$tipos=$o->getTipos();
+					
+					if($v[0]=='like'||$tipos[$j]=='string'){$MitiBD->escapar($v[1]);}
+					
+					if($v[0]=='like'){
+						$v[1]='"%'.$v[1].'%"';
+					}else if($tipos[$j]=='string'){
+						$v[1]='"'.$v[1].'"';
+					}else{
+						settype($v[1],$tipos[$j]);
+					}
+					
+					//criacao do vetor
+					$where[]=$o->getTabela().'.'.$j.' '.$v[0].' '.$v[1];
+				}
+			}
 		}
 		
 		//construcao da string
-		if(isset($where[0])==true){
+		if(count($where)>0){
 			$where=implode(' and ',$where);
 			$where=' where '.$where;
 		}else{

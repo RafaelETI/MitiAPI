@@ -3,14 +3,18 @@ class MitiPaginacao{
 	private $num_reg;
 	private $pg;
 	private $inicio;
+	private $total;
 
 	public function __construct($num_reg,$pg){
 		$this->num_reg=$num_reg;
 		$this->pg=$pg;
 		
-		$inicio=$this->pg-1;
-		$inicio*=$num_reg;
-		$this->inicio=$inicio;
+		$this->inicio=$this->pg-1;
+		$this->inicio*=$num_reg;
+	}
+	
+	public function setTotal($total){
+		$this->total=$total;
 	}
 	
 	public function getNumReg(){
@@ -23,9 +27,9 @@ class MitiPaginacao{
 		return $this->inicio;
 	}
 	
-	public function criar($url,$total,$max_links,$off='',$on=''){
+	public function criar($url,$max_links,$off='',$on=''){
 		//calculos
-		$qnt_pg=ceil($total/$this->num_reg);
+		$qnt_pg=ceil($this->total/$this->num_reg);
 		$qnt_pg++;
 		
 		$metade=ceil($max_links/2);
@@ -34,13 +38,14 @@ class MitiPaginacao{
 		$link_final=$this->pg+$metade;
 		
 		//html
-		$paginacao='<a href="'.$url.'1">Primeira</a>';
+		if($this->pg!=1){$paginacao='<a href="'.$url.'1">Primeira</a>';}
+		else{$paginacao='<span class="'.$off.'">Primeira</span>';}
 
 		if($this->pg>1){$paginacao.='<a href="'.$url.($this->pg-1).'">Anterior</a>';}
 		else{$paginacao.='<span class="'.$off.'">Anterior</span>';}
 
 		for($x=$link_inicial;$x<=$link_final;$x++){
-			if($this->pg==$x){$paginacao.='<span id="'.$on.'">'.$x.'</span>';}
+			if($this->pg==$x){$paginacao.='<span class="'.$on.'">'.$x.'</span>';}
 			else{
 				if($x<1||$x>=$qnt_pg){continue;}
 				$paginacao.='<a href="'.$url.$x.'">'.$x.'</a>';
@@ -50,7 +55,8 @@ class MitiPaginacao{
 		if(($this->pg+1)<$qnt_pg){$paginacao.='<a href="'.$url.($this->pg+1).'">Próxima</a>';}
 		else{$paginacao.='<span class="'.$off.'">Próxima</span>';}
 
-		$paginacao.='<a href="'.$url.($qnt_pg-1).'">Última</a>';
+		if($this->pg!=$qnt_pg-1){$paginacao.='<a href="'.$url.($qnt_pg-1).'">Última</a>';}
+		else{$paginacao.='<span class="'.$off.'">Última</span>';}
 		
 		//retorno
 		return $paginacao;

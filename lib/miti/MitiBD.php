@@ -6,9 +6,11 @@ class MitiBD{
 	private $afetados;
 	private $id;
 	
-	public function __construct($servidor=BD_SERVIDOR,$usuario=BD_USUARIO,$senha=BD_SENHA,$banco=BD_BANCO){
+	public function __construct($servidor=BD_SERVIDOR,$usuario=BD_USUARIO,$senha=BD_SENHA,$banco=BD_BANCO,$charset=BD_CHARSET){
 		$this->conexao=new mysqli($servidor,$usuario,$senha,$banco);
+		
 		if($this->conexao->connect_error!=false){throw new Exception('Não foi possível conectar ao banco de dados');}
+		if($this->conexao->set_charset($charset)==false){throw new Exception('Houve um erro ao definir o charset');}
 	}
 	
 	public function getTempo(){
