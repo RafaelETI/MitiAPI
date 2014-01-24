@@ -13,8 +13,12 @@ if(isset($_POST['login'])==true){
 }
 
 if(isset($_POST['logout'])==true){
-	$Sessao=new Sessao();
-	$Sessao->logout();
-	header('location:geral.php?arquivo=login'); exit();
+	try{
+		$Sessao=new Sessao();
+		$Sessao->logout();
+		header('location:geral.php?arquivo=login'); exit();
+	}catch(Exception $e){
+		echo $e->getMessage();
+	}
 }
 ?>

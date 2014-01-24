@@ -1,5 +1,5 @@
 <div class="section">
-	<div class="header">Modelo > Busca</div>
+	<div class="header">Modelo &gt; Busca</div>
 	
 	<div class="section conteudo">
 		<form method="get" action="geral.php" class="busca">

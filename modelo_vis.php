@@ -1,5 +1,5 @@
 <div class="section">
-	<div class="header">Modelo > Visualização</div>
+	<div class="header">Modelo &gt; Visualização</div>
 	
 	<div class="section conteudo">
 		<table class="lista">

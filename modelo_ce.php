@@ -11,7 +11,7 @@ if(isset($_GET['id'])==false){
 }
 ?>
 <div class="section">
-	<div class="header">Modelo > <?php echo $header; ?></div>
+	<div class="header">Modelo &gt; <?php echo $header; ?></div>
 	
 	<div class="section conteudo">
 		<form method="post" action="" enctype="multipart/form-data">

@@ -23,15 +23,17 @@ class MitiValidacao{
 		}
 	}
 	
-	public function upload($file,$tipo,$peso,$imagem=false,$prop_min=0.33,$prop_max=3){
+	public function upload($file,$tipos,$peso,$imagem=false,$prop_min=0.33,$prop_max=3){
 		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]" (upload multiplo)
-		if($_FILES[$file]['name'][0]==''){return null;}
-		
 		foreach($_FILES[$file]['name'] as $i=>$v){
+			if($_FILES[$file]['name'][$i]==''){continue;}
+			
 			//geral
-			if($_FILES[$file]['name'][$i]==''){throw new Exception('Não foi feito o upload de um arquivo');}
-			if(strpos($_FILES[$file]['type'][$i],$tipo)===false){throw new Exception('O tipo do arquivo é inválido');}
 			if($_FILES[$file]['size'][$i]>$peso){throw new Exception('O arquivo excede o tamanho permitido');}
+			
+			$ok=false;
+			foreach($tipos as $x){if(strpos($_FILES[$file]['type'][$i],$x)==true){$ok=true;}}
+			if($ok==false){throw new Exception('O tipo do arquivo é inválido');}
 			
 			//imagens
 			if($imagem==true){
