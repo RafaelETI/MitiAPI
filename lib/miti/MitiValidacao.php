@@ -23,7 +23,7 @@ class MitiValidacao{
 		}
 	}
 	
-	public function upload($file,$tipos,$peso,$imagem=false,$prop_min=0.33,$prop_max=3){
+	public function upload($file,$tipos,$peso,$imagem=false,$largura=100,$altura=100){
 		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]" (upload multiplo)
 		foreach($_FILES[$file]['name'] as $i=>$v){
 			if($_FILES[$file]['name'][$i]==''){continue;}
@@ -37,10 +37,21 @@ class MitiValidacao{
 			
 			//imagens
 			if($imagem==true){
+				//dimensoes
 				$tamanho=getimagesize($_FILES[$file]['tmp_name'][$i]);
-				$proporcao=$tamanho[0]/$tamanho[1];
-				if($proporcao<$prop_min){throw new Exception('A proporção da imagem é inválida, excedendo verticalmente');}
-				if($proporcao>$prop_max){throw new Exception('A proporção da imagem é inválida, excedendo horizontalmente');}
+				
+				//minimos
+				if($tamanho[0]<$largura){throw new Exception('A largura da imagem é menor do que o mínimo permitido');}
+				if($tamanho[1]<$altura){throw new Exception('A altura da imagem é menor do que o mínimo permitido');}
+				
+				//proporcoes
+				$prop_args=$largura/$altura;
+				$prop_min=$prop_args-0.1;
+				$prop_max=$prop_args+0.1;
+				$prop_img=$tamanho[0]/$tamanho[1];
+				
+				if($prop_img<$prop_min){throw new Exception('A proporção da imagem é inválida, excedendo verticalmente');}
+				if($prop_img>$prop_max){throw new Exception('A proporção da imagem é inválida, excedendo horizontalmente');}
 			}
 		}
 	}
