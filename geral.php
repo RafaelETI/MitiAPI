@@ -3,8 +3,6 @@ require_once('mod/Config.php');
 if($_GET['arquivo']=='login'){$restrito=false;}else{$restrito=true;}
 new Config($restrito);
 
-require_once('proc.php');
-
 $MitiStatus=new MitiStatus();
 $MitiTratamento=new MitiTratamento();
 ?>

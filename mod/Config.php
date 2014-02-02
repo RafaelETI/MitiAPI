@@ -32,7 +32,7 @@ class Config{
 		spl_autoload_register('miti_autoload');
 		
 		//constantes
-		define('SISTEMA','Miti Modelo 3.2.68');
+		define('SISTEMA','Miti Modelo 3.2.69');
 		
 		define('BD_SERVIDOR','localhost');
 		define('BD_USUARIO','root');
@@ -44,6 +44,9 @@ class Config{
 		//define('BD_SENHA','');
 		//define('BD_BANCO','miti_modelo');
 		//define('BD_CHARSET','latin1');
+		
+		//procedimentos
+		require_once($dir.'proc.php');
 	}
 }
 ?>
