@@ -1,1 +1,1 @@
-<?php header('location:geral.php?arquivo=login'); exit(); ?>
+<?php header('location:login.php'); exit(); ?>

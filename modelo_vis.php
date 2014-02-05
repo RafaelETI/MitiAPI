@@ -1,3 +1,14 @@
+<?php require_once('mod/Config.php'); new Config(true); ?>
+<!doctype html>
+<html lang="pt-br">
+<head>
+<?php require_once('cabeca.php'); ?>
+</head>
+<!--==========neck==========-->
+<body>
+<div id="geral">
+<?php require_once('menu.php'); ?>
+
 <div class="section">
 	<div class="header">Modelo &gt; Visualização</div>
 	
@@ -25,13 +36,12 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="">
-							<input type="hidden" name="arquivo" value="modelo_ce" />
+						<form method="get" action="modelo_ce.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="del">
+						<form method="post" action="" class="submit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -49,13 +59,12 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="">
-							<input type="hidden" name="arquivo" value="modelo_ce" />
+						<form method="get" action="modelo_ce.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="del">
+						<form method="post" action="" class="submit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -73,13 +82,12 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="">
-							<input type="hidden" name="arquivo" value="modelo_ce" />
+						<form method="get" action="modelo_ce.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="del">
+						<form method="post" action="" class="submit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -97,13 +105,12 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="">
-							<input type="hidden" name="arquivo" value="modelo_ce" />
+						<form method="get" action="modelo_ce.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="del">
+						<form method="post" action="" class="submit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -121,13 +128,12 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="">
-							<input type="hidden" name="arquivo" value="modelo_ce" />
+						<form method="get" action="modelo_ce.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="del">
+						<form method="post" action="" class="submit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -145,13 +151,12 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="">
-							<input type="hidden" name="arquivo" value="modelo_ce" />
+						<form method="get" action="modelo_ce.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="del">
+						<form method="post" action="" class="submit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -169,13 +174,12 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="">
-							<input type="hidden" name="arquivo" value="modelo_ce" />
+						<form method="get" action="modelo_ce.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="del">
+						<form method="post" action="" class="submit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -193,13 +197,12 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="">
-							<input type="hidden" name="arquivo" value="modelo_ce" />
+						<form method="get" action="modelo_ce.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="del">
+						<form method="post" action="" class="submit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -217,13 +220,12 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="">
-							<input type="hidden" name="arquivo" value="modelo_ce" />
+						<form method="get" action="modelo_ce.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="del">
+						<form method="post" action="" class="submit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -241,13 +243,12 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="">
-							<input type="hidden" name="arquivo" value="modelo_ce" />
+						<form method="get" action="modelo_ce.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="del">
+						<form method="post" action="" class="submit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -259,19 +260,21 @@
 				<tr>
 					<td colspan="5">
 						<div>
-							<form method="get" action="">
-								<input type="hidden" name="arquivo" value="modelo_vis" />
+							<form method="get" action="modelo_vis.php">
 								<input type="hidden" name="mais" value="1" />
 								<input type="submit" value="Ver todos" />
 							</form>
-						
-							<span>Mostrando 10 de 497 registros</span>
+							
+							<span>Visualizando 10 de 497 registros</span>
 						</div>
 						
-						<div class="ultimo_filho">Tempo da requisição: 0.0065 seg.</div>
+						<div class="ultimo_filho">Tempo da requisição: 0.0064 seg.</div>
 					</td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
 </div>
+</div>
+</body>
+</html>

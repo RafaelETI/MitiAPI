@@ -155,3 +155,9 @@
 [18-Jan-2014 12:23:29 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 212
 [18-Jan-2014 12:23:29 America/Sao_Paulo] PHP Notice:  Undefined offset: 1 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 212
 [18-Jan-2014 12:23:29 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 212
+[04-Feb-2014 21:16:35 America/Sao_Paulo] PHP Notice:  Undefined index: arquivo in /opt/lampp/htdocs/miti_modelo/login.php on line 3
+[04-Feb-2014 21:18:36 America/Sao_Paulo] PHP Notice:  Undefined index: arquivo in /opt/lampp/htdocs/miti_modelo/login.php on line 16
+[04-Feb-2014 21:18:36 America/Sao_Paulo] PHP Notice:  Undefined index: arquivo in /opt/lampp/htdocs/miti_modelo/login.php on line 21
+[04-Feb-2014 21:18:36 America/Sao_Paulo] PHP Notice:  Undefined index: arquivo in /opt/lampp/htdocs/miti_modelo/login.php on line 27
+[04-Feb-2014 21:18:36 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiParcialidade.php on line 37
+[04-Feb-2014 21:21:02 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiParcialidade.php on line 37

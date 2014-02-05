@@ -1,11 +1,23 @@
+<?php require_once('mod/Config.php'); new Config(true); ?>
+<!doctype html>
+<html lang="pt-br">
+<head>
+<?php require_once('cabeca.php'); ?>
+
+<script src="js/modelo_bus.js"></script>
+</head>
+<!--==========neck==========-->
+<body>
+<div id="geral">
+<?php require_once('menu.php'); ?>
+
 <div class="section">
 	<div class="header">Modelo &gt; Busca</div>
 	
 	<div class="section conteudo">
-		<form method="get" action="geral.php" class="busca">
-			<input type="hidden" name="arquivo" value="modelo_vis" />
+		<form method="get" action="modelo_vis.php" class="busca">
 			<input type="hidden" name="mais" value="1" />
-		
+			
 			<table>
 				<tbody>
 					<tr>
@@ -61,3 +73,6 @@
 		</form>
 	</div>
 </div>
+</div>
+</body>
+</html>

@@ -5,20 +5,29 @@ class Config{
 		error_reporting(E_ALL);
 		//ini_set('display_errors',0);
 		
-		//raiz
+		//sistema
+		define('SISTEMA','Miti Modelo 4.2.69');
+		
+		//diretorios
 		define('RAIZ','http://'.$_SERVER['HTTP_HOST'].'/'.'miti_modelo/');
+		define('DIR',$dir);
+		
+		//banco (localhost:root::miti_modelo:latin1)
+		define('BD_SERVIDOR','localhost');
+		define('BD_USUARIO','root');
+		define('BD_SENHA','');
+		define('BD_BANCO','miti_modelo');
+		define('BD_CHARSET','latin1');
 		
 		//sessao
 		session_start();
 		
 		if($restrito==true&&isset($_SESSION[$sessao])==false){
 			$_SESSION['status']='Você não está autenticado';
-			header('location:'.RAIZ); exit();
+			header('location:'.RAIZ.'login.php'); exit();
 		}
 		
 		//autoload
-		define('DIR',$dir);
-		
 		function miti_autoload($classe){
 			$pacotes=array('mod','lib/miti');
 			
@@ -31,22 +40,8 @@ class Config{
 		}
 		spl_autoload_register('miti_autoload');
 		
-		//constantes
-		define('SISTEMA','Miti Modelo 3.2.69');
-		
-		define('BD_SERVIDOR','localhost');
-		define('BD_USUARIO','root');
-		define('BD_SENHA','');
-		define('BD_BANCO','miti_modelo');
-		define('BD_CHARSET','latin1');
-		//define('BD_SERVIDOR','localhost');
-		//define('BD_USUARIO','root');
-		//define('BD_SENHA','');
-		//define('BD_BANCO','miti_modelo');
-		//define('BD_CHARSET','latin1');
-		
 		//procedimentos
-		require_once($dir.'proc.php');
+		require_once(DIR.'proc.php');
 	}
 }
 ?>

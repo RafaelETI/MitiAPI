@@ -1,3 +1,14 @@
+<?php require_once('mod/Config.php'); new Config(false); ?>
+<!doctype html>
+<html lang="pt-br">
+<head>
+<?php require_once('cabeca.php'); ?>
+
+<script src="js/login.js"></script>
+</head>
+<!--==========neck==========-->
+<body>
+<div id="geral">
 <div class="section">
 	<div class="header">
 		<div><?php echo SISTEMA; ?> <span id="status"><?php echo $MitiStatus->obterMensagem(); ?></span></div>
@@ -26,3 +37,6 @@
 		</form>
 	</div>
 </div>
+</div>
+</body>
+</html>

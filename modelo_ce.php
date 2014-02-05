@@ -1,3 +1,16 @@
+<?php require_once('mod/Config.php'); new Config(true); ?>
+<!doctype html>
+<html lang="pt-br">
+<head>
+<?php require_once('cabeca.php'); ?>
+
+<script src="js/modelo_ce.js"></script>
+</head>
+<!--==========neck==========-->
+<body>
+<div id="geral">
+<?php require_once('menu.php'); ?>
+
 <?php
 if(isset($_GET['id'])==false){
 	$header='Cadastro';
@@ -100,3 +113,6 @@ if(isset($_GET['id'])==false){
 		</form>
 	</div>
 </div>
+</div>
+</body>
+</html>

@@ -54,10 +54,21 @@ function auxFormCont(id,quantidade){
 
 //puro
 inicio(function(){
-	//mensagem de exclusao
-	for(var x=0;x<getClass('del').length;x++){
-		getClass('del')[x].onsubmit=function(){
-			return confirm('Tem certeza que deseja deletar?');
+	//confirmacao de submit
+	var submits=getClass('submit');
+	
+	for(var x=0;x<submits.length;x++){
+		submits[x].onsubmit=function(){
+			return confirm('Tem certeza?');
+		};
+	}
+	
+	//confirmacao de click
+	var clicks=getClass('click');
+	
+	for(var x=0;x<clicks.length;x++){
+		clicks[x].onclick=function(){
+			return confirm('Tem certeza?');
 		};
 	}
 });
