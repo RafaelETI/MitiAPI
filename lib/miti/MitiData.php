@@ -1,11 +1,11 @@
 <?php
 class MitiData{
-	public function inverterEUA(&$data){
+	public function br2Eua(&$data){
 		$partes=explode('/',$data);
 		$data=$partes[2].'-'.$partes[1].'-'.$partes[0];
 	}
 	
-	public function inverterBR(&$data){
+	public function eua2Br(&$data){
 		$partes=explode('-',$data);
 		$data=$partes[2].'/'.$partes[1].'/'.$partes[0];
 	}

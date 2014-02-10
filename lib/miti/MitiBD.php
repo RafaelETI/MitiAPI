@@ -25,17 +25,12 @@ class MitiBD{
 		return $this->id;
 	}
 	
-	public function escapar(&$string){
-		$MitiParcialidade=new MitiParcialidade();
-		$MitiParcialidade->preparar($string);
-		
-		foreach($string as $i=>$v){
-			if($MitiParcialidade->parcializar($v)==true){continue;}
-	
-			$string[$i]=$this->conexao->real_escape_string($v);
+	public function escapar(&$valores){
+		if(is_array($valores)==false){
+			$valores=$this->conexao->real_escape_string($valores);
+		}else{
+			foreach($valores as $i=>$v){$valores[$i]=$this->conexao->real_escape_string($v);}
 		}
-		
-		$MitiParcialidade->finalizar($string);
 	}
 	
 	public function requisitar($sql){

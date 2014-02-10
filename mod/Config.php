@@ -6,7 +6,7 @@ class Config{
 		//ini_set('display_errors',0);
 		
 		//sistema
-		define('SISTEMA','Miti Modelo 4.2.69');
+		define('SISTEMA','Miti Modelo 4.2.71');
 		
 		//diretorios
 		define('RAIZ','http://'.$_SERVER['HTTP_HOST'].'/'.'miti_modelo/');

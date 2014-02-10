@@ -35,7 +35,7 @@ class MitiCRUD{
 		
 		foreach($duplas as $i=>$v){
 			//validacoes
-			if($this->anulaveis[$i]==false&&$v==''){throw new Exception('Informe um valor');}
+			if($this->anulaveis[$i]==false&&$v==''){throw new Exception('Valor vazio');}
 			if(strlen($v)>$this->tamanhos[$i]){throw new Exception('Limite de caractéres excedido');}
 			
 			//tratamentos
@@ -74,7 +74,7 @@ class MitiCRUD{
 			foreach($filtros as $i=>$v){
 				//tratamentos
 				if($v[0]=='like'||$this->tipos[$i]=='string'){$MitiBD->escapar($v[1]);}
-			
+				
 				if($v[0]=='like'){
 					$v[1]='"%'.$v[1].'%"';
 				}else if($this->tipos[$i]=='string'){
@@ -82,7 +82,7 @@ class MitiCRUD{
 				}else{
 					settype($v[1],$this->tipos[$i]);
 				}
-			
+				
 				//criacao do vetor
 				$where[]=$this->ar->getTabela().'.'.$i.' '.$v[0].' '.$v[1];
 			}
@@ -146,7 +146,7 @@ class MitiCRUD{
 		
 		foreach($duplas as $i=>$v){
 			//validacoes
-			if($this->anulaveis[$i]==false&&$v==''){throw new Exception('Informe um valor');}
+			if($this->anulaveis[$i]==false&&$v==''){throw new Exception('Valor vazio');}
 			if(strlen($v)>$this->tamanhos[$i]){throw new Exception('Limite de caractéres excedido');}
 			
 			//tratamentos
@@ -206,9 +206,11 @@ class MitiCRUD{
 		//criacao da string das arx
 		$campos_arx=array();
 		
-		foreach($this->arx as $i=>$o){
-			foreach($arx_campos[$i] as $v){
-				$campos_arx[]=$o->getTabela().'.'.$v.' as '.$o->getTabela().'_'.$v;
+		if(count($arx_campos)>0){
+			foreach($this->arx as $i=>$o){
+				foreach($arx_campos[$i] as $v){
+					$campos_arx[]=$o->getTabela().'.'.$v.' as '.$o->getTabela().'_'.$v;
+				}
 			}
 		}
 		

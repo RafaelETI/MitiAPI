@@ -2,24 +2,19 @@
 class MitiValidacao{
 	public function tamanho($valor,$tamanho){
 		if($valor==''){return null;}
-	
 		if(strlen($valor)!=$tamanho){throw new Exception('O valor deve conter '.$tamanho.' caractéres');}
 	}
 	
 	public function email($valor){
 		if($valor==''){return null;}
-	
 		if(preg_match('/^\w{2,}@\w{2,}\.\w{2,}$/',$valor)==false){throw new Exception('O e-mail é inválido');}
 	}
 	
-	public function vazio($valor){
-		$MitiParcialidade=new MitiParcialidade();
-		$MitiParcialidade->preparar($valor);
-		
-		foreach($valor as $v){
-			if($MitiParcialidade->parcializar($v)==true){continue;}
-		
-			if($v==''){throw new Exception('Informe um valor');}
+	public function vazio($valores){
+		if(is_array($valores)==false){
+			if($valores==''){throw new Exception('Valor vazio');}
+		}else{
+			foreach($valores as $v){if($v==''){throw new Exception('Valor vazio');}}
 		}
 	}
 	

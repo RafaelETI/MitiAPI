@@ -161,3 +161,326 @@
 [04-Feb-2014 21:18:36 America/Sao_Paulo] PHP Notice:  Undefined index: arquivo in /opt/lampp/htdocs/miti_modelo/login.php on line 27
 [04-Feb-2014 21:18:36 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiParcialidade.php on line 37
 [04-Feb-2014 21:21:02 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiParcialidade.php on line 37
+[08-Feb-2014 20:15:18 America/Sao_Paulo] PHP Fatal error:  Call to undefined method MitiTeste::afirmarVetor() in /opt/lampp/htdocs/miti_modelo/teste.php on line 9
+[08-Feb-2014 20:15:32 America/Sao_Paulo] PHP Fatal error:  Call to undefined method MitiTeste::afirmarVetor() in /opt/lampp/htdocs/miti_modelo/teste.php on line 9
+[08-Feb-2014 20:24:35 America/Sao_Paulo] PHP Fatal error:  Class 'MitiParcialidade' not found in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 4
+[08-Feb-2014 20:25:18 America/Sao_Paulo] PHP Parse error:  syntax error, unexpected '@', expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /opt/lampp/htdocs/miti_modelo/teste.php on line 9
+[08-Feb-2014 20:25:20 America/Sao_Paulo] PHP Fatal error:  Class 'MitiParcialidade' not found in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 4
+[08-Feb-2014 21:36:00 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O valor deve conter 4 caractéres' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:6
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(21): MitiValidacao->tamanho('teste', 4)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 6
+[08-Feb-2014 21:36:27 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O valor deve conter 4 caractéres' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:6
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(21): MitiValidacao->tamanho('teste', 4)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 6
+[08-Feb-2014 21:40:11 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O e-mail é inválido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:12
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(25): MitiValidacao->email('contadominio.co...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 12
+[08-Feb-2014 21:40:43 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O e-mail é inválido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:12
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(25): MitiValidacao->email('contadominio.co...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 12
+[08-Feb-2014 21:41:16 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O e-mail é inválido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:12
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(25): MitiValidacao->email('contadominio.co...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 12
+[08-Feb-2014 21:46:44 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Valor vazio' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:22
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(32): MitiValidacao->vazio(Array)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 22
+[08-Feb-2014 21:47:02 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Valor vazio' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:22
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(32): MitiValidacao->vazio(Array)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 22
+[08-Feb-2014 21:49:17 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O CPF é inválido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:63
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(36): MitiValidacao->cpf('1155099403')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 63
+[08-Feb-2014 21:50:29 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O CNPJ é inválido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:88
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(40): MitiValidacao->cnpj('8721033000169')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 88
+[08-Feb-2014 22:25:09 America/Sao_Paulo] PHP Fatal error:  Cannot redeclare MitiTeste::afirmar() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTeste.php on line 11
+[08-Feb-2014 22:29:21 America/Sao_Paulo] PHP Notice:  Undefined offset: 1 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiDesempenho.php on line 4
+[08-Feb-2014 22:29:21 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiDesempenho.php on line 4
+[08-Feb-2014 22:31:30 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/teste.php on line 33
+[08-Feb-2014 22:32:03 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/teste.php on line 34
+[08-Feb-2014 23:01:59 America/Sao_Paulo] PHP Notice:  Undefined variable: MitiStatus in /opt/lampp/htdocs/miti_modelo/teste.php on line 50
+[08-Feb-2014 23:01:59 America/Sao_Paulo] PHP Fatal error:  Call to a member function obterMensagem() on a non-object in /opt/lampp/htdocs/miti_modelo/teste.php on line 50
+[08-Feb-2014 23:03:24 America/Sao_Paulo] PHP Notice:  Undefined index: status in /opt/lampp/htdocs/miti_modelo/teste.php on line 53
+[09-Feb-2014 12:33:16 America/Sao_Paulo] PHP Notice:  Undefined variable: teste in /opt/lampp/htdocs/miti_modelo/teste.php on line 18
+[09-Feb-2014 12:38:17 America/Sao_Paulo] PHP Notice:  Undefined index: usuario in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTeste.php on line 26
+[09-Feb-2014 12:38:17 America/Sao_Paulo] PHP Notice:  Undefined index: usuario in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTeste.php on line 28
+[09-Feb-2014 12:55:05 America/Sao_Paulo] PHP Notice:  Undefined variable: MitiTratamento in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTeste.php on line 4
+[09-Feb-2014 12:55:05 America/Sao_Paulo] PHP Fatal error:  Call to a member function htmlSpecialChars() on a non-object in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTeste.php on line 4
+[09-Feb-2014 13:00:20 America/Sao_Paulo] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[09-Feb-2014 13:00:20 America/Sao_Paulo] PHP Warning:  MitiBD::requisitar(): Couldn't fetch mysqli in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 13:00:20 America/Sao_Paulo] PHP Warning:  MitiBD::requisitar(): Property access is not allowed yet in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 55
+[09-Feb-2014 13:00:20 America/Sao_Paulo] PHP Warning:  MitiBD::requisitar(): Couldn't fetch mysqli in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 56
+[09-Feb-2014 13:00:20 America/Sao_Paulo] PHP Fatal error:  Call to undefined method MitiBD::obterId() in /opt/lampp/htdocs/miti_modelo/teste.php on line 43
+[09-Feb-2014 13:01:37 America/Sao_Paulo] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[09-Feb-2014 13:01:37 America/Sao_Paulo] PHP Warning:  MitiBD::requisitar(): Couldn't fetch mysqli in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 13:01:37 America/Sao_Paulo] PHP Warning:  MitiBD::requisitar(): Property access is not allowed yet in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 55
+[09-Feb-2014 13:01:37 America/Sao_Paulo] PHP Warning:  MitiBD::requisitar(): Couldn't fetch mysqli in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 56
+[09-Feb-2014 13:02:31 America/Sao_Paulo] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[09-Feb-2014 13:02:31 America/Sao_Paulo] PHP Warning:  MitiBD::requisitar(): Couldn't fetch mysqli in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 13:02:31 America/Sao_Paulo] PHP Warning:  MitiBD::requisitar(): Property access is not allowed yet in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 55
+[09-Feb-2014 13:02:31 America/Sao_Paulo] PHP Warning:  MitiBD::requisitar(): Couldn't fetch mysqli in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 56
+[09-Feb-2014 13:03:12 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(41): MitiBD->requisitar('insert into ses...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 13:26:40 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(41): MitiBD->requisitar('insert into ses...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 13:30:04 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(41): MitiBD->requisitar('insert into ses...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 13:30:55 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(41): MitiBD->requisitar('insert into ses...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 13:30:56 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(41): MitiBD->requisitar('insert into ses...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 13:34:01 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(41): MitiBD->requisitar('insert into ses...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 13:34:02 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(41): MitiBD->requisitar('insert into ses...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 13:35:11 America/Sao_Paulo] PHP Notice:  Trying to get property of non-object in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 68
+[09-Feb-2014 13:49:34 America/Sao_Paulo] PHP Notice:  Undefined index: flags in /opt/lampp/htdocs/miti_modelo/teste.php on line 40
+[09-Feb-2014 13:49:43 America/Sao_Paulo] PHP Fatal error:  Cannot use object of type stdClass as array in /opt/lampp/htdocs/miti_modelo/teste.php on line 40
+[09-Feb-2014 13:58:55 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php(60): MitiBD->requisitar('insert into ses...')
+#1 /opt/lampp/htdocs/miti_modelo/teste.php(53): MitiCRUD->inserir(Array)
+#2 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 15:05:02 America/Sao_Paulo] PHP Notice:  Undefined index: abc in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 28
+[09-Feb-2014 15:05:02 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 28
+[09-Feb-2014 15:06:03 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O arquivo excede o tamanho permitido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:32
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(129): MitiValidacao->upload('arquivo', Array, 207200)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 32
+[09-Feb-2014 15:09:53 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'A altura da imagem é menor do que o mínimo permitido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:45
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(130): MitiValidacao->upload('arquivo', Array, 2048, true, 16, 76)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 45
+[09-Feb-2014 15:10:11 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'A proporção da imagem é inválida, excedendo verticalmente' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:53
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(130): MitiValidacao->upload('arquivo', Array, 2048, true, 16, 6)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 53
+[09-Feb-2014 15:11:25 America/Sao_Paulo] PHP Warning:  getimagesize(http://localhost/miti_modelo/mg/favicon.png): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 41
+[09-Feb-2014 15:11:25 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'A largura da imagem é menor do que o mínimo permitido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(130): MitiValidacao->upload('arquivo', Array, 2048, true, 16, 16)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 44
+[09-Feb-2014 15:11:44 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O arquivo excede o tamanho permitido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:32
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(130): MitiValidacao->upload('arquivo', Array, 1048, true, 16, 16)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 32
+[09-Feb-2014 15:12:07 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O tipo do arquivo é inválido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:36
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(130): MitiValidacao->upload('arquivo', Array, 2048, true, 16, 16)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 36
+[09-Feb-2014 15:12:49 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O tipo do arquivo é inválido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:36
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(130): MitiValidacao->upload('arquivo', Array, 2048, true, 16, 16)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 36
+[09-Feb-2014 19:54:43 America/Sao_Paulo] PHP Fatal error:  Call to undefined method MitiTeste::aguarda() in /opt/lampp/htdocs/miti_modelo/teste.php on line 74
+[09-Feb-2014 19:54:48 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(52): MitiBD->requisitar('insert into mit...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 19:54:51 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(52): MitiBD->requisitar('insert into mit...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 19:54:51 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(52): MitiBD->requisitar('insert into mit...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 19:54:52 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(52): MitiBD->requisitar('insert into mit...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 19:54:52 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(52): MitiBD->requisitar('insert into mit...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 19:58:25 America/Sao_Paulo] PHP Warning:  getimagesize(http://localhost/miti_modelo/img/favicon.png): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 41
+[09-Feb-2014 19:58:25 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'A largura da imagem é menor do que o mínimo permitido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(147): MitiValidacao->upload('arquivo', Array, 2048, true, 16, 16)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 44
+[09-Feb-2014 20:16:51 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php(132): MitiBD->requisitar('????select?????...')
+#1 /opt/lampp/htdocs/miti_modelo/teste.php(82): MitiCRUD->ler()
+#2 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 20:18:17 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(52): MitiBD->requisitar('insert into mit...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 20:18:49 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:18:49 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:20:20 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:20:20 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:20:41 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:20:41 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:22:24 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:22:24 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:23:05 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:23:05 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:25:51 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php(194): MitiBD->requisitar('delete from mit...')
+#1 /opt/lampp/htdocs/miti_modelo/teste.php(85): MitiCRUD->deletar(1)
+#2 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 20:26:27 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(52): MitiBD->requisitar('insert into mit...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 20:26:46 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php(194): MitiBD->requisitar('delete from mit...')
+#1 /opt/lampp/htdocs/miti_modelo/teste.php(85): MitiCRUD->deletar('1')
+#2 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 20:27:09 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:27:09 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:27:35 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:27:35 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:28:54 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:28:54 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 210
+[09-Feb-2014 20:33:11 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 211
+[09-Feb-2014 20:33:11 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 211
+[09-Feb-2014 21:37:31 America/Sao_Paulo] PHP Notice:  Undefined offset: 0 in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 211
+[09-Feb-2014 21:37:31 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 211
+[09-Feb-2014 21:39:34 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(52): MitiBD->requisitar('create table mi...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 21:41:18 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:52
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(52): MitiBD->requisitar('drop table miti...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 52
+[09-Feb-2014 21:48:58 America/Sao_Paulo] PHP Fatal error:  Class 'MitiParcialidade' not found in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 4
+[09-Feb-2014 21:49:12 America/Sao_Paulo] PHP Fatal error:  Class 'MitiParcialidade' not found in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 4
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:16 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:19 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:19 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:19 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:56:20 America/Sao_Paulo] PHP Notice:  Undefined variable: v in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 5
+[09-Feb-2014 21:58:51 America/Sao_Paulo] PHP Fatal error:  Class 'MitiParcialidade' not found in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:00:14 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:00:14 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:00:14 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:00:14 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:00:14 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:04:22 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:04:22 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:04:23 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:04:23 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:04:23 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:14:32 America/Sao_Paulo] PHP Notice:  Undefined variable: string in /opt/lampp/htdocs/miti_modelo/teste.php on line 34
+[09-Feb-2014 22:15:32 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:15:32 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:15:32 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:15:32 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:15:32 America/Sao_Paulo] PHP Warning:  Invalid argument supplied for foreach() in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 29
+[09-Feb-2014 22:20:18 America/Sao_Paulo] PHP Fatal error:  Class 'MitiParcialidade' not found in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 12
+[09-Feb-2014 22:36:00 America/Sao_Paulo] PHP Parse error:  syntax error, unexpected ',' in /opt/lampp/htdocs/miti_modelo/teste.php on line 135
+[09-Feb-2014 22:40:06 America/Sao_Paulo] PHP Fatal error:  Class 'MitiParcialidade' not found in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 16
+[09-Feb-2014 22:44:29 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Valor vazio' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:15
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/teste.php(167): MitiValidacao->vazio('')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 15
+[09-Feb-2014 22:51:59 America/Sao_Paulo] PHP Notice:  Undefined variable: x in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 83
+[09-Feb-2014 22:51:59 America/Sao_Paulo] PHP Notice:  Undefined variable: x in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 83
+[09-Feb-2014 22:52:00 America/Sao_Paulo] PHP Notice:  Undefined variable: x in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 83
+[09-Feb-2014 23:06:54 America/Sao_Paulo] PHP Fatal error:  Class 'MitiTeste' not found in /opt/lampp/htdocs/miti_modelo/teste.php on line 7
+[09-Feb-2014 23:12:16 America/Sao_Paulo] PHP Warning:  getimagesize(http://localhost/miti_modelo/img/mititeste.png): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 36
+[09-Feb-2014 23:12:16 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'A largura da imagem é menor do que o mínimo permitido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:39
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/unit.php(178): MitiValidacao->upload('arquivo', Array, 2048, true, 16, 16)
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 39
