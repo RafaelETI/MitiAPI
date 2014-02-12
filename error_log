@@ -484,3 +484,10 @@ Stack trace:
 #0 /opt/lampp/htdocs/miti_modelo/unit.php(178): MitiValidacao->upload('arquivo', Array, 2048, true, 16, 16)
 #1 {main}
   thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 39
+[12-Feb-2014 11:57:33 America/Sao_Paulo] PHP Notice:  Undefined index: id in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 23
+[12-Feb-2014 11:57:33 America/Sao_Paulo] PHP Notice:  Undefined index: id in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 25
+[12-Feb-2014 11:57:33 America/Sao_Paulo] PHP Notice:  Undefined index: id in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 23
+[12-Feb-2014 11:57:33 America/Sao_Paulo] PHP Notice:  Undefined index: id in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 25
+[12-Feb-2014 11:57:33 America/Sao_Paulo] PHP Notice:  Undefined index: id in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 23
+[12-Feb-2014 11:57:33 America/Sao_Paulo] PHP Notice:  Undefined index: id in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 25
+[12-Feb-2014 12:00:56 America/Sao_Paulo] PHP Notice:  Undefined index: usuario in /opt/lampp/htdocs/miti_modelo/unit.php on line 57

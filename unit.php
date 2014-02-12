@@ -3,10 +3,19 @@ require_once('mod/Config.php'); new Config(true);
 
 echo '<div>Miti Framework</div>';
 
+//banco
+$MitiBD=new MitiBD();
+
+$MitiBD->requisitar('create table if not exists mitiunit(id tinyint(3) unsigned not null auto_increment,nome varchar(30) not null,primary key(id))');
+$MitiBD->requisitar('insert into mitiunit(id,nome)values(1,"Filme")');
+$MitiBD->requisitar('create table if not exists mitiunit2(id smallint(5) unsigned not null auto_increment,descricao varchar(1000) not null,categoria tinyint(3) unsigned not null,primary key(id),key categoria(categoria))');
+$MitiBD->requisitar('insert into mitiunit2(id,descricao,categoria)values(90,"Gladiator (2000)",1),(91,"Spartacus (2004)",1),(92,"Ben Hur (1959)",1)');
+$MitiBD->requisitar('alter table mitiunit2 add constraint memoria_ibfk_1 foreign key(categoria)references mitiunit(id) on update cascade');
+
 //objetos
 $MitiUnit=new MitiUnit();
-$MitiAR=new MitiAR('sessao');
-$MitiBD=new MitiBD();
+$MitiAR=new MitiAR('mitiunit');
+$MitiCRUD=new MitiCRUD(new MitiAR('mitiunit'));
 $MitiData=new MitiData();
 $MitiDesempenho=new MitiDesempenho();
 //$MitiEmail=new MitiEmail();
@@ -16,17 +25,12 @@ $MitiTratamento=new MitiTratamento();
 $MitiValidacao=new MitiValidacao();
 
 //MitiAR
-$MitiUnit->afirmar($MitiAR->getTabela(),'sessao','MitiAR::getTabela()');
-
-$MitiUnit->afirmar($MitiAR->getTipos(),array('usuario'=>'string','senha'=>'string'),'MitiAR::getTipos()');
-
-$MitiUnit->afirmar($MitiAR->getAnulaveis(),array('usuario'=>false,'senha'=>false),'MitiAR::getAnulaveis()');
-
-$MitiUnit->afirmar($MitiAR->getTamanhos(),array('usuario'=>5,'senha'=>34),'MitiAR::getTamanhos()');
-
-$MitiUnit->afirmar($MitiAR->getPkCampo(),'usuario','MitiAR::getPkCampo()');
-
-$MitiUnit->afirmar($MitiAR->getPkTipo(),'string','MitiAR::getPkTipo()');
+$MitiUnit->afirmar($MitiAR->getTabela(),'mitiunit','MitiAR::getTabela()');
+$MitiUnit->afirmar($MitiAR->getTipos(),array('id'=>'float','nome'=>'string'),'MitiAR::getTipos()');
+$MitiUnit->afirmar($MitiAR->getAnulaveis(),array('id'=>false,'nome'=>false),'MitiAR::getAnulaveis()');
+$MitiUnit->afirmar($MitiAR->getTamanhos(),array('id'=>3,'nome'=>30),'MitiAR::getTamanhos()');
+$MitiUnit->afirmar($MitiAR->getPkCampo(),'id','MitiAR::getPkCampo()');
+$MitiUnit->afirmar($MitiAR->getPkTipo(),'float','MitiAR::getPkTipo()');
 
 //MitiBD
 $teste='\'"\\';
@@ -37,7 +41,7 @@ $teste=array("'",'"','\\');
 $MitiBD->escapar($teste);
 $MitiUnit->afirmar($teste,array("\\'",'\\"','\\\\'),'MitiBD::escapar(array)');
 
-$MitiBD->requisitar('select usuario from sessao');
+$MitiBD->requisitar('select id from mitiunit');
 
 $MitiUnit->afirmar($MitiBD->getAfetados(),1,'MitiBD::getAfetados()');
 
@@ -45,22 +49,14 @@ $teste=$MitiBD->getId();
 $MitiUnit->afirmar($teste,0,'MitiBD::getId()');
 
 $teste=$MitiBD->obterAssoc();
-$MitiUnit->afirmar($teste['usuario'],'admin','MitiBD::requisitar()');
+$MitiUnit->afirmar($teste['id'],'1','MitiBD::requisitar()');
 
 $MitiUnit->afirmar($MitiBD->obterQuantidade(),1,'MitiBD::obterQuantidade()');
 
 $teste=$MitiBD->obterCampos();
-$MitiUnit->afirmar($teste[0]->flags,20483,'MitiBD::obterCampos()');
+$MitiUnit->afirmar($teste[0]->flags,49699,'MitiBD::obterCampos()');
 
 //MitiCRUD
-$MitiBD->requisitar('create table if not exists mitiunit(id tinyint(3) unsigned not null auto_increment,nome varchar(30) not null,primary key(id))');
-$MitiBD->requisitar('insert into mitiunit(id,nome)values(1,"Filme")');
-$MitiBD->requisitar('create table if not exists mitiunit2(id smallint(5) unsigned not null auto_increment,descricao varchar(1000) not null,categoria tinyint(3) unsigned not null,primary key(id),key categoria(categoria))');
-$MitiBD->requisitar('insert into mitiunit2(id,descricao,categoria)values(90,"Gladiator (2000)",1),(91,"Spartacus (2004)",1),(92,"Ben Hur (1959)",1)');
-$MitiBD->requisitar('alter table mitiunit2 add constraint memoria_ibfk_1 foreign key(categoria)references mitiunit(id) on update cascade');
-
-$MitiCRUD=new MitiCRUD(new MitiAR('mitiunit'));
-
 $id=$MitiCRUD->inserir(array('nome'=>'Teste'))->getId();
 $MitiCRUD->definirCampos(array('nome'));
 $teste=$MitiCRUD->ler(array('id'=>array('=',$id)))->obterAssoc();
@@ -90,11 +86,6 @@ $MitiUnit->afirmar($teste['mitiunit2_descricao'],'Ben Hur (1959)','MitiCRUD::jun
 $MitiCRUD->deletar($id);
 $MitiCRUD->definirCampos(array('id'));
 $MitiUnit->afirmar($MitiCRUD->ler(array('id'=>array('=',$id)))->obterQuantidade(),0,'MitiCRUD::deletar()');
-
-$MitiBD->requisitar('drop table mitiunit2');
-$MitiBD->requisitar('drop table mitiunit');
-
-$MitiBD->fechar();
 
 //MitiData
 $teste='18/08/1991';
@@ -185,4 +176,10 @@ $MitiUnit->afirmar($teste,$teste,'MitiValidacao::cpf()');
 $teste='87210343000169';
 $MitiValidacao->cnpj($teste);
 $MitiUnit->afirmar($teste,$teste,'MitiValidacao::cnpj()');
+
+//banco
+$MitiBD->requisitar('drop table mitiunit2');
+$MitiBD->requisitar('drop table mitiunit');
+
+$MitiBD->fechar();
 ?>
