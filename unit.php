@@ -87,10 +87,10 @@ $MitiCRUD->inserir(array('nome'=>'Teste5'));
 $MitiCRUD->limitar(3);
 $MitiUnit->afirmar($MitiCRUD->ler()->obterQuantidade(),3,'MitiCRUD::limitar()');
 
-$MitiCRUD->juntar(array('join'),array(new MitiAR('mitiunit2')),array('mitiunit'),array('id'),array('categoria'));
+$MitiCRUD->juntar(array('join'),array(new MitiAR('mitiunit2')),array('m'),array('mitiunit'),array('id'),array('categoria'));
 $MitiCRUD->definirCampos(array('id'),array(array('descricao')));
 $teste=$MitiCRUD->ler()->obterAssoc();
-$MitiUnit->afirmar($teste['mitiunit2_descricao'],'Ben Hur (1959)','MitiCRUD::juntar()');
+$MitiUnit->afirmar($teste['m_descricao'],'Ben Hur (1959)','MitiCRUD::juntar()');
 
 $MitiCRUD->deletar(1);
 $MitiCRUD->definirCampos(array('id'));

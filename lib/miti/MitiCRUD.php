@@ -5,6 +5,7 @@ class MitiCRUD{
 	private $anulaveis;
 	private $tamanhos;
 	private $arx=array();
+	private $aliases;
 	private $campos;
 	private $join='';
 	private $order_by='';
@@ -169,13 +170,12 @@ class MitiCRUD{
 		
 		$campos_arx=array();
 		if(count($arx_campos)>0){
-			foreach($this->arx as $i=>$o){
-				foreach($arx_campos[$i] as $v){
-					$campos_arx[]=$o->getTabela().'.'.$v.' as '.$o->getTabela().'_'.$v;
+			foreach($this->aliases as $i=>$v){
+				foreach($arx_campos[$i] as $x){
+					$campos_arx[]=$v.'.'.$x.' as '.$v.'_'.$x;
 				}
 			}
 		}
-		
 		$campos_arx=implode(',',$campos_arx);
 		
 		$campos=$campos_ar;
@@ -184,14 +184,15 @@ class MitiCRUD{
 		$this->campos=$campos;
 	}
 	
-	public function juntar($joins,$arx,$tabelas,$ar_chaves,$arx_chaves){
-		foreach($arx as $o){$this->arx[]=$o;}
+	public function juntar($joins,$arx,$aliases,$tabelas,$ar_chaves,$arx_chaves){
+		$this->arx=$arx;
+		$this->aliases=$aliases;
 		
 		$join='';
-		foreach($this->arx as $i=>$o){
-			$join.=' '.$joins[$i].' '.$o->getTabela().
+		foreach($arx as $i=>$o){
+			$join.=' '.$joins[$i].' '.$o->getTabela().' '.$aliases[$i].
 					' on '.$tabelas[$i].'.'.$ar_chaves[$i].
-					'='.$o->getTabela().'.'.$arx_chaves[$i]
+					'='.$aliases[$i].'.'.$arx_chaves[$i]
 			;
 		}
 		
