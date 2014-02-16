@@ -13,7 +13,7 @@ class MitiUnit{
 	public function afirmar($valores,$afirmacao,$title){
 		$cor='green';
 		
-		if(is_array($valores)==false){
+		if(!is_array($valores)){
 			if($valores!==$afirmacao){
 				$cor='red';
 				$title.=': Valor: '.$valores.'; Afirmação: '.$afirmacao;

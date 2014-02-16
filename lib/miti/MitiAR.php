@@ -1,49 +1,63 @@
 <?php
 class MitiAR{
 	private $tabela;
+	private $campos;
 	private $pk;
 	private $tipos=array();
 	private $anulaveis=array();
 	private $tamanhos=array();
 	
 	public function __construct($tabela){
-		//tabela
+		$this->setTabela($tabela);
+		$this->obterCampos();
+		$this->setPk();
+		$this->setTipos();
+		$this->setAnulaveis();
+		$this->setTamanhos();
+	}
+	
+	private function setTabela($tabela){
 		$this->tabela=$tabela;
-		
-		//obter campos
+	}
+	
+	private function obterCampos(){
 		$MitiBD=new MitiBD();
 		$MitiBD->requisitar('select * from '.$this->tabela);
 		$MitiBD->fechar();
-		$campos=$MitiBD->obterCampos();
-		
-		//pk
-		foreach($campos as $o){
-			if(($o->flags&2)==true){
+		$this->campos=$MitiBD->obterCampos();
+	}
+	
+	private function setPk(){
+		foreach($this->campos as $o){
+			if($o->flags&2){
 				$this->pk=$o->orgname;
 				break;
 			}
 		}
-		
-		//tipos
-		foreach($campos as $o){
-			if(($o->flags&32768)==true){
+	}
+	
+	private function setTipos(){
+		foreach($this->campos as $o){
+			if($o->flags&32768){
 				$this->tipos[$o->orgname]='float';
 			}else{
 				$this->tipos[$o->orgname]='string';
 			}
 		}
-		
-		//anulaveis
-		foreach($campos as $o){
+	}
+	
+	private function setAnulaveis(){
+		foreach($this->campos as $o){
 			if($o->flags&1){
 				$this->anulaveis[$o->orgname]=false;
 			}else{
 				$this->anulaveis[$o->orgname]=true;
 			}
 		}
-		
-		//tamanhos
-		foreach($campos as $o){
+	}
+	
+	private function setTamanhos(){
+		foreach($this->campos as $o){
 			$this->tamanhos[$o->orgname]=$o->length;
 		}
 	}

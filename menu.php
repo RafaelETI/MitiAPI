@@ -1,4 +1,3 @@
-<?php $MitiTratamento=new MitiTratamento(); ?>
 <div id="nav">
 	<div class="header">
 		<div><?php echo SISTEMA; ?> <span id="status"><?php echo $MitiStatus->obterMensagem(); ?></span></div>

@@ -20,41 +20,28 @@ class MitiData{
 		else if($dia=='Monday'){$dia='Segunda';}
 		else if($dia=='Tuesday'){$dia='Terça';}
 		else if($dia=='Wednesday'){$dia='Quarta';}
-		else if($dia=='Thursday'){$dia='Quita';}
+		else if($dia=='Thursday'){$dia='Quinta';}
 		else if($dia=='Friday'){$dia='Sexta';}
 		else if($dia=='Saturday'){$dia='Sábado';}
 		
-		if($curto==true){$dia=substr($dia,0,3);}
+		if($curto){$dia=substr($dia,0,3);}
 		
 		return $dia;
 	}
 	
 	public function obterMes(&$mes){
-		if($mes==1){
-			$mes='Janeiro';
-		}else if($mes==2){
-			$mes='Fevereiro';
-		}else if($mes==3){
-			$mes='Março';
-		}else if($mes==4){
-			$mes='Abril';
-		}else if($mes==5){
-			$mes='Maio';
-		}else if($mes==6){
-			$mes='Junho';
-		}else if($mes==7){
-			$mes='Julho';
-		}else if($mes==8){
-			$mes='Agosto';
-		}else if($mes==9){
-			$mes='Setembro';
-		}else if($mes==10){
-			$mes='Outubro';
-		}else if($mes==11){
-			$mes='Novembro';
-		}else if($mes==12){
-			$mes='Dezembro';
-		}
+		if($mes==1){$mes='Janeiro';}
+		else if($mes==2){$mes='Fevereiro';}
+		else if($mes==3){$mes='Março';}
+		else if($mes==4){$mes='Abril';}
+		else if($mes==5){$mes='Maio';}
+		else if($mes==6){$mes='Junho';}
+		else if($mes==7){$mes='Julho';}
+		else if($mes==8){$mes='Agosto';}
+		else if($mes==9){$mes='Setembro';}
+		else if($mes==10){$mes='Outubro';}
+		else if($mes==11){$mes='Novembro';}
+		else if($mes==12){$mes='Dezembro';}
 	}
 }
 ?>

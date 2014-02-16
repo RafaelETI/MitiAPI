@@ -3,9 +3,9 @@ class MitiStatus{
 	private function sucesso(&$mensagem){
 		if($mensagem===true){$mensagem='O procedimento foi realizado com sucesso';}
 	}
-
+	
 	public function obterMensagem(){
-		if(isset($_SESSION['status'])==false){return null;}
+		if(!isset($_SESSION['status'])){return;}
 		
 		$mensagem=$_SESSION['status'];
 		unset($_SESSION['status']);

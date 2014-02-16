@@ -1,3 +1,4 @@
+<?php $MitiTratamento=new MitiTratamento(); ?>
 <?php $MitiStatus=new MitiStatus(); ?>
 <meta charset="iso-8859-1" />
 

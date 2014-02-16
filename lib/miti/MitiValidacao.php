@@ -1,61 +1,61 @@
 <?php
 class MitiValidacao{
 	public function tamanho($valor,$tamanho){
-		if($valor==''){return null;}
+		if(!$valor){return;}
 		if(strlen($valor)!=$tamanho){throw new Exception('O valor deve conter '.$tamanho.' caractéres');}
 	}
 	
 	public function email($valor){
-		if($valor==''){return null;}
-		if(preg_match('/^\w{2,}@\w{2,}\.\w{2,}$/',$valor)==false){throw new Exception('O e-mail é inválido');}
+		if(!$valor){return;}
+		if(!preg_match('/^\w{2,}@\w{2,}\.\w{2,}$/',$valor)){throw new Exception('O e-mail é inválido');}
 	}
 	
 	public function vazio($valores){
-		if(is_array($valores)==false){
-			if($valores==''){throw new Exception('Valor vazio');}
+		if(!is_array($valores)){
+			if(!$valores){throw new Exception('Valor vazio');}
 		}else{
-			foreach($valores as $v){if($v==''){throw new Exception('Valor vazio');}}
+			foreach($valores as $v){if(!$v){throw new Exception('Valor vazio');}}
 		}
 	}
 	
-	public function upload($file,$tipos,$peso,$imagem=false,$largura=100,$altura=100){
-		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]" (upload multiplo)
+	public function upload($file,$peso,$tipos){
+		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]"
 		foreach($_FILES[$file]['name'] as $i=>$v){
-			if($_FILES[$file]['name'][$i]==''){continue;}
+			if(!$_FILES[$file]['name'][$i]){continue;}
 			
-			//geral
 			if($_FILES[$file]['size'][$i]>$peso){throw new Exception('O arquivo excede o tamanho permitido');}
 			
 			$ok=false;
-			foreach($tipos as $x){if(strpos($_FILES[$file]['type'][$i],$x)==true){$ok=true;}}
-			if($ok==false){throw new Exception('O tipo do arquivo é inválido');}
+			foreach($tipos as $x){if(strpos($_FILES[$file]['type'][$i],$x)!==false){$ok=true;}}
+			if(!$ok){throw new Exception('O tipo do arquivo é inválido');}
+		}
+	}
+	
+	public function uploadImagem($file,$largura,$altura){
+		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]"
+		foreach($_FILES[$file]['name'] as $i=>$v){
+			if(!$_FILES[$file]['name'][$i]){continue;}
 			
-			//imagens
-			if($imagem==true){
-				//dimensoes
-				$tamanho=getimagesize($_FILES[$file]['tmp_name'][$i]);
-				
-				//minimos
-				if($tamanho[0]<$largura){throw new Exception('A largura da imagem é menor do que o mínimo permitido');}
-				if($tamanho[1]<$altura){throw new Exception('A altura da imagem é menor do que o mínimo permitido');}
-				
-				//proporcoes
-				$prop_args=$largura/$altura;
-				$prop_min=$prop_args-0.1;
-				$prop_max=$prop_args+0.1;
-				$prop_img=$tamanho[0]/$tamanho[1];
-				
-				if($prop_img<$prop_min){throw new Exception('A proporção da imagem é inválida, excedendo verticalmente');}
-				if($prop_img>$prop_max){throw new Exception('A proporção da imagem é inválida, excedendo horizontalmente');}
-			}
+			$tamanho=getimagesize($_FILES[$file]['tmp_name'][$i]);
+			
+			if($tamanho[0]<$largura){throw new Exception('A largura da imagem é menor do que o mínimo permitido');}
+			if($tamanho[1]<$altura){throw new Exception('A altura da imagem é menor do que o mínimo permitido');}
+			
+			$prop_args=$largura/$altura;
+			$prop_min=$prop_args-0.1;
+			$prop_max=$prop_args+0.1;
+			$prop_img=$tamanho[0]/$tamanho[1];
+			
+			if($prop_img<$prop_min){throw new Exception('A proporção da imagem é inválida, excedendo verticalmente');}
+			if($prop_img>$prop_max){throw new Exception('A proporção da imagem é inválida, excedendo horizontalmente');}
 		}
 	}
 	
 	public function cpf($cpf){
-		if($cpf==''){return null;}
+		if(!$cpf){return;}
 		
 		//validacao de quantidade e tipo de caracteres
-		if(strlen($cpf)!=11||preg_match('/[0-9]/',$cpf)==false){throw new Exception('O CPF é inválido');}
+		if(strlen($cpf)!==11||!preg_match('/[0-9]/',$cpf)){throw new Exception('O CPF é inválido');}
 		
 		//validacao de sequencia de numeros iguais
 		for($i=1,$y=$cpf[0];$i<=10;$i++){
@@ -77,10 +77,10 @@ class MitiValidacao{
 	}
 	
 	public function cnpj($cnpj){
-		if($cnpj==''){return null;}
+		if(!$cnpj){return;}
 		
 		//validacao de quantidade e tipo de caracteres e sequencia de zeros
-		if(strlen($cnpj)!=14||preg_match('/[0-9]/',$cnpj)==false||$cnpj=='00000000000000'){throw new Exception('O CNPJ é inválido');}
+		if(strlen($cnpj)!==14||!preg_match('/[0-9]/',$cnpj)||$cnpj=='00000000000000'){throw new Exception('O CNPJ é inválido');}
 		
 		//validacao de digitos verificadores
 		$p=array(
@@ -90,7 +90,7 @@ class MitiValidacao{
 		
 		for($y=0;$y<=1;$y++){
 			for($i=0,$x=$p[$y]['x'],$soma=0;$i<=$p[$y]['i'][0];$i++){
-				if($i==$p[$y]['i'][1]){$x=9;}
+				if($i===$p[$y]['i'][1]){$x=9;}
 				$soma+=$cnpj[$i]*$x--;
 			}
 			

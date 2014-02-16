@@ -6,11 +6,20 @@ echo '<div>Miti Framework</div>';
 //banco
 $MitiBD=new MitiBD();
 
+//shutdown
+function desligar($MitiBD){
+	$MitiBD->requisitar('drop table mitiunit2');
+	$MitiBD->requisitar('drop table mitiunit');
+	$MitiBD->fechar();
+}
+register_shutdown_function('desligar',$MitiBD);
+
+//esquema do banco
 $MitiBD->requisitar('create table if not exists mitiunit(id tinyint(3) unsigned not null auto_increment,nome varchar(30) not null,primary key(id))');
 $MitiBD->requisitar('insert into mitiunit(id,nome)values(1,"Filme")');
 $MitiBD->requisitar('create table if not exists mitiunit2(id smallint(5) unsigned not null auto_increment,descricao varchar(1000) not null,categoria tinyint(3) unsigned not null,primary key(id),key categoria(categoria))');
 $MitiBD->requisitar('insert into mitiunit2(id,descricao,categoria)values(90,"Gladiator (2000)",1),(91,"Spartacus (2004)",1),(92,"Ben Hur (1959)",1)');
-$MitiBD->requisitar('alter table mitiunit2 add constraint memoria_ibfk_1 foreign key(categoria)references mitiunit(id) on update cascade');
+$MitiBD->requisitar('alter table mitiunit2 add constraint memoria_ibfk_1 foreign key(categoria)references mitiunit(id) on update cascade on delete cascade');
 
 //objetos
 $MitiUnit=new MitiUnit();
@@ -18,8 +27,8 @@ $MitiAR=new MitiAR('mitiunit');
 $MitiCRUD=new MitiCRUD(new MitiAR('mitiunit'));
 $MitiData=new MitiData();
 $MitiDesempenho=new MitiDesempenho();
-//$MitiEmail=new MitiEmail();
-$MitiPaginacao=new MitiPaginacao(10,2);
+$MitiEmail=new MitiEmail();
+$MitiPaginacao=new MitiPaginacao(10,2,3);
 $MitiStatus=new MitiStatus();
 $MitiTratamento=new MitiTratamento();
 $MitiValidacao=new MitiValidacao();
@@ -83,9 +92,9 @@ $MitiCRUD->definirCampos(array('id'),array(array('descricao')));
 $teste=$MitiCRUD->ler()->obterAssoc();
 $MitiUnit->afirmar($teste['mitiunit2_descricao'],'Ben Hur (1959)','MitiCRUD::juntar()');
 
-$MitiCRUD->deletar($id);
+$MitiCRUD->deletar(1);
 $MitiCRUD->definirCampos(array('id'));
-$MitiUnit->afirmar($MitiCRUD->ler(array('id'=>array('=',$id)))->obterQuantidade(),0,'MitiCRUD::deletar()');
+$MitiUnit->afirmar($MitiCRUD->ler(array('id'=>array('=',1)))->obterQuantidade(),0,'MitiCRUD::deletar()');
 
 //MitiData
 $teste='18/08/1991';
@@ -107,10 +116,40 @@ $MitiUnit->afirmar($teste,'Agosto','MitiData::obterMes()');
 $teste=array(1391905903.114,1391905984.1241);
 $MitiUnit->afirmar($MitiDesempenho->medirTempoExecucao($teste),'81.010','MitiDesempenho::medirTempoExecucao()');
 
+//MitiEmail
+$_FILES['arquivo']['name'][0]='mitiunit.txt';
+$_FILES['arquivo']['tmp_name'][0]=RAIZ.'msc/mitiunit.txt';
+
+$cabecalho='From: nome@dominio.com'."\r\n";
+$cabecalho.='Reply-To: '."\r\n";
+$cabecalho.='Cc: '."\r\n";
+$cabecalho.='Bcc: '."\r\n";
+$cabecalho.='MIME-Version: 1.0'."\r\n";
+$cabecalho.='Content-Type: multipart/mixed; boundary="485df3a43ab6dc02a02d96b66f8eb244"'."\r\n\r\n";
+$cabecalho.='This is a multi-part message in MIME format.'."\r\n";
+
+$cabecalho.='--485df3a43ab6dc02a02d96b66f8eb244'."\r\n";
+$cabecalho.='Content-type:text/html; charset=iso-8859-1'."\r\n";
+$cabecalho.='Content-Transfer-Encoding: 7bit'."\r\n\r\n";
+$cabecalho.='It works!'."\r\n\r\n";
+
+$cabecalho.='--485df3a43ab6dc02a02d96b66f8eb244'."\r\n";
+$cabecalho.='Content-Type: application/octet-stream; name="mitiunit.txt"'."\r\n";
+$cabecalho.='Content-Transfer-Encoding: base64'."\r\n";
+$cabecalho.='Content-Disposition: attachment; filename="mitiunit.txt"'."\r\n\r\n";
+//adicao de mais um '\r\n' por causa do final do arquivo
+$cabecalho.='TWl0aUVtYWlsOjpvYnRlckNhYmVjYWxobygpCg=='."\r\n\r\n\r\n";
+
+$cabecalho.='--485df3a43ab6dc02a02d96b66f8eb244--';
+
+$MitiEmail->setUid('485df3a43ab6dc02a02d96b66f8eb244');
+$MitiEmail->setAnexos('arquivo');
+$MitiUnit->afirmar($MitiEmail->obterCabecalho('nome@dominio.com','It works!'),$cabecalho,'MitiEmail::obterCabecalho()');
+
 //MitiPaginacao
 $MitiPaginacao->setTotal(100);
 $teste='<a href="?pg=1">Primeira</a><a href="?pg=1">Anterior</a><a href="?pg=1">1</a><span class="on">2</span><a href="?pg=3">3</a><a href="?pg=3">Próxima</a><a href="?pg=10">Última</a>';
-$MitiUnit->afirmar($MitiPaginacao->criar('?pg=',3,'off','on'),$teste,'MitiPaginacao::criar()');
+$MitiUnit->afirmar($MitiPaginacao->criar('?pg=','off','on'),$teste,'MitiPaginacao::criar()');
 
 //MitiStatus
 $_SESSION['status']=true;
@@ -166,8 +205,12 @@ $_FILES['arquivo']['name'][0]='mitiunit.png';
 $_FILES['arquivo']['type'][0]='image/png';
 $_FILES['arquivo']['tmp_name'][0]=RAIZ.'img/mitiunit.png';
 $_FILES['arquivo']['size'][0]='1457';
-$MitiValidacao->upload('arquivo',array('jpeg','png','gif'),2048,true,16,16);
+
+$MitiValidacao->upload('arquivo',2048,array('jpeg','png','gif'));
 $MitiUnit->afirmar($_FILES['arquivo']['name'],$_FILES['arquivo']['name'],'MitiValidacao::upload()');
+
+$MitiValidacao->uploadImagem('arquivo',16,16);
+$MitiUnit->afirmar($_FILES['arquivo']['name'],$_FILES['arquivo']['name'],'MitiValidacao::uploadImagem()');
 
 $teste='11550994603';
 $MitiValidacao->cpf($teste);
@@ -176,10 +219,4 @@ $MitiUnit->afirmar($teste,$teste,'MitiValidacao::cpf()');
 $teste='87210343000169';
 $MitiValidacao->cnpj($teste);
 $MitiUnit->afirmar($teste,$teste,'MitiValidacao::cnpj()');
-
-//banco
-$MitiBD->requisitar('drop table mitiunit2');
-$MitiBD->requisitar('drop table mitiunit');
-
-$MitiBD->fechar();
 ?>

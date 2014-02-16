@@ -12,7 +12,7 @@
 <?php require_once('menu.php'); ?>
 
 <?php
-if(isset($_GET['id'])==false){
+if(!isset($_GET['id'])){
 	$header='Cadastro';
 	$name='modelo_cad';
 	$value='Cadastrar';
