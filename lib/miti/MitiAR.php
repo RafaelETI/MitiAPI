@@ -23,7 +23,6 @@ class MitiAR{
 	private function obterCampos(){
 		$MitiBD=new MitiBD();
 		$MitiBD->requisitar('select * from '.$this->tabela);
-		$MitiBD->fechar();
 		$this->campos=$MitiBD->obterCampos();
 	}
 	

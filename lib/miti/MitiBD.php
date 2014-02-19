@@ -47,10 +47,6 @@ class MitiBD{
 		$this->id=$this->conexao->insert_id;
 	}
 	
-	public function fechar(){
-		$this->conexao->close();
-	}
-	
 	public function obterAssoc(){
 		return $this->requisicao->fetch_assoc();
 	}
@@ -61,6 +57,10 @@ class MitiBD{
 	
 	public function obterCampos(){
 		return $this->requisicao->fetch_fields();
+	}
+	
+	public function __destruct(){
+		$this->conexao->close();
 	}
 }
 ?>

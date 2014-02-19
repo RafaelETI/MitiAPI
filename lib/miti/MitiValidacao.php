@@ -7,7 +7,7 @@ class MitiValidacao{
 	
 	public function email($valor){
 		if(!$valor){return;}
-		if(!preg_match('/^\w{2,}@\w{2,}\.\w{2,}$/',$valor)){throw new Exception('O e-mail é inválido');}
+		if(!preg_match('/^\w{2,}@\w{2,}\.(\w|\.){2,}$/',$valor)){throw new Exception('O e-mail é inválido');}
 	}
 	
 	public function vazio($valores){

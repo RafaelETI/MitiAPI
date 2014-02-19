@@ -60,7 +60,6 @@ class MitiCRUD{
 		$sql.=')';
 		
 		$MitiBD->requisitar($sql);
-		$MitiBD->fechar();
 		
 		return $MitiBD;
 	}
@@ -117,7 +116,6 @@ class MitiCRUD{
 		;
 		
 		$MitiBD->requisitar($sql);
-		$MitiBD->fechar();
 		
 		return $MitiBD;
 	}
@@ -146,7 +144,6 @@ class MitiCRUD{
 		$sql.=' where '.$this->ar->getPkCampo().'='.$pk;
 		
 		$MitiBD->requisitar($sql);
-		$MitiBD->fechar();
 		
 		return $MitiBD;
 	}
@@ -158,7 +155,6 @@ class MitiCRUD{
 		$sql='delete from '.$this->ar->getTabela().' where '.$this->ar->getPkCampo().'='.$pk;
 		
 		$MitiBD->requisitar($sql);
-		$MitiBD->fechar();
 		
 		return $MitiBD;
 	}

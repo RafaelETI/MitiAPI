@@ -10,7 +10,6 @@ $MitiBD=new MitiBD();
 function desligar($MitiBD){
 	$MitiBD->requisitar('drop table mitiunit2');
 	$MitiBD->requisitar('drop table mitiunit');
-	$MitiBD->fechar();
 }
 register_shutdown_function('desligar',$MitiBD);
 
