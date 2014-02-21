@@ -10,11 +10,15 @@ class MitiData{
 		$data=$partes[2].'/'.$partes[1].'/'.$partes[0];
 	}
 	
-	public function obterDiaSemana($data,$curto=true){
+	private function obterDiaIngles($data){
 		$partes=explode('-',$data);
 		$data=date_create();
 		date_date_set($data,$partes[0],$partes[1],$partes[2]);
-		$dia=date_format($data,'l');
+		return date_format($data,'l');
+	}
+	
+	public function obterDiaSemana($data,$curto=true){
+		$dia=$this->obterDiaIngles($data);
 		
 		if($dia=='Sunday'){$dia='Domingo';}
 		else if($dia=='Monday'){$dia='Segunda';}

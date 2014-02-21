@@ -1,5 +1,6 @@
 <?php
 class MitiCRUD{
+	private $MitiBD;
 	private $ar;
 	private $tipos;
 	private $anulaveis;
@@ -12,6 +13,8 @@ class MitiCRUD{
 	private $limit='';
 	
 	public function __construct($ar){
+		$this->MitiBD=new MitiBD();
+	
 		$this->ar=$ar;
 		$this->tipos=$ar->getTipos();
 		$this->anulaveis=$ar->getAnulaveis();
@@ -25,13 +28,13 @@ class MitiCRUD{
 		}
 	}
 	
-	private function tratar(&$duplas,$MitiBD){
+	private function tratar(&$duplas){
 		foreach($duplas as $i=>$v){
 			if($v===''){
 				$duplas[$i]='null';
 			}else{
 				if($this->tipos[$i]==='string'){
-					$MitiBD->escapar($duplas[$i]);
+					$this->MitiBD->escapar($duplas[$i]);
 					$duplas[$i]='"'.$v.'"';
 				}else{
 					settype($duplas[$i],$this->tipos[$i]);
@@ -40,35 +43,41 @@ class MitiCRUD{
 		}
 	}
 	
-	public function inserir($duplas){
-		$MitiBD=new MitiBD();
-		
+	private function montarCampos(&$sql,$duplas){
 		$sql='insert into '.$this->ar->getTabela().'(';
 		
 		$campos=array();
 		foreach($duplas as $i=>$v){$campos[]=$i;}
 		$sql.=implode(',',$campos);
 		
-		$sql.=')values(';
-		
+		$sql.=')';
+	}
+	
+	private function montarValores(&$sql,$duplas){
+		$sql.='values(';
 		$this->validar($duplas);
-		$this->tratar($duplas,$MitiBD);
+		$this->tratar($duplas);
+		
 		$values=array();
 		foreach($duplas as $i=>$v){$values[]=$v;}
 		$sql.=implode(',',$values);
 		
 		$sql.=')';
-		
-		$MitiBD->requisitar($sql);
-		
-		return $MitiBD;
 	}
 	
-	private function tratarLeitura(&$filtros,$MitiBD,$tipos=array()){
-		if(count($tipos)===0){$tipos=$this->tipos;}
+	public function inserir($duplas){
+		$sql='';
+		$this->montarCampos($sql,$duplas);
+		$this->montarValores($sql,$duplas);
+		$this->MitiBD->requisitar($sql);
+		return $this->MitiBD;
+	}
+	
+	private function tratarLeitura(&$filtros,$tipos=array()){
+		if(empty($tipos)){$tipos=$this->tipos;}
 	
 		foreach($filtros as $i=>$v){
-			if($v[0]==='like'||$tipos[$i]==='string'){$MitiBD->escapar($filtros[$i][1]);}
+			if($v[0]==='like'||$tipos[$i]==='string'){$this->MitiBD->escapar($filtros[$i][1]);}
 			
 			if($v[0]==='like'){
 				$filtros[$i][1]='"%'.$v[1].'%"';
@@ -80,32 +89,34 @@ class MitiCRUD{
 		}
 	}
 	
-	public function ler($filtros=array(),$arx_filtros=array()){
-		$MitiBD=new MitiBD();
-		
-		$where=array();
-		
-		if(count($filtros)>0){
-			$this->tratarLeitura($filtros,$MitiBD);
+	private function montarFiltros(&$where,$filtros){
+		if(!empty($filtros)){
+			$this->tratarLeitura($filtros);
 			foreach($filtros as $i=>$v){$where[]=$this->ar->getTabela().'.'.$i.' '.$v[0].' '.$v[1];}
 		}
-		
-		if(count($arx_filtros)>0){
+	}
+	
+	private function montarARXFiltros(&$where,$arx_filtros){
+		if(!empty($arx_filtros)){
 			foreach($this->arx as $i=>$o){
 				$tipos=$o->getTipos();
-				$this->tratarLeitura($arx_filtros[$i],$MitiBD,$tipos);
+				$this->tratarLeitura($arx_filtros[$i],$tipos);
 				foreach($arx_filtros[$i] as $j=>$v){$where[]=$o->getTabela().'.'.$j.' '.$v[0].' '.$v[1];}
 			}
 		}
-		
-		if(count($where)>0){
+	}
+	
+	private function montarWhere(&$where){
+		if(!empty($where)){
 			$where=implode(' and ',$where);
 			$where=' where '.$where;
 		}else{
 			$where='';
 		}
-		
-		$sql='
+	}
+	
+	private function montarLeitura($where){
+		return '
 			select
 				'.$this->campos.
 			' from '.$this->ar->getTabela().
@@ -114,68 +125,88 @@ class MitiCRUD{
 			$this->order_by.
 			$this->limit
 		;
-		
-		$MitiBD->requisitar($sql);
-		
-		return $MitiBD;
 	}
 	
-	private function tratarPk(&$pk,$MitiBD){
+	public function ler($filtros=array(),$arx_filtros=array()){
+		$where=array();
+		$this->montarFiltros($where,$filtros);
+		$this->montarARXFiltros($where,$arx_filtros);
+		$this->montarWhere($where);
+		$sql=$this->montarLeitura($where);
+		$this->MitiBD->requisitar($sql);
+		return $this->MitiBD;
+	}
+	
+	private function tratarPk(&$pk){
 		if($this->ar->getPkTipo()==='string'){
-			$MitiBD->escapar($pk);
+			$this->MitiBD->escapar($pk);
 			$pk='"'.$pk.'"';
 		}else{
 			settype($pk,$this->ar->getPkTipo());
 		}
 	}
 	
-	public function alterar($duplas,$pk){
-		$MitiBD=new MitiBD();
-		
+	private function montarAtribuicoes(&$sql,$duplas){
 		$sql='update '.$this->ar->getTabela().' set ';
 		
 		$this->validar($duplas);
-		$this->tratar($duplas,$MitiBD);
+		$this->tratar($duplas);
+		
 		$atribuicoes=array();
 		foreach($duplas as $i=>$v){$atribuicoes[]=$i.'='.$v;}
 		$sql.=implode(',',$atribuicoes);
-		
-		$this->tratarPk($pk,$MitiBD);
+	}
+	
+	private function montarWhereAlteracao(&$sql,$pk){
+		$this->tratarPk($pk);
 		$sql.=' where '.$this->ar->getPkCampo().'='.$pk;
-		
-		$MitiBD->requisitar($sql);
-		
-		return $MitiBD;
+	}
+	
+	public function alterar($duplas,$pk){
+		$sql='';
+		$this->montarAtribuicoes($sql,$duplas);
+		$this->montarWhereAlteracao($sql,$pk);
+		$this->MitiBD->requisitar($sql);
+		return $this->MitiBD;
+	}
+	
+	private function montarExclusao($pk){
+		$this->tratarPk($pk);
+		return 'delete from '.$this->ar->getTabela().' where '.$this->ar->getPkCampo().'='.$pk;
 	}
 	
 	public function deletar($pk){
-		$MitiBD=new MitiBD();
-		
-		$this->tratarPk($pk,$MitiBD);
-		$sql='delete from '.$this->ar->getTabela().' where '.$this->ar->getPkCampo().'='.$pk;
-		
-		$MitiBD->requisitar($sql);
-		
-		return $MitiBD;
+		$sql=$this->montarExclusao($pk);
+		$this->MitiBD->requisitar($sql);
+		return $this->MitiBD;
 	}
 	
-	public function definirCampos($ar_campos,$arx_campos=array()){
-		$campos_ar=array();
-		foreach($ar_campos as $v){$campos_ar[]=$this->ar->getTabela().'.'.$v;}
-		$campos_ar=implode(',',$campos_ar);
+	private function montarARCampos(&$ar_campos){
+		$campos=array();
+		foreach($ar_campos as $v){$campos[]=$this->ar->getTabela().'.'.$v;}
+		$ar_campos=implode(',',$campos);
+	}
+	
+	private function montarARXCampos(&$arx_campos){
+		$campos=array();
 		
-		$campos_arx=array();
-		if(count($arx_campos)>0){
+		if(!empty($arx_campos)){
 			foreach($this->aliases as $i=>$v){
 				foreach($arx_campos[$i] as $x){
-					$campos_arx[]=$v.'.'.$x.' as '.$v.'_'.$x;
+					$campos[]=$v.'.'.$x.' as '.$v.'_'.$x;
 				}
 			}
 		}
-		$campos_arx=implode(',',$campos_arx);
 		
-		$campos=$campos_ar;
-		if($campos_arx){$campos.=','.$campos_arx;}
+		$arx_campos=implode(',',$campos);
+	}
+	
+	public function definirCampos($ar_campos,$arx_campos=array()){
+		$this->montarARCampos($ar_campos);
+		$this->montarARXCampos($arx_campos);
+		
+		$campos=$ar_campos;
+		if($arx_campos){$campos.=','.$arx_campos;}
 		
 		$this->campos=$campos;
 	}
