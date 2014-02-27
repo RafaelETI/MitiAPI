@@ -41,7 +41,7 @@
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="submit">
+						<form method="post" action="" class="mitisubmit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -64,7 +64,7 @@
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="submit">
+						<form method="post" action="" class="mitisubmit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -87,7 +87,7 @@
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="submit">
+						<form method="post" action="" class="mitisubmit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -110,7 +110,7 @@
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="submit">
+						<form method="post" action="" class="mitisubmit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -133,7 +133,7 @@
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="submit">
+						<form method="post" action="" class="mitisubmit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -156,7 +156,7 @@
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="submit">
+						<form method="post" action="" class="mitisubmit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -179,7 +179,7 @@
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="submit">
+						<form method="post" action="" class="mitisubmit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -202,7 +202,7 @@
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="submit">
+						<form method="post" action="" class="mitisubmit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -225,7 +225,7 @@
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="submit">
+						<form method="post" action="" class="mitisubmit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>
@@ -248,7 +248,7 @@
 							<input type="submit" value="E" title="Editar" />
 						</form>
 						
-						<form method="post" action="" class="submit">
+						<form method="post" action="" class="mitisubmit">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" name="modelo_del" value="D" title="Deletar" />
 						</form>

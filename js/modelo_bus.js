@@ -1,8 +1,4 @@
-//puro
-inicio(function(){
-	//foco
+mitiIniciar(function(){
 	getId('valor').focus();
-	
-	//auxFormCont
-	auxFormCont('valor',15);
+	mitiContar('valor',15);
 });

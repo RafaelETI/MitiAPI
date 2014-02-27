@@ -39,7 +39,7 @@ if(!isset($_GET['id'])){
 							<input type="text" name="valor" id="valor" maxlength="15" required="required" />
 						</td>
 						
-						<td class="ultimo_filho" id="valor_auxformcont"></td>
+						<td class="ultimo_filho" id="valor_miticontar"></td>
 					</tr>
 					
 					<tr>
@@ -53,7 +53,7 @@ if(!isset($_GET['id'])){
 							<input type="radio" name="valor2" id="valor2_b" value="2" />
 						</td>
 						
-						<td class="ultimo_filho" id="valor2_auxformcont"></td>
+						<td class="ultimo_filho" id="valor2_miticontar"></td>
 					</tr>
 					
 					<tr>
@@ -67,7 +67,7 @@ if(!isset($_GET['id'])){
 							<input type="checkbox" name="valor3" id="valor3_d" value="2" />
 						</td>
 						
-						<td class="ultimo_filho" id="valor3_auxformcont"></td>
+						<td class="ultimo_filho" id="valor3_miticontar"></td>
 					</tr>
 					
 					<tr>
@@ -82,13 +82,13 @@ if(!isset($_GET['id'])){
 							</select>
 						</td>
 						
-						<td class="ultimo_filho" id="valor4_auxformcont"></td>
+						<td class="ultimo_filho" id="valor4_miticontar"></td>
 					</tr>
 
 					<tr>
 						<th scope="row"><label for="arquivos">Arquivos</label></th>
 						<td><input type="file" name="arquivos[]" id="arquivos" multiple="multiple" required="required" /></td>
-						<td class="ultimo_filho" id="valor4_auxformcont"></td>
+						<td class="ultimo_filho" id="valor4_miticontar"></td>
 					<tr>
 					
 					<tr>
@@ -98,7 +98,7 @@ if(!isset($_GET['id'])){
 							<textarea name="valor5" id="valor5" maxlength="500" required="required"></textarea>
 						</td>
 						
-						<td class="ultimo_filho" id="valor5_auxformcont"></td>
+						<td class="ultimo_filho" id="valor5_miticontar"></td>
 					</tr>
 				</tbody>
 				
