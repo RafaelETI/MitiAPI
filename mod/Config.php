@@ -38,7 +38,7 @@ class Config{
 		
 		if($restrito&&!isset($_SESSION[$sessao])){
 			$_SESSION['status']='Você não está autenticado';
-			header('location:'.RAIZ.'login.php'); exit();
+			header('location:'.RAIZ.'login.php'); exit;
 		}
 	}
 	
