@@ -1,34 +1,38 @@
 <?php
 class MitiCRUD{
 	private $MitiBD;
-	private $ar;
+	private $MitiTabela;
 	private $tipos;
 	private $anulaveis;
 	private $tamanhos;
-	private $arx=array();
+	private $MitiTabelas=array();
+	private $joins;
 	private $aliases;
+	private $Ontabelas;
+	private $tabela_chaves;
+	private $tabelas_chaves;
 	private $campos;
 	private $join='';
 	private $order_by='';
 	private $limit='';
 	
-	public function __construct($ar){
+	public function __construct($tabela){
 		$this->MitiBD=new MitiBD();
 	
-		$this->ar=$ar;
-		$this->tipos=$ar->getTipos();
-		$this->anulaveis=$ar->getAnulaveis();
-		$this->tamanhos=$ar->getTamanhos();
+		$this->MitiTabela=new MitiTabela($tabela);
+		$this->tipos=$this->MitiTabela->getTipos();
+		$this->anulaveis=$this->MitiTabela->getAnulaveis();
+		$this->tamanhos=$this->MitiTabela->getTamanhos();
 	}
 	
-	private function validar($duplas){
+	private function validar(array $duplas){
 		foreach($duplas as $i=>$v){
 			if(!$this->anulaveis[$i]&&!$v){throw new Exception('Valor vazio');}
 			if(strlen($v)>$this->tamanhos[$i]){throw new Exception('Limite de caractéres excedido');}
 		}
 	}
 	
-	private function tratar(&$duplas){
+	private function tratar(array &$duplas){
 		foreach($duplas as $i=>$v){
 			if($v===''){
 				$duplas[$i]='null';
@@ -43,8 +47,8 @@ class MitiCRUD{
 		}
 	}
 	
-	private function montarCampos(&$sql,$duplas){
-		$sql='insert into '.$this->ar->getTabela().'(';
+	private function montarCampos(&$sql,array $duplas){
+		$sql='insert into '.$this->MitiTabela->getNome().'(';
 		
 		$campos=array();
 		foreach($duplas as $i=>$v){$campos[]=$i;}
@@ -53,7 +57,7 @@ class MitiCRUD{
 		$sql.=')';
 	}
 	
-	private function montarValores(&$sql,$duplas){
+	private function montarValores(&$sql,array $duplas){
 		$sql.='values(';
 		$this->validar($duplas);
 		$this->tratar($duplas);
@@ -65,7 +69,7 @@ class MitiCRUD{
 		$sql.=')';
 	}
 	
-	public function inserir($duplas){
+	public function criar(array $duplas){
 		$sql='';
 		$this->montarCampos($sql,$duplas);
 		$this->montarValores($sql,$duplas);
@@ -73,7 +77,7 @@ class MitiCRUD{
 		return $this->MitiBD;
 	}
 	
-	private function tratarLeitura(&$filtros,$tipos=array()){
+	private function tratarLeitura(array &$filtros,array $tipos=array()){
 		if(empty($tipos)){$tipos=$this->tipos;}
 	
 		foreach($filtros as $i=>$v){
@@ -89,24 +93,24 @@ class MitiCRUD{
 		}
 	}
 	
-	private function montarFiltros(&$where,$filtros){
+	private function montarFiltros(array &$where,array $filtros){
 		if(!empty($filtros)){
 			$this->tratarLeitura($filtros);
-			foreach($filtros as $i=>$v){$where[]=$this->ar->getTabela().'.'.$i.' '.$v[0].' '.$v[1];}
+			foreach($filtros as $i=>$v){$where[]=$this->MitiTabela->getNome().'.'.$i.' '.$v[0].' '.$v[1];}
 		}
 	}
 	
-	private function montarARXFiltros(&$where,$arx_filtros){
-		if(!empty($arx_filtros)){
-			foreach($this->arx as $i=>$o){
+	private function montarTabelasFiltros(array &$where,array $tabelas_filtros){
+		if(!empty($tabelas_filtros)){
+			foreach($this->MitiTabelas as $i=>$o){
 				$tipos=$o->getTipos();
-				$this->tratarLeitura($arx_filtros[$i],$tipos);
-				foreach($arx_filtros[$i] as $j=>$v){$where[]=$o->getTabela().'.'.$j.' '.$v[0].' '.$v[1];}
+				$this->tratarLeitura($tabelas_filtros[$i],$tipos);
+				foreach($tabelas_filtros[$i] as $j=>$v){$where[]=$o->getNome().'.'.$j.' '.$v[0].' '.$v[1];}
 			}
 		}
 	}
 	
-	private function montarWhere(&$where){
+	private function montarWhere(array &$where){
 		if(!empty($where)){
 			$where=implode(' and ',$where);
 			$where=' where '.$where;
@@ -119,7 +123,7 @@ class MitiCRUD{
 		return '
 			select
 				'.$this->campos.
-			' from '.$this->ar->getTabela().
+			' from '.$this->MitiTabela->getNome().
 			$this->join.
 			$where.
 			$this->order_by.
@@ -127,10 +131,10 @@ class MitiCRUD{
 		;
 	}
 	
-	public function ler($filtros=array(),$arx_filtros=array()){
+	public function ler(array $filtros=array(),array $tabelas_filtros=array()){
 		$where=array();
 		$this->montarFiltros($where,$filtros);
-		$this->montarARXFiltros($where,$arx_filtros);
+		$this->montarTabelasFiltros($where,$tabelas_filtros);
 		$this->montarWhere($where);
 		$sql=$this->montarLeitura($where);
 		$this->MitiBD->requisitar($sql);
@@ -138,16 +142,16 @@ class MitiCRUD{
 	}
 	
 	private function tratarPk(&$pk){
-		if($this->ar->getPkTipo()==='string'){
+		if($this->MitiTabela->getPkTipo()==='string'){
 			$this->MitiBD->escapar($pk);
 			$pk='"'.$pk.'"';
 		}else{
-			settype($pk,$this->ar->getPkTipo());
+			settype($pk,$this->MitiTabela->getPkTipo());
 		}
 	}
 	
-	private function montarAtribuicoes(&$sql,$duplas){
-		$sql='update '.$this->ar->getTabela().' set ';
+	private function montarAtribuicoes(&$sql,array $duplas){
+		$sql='update '.$this->MitiTabela->getNome().' set ';
 		
 		$this->validar($duplas);
 		$this->tratar($duplas);
@@ -159,10 +163,10 @@ class MitiCRUD{
 	
 	private function montarWhereAlteracao(&$sql,$pk){
 		$this->tratarPk($pk);
-		$sql.=' where '.$this->ar->getPkCampo().'='.$pk;
+		$sql.=' where '.$this->MitiTabela->getPkCampo().'='.$pk;
 	}
 	
-	public function alterar($duplas,$pk){
+	public function atualizar(array $duplas,$pk){
 		$sql='';
 		$this->montarAtribuicoes($sql,$duplas);
 		$this->montarWhereAlteracao($sql,$pk);
@@ -172,7 +176,7 @@ class MitiCRUD{
 	
 	private function montarExclusao($pk){
 		$this->tratarPk($pk);
-		return 'delete from '.$this->ar->getTabela().' where '.$this->ar->getPkCampo().'='.$pk;
+		return 'delete from '.$this->MitiTabela->getNome().' where '.$this->MitiTabela->getPkCampo().'='.$pk;
 	}
 	
 	public function deletar($pk){
@@ -181,54 +185,73 @@ class MitiCRUD{
 		return $this->MitiBD;
 	}
 	
-	private function montarARCampos(&$ar_campos){
+	private function montarTabelaCampos(array &$tabela_campos){
 		$campos=array();
-		foreach($ar_campos as $v){$campos[]=$this->ar->getTabela().'.'.$v;}
-		$ar_campos=implode(',',$campos);
+		foreach($tabela_campos as $v){$campos[]=$this->MitiTabela->getNome().'.'.$v;}
+		$tabela_campos=implode(',',$campos);
 	}
 	
-	private function montarARXCampos(&$arx_campos){
+	private function montarTabelasCampos(array &$tabelas_campos){
 		$campos=array();
 		
-		if(!empty($arx_campos)){
+		if(!empty($tabelas_campos)){
 			foreach($this->aliases as $i=>$v){
-				foreach($arx_campos[$i] as $x){
+				foreach($tabelas_campos[$i] as $x){
 					$campos[]=$v.'.'.$x.' as '.$v.'_'.$x;
 				}
 			}
 		}
 		
-		$arx_campos=implode(',',$campos);
+		$tabelas_campos=implode(',',$campos);
 	}
 	
-	public function definirCampos($ar_campos,$arx_campos=array()){
-		$this->montarARCampos($ar_campos);
-		$this->montarARXCampos($arx_campos);
+	public function definirCampos(array $tabela_campos,array $tabelas_campos=array()){
+		$this->montarTabelaCampos($tabela_campos);
+		$this->montarTabelasCampos($tabelas_campos);
 		
-		$campos=$ar_campos;
-		if($arx_campos){$campos.=','.$arx_campos;}
+		$campos=$tabela_campos;
+		if($tabelas_campos){$campos.=','.$tabelas_campos;}
 		
 		$this->campos=$campos;
 	}
 	
-	public function juntar($joins,$arx,$aliases,$tabelas,$ar_chaves,$arx_chaves){
-		$this->arx=$arx;
+	public function setJoins(array $joins){
+		$this->joins=$joins;
+	}
+	
+	public function setAliases(array $aliases){
 		$this->aliases=$aliases;
+	}
+	
+	public function setOnTabelas(array $Ontabelas){
+		$this->Ontabelas=$Ontabelas;
+	}
+	
+	public function setTabelaChaves(array $tabela_chaves){
+		$this->tabela_chaves=$tabela_chaves;
+	}
+	
+	public function setTabelasChaves(array $tabelas_chaves){
+		$this->tabelas_chaves=$tabelas_chaves;
+	}
+	
+	public function juntar(array $tabelas){
+		foreach($tabelas as $v){$this->MitiTabelas[]=new MitiTabela($v);}
 		
 		$join='';
-		foreach($arx as $i=>$o){
-			$join.=' '.$joins[$i].' '.$o->getTabela().' '.$aliases[$i].
-					' on '.$tabelas[$i].'.'.$ar_chaves[$i].
-					'='.$aliases[$i].'.'.$arx_chaves[$i]
+		foreach($this->MitiTabelas as $i=>$o){
+			$join.=' '.$this->joins[$i].' '.$o->getNome().' '.$this->aliases[$i].
+					' on '.$this->Ontabelas[$i].'.'.$this->tabela_chaves[$i].
+					'='.$this->aliases[$i].'.'.$this->tabelas_chaves[$i]
 			;
 		}
 		
 		$this->join=$join;
 	}
 	
-	public function ordenar($duplas){
+	public function ordenar(array $duplas){
 		$order_by=array();
-		foreach($duplas as $i=>$v){$order_by[]=$this->ar->getTabela().'.'.$i.' '.$v;}
+		foreach($duplas as $i=>$v){$order_by[]=$this->MitiTabela->getNome().'.'.$i.' '.$v;}
 		
 		$order_by=implode(',',$order_by);
 		$order_by=' order by '.$order_by;

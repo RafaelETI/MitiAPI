@@ -1,14 +1,14 @@
 <?php
-class MitiAR{
-	private $tabela;
+class MitiTabela{
+	private $nome;
 	private $campos;
 	private $pk;
 	private $tipos=array();
 	private $anulaveis=array();
 	private $tamanhos=array();
 	
-	public function __construct($tabela){
-		$this->setTabela($tabela);
+	public function __construct($nome){
+		$this->nome=$nome;
 		$this->obterCampos();
 		$this->setPk();
 		$this->setTipos();
@@ -16,13 +16,9 @@ class MitiAR{
 		$this->setTamanhos();
 	}
 	
-	private function setTabela($tabela){
-		$this->tabela=$tabela;
-	}
-	
 	private function obterCampos(){
 		$MitiBD=new MitiBD();
-		$MitiBD->requisitar('select * from '.$this->tabela);
+		$MitiBD->requisitar('select * from '.$this->nome);
 		$this->campos=$MitiBD->obterCampos();
 	}
 	
@@ -61,8 +57,8 @@ class MitiAR{
 		}
 	}
 	
-	public function getTabela(){
-		return $this->tabela;
+	public function getNome(){
+		return $this->nome;
 	}
 
 	public function getTipos(){

@@ -22,13 +22,13 @@ class MitiValidacao{
 		if($_FILES[$file]['size'][$i]>$peso){throw new Exception('O arquivo excede o tamanho permitido');}
 	}
 	
-	private function validarTipos($file,$i,$tipos){
+	private function validarTipos($file,$i,array $tipos){
 		$ok=false;
 		foreach($tipos as $v){if(strpos($_FILES[$file]['type'][$i],$v)!==false){$ok=true;}}
 		if(!$ok){throw new Exception('O tipo do arquivo é inválido');}
 	}
 	
-	public function upload($file,$peso,$tipos){
+	public function upload($file,$peso,array $tipos){
 		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]"
 		foreach($_FILES[$file]['name'] as $i=>$v){
 			if(!$_FILES[$file]['name'][$i]){continue;}

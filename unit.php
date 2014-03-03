@@ -22,8 +22,8 @@ $MitiBD->requisitar('alter table mitiunit2 add constraint memoria_ibfk_1 foreign
 
 //objetos
 $MitiUnit=new MitiUnit();
-$MitiAR=new MitiAR('mitiunit');
-$MitiCRUD=new MitiCRUD(new MitiAR('mitiunit'));
+$MitiTabela=new MitiTabela('mitiunit');
+$MitiCRUD=new MitiCRUD('mitiunit');
 $MitiData=new MitiData();
 $MitiDesempenho=new MitiDesempenho();
 $MitiEmail=new MitiEmail();
@@ -32,13 +32,13 @@ $MitiStatus=new MitiStatus();
 $MitiTratamento=new MitiTratamento();
 $MitiValidacao=new MitiValidacao();
 
-//MitiAR
-$MitiUnit->afirmar($MitiAR->getTabela(),'mitiunit','MitiAR::getTabela()');
-$MitiUnit->afirmar($MitiAR->getTipos(),array('id'=>'float','nome'=>'string'),'MitiAR::getTipos()');
-$MitiUnit->afirmar($MitiAR->getAnulaveis(),array('id'=>false,'nome'=>false),'MitiAR::getAnulaveis()');
-$MitiUnit->afirmar($MitiAR->getTamanhos(),array('id'=>3,'nome'=>30),'MitiAR::getTamanhos()');
-$MitiUnit->afirmar($MitiAR->getPkCampo(),'id','MitiAR::getPkCampo()');
-$MitiUnit->afirmar($MitiAR->getPkTipo(),'float','MitiAR::getPkTipo()');
+//MitiTabela
+$MitiUnit->afirmar($MitiTabela->getNome(),'mitiunit','MitiTabela::getNome()');
+$MitiUnit->afirmar($MitiTabela->getTipos(),array('id'=>'float','nome'=>'string'),'MitiTabela::getTipos()');
+$MitiUnit->afirmar($MitiTabela->getAnulaveis(),array('id'=>false,'nome'=>false),'MitiTabela::getAnulaveis()');
+$MitiUnit->afirmar($MitiTabela->getTamanhos(),array('id'=>3,'nome'=>30),'MitiTabela::getTamanhos()');
+$MitiUnit->afirmar($MitiTabela->getPkCampo(),'id','MitiTabela::getPkCampo()');
+$MitiUnit->afirmar($MitiTabela->getPkTipo(),'float','MitiTabela::getPkTipo()');
 
 //MitiBD
 $teste='\'"\\';
@@ -65,28 +65,33 @@ $teste=$MitiBD->obterCampos();
 $MitiUnit->afirmar($teste[0]->flags,49699,'MitiBD::obterCampos()');
 
 //MitiCRUD
-$id=$MitiCRUD->inserir(array('nome'=>'Teste'))->getId();
+$id=$MitiCRUD->criar(array('nome'=>'Teste'))->getId();
 $MitiCRUD->definirCampos(array('nome'));
 $teste=$MitiCRUD->ler(array('id'=>array('=',$id)))->obterAssoc();
-$MitiUnit->afirmar($teste['nome'],'Teste','MitiCRUD::inserir()');
+$MitiUnit->afirmar($teste['nome'],'Teste','MitiCRUD::criar()');
 
-$MitiCRUD->alterar(array('nome'=>'Teste2'),$id);
+$MitiCRUD->atualizar(array('nome'=>'Teste2'),$id);
 $MitiCRUD->definirCampos(array('nome'));
 $teste=$MitiCRUD->ler(array('id'=>array('=',$id)))->obterAssoc();
-$MitiUnit->afirmar($teste['nome'],'Teste2','MitiCRUD::alterar()');
+$MitiUnit->afirmar($teste['nome'],'Teste2','MitiCRUD::atualizar()');
 
 $MitiCRUD->definirCampos(array('nome'));
 $MitiCRUD->ordenar(array('id'=>'desc'));
 $teste=$MitiCRUD->ler()->obterAssoc();
 $MitiUnit->afirmar($teste['nome'],'Teste2','MitiCRUD::ordenar()');
 
-$MitiCRUD->inserir(array('nome'=>'Teste3'));
-$MitiCRUD->inserir(array('nome'=>'Teste4'));
-$MitiCRUD->inserir(array('nome'=>'Teste5'));
+$MitiCRUD->criar(array('nome'=>'Teste3'));
+$MitiCRUD->criar(array('nome'=>'Teste4'));
+$MitiCRUD->criar(array('nome'=>'Teste5'));
 $MitiCRUD->limitar(3);
 $MitiUnit->afirmar($MitiCRUD->ler()->obterQuantidade(),3,'MitiCRUD::limitar()');
 
-$MitiCRUD->juntar(array('join'),array(new MitiAR('mitiunit2')),array('m'),array('mitiunit'),array('id'),array('categoria'));
+$MitiCRUD->setJoins(array('join'));
+$MitiCRUD->setAliases(array('m'));
+$MitiCRUD->setOnTabelas(array('mitiunit'));
+$MitiCRUD->setTabelaChaves(array('id'));
+$MitiCRUD->setTabelasChaves(array('categoria'));
+$MitiCRUD->juntar(array('mitiunit2'));
 $MitiCRUD->definirCampos(array('id'),array(array('descricao')));
 $teste=$MitiCRUD->ler()->obterAssoc();
 $MitiUnit->afirmar($teste['m_descricao'],'Ben Hur (1959)','MitiCRUD::juntar()');

@@ -3,7 +3,7 @@ class Usuario{
 	private $MitiCRUD;
 	
 	public function __construct(){
-		$this->MitiCRUD=new MitiCRUD(new MitiAR('usuarios'));
+		$this->MitiCRUD=new MitiCRUD('usuarios');
 	}
 	
 	private function validar(){
