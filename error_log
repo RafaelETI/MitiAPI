@@ -870,3 +870,13 @@ Stack trace:
 #2 /opt/lampp/htdocs/miti_modelo/unit.php(7): MitiBDUnit->__construct()
 #3 {main}
   thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[05-Mar-2014 09:36:34 America/Sao_Paulo] PHP Warning:  mysqli::mysqli(): (HY000/1049): Unknown database 'miti_modelo' in C:\xampp\htdocs\miti_modelo\lib\miti\MitiBD.php on line 10
+[05-Mar-2014 09:48:53 America/Sao_Paulo] PHP Fatal error:  Call to a member function requisitar() on a non-object in C:\xampp\htdocs\miti_modelo\unit\MitiUnit.php on line 104
+[05-Mar-2014 09:49:05 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in C:\xampp\htdocs\miti_modelo\lib\miti\MitiBD.php:44
+Stack trace:
+#0 C:\xampp\htdocs\miti_modelo\unit\MitiUnit.php(54): MitiBD->requisitar('?????create tab...')
+#1 C:\xampp\htdocs\miti_modelo\unit\MitiUnit.php(99): MitiUnit->criarMitiUnit()
+#2 C:\xampp\htdocs\miti_modelo\unit\MitiUnit.php(6): MitiUnit->criarTabelas()
+#3 C:\xampp\htdocs\miti_modelo\unit.php(6): MitiUnit->__construct()
+#4 {main}
+  thrown in C:\xampp\htdocs\miti_modelo\lib\miti\MitiBD.php on line 44
