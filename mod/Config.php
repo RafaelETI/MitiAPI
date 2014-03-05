@@ -16,7 +16,7 @@ class Config{
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 4.4.74');
+		define('SISTEMA','Miti Modelo 4.4.77');
 	}
 	
 	private function diretorios($dir){
@@ -44,7 +44,7 @@ class Config{
 	
 	private function autoload(){
 		function miti_autoload($classe){
-			$pacotes=array('mod','lib/miti');
+			$pacotes=array('mod','lib/miti','unit');
 			
 			foreach($pacotes as $v){
 				if(file_exists(DIR.$v.'/'.$classe.'.php')){

@@ -2,4 +2,6 @@
 
 =====Produção=====
 
-MitiCRUD: mais testes;
+Unit: lancamentos de excecoes nao verificados? refatorar __METHOD__?
+MitiCRUD: maior cobertura de testes (MitiValidacao);
+Miti Framework: method overloading;

@@ -39,7 +39,7 @@ class MitiCRUD{
 			}else{
 				if($this->tipos[$i]==='string'){
 					$this->MitiBD->escapar($duplas[$i]);
-					$duplas[$i]='"'.$v.'"';
+					$duplas[$i]='"'.$duplas[$i].'"';
 				}else{
 					settype($duplas[$i],$this->tipos[$i]);
 				}
@@ -47,7 +47,7 @@ class MitiCRUD{
 		}
 	}
 	
-	private function montarCampos(&$sql,array $duplas){
+	private function montarCampos(&$sql,array &$duplas){
 		$sql='insert into '.$this->MitiTabela->getNome().'(';
 		
 		$campos=array();
@@ -84,9 +84,9 @@ class MitiCRUD{
 			if($v[0]==='like'||$tipos[$i]==='string'){$this->MitiBD->escapar($filtros[$i][1]);}
 			
 			if($v[0]==='like'){
-				$filtros[$i][1]='"%'.$v[1].'%"';
+				$filtros[$i][1]='"%'.$filtros[$i][1].'%"';
 			}else if($tipos[$i]==='string'){
-				$filtros[$i][1]='"'.$v[1].'"';
+				$filtros[$i][1]='"'.$filtros[$i][1].'"';
 			}else{
 				settype($filtros[$i][1],$tipos[$i]);
 			}

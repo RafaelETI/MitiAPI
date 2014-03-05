@@ -650,3 +650,223 @@ Stack trace:
 #1 /opt/lampp/htdocs/miti_modelo/unit.php(92): MitiCRUD->ler()
 #2 {main}
   thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[04-Mar-2014 15:20:41 America/Sao_Paulo] PHP Fatal error:  Call to undefined method MitiUnit::afirma() in /opt/lampp/htdocs/miti_modelo/unit.php on line 84
+[04-Mar-2014 15:21:32 America/Sao_Paulo] PHP Fatal error:  Call to undefined method MitiUnit::afirma() in /opt/lampp/htdocs/miti_modelo/unit.php on line 84
+[04-Mar-2014 15:26:54 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Valor vazio' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php:30
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php(62): MitiCRUD->validar(Array)
+#1 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php(75): MitiCRUD->montarValores('insert into mit...', Array)
+#2 /opt/lampp/htdocs/miti_modelo/unit.php(91): MitiCRUD->criar(Array)
+#3 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php on line 30
+[04-Mar-2014 15:31:29 America/Sao_Paulo] PHP Catchable fatal error:  Object of class MitiCRUD could not be converted to string in /opt/lampp/htdocs/miti_modelo/unit.php on line 90
+[04-Mar-2014 16:25:02 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php(140): MitiBD->requisitar('????select?????...')
+#1 /opt/lampp/htdocs/miti_modelo/unit.php(83): MitiCRUD->ler(Array)
+#2 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[04-Mar-2014 16:32:24 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiCRUD.php(173): MitiBD->requisitar('update mitiunit...')
+#1 /opt/lampp/htdocs/miti_modelo/unit.php(85): MitiCRUD->atualizar(Array, '2a')
+#2 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[04-Mar-2014 16:34:42 America/Sao_Paulo] PHP Notice:  Undefined index: nome in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 23
+[04-Mar-2014 16:34:42 America/Sao_Paulo] PHP Notice:  Undefined index: nome in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 25
+[04-Mar-2014 16:34:42 America/Sao_Paulo] PHP Notice:  Undefined index: nome in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 25
+[04-Mar-2014 16:36:43 America/Sao_Paulo] PHP Notice:  Undefined index: nome in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 23
+[04-Mar-2014 16:36:43 America/Sao_Paulo] PHP Notice:  Undefined index: nome in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 25
+[04-Mar-2014 16:36:43 America/Sao_Paulo] PHP Notice:  Undefined index: nome in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 25
+[04-Mar-2014 16:39:04 America/Sao_Paulo] PHP Notice:  Undefined index: nome in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 23
+[04-Mar-2014 16:39:04 America/Sao_Paulo] PHP Notice:  Undefined index: nome in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 25
+[04-Mar-2014 16:39:04 America/Sao_Paulo] PHP Notice:  Undefined index: nome in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiUnit.php on line 25
+[04-Mar-2014 16:54:22 America/Sao_Paulo] PHP Warning:  mysqli::mysqli(): (HY000/1049): Unknown database 'abc' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 10
+[04-Mar-2014 16:54:43 America/Sao_Paulo] PHP Warning:  mysqli::mysqli(): (HY000/1049): Unknown database 'abc' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 10
+[04-Mar-2014 17:15:29 America/Sao_Paulo] PHP Fatal error:  Call to a member function afirmar() on a non-object in /opt/lampp/htdocs/miti_modelo/unit/MitiBDUnit.php on line 16
+[04-Mar-2014 18:01:07 America/Sao_Paulo] PHP Notice:  Undefined property: MitiTabelaUnit::$MitiUnit in /opt/lampp/htdocs/miti_modelo/unit/MitiTabelaUnit.php on line 17
+[04-Mar-2014 18:01:07 America/Sao_Paulo] PHP Fatal error:  Call to a member function afirmar() on a non-object in /opt/lampp/htdocs/miti_modelo/unit/MitiTabelaUnit.php on line 17
+[04-Mar-2014 18:34:50 America/Sao_Paulo] PHP Fatal error:  Call to undefined function get_method() in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:09 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:37:26 America/Sao_Paulo] PHP Fatal error:  Call to undefined function get_class_method() in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 15
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 7
+[04-Mar-2014 18:40:25 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 6
+[04-Mar-2014 18:47:37 America/Sao_Paulo] PHP Notice:  Undefined variable: id in /opt/lampp/htdocs/miti_modelo/unit/MitiCRUDUnit.php on line 55
+[04-Mar-2014 18:47:37 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 19
+[04-Mar-2014 20:10:44 America/Sao_Paulo] PHP Notice:  Undefined index: size in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 22
+[04-Mar-2014 20:10:44 America/Sao_Paulo] PHP Notice:  Undefined index: type in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 27
+[04-Mar-2014 20:10:44 America/Sao_Paulo] PHP Notice:  Undefined index: type in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 27
+[04-Mar-2014 20:10:44 America/Sao_Paulo] PHP Notice:  Undefined index: type in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 27
+[04-Mar-2014 20:10:44 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'O tipo do arquivo é inválido' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php:28
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php(37): MitiValidacao->validarTipos('arquivo', 0, Array)
+#1 /opt/lampp/htdocs/miti_modelo/unit/MitiValidacaoUnit.php(50): MitiValidacao->upload('arquivo', 2048, Array)
+#2 /opt/lampp/htdocs/miti_modelo/unit/MitiValidacaoUnit.php(12): MitiValidacaoUnit->upload()
+#3 /opt/lampp/htdocs/miti_modelo/unit.php(32): MitiValidacaoUnit->__construct()
+#4 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 28
+[04-Mar-2014 21:11:58 America/Sao_Paulo] PHP Parse error:  syntax error, unexpected 'microtime' (T_STRING) in /opt/lampp/htdocs/miti_modelo/unit.php on line 19
+[04-Mar-2014 21:12:08 America/Sao_Paulo] PHP Catchable fatal error:  Argument 1 passed to MitiDesempenho::medirTempoExecucao() must be of the type array, none given, called in /opt/lampp/htdocs/miti_modelo/unit.php on line 21 and defined in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiDesempenho.php on line 3
+[04-Mar-2014 21:12:21 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/unit.php(18): MitiBD->requisitar('create table mi...')
+#1 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[04-Mar-2014 21:38:28 America/Sao_Paulo] PHP Notice:  Undefined variable: MitiBD in /opt/lampp/htdocs/miti_modelo/unit/MitiTabelaUnit.php on line 54
+[04-Mar-2014 21:38:28 America/Sao_Paulo] PHP Fatal error:  Call to a member function requisitar() on a non-object in /opt/lampp/htdocs/miti_modelo/unit/MitiTabelaUnit.php on line 54
+[04-Mar-2014 21:40:18 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTabela.php(21): MitiBD->requisitar('select * from m...')
+#1 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTabela.php(12): MitiTabela->obterCampos()
+#2 /opt/lampp/htdocs/miti_modelo/unit/MitiTabelaUnit.php(8): MitiTabela->__construct('mitiunit')
+#3 /opt/lampp/htdocs/miti_modelo/unit.php(13): MitiTabelaUnit->__construct()
+#4 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[04-Mar-2014 21:40:20 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTabela.php(21): MitiBD->requisitar('select * from m...')
+#1 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTabela.php(12): MitiTabela->obterCampos()
+#2 /opt/lampp/htdocs/miti_modelo/unit/MitiTabelaUnit.php(8): MitiTabela->__construct('mitiunit')
+#3 /opt/lampp/htdocs/miti_modelo/unit.php(13): MitiTabelaUnit->__construct()
+#4 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[04-Mar-2014 21:41:30 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTabela.php(21): MitiBD->requisitar('select * from m...')
+#1 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTabela.php(12): MitiTabela->obterCampos()
+#2 /opt/lampp/htdocs/miti_modelo/unit/MitiTabelaUnit.php(8): MitiTabela->__construct('mitiunit')
+#3 /opt/lampp/htdocs/miti_modelo/unit.php(13): MitiTabelaUnit->__construct()
+#4 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[04-Mar-2014 21:41:31 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTabela.php(21): MitiBD->requisitar('select * from m...')
+#1 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTabela.php(12): MitiTabela->obterCampos()
+#2 /opt/lampp/htdocs/miti_modelo/unit/MitiTabelaUnit.php(8): MitiTabela->__construct('mitiunit')
+#3 /opt/lampp/htdocs/miti_modelo/unit.php(13): MitiTabelaUnit->__construct()
+#4 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[04-Mar-2014 21:41:32 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTabela.php(21): MitiBD->requisitar('select * from m...')
+#1 /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTabela.php(12): MitiTabela->obterCampos()
+#2 /opt/lampp/htdocs/miti_modelo/unit/MitiTabelaUnit.php(8): MitiTabela->__construct('mitiunit')
+#3 /opt/lampp/htdocs/miti_modelo/unit.php(13): MitiTabelaUnit->__construct()
+#4 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[04-Mar-2014 22:02:35 America/Sao_Paulo] PHP Fatal error:  Call to a member function requisitar() on a non-object in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 106
+[04-Mar-2014 22:03:46 America/Sao_Paulo] PHP Fatal error:  Call to a member function requisitar() on a non-object in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 106
+[04-Mar-2014 22:04:58 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php(107): MitiBD->requisitar('drop table miti...')
+#1 /opt/lampp/htdocs/miti_modelo/unit.php(8): MitiUnit->__destruct()
+#2 /opt/lampp/htdocs/miti_modelo/unit.php(8): unknown()
+#3 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[04-Mar-2014 22:05:48 America/Sao_Paulo] PHP Fatal error:  Call to a member function requisitar() on a non-object in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 106
+[04-Mar-2014 22:08:34 America/Sao_Paulo] PHP Fatal error:  Call to a member function requisitar() on a non-object in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 106
+[04-Mar-2014 22:08:53 America/Sao_Paulo] PHP Fatal error:  Call to a member function requisitar() on a non-object in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 106
+[04-Mar-2014 22:13:34 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'Houve um erro ao realizar a requisição' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php:44
+Stack trace:
+#0 /opt/lampp/htdocs/miti_modelo/unit/MitiBDUnit.php(31): MitiBD->requisitar('select id from ...')
+#1 /opt/lampp/htdocs/miti_modelo/unit/MitiBDUnit.php(11): MitiBDUnit->requisitar()
+#2 /opt/lampp/htdocs/miti_modelo/unit.php(7): MitiBDUnit->__construct()
+#3 {main}
+  thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
