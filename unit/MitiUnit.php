@@ -4,13 +4,7 @@ class MitiUnit{
 	
 	public function __construct(){
 		$this->criarTabelas();
-		
-		//nao pode ser usado o __destruct() por causa da heranca
-		function removerTabelas($MitiBD){
-			$MitiBD->requisitar('drop table mitiunit2');
-			$MitiBD->requisitar('drop table mitiunit');
-		}
-		register_shutdown_function('removerTabelas',$this->MitiBD);
+		$this->declararShutdownRemoverTabelas();
 	}
 	
 	private function criarTabelas(){
@@ -76,35 +70,57 @@ class MitiUnit{
 		$this->MitiBD->requisitar($sql);
 	}
 	
+	private function declararShutdownRemoverTabelas(){
+		//nao pode ser usado o __destruct() por causa da heranca
+		function removerTabelas($MitiBD){
+			$MitiBD->requisitar('drop table mitiunit2');
+			$MitiBD->requisitar('drop table mitiunit');
+		}
+		register_shutdown_function('removerTabelas',$this->MitiBD);
+	}
+	
 	private function imprimir($title,$cor){
 		$MitiTratamento=new MitiTratamento();
 		$MitiTratamento->htmlSpecialChars($title);
 		echo '<div title="'.$title.'" style="height:20px; width:20px; border:solid 1px; float:left; cursor:help; background:'.$cor.';"></div>';
 	}
 	
-	public function aguardar($title){
-		$this->imprimir($title,'orange');
-	}
-	
 	public function afirmar($valores,$afirmacao,$title){
 		$cor='green';
 		
-		if(!is_array($valores)){
-			if($valores!==$afirmacao){
-				$cor='red';
-				$title.=': Valor: ('.gettype($valores).') '.$valores.'; Afirmação: ('.gettype($afirmacao).') '.$afirmacao;
-			}
+		if(is_array($valores)){
+			$this->afirmarArray($valores,$afirmacao,$title,$cor);
 		}else{
-			foreach($valores as $i=>$v){
-				if($v!==$afirmacao[$i]){
-					$cor='red';
-					$title.=': Valor: ('.gettype($v).') '.$v.'; Afirmação: ('.gettype($afirmacao[$i]).') '.$afirmacao[$i];
-					break;
-				}
-			}
+			$this->afirmarScalar($valores,$afirmacao,$title,$cor);
 		}
 		
 		$this->imprimir($title,$cor);
+	}
+	
+	private function afirmarArray($valores,$afirmacao,&$title,&$cor){
+		foreach($valores as $i=>$v){
+			if($v!==$afirmacao[$i]){
+				$cor='red';
+				
+				$title.="\n\n";
+				$title.='Valor: ('.gettype($v).')'."\n".$v;
+				$title.="\n\n";
+				$title.='Afirmação: ('.gettype($afirmacao[$i]).')'."\n".$afirmacao[$i];
+				
+				break;
+			}
+		}
+	}
+	
+	private function afirmarScalar($valores,$afirmacao,&$title,&$cor){
+		if($valores!==$afirmacao){
+			$cor='red';
+			
+			$title.="\n\n";
+			$title.='Valor ('.gettype($valores).'):'."\n".$valores;
+			$title.="\n\n";
+			$title.='Afirmação ('.gettype($afirmacao).'):'."\n".$afirmacao;
+		}
 	}
 }
 ?>

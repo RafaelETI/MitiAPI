@@ -6,8 +6,12 @@ class MitiValidacaoUnit extends MitiUnit{
 		$this->MitiValidacao=new MitiValidacao();
 		
 		$this->tamanho();
+		$this->tamanhoException();
 		$this->email();
+		$this->emailException();
 		$this->vazioString();
+		$this->vazioStringException();
+		$this->vazioArrayException();
 		$this->vazioArray();
 		$this->upload();
 		$this->uploadImagem();
@@ -21,10 +25,30 @@ class MitiValidacaoUnit extends MitiUnit{
 		$this->afirmar($teste,$teste,__METHOD__);
 	}
 	
+	private function tamanhoException(){
+		$teste='testes';
+		
+		try{
+			$this->MitiValidacao->tamanho($teste,5);
+		}catch(Exception $e){
+			$this->afirmar($e->getMessage(),'O valor deve conter 5 caractéres',__METHOD__);
+		}
+	}
+	
 	private function email(){
 		$teste='conta@dominio.com';
 		$this->MitiValidacao->email($teste);
 		$this->afirmar($teste,$teste,__METHOD__);
+	}
+	
+	private function emailException(){
+		$teste='conta(at)dominio.com';
+		
+		try{
+			$this->MitiValidacao->email($teste);
+		}catch(Exception $e){
+			$this->afirmar($e->getMessage(),'O e-mail é inválido',__METHOD__);
+		}
 	}
 	
 	private function vazioString(){
@@ -33,10 +57,30 @@ class MitiValidacaoUnit extends MitiUnit{
 		$this->afirmar($teste,$teste,__METHOD__);
 	}
 	
+	private function vazioStringException(){
+		$teste='';
+		
+		try{
+			$this->MitiValidacao->vazio($teste);
+		}catch(Exception $e){
+			$this->afirmar($e->getMessage(),'Valor vazio',__METHOD__);
+		}
+	}
+	
 	private function vazioArray(){
 		$teste=array('a','b','c');
 		$this->MitiValidacao->vazio($teste);
 		$this->afirmar($teste,$teste,__METHOD__);
+	}
+	
+	private function vazioArrayException(){
+		$teste=array('a','','c');
+		
+		try{
+			$this->MitiValidacao->vazio($teste);
+		}catch(Exception $e){
+			$this->afirmar($e->getMessage(),'Valor vazio',__METHOD__);
+		}
 	}
 	
 	private function upload(){
