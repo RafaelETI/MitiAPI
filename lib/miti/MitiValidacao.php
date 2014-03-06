@@ -11,10 +11,28 @@ class MitiValidacao{
 	}
 	
 	public function vazio($valores){
-		if(!is_array($valores)){
-			if(!$valores){throw new Exception('Valor vazio');}
+		if(is_array($valores)){
+			$this->vazioArray($valores);
 		}else{
-			foreach($valores as $v){if(!$v){throw new Exception('Valor vazio');}}
+			$this->vazioScalar($valores);
+		}
+	}
+	
+	private function vazioArray($valores){
+		foreach($valores as $v){if(!$v){throw new Exception('Valor vazio');}}
+	}
+	
+	private function vazioScalar($valores){
+		if(!$valores){throw new Exception('Valor vazio');}
+	}
+	
+	public function upload($file,$peso,array $tipos){
+		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]"
+		foreach($_FILES[$file]['name'] as $i=>$v){
+			if(!$_FILES[$file]['name'][$i]){continue;}
+			
+			$this->validarPeso($file,$i,$peso);
+			$this->validarTipos($file,$i,$tipos);
 		}
 	}
 	
@@ -28,13 +46,14 @@ class MitiValidacao{
 		if(!$ok){throw new Exception('O tipo do arquivo é inválido');}
 	}
 	
-	public function upload($file,$peso,array $tipos){
+	public function uploadImagem($file,$largura,$altura){
 		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]"
 		foreach($_FILES[$file]['name'] as $i=>$v){
 			if(!$_FILES[$file]['name'][$i]){continue;}
 			
-			$this->validarPeso($file,$i,$peso);
-			$this->validarTipos($file,$i,$tipos);
+			$tamanho=getimagesize($_FILES[$file]['tmp_name'][$i]);
+			$this->validarTamanho($tamanho,$largura,$altura);
+			$this->validarProporcoes($tamanho,$largura,$altura);
 		}
 	}
 	
@@ -53,15 +72,11 @@ class MitiValidacao{
 		if($prop_img>$prop_max){throw new Exception('A proporção da imagem é inválida, excedendo horizontalmente');}
 	}
 	
-	public function uploadImagem($file,$largura,$altura){
-		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]"
-		foreach($_FILES[$file]['name'] as $i=>$v){
-			if(!$_FILES[$file]['name'][$i]){continue;}
-			
-			$tamanho=getimagesize($_FILES[$file]['tmp_name'][$i]);
-			$this->validarTamanho($tamanho,$largura,$altura);
-			$this->validarProporcoes($tamanho,$largura,$altura);
-		}
+	public function cpf($cpf){
+		if(!$cpf){return;}
+		$this->validarQntNum($cpf);
+		$this->validarSequenciaIgual($cpf);
+		$this->validarDigitosCPF($cpf);
 	}
 	
 	private function validarQntNum($cpf){
@@ -86,11 +101,10 @@ class MitiValidacao{
 		}
 	}
 	
-	public function cpf($cpf){
-		if(!$cpf){return;}
-		$this->validarQntNum($cpf);
-		$this->validarSequenciaIgual($cpf);
-		$this->validarDigitosCPF($cpf);
+	public function cnpj($cnpj){
+		if(!$cnpj){return;}
+		$this->validarQntNumZeros($cnpj);
+		$this->validarDigitosCNPJ($cnpj);
 	}
 	
 	private function validarQntNumZeros($cnpj){
@@ -114,12 +128,6 @@ class MitiValidacao{
 			
 			if($cnpj[$p[$y]['p']]!=$digito){throw new Exception('O CNPJ é inválido');}
 		}
-	}
-	
-	public function cnpj($cnpj){
-		if(!$cnpj){return;}
-		$this->validarQntNumZeros($cnpj);
-		$this->validarDigitosCNPJ($cnpj);
 	}
 }
 ?>

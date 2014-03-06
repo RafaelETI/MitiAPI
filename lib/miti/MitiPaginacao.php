@@ -32,16 +32,6 @@ class MitiPaginacao{
 		return $this->inicio;
 	}
 	
-	private function calcular(){
-		$this->qnt_pg=ceil($this->total/$this->num_reg);
-		$this->qnt_pg++;
-		
-		$metade=ceil($this->max_links/2);
-		$metade--;
-		$this->link_inicial=$this->pg-$metade;
-		$this->link_final=$this->pg+$metade;
-	}
-	
 	public function criar($url,$off='',$on=''){
 		$this->calcular();
 	
@@ -66,6 +56,16 @@ class MitiPaginacao{
 		else{$paginacao.='<span class="'.$off.'">Última</span>';}
 		
 		return $paginacao;
+	}
+	
+	private function calcular(){
+		$this->qnt_pg=ceil($this->total/$this->num_reg);
+		$this->qnt_pg++;
+		
+		$metade=ceil($this->max_links/2);
+		$metade--;
+		$this->link_inicial=$this->pg-$metade;
+		$this->link_final=$this->pg+$metade;
 	}
 }
 ?>

@@ -1,23 +1,20 @@
 <?php
 class MitiData{
 	public function br2Eua(&$data){
+		if(!$data){return;}
 		$partes=explode('/',$data);
 		$data=$partes[2].'-'.$partes[1].'-'.$partes[0];
 	}
 	
 	public function eua2Br(&$data){
+		if(!$data){return;}
 		$partes=explode('-',$data);
 		$data=$partes[2].'/'.$partes[1].'/'.$partes[0];
 	}
 	
-	private function obterDiaIngles($data){
-		$partes=explode('-',$data);
-		$data=date_create();
-		date_date_set($data,$partes[0],$partes[1],$partes[2]);
-		return date_format($data,'l');
-	}
-	
 	public function obterDiaSemana($data,$curto=true){
+		if(!$data){return;}
+		
 		$dia=$this->obterDiaIngles($data);
 		
 		if($dia=='Sunday'){$dia='Domingo';}
@@ -33,7 +30,16 @@ class MitiData{
 		return $dia;
 	}
 	
+	private function obterDiaIngles($data){
+		$partes=explode('-',$data);
+		$data=date_create();
+		date_date_set($data,$partes[0],$partes[1],$partes[2]);
+		return date_format($data,'l');
+	}
+	
 	public function obterMes(&$mes){
+		if(!$mes){return;}
+	
 		if($mes==1){$mes='Janeiro';}
 		else if($mes==2){$mes='Fevereiro';}
 		else if($mes==3){$mes='Março';}

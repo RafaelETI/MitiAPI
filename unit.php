@@ -3,16 +3,19 @@
 <div>Miti Framework</div>
 
 <?php
-$MitiUnit=new MitiUnit();
-new MitiBDUnit();
-new MitiCRUDUnit();
-new MitiDataUnit();
-new MitiDesempenhoUnit();
-new MitiEmailUnit();
-new MitiPaginacaoUnit();
-new MitiStatusUnit();
-new MitiTabelaUnit();
-new MitiTratamentoUnit();
-new MitiValidacaoUnit();
-$MitiUnit->removerTabelas();
+try{
+	$MitiUnit=new MitiUnit();
+	new MitiBDUnit();
+	new MitiCRUDUnit();
+	new MitiDataUnit();
+	new MitiDesempenhoUnit();
+	new MitiEmailUnit();
+	new MitiPaginacaoUnit();
+	new MitiStatusUnit();
+	new MitiTabelaUnit();
+	new MitiTratamentoUnit();
+	new MitiValidacaoUnit();
+}catch(Exception $e){
+	echo $e->getMessage();
+}
 ?>

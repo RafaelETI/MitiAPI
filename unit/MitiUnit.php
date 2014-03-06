@@ -4,8 +4,78 @@ class MitiUnit{
 	
 	public function __construct(){
 		$this->criarTabelas();
+		
+		//nao pode ser usado o __destruct() por causa da heranca
+		function removerTabelas($MitiBD){
+			$MitiBD->requisitar('drop table mitiunit2');
+			$MitiBD->requisitar('drop table mitiunit');
+		}
+		register_shutdown_function('removerTabelas',$this->MitiBD);
 	}
-
+	
+	private function criarTabelas(){
+		$this->MitiBD=new MitiBD();
+		$this->criarMitiUnit();
+		$this->criarMitiUnit2();
+	}
+	
+	private function criarMitiUnit(){
+		$sql='
+			create table mitiunit(
+				id tinyint(3) unsigned not null auto_increment,
+				nome varchar(30) not null,
+				idade tinyint(3) unsigned null,
+				primary key(id)
+			)
+		';
+		
+		$this->MitiBD->requisitar($sql);
+		$this->popularMitiUnit();
+	}
+	
+	private function popularMitiUnit(){
+		$this->MitiBD->requisitar('insert into mitiunit(id,nome)values(1,"Filme")');
+	}
+	
+	private function criarMitiUnit2(){
+		$sql='
+			create table mitiunit2(
+				id smallint(5) unsigned not null auto_increment,
+				descricao varchar(1000) not null,
+				categoria tinyint(3) unsigned not null,
+				primary key(id),
+				key categoria(categoria)
+			)
+		';
+		
+		$this->MitiBD->requisitar($sql);
+		$this->popularMitiUnit2();
+		$this->relacionarTabelas();
+	}
+	
+	private function popularMitiUnit2(){
+		$sql='
+			insert into mitiunit2(id,descricao,categoria)values
+			(90,"Gladiator (2000)",1),
+			(91,"Spartacus (2004)",1),
+			(92,"Ben Hur (1959)",1)
+		';
+	
+		$this->MitiBD->requisitar($sql);
+	}
+	
+	private function relacionarTabelas(){
+		$sql='
+			alter table mitiunit2
+			add constraint mitiunit2_ibfk_1
+			foreign key(categoria)references mitiunit(id)
+			on update cascade
+			on delete cascade
+		';
+		
+		$this->MitiBD->requisitar($sql);
+	}
+	
 	private function imprimir($title,$cor){
 		$MitiTratamento=new MitiTratamento();
 		$MitiTratamento->htmlSpecialChars($title);
@@ -35,74 +105,6 @@ class MitiUnit{
 		}
 		
 		$this->imprimir($title,$cor);
-	}
-	
-	private function popularMitiUnit(){
-		$this->MitiBD->requisitar('insert into mitiunit(id,nome)values(1,"Filme")');
-	}
-	
-	private function criarMitiUnit(){
-		$sql='
-			create table mitiunit(
-				id tinyint(3) unsigned not null auto_increment,
-				nome varchar(30) not null,
-				idade tinyint(3) unsigned null,
-				primary key(id)
-			)
-		';
-		
-		$this->MitiBD->requisitar($sql);
-		$this->popularMitiUnit();
-	}
-	
-	private function popularMitiUnit2(){
-		$sql='
-			insert into mitiunit2(id,descricao,categoria)values
-			(90,"Gladiator (2000)",1),
-			(91,"Spartacus (2004)",1),
-			(92,"Ben Hur (1959)",1)
-		';
-	
-		$this->MitiBD->requisitar($sql);
-	}
-	
-	private function relacionarTabelas(){
-		$sql='
-			alter table mitiunit2
-			add constraint mitiunit2_ibfk_1
-			foreign key(categoria)references mitiunit(id)
-			on update cascade
-			on delete cascade
-		';
-		
-		$this->MitiBD->requisitar($sql);
-	}
-	
-	private function criarMitiUnit2(){
-		$sql='
-			create table mitiunit2(
-				id smallint(5) unsigned not null auto_increment,
-				descricao varchar(1000) not null,
-				categoria tinyint(3) unsigned not null,
-				primary key(id),
-				key categoria(categoria)
-			)
-		';
-		
-		$this->MitiBD->requisitar($sql);
-		$this->popularMitiUnit2();
-		$this->relacionarTabelas();
-	}
-	
-	private function criarTabelas(){
-		$this->MitiBD=new MitiBD();
-		$this->criarMitiUnit();
-		$this->criarMitiUnit2();
-	}
-	
-	public function removerTabelas(){
-		$this->MitiBD->requisitar('drop table mitiunit2');
-		$this->MitiBD->requisitar('drop table mitiunit');
 	}
 }
 ?>

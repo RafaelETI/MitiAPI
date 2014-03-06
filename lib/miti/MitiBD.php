@@ -13,24 +13,20 @@ class MitiBD{
 		if(!$this->conexao->set_charset($charset)){throw new Exception('Houve um erro ao definir o charset');}
 	}
 	
-	public function getTempo(){
-		return $this->tempo;
-	}
-	
-	public function getAfetados(){
-		return $this->afetados;
-	}
-	
-	public function getId(){
-		return $this->id;
-	}
-	
 	public function escapar(&$valores){
-		if(!is_array($valores)){
-			$valores=$this->conexao->real_escape_string($valores);
+		if(is_array($valores)){
+			$this->escaparArray($valores);
 		}else{
-			foreach($valores as $i=>$v){$valores[$i]=$this->conexao->real_escape_string($v);}
+			$this->escaparString($valores);
 		}
+	}
+	
+	private function escaparArray(&$valores){
+		foreach($valores as $i=>$v){$valores[$i]=$this->conexao->real_escape_string($v);}
+	}
+	
+	private function escaparString(&$valores){
+		$valores=$this->conexao->real_escape_string($valores);
 	}
 	
 	public function requisitar($sql){
@@ -45,6 +41,18 @@ class MitiBD{
 		
 		$this->afetados=$this->conexao->affected_rows;
 		$this->id=$this->conexao->insert_id;
+	}
+	
+	public function getTempo(){
+		return $this->tempo;
+	}
+	
+	public function getAfetados(){
+		return $this->afetados;
+	}
+	
+	public function getId(){
+		return $this->id;
 	}
 	
 	public function obterAssoc(){

@@ -7,9 +7,28 @@ class MitiEmailUnit extends MitiUnit{
 		$this->enviar();
 	}
 	
+	private function enviar(){
+		$this->declararFiles();
+		$cabecalho=$this->obterCabecalho();
+		
+		$this->MitiEmail->setUid('485df3a43ab6dc02a02d96b66f8eb244');
+		$this->MitiEmail->setAnexos('arquivo');
+		$this->afirmar($this->MitiEmail->obterCabecalho('nome@dominio.com','It works!'),$cabecalho,__METHOD__);
+	}
+	
 	private function declararFiles(){
 		$_FILES['arquivo']['name'][0]='mitiunit.txt';
 		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'msc/mitiunit.txt';
+	}
+	
+	private function obterCabecalho(){
+		$cabecalho='';
+		$cabecalho.=$this->obterCabecalhoBasico();
+		$cabecalho.=$this->obterCabecalhoMensagem();
+		$cabecalho.=$this->obterCabecalhoAnexos();
+		$cabecalho.='--485df3a43ab6dc02a02d96b66f8eb244--';
+		
+		return $cabecalho;
 	}
 	
 	private function obterCabecalhoBasico(){
@@ -42,25 +61,6 @@ class MitiEmailUnit extends MitiUnit{
 		$cabecalho.='TWl0aUVtYWlsOjpvYnRlckNhYmVjYWxobygpCg=='."\r\n\r\n\r\n";
 		
 		return $cabecalho;
-	}
-	
-	private function obterCabecalho(){
-		$cabecalho='';
-		$cabecalho.=$this->obterCabecalhoBasico();
-		$cabecalho.=$this->obterCabecalhoMensagem();
-		$cabecalho.=$this->obterCabecalhoAnexos();
-		$cabecalho.='--485df3a43ab6dc02a02d96b66f8eb244--';
-		
-		return $cabecalho;
-	}
-	
-	private function enviar(){
-		$this->declararFiles();
-		$cabecalho=$this->obterCabecalho();
-		
-		$this->MitiEmail->setUid('485df3a43ab6dc02a02d96b66f8eb244');
-		$this->MitiEmail->setAnexos('arquivo');
-		$this->afirmar($this->MitiEmail->obterCabecalho('nome@dominio.com','It works!'),$cabecalho,__METHOD__);
 	}
 }
 ?>

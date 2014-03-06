@@ -30,6 +30,21 @@ class MitiEmail{
 		$this->anexos=$anexos;
 	}
 	
+	public function enviar($dest,$assunto,$msg,$remet,$charset='iso-8859-1'){
+		$cabecalho=$this->obterCabecalho($remet,$msg,$charset);
+		$assunto=$this->obterAssuntoCodificado($charset,$assunto);
+		
+		if(!mail($dest,$assunto,'',$cabecalho)){throw new Exception('Houve um erro ao enviar o e-mail');}
+	}
+	
+	public function obterCabecalho($remet,$msg,$charset='iso-8859-1'){
+		$cabecalho=$this->obterCabecalhoBasico($remet);
+		$cabecalho.=$this->obterCabecalhoMensagem($charset,$msg);
+		$cabecalho.=$this->obterCabecalhoAnexos();
+		
+		return $cabecalho;
+	}
+	
 	private function obterCabecalhoBasico($remet){
 		$cabecalho='From: '.$remet."\r\n";
 		$cabecalho.='Reply-To: '.$this->replyto."\r\n";
@@ -76,23 +91,8 @@ class MitiEmail{
 		return $cabecalho;
 	}
 	
-	public function obterCabecalho($remet,$msg,$charset='iso-8859-1'){
-		$cabecalho=$this->obterCabecalhoBasico($remet);
-		$cabecalho.=$this->obterCabecalhoMensagem($charset,$msg);
-		$cabecalho.=$this->obterCabecalhoAnexos();
-		
-		return $cabecalho;
-	}
-	
 	private function obterAssuntoCodificado(){
 		return '=?'.$charset.'?b?'.base64_encode($assunto).'?=';
-	}
-	
-	public function enviar($dest,$assunto,$msg,$remet,$charset='iso-8859-1'){
-		$cabecalho=$this->obterCabecalho($remet,$msg,$charset);
-		$assunto=$this->obterAssuntoCodificado($charset,$assunto);
-		
-		if(!mail($dest,$assunto,'',$cabecalho)){throw new Exception('Houve um erro ao enviar o e-mail');}
 	}
 }
 ?>

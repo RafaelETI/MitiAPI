@@ -39,13 +39,6 @@ class MitiValidacaoUnit extends MitiUnit{
 		$this->afirmar($teste,$teste,__METHOD__);
 	}
 	
-	private function declararFiles(){
-		$_FILES['arquivo']['name'][0]='mitiunit.png';
-		$_FILES['arquivo']['type'][0]='image/png';
-		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'img/mitiunit.png';
-		$_FILES['arquivo']['size'][0]='1457';
-	}
-	
 	private function upload(){
 		$this->declararFiles();
 		
@@ -58,6 +51,13 @@ class MitiValidacaoUnit extends MitiUnit{
 	
 		$this->MitiValidacao->uploadImagem('arquivo',16,16);
 		$this->afirmar($_FILES['arquivo']['name'],$_FILES['arquivo']['name'],__METHOD__);
+	}
+	
+	private function declararFiles(){
+		$_FILES['arquivo']['name'][0]='mitiunit.png';
+		$_FILES['arquivo']['type'][0]='image/png';
+		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'img/mitiunit.png';
+		$_FILES['arquivo']['size'][0]='1457';
 	}
 	
 	private function cpf(){

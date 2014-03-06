@@ -870,3 +870,79 @@ Stack trace:
 #2 /opt/lampp/htdocs/miti_modelo/unit.php(7): MitiBDUnit->__construct()
 #3 {main}
   thrown in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 44
+[05-Mar-2014 20:48:06 America/Sao_Paulo] PHP Warning:  mysqli::mysqli(): (HY000/1049): Unknown database 'miti_model' in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiBD.php on line 10
+[05-Mar-2014 20:56:38 America/Sao_Paulo] PHP Parse error:  syntax error, unexpected 'class' (T_CLASS), expecting :: (T_PAAMAYIM_NEKUDOTAYIM) in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 2
+[05-Mar-2014 20:59:23 America/Sao_Paulo] PHP Fatal error:  Class 'MitiDataUni' not found in /opt/lampp/htdocs/miti_modelo/unit.php on line 10
+[05-Mar-2014 21:06:32 America/Sao_Paulo] PHP Warning:  register_shutdown_function(): Invalid shutdown callback '' passed in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 7
+[05-Mar-2014 21:07:04 America/Sao_Paulo] PHP Warning:  register_shutdown_function(): Invalid shutdown callback 'removerTabelas' passed in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 7
+[05-Mar-2014 21:09:50 America/Sao_Paulo] PHP Fatal error:  Class 'MitiPaginacaoUni' not found in /opt/lampp/htdocs/miti_modelo/unit.php on line 13
+[05-Mar-2014 21:37:48 America/Sao_Paulo] PHP Notice:  Array to string conversion in /opt/lampp/htdocs/miti_modelo/unit/MitiUnit.php on line 32
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:37 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 14
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 14
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 14
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 14
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 14
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 40
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 41
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 33
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 34
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 33
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 34
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 33
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 34
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:16:38 America/Sao_Paulo] PHP Notice:  Undefined variable: charset in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 18
+[05-Mar-2014 22:17:24 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 40
+[05-Mar-2014 22:17:24 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 41
+[05-Mar-2014 22:17:24 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 33
+[05-Mar-2014 22:17:24 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 34
+[05-Mar-2014 22:17:24 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 33
+[05-Mar-2014 22:17:24 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 34
+[05-Mar-2014 22:17:24 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 33
+[05-Mar-2014 22:17:24 America/Sao_Paulo] PHP Notice:  Undefined variable: tamanho in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiTratamento.php on line 34
