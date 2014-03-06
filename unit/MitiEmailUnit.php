@@ -58,7 +58,7 @@ class MitiEmailUnit extends MitiUnit{
 		$cabecalho.='Content-Transfer-Encoding: base64'."\r\n";
 		$cabecalho.='Content-Disposition: attachment; filename="mitiunit.txt"'."\r\n\r\n";
 		//adicao de mais um '\r\n' por causa do final do arquivo
-		$cabecalho.='TWl0aUVtYWlsOjpvYnRlckNhYmVjYWxobygpCg=='."\r\n\r\n\r\n";
+		$cabecalho.='TWl0aUVtYWlsOjpvYnRlckNhYmVjYWxobygp'."\r\n\r\n\r\n";
 		
 		return $cabecalho;
 	}
