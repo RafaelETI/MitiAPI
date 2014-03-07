@@ -3,4 +3,4 @@
 =====Produção=====
 
 Unit: refatorar __METHOD__?
-MitiCRUD: maior cobertura de testes (MitiValidacao: excecoes);
+MitiCRUD: maior cobertura de testes;

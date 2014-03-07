@@ -16,8 +16,8 @@ class MitiCRUDUnit extends MitiUnit{
 	}
 	
 	private function criar(){
-		$this->validarValorVazio();
-		$this->validarTamanho();
+		$this->validarValorVazioException();
+		$this->validarTamanhoException();
 		
 		$id=$this->MitiCRUD->criar(array('nome'=>'\'Tes\te"','idade'=>'aaa'))->getId();
 		$this->MitiCRUD->definirCampos(array('nome','idade'));
@@ -25,14 +25,20 @@ class MitiCRUDUnit extends MitiUnit{
 		$this->afirmar($teste,array('nome'=>'\'Tes\te"','idade'=>'0'),__METHOD__);
 	}
 	
-	private function validarValorVazio(){
-		try{$this->MitiCRUD->criar(array('nome'=>''));}
-		catch(Exception $e){$this->afirmar($e->getMessage(),'Valor vazio',__METHOD__);}
+	private function validarValorVazioException(){
+		try{
+			$this->MitiCRUD->criar(array('nome'=>''));
+		}catch(Exception $e){
+			$this->afirmar($e->getMessage(),'Valor vazio',__METHOD__);
+		}
 	}
 	
-	private function validarTamanho(){
-		try{$this->MitiCRUD->criar(array('nome'=>'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'));}
-		catch(Exception $e){$this->afirmar($e->getMessage(),'Limite de caractéres excedido',__METHOD__);}
+	private function validarTamanhoException(){
+		try{
+			$this->MitiCRUD->criar(array('nome'=>'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'));
+		}catch(Exception $e){
+			$this->afirmar($e->getMessage(),'Limite de caractéres excedido',__METHOD__);
+		}
 	}
 	
 	private function juntar(){

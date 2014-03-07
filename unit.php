@@ -1,6 +1,6 @@
 <?php require_once('mod/Config.php'); new Config(true); ?>
 
-<div>Miti Framework</div>
+<div>Miti API</div>
 
 <?php
 try{

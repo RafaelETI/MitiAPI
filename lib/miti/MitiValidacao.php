@@ -72,21 +72,26 @@ class MitiValidacao{
 		if($prop_img>$prop_max){throw new Exception('A proporção da imagem é inválida, excedendo horizontalmente');}
 	}
 	
-	public function cpf($cpf){
+	public function CPF($cpf){
 		if(!$cpf){return;}
-		$this->validarQntNum($cpf);
+		$this->validarQuantidadeCaracteres($cpf);
+		$this->validarApenasNumeros($cpf);
 		$this->validarSequenciaIgual($cpf);
 		$this->validarDigitosCPF($cpf);
 	}
 	
-	private function validarQntNum($cpf){
-		if(strlen($cpf)!==11||!preg_match('/[0-9]/',$cpf)){throw new Exception('O CPF é inválido');}
+	private function validarQuantidadeCaracteres($cpf){
+		if(strlen($cpf)!==11){throw new Exception('#1 - O CPF é inválido');}
+	}
+	
+	private function validarApenasNumeros($cpf){
+		if(!preg_match('/\d{11}/',$cpf)){throw new Exception('#2 - O CPF é inválido');}
 	}
 	
 	private function validarSequenciaIgual($cpf){
 		for($i=1,$y=$cpf[0];$i<=10;$i++){
 			if($y!=$cpf[$i]){break;}
-			if($i==10){throw new Exception('O CPF é inválido');}
+			if($i==10){throw new Exception('#3 - O CPF é inválido');}
 		}
 	}
 	
@@ -97,18 +102,28 @@ class MitiValidacao{
 			}
 			
 			$d=((10*$d)%11)%10;
-			if($cpf[$c]!=$d){throw new Exception('O CPF é inválido');}
+			if($cpf[$c]!=$d){throw new Exception('#4 - O CPF é inválido');}
 		}
 	}
 	
-	public function cnpj($cnpj){
+	public function CNPJ($cnpj){
 		if(!$cnpj){return;}
-		$this->validarQntNumZeros($cnpj);
+		$this->validarQuantidadeCaracteresCNPJ($cnpj);
+		$this->validarApenasNumerosCNPJ($cnpj);
+		$this->validarSequenciaZeros($cnpj);
 		$this->validarDigitosCNPJ($cnpj);
 	}
 	
-	private function validarQntNumZeros($cnpj){
-		if(strlen($cnpj)!==14||!preg_match('/[0-9]/',$cnpj)||$cnpj=='00000000000000'){throw new Exception('O CNPJ é inválido');}
+	private function validarQuantidadeCaracteresCNPJ($cnpj){
+		if(strlen($cnpj)!==14){throw new Exception('#1 - O CNPJ é inválido');}
+	}
+	
+	private function validarApenasNumerosCNPJ($cnpj){
+		if(!preg_match('/\d{14}/',$cnpj)){throw new Exception('#2 - O CNPJ é inválido');}
+	}
+	
+	private function validarSequenciaZeros($cnpj){
+		if($cnpj=='00000000000000'){throw new Exception('#3 - O CNPJ é inválido');}
 	}
 	
 	private function validarDigitosCNPJ($cnpj){
@@ -126,7 +141,7 @@ class MitiValidacao{
 			$resto=$soma%11;
 			if($resto<2){$digito=0;}else{$digito=11-$resto;}
 			
-			if($cnpj[$p[$y]['p']]!=$digito){throw new Exception('O CNPJ é inválido');}
+			if($cnpj[$p[$y]['p']]!=$digito){throw new Exception('#4 - O CNPJ é inválido');}
 		}
 	}
 }
