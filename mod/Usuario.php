@@ -1,9 +1,9 @@
 <?php
 class Usuario{
-	private $MitiCRUD;
+	private $MitiORM;
 	
 	public function __construct(){
-		$this->MitiCRUD=new MitiCRUD('usuarios');
+		$this->MitiORM=new MitiORM('usuarios');
 	}
 	
 	public function login(){
@@ -19,8 +19,8 @@ class Usuario{
 	}
 	
 	private function obterSenha(){
-		$this->MitiCRUD->definirCampos(array('senha'));
-		return $this->MitiCRUD->ler(array('id'=>array('=',$_POST['usuario'])))->obterAssoc();
+		$this->MitiORM->definirCampos(array('senha'));
+		return $this->MitiORM->ler(array('id'=>array('=',$_POST['usuario'])))->obterAssoc();
 	}
 	
 	public function logout(){

@@ -2,5 +2,4 @@
 
 =====Produção=====
 
-Unit: refatorar __METHOD__?
-MitiCRUD: maior cobertura de testes;
+Miti API: criar diagrama de classes (esperar aula);

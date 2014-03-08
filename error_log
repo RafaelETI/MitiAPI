@@ -1,4 +1,0 @@
-[07-Mar-2014 10:20:44 America/Sao_Paulo] PHP Notice:  Undefined variable: cpf in /opt/lampp/htdocs/miti_modelo/lib/miti/MitiValidacao.php on line 84
-[07-Mar-2014 10:29:11 America/Sao_Paulo] PHP Fatal error:  Cannot redeclare MitiValidacaoUnit::uploadImagemProporcaoHorizontalException() in /opt/lampp/htdocs/miti_modelo/unit/MitiValidacaoUnit.php on line 173
-[07-Mar-2014 10:31:16 America/Sao_Paulo] PHP Fatal error:  Call to undefined method MitiValidacaoUnit::validarProporcoesVerticalException() in /opt/lampp/htdocs/miti_modelo/unit/MitiValidacaoUnit.php on line 122
-[07-Mar-2014 11:13:59 America/Sao_Paulo] PHP Fatal error:  Call to undefined method MitiValidacaoUnit::CNPJ() in /opt/lampp/htdocs/miti_modelo/unit/MitiValidacaoUnit.php on line 15

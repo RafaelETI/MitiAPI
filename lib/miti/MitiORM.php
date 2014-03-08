@@ -1,5 +1,5 @@
 <?php
-class MitiCRUD{
+class MitiORM{
 	private $MitiBD;
 	private $MitiTabela;
 	private $tipos;
@@ -91,10 +91,12 @@ class MitiCRUD{
 	
 	public function definirCampos(array $tabela_campos,array $tabelas_campos=array()){
 		$this->montarTabelaCampos($tabela_campos);
-		$this->montarTabelasCampos($tabelas_campos);
-		
 		$campos=$tabela_campos;
-		if($tabelas_campos){$campos.=','.$tabelas_campos;}
+		
+		if($tabelas_campos){
+			$this->montarTabelasCampos($tabelas_campos);
+			$campos.=','.$tabelas_campos;
+		}
 		
 		$this->campos=$campos;
 	}
@@ -108,11 +110,9 @@ class MitiCRUD{
 	private function montarTabelasCampos(array &$tabelas_campos){
 		$campos=array();
 		
-		if(!empty($tabelas_campos)){
-			foreach($this->aliases as $i=>$v){
-				foreach($tabelas_campos[$i] as $x){
-					$campos[]=$v.'.'.$x.' as '.$v.'_'.$x;
-				}
+		foreach($this->aliases as $i=>$v){
+			foreach($tabelas_campos[$i] as $x){
+				$campos[]=$v.'.'.$x.' as '.$v.'_'.$x;
 			}
 		}
 		
@@ -142,6 +142,7 @@ class MitiCRUD{
 		$this->montarTabelasFiltros($where,$tabelas_filtros);
 		$this->montarWhere($where);
 		$sql=$this->montarLeitura($where);
+		
 		$this->MitiBD->requisitar($sql);
 		return $this->MitiBD;
 	}
@@ -158,7 +159,7 @@ class MitiCRUD{
 			foreach($this->MitiTabelas as $i=>$o){
 				$tipos=$o->getTipos();
 				$this->tratarLeitura($tabelas_filtros[$i],$tipos);
-				foreach($tabelas_filtros[$i] as $j=>$v){$where[]=$o->getNome().'.'.$j.' '.$v[0].' '.$v[1];}
+				foreach($tabelas_filtros[$i] as $j=>$v){$where[]=$this->aliases[$i].'.'.$j.' '.$v[0].' '.$v[1];}
 			}
 		}
 	}

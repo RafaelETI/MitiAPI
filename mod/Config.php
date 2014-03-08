@@ -16,7 +16,7 @@ class Config{
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 4.6.78');
+		define('SISTEMA','Miti Modelo 4.7.78');
 	}
 	
 	private function diretorios($dir){

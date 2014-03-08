@@ -6,10 +6,10 @@
 try{
 	$MitiUnit=new MitiUnit();
 	new MitiBDUnit();
-	new MitiCRUDUnit();
 	new MitiDataUnit();
 	new MitiDesempenhoUnit();
 	new MitiEmailUnit();
+	new MitiORMUnit();
 	new MitiPaginacaoUnit();
 	new MitiStatusUnit();
 	new MitiTabelaUnit();

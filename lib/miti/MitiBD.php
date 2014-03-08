@@ -9,7 +9,11 @@ class MitiBD{
 	public function __construct($servidor=BD_SERVIDOR,$usuario=BD_USUARIO,$senha=BD_SENHA,$banco=BD_BANCO,$charset=BD_CHARSET){
 		$this->conexao=new mysqli($servidor,$usuario,$senha,$banco);
 		
-		if($this->conexao->connect_error){throw new Exception('Não foi possível conectar ao banco de dados');}
+		if($this->conexao->connect_error){
+			$mensagem=ini_get('display_errors')?$this->conexao->connect_error:'Não foi possível conectar ao banco de dados';
+			throw new Exception($mensagem);
+		}
+		
 		if(!$this->conexao->set_charset($charset)){throw new Exception('Houve um erro ao definir o charset');}
 	}
 	
@@ -37,7 +41,10 @@ class MitiBD{
 		$MitiDesempenho=new MitiDesempenho();
 		$this->tempo=$MitiDesempenho->medirTempoExecucao($micro);
 		
-		if($this->conexao->error){throw new Exception('Houve um erro ao realizar a requisição');}
+		if($this->conexao->error){
+			$mensagem=ini_get('display_errors')?$this->conexao->error:'Houve um erro ao realizar a requisição';
+			throw new Exception($mensagem);
+		}
 		
 		$this->afetados=$this->conexao->affected_rows;
 		$this->id=$this->conexao->insert_id;
