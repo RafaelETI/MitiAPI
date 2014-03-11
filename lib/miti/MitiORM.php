@@ -17,7 +17,7 @@ class MitiORM{
 	private $limit='';
 	
 	public function __construct($tabela){
-		$this->MitiBD=new MitiBD();
+		$this->MitiBD=new MitiBD;
 	
 		$this->MitiTabela=new MitiTabela($tabela);
 		$this->tipos=$this->MitiTabela->getTipos();
@@ -150,7 +150,9 @@ class MitiORM{
 	private function montarFiltros(array &$where,array $filtros){
 		if(!empty($filtros)){
 			$this->tratarLeitura($filtros);
-			foreach($filtros as $i=>$v){$where[]=$this->MitiTabela->getNome().'.'.$i.' '.$v[0].' '.$v[1];}
+			foreach($filtros as $i=>$v){
+				$where[]=$this->MitiTabela->getNome().'.'.$i.' '.$v[0].' '.$v[1];
+			}
 		}
 	}
 	
@@ -159,7 +161,9 @@ class MitiORM{
 			foreach($this->MitiTabelas as $i=>$o){
 				$tipos=$o->getTipos();
 				$this->tratarLeitura($tabelas_filtros[$i],$tipos);
-				foreach($tabelas_filtros[$i] as $j=>$v){$where[]=$this->aliases[$i].'.'.$j.' '.$v[0].' '.$v[1];}
+				foreach($tabelas_filtros[$i] as $j=>$v){
+					$where[]=$this->aliases[$i].'.'.$j.' '.$v[0].' '.$v[1];
+				}
 			}
 		}
 	}
@@ -168,7 +172,9 @@ class MitiORM{
 		if(empty($tipos)){$tipos=$this->tipos;}
 	
 		foreach($filtros as $i=>$v){
-			if($v[0]==='like'||$tipos[$i]==='string'){$this->MitiBD->escapar($filtros[$i][1]);}
+			if($v[0]==='like'||$tipos[$i]==='string'){
+				$this->MitiBD->escapar($filtros[$i][1]);
+			}
 			
 			if($v[0]==='like'){
 				$filtros[$i][1]='"%'.$filtros[$i][1].'%"';
@@ -223,7 +229,10 @@ class MitiORM{
 	private function validar(array $duplas){
 		foreach($duplas as $i=>$v){
 			if(!$this->anulaveis[$i]&&!$v){throw new Exception('Valor vazio');}
-			if(strlen($v)>$this->tamanhos[$i]){throw new Exception('Limite de caractéres excedido');}
+			
+			if(strlen($v)>$this->tamanhos[$i]){
+				throw new Exception('Limite de caractéres excedido');
+			}
 		}
 	}
 	
@@ -255,7 +264,9 @@ class MitiORM{
 	
 	private function montarExclusao($pk){
 		$this->tratarPk($pk);
-		return 'delete from '.$this->MitiTabela->getNome().' where '.$this->MitiTabela->getPkCampo().'='.$pk;
+		
+		return 'delete from '.$this->MitiTabela->getNome().
+			' where '.$this->MitiTabela->getPkCampo().'='.$pk;
 	}
 	
 	private function tratarPk(&$pk){
@@ -267,4 +278,3 @@ class MitiORM{
 		}
 	}
 }
-?>

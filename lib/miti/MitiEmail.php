@@ -34,7 +34,9 @@ class MitiEmail{
 		$cabecalho=$this->obterCabecalho($remet,$msg,$charset);
 		$assunto=$this->obterAssuntoCodificado($charset,$assunto);
 		
-		if(!mail($dest,$assunto,'',$cabecalho)){throw new Exception('Houve um erro ao enviar o e-mail');}
+		if(!mail($dest,$assunto,'',$cabecalho)){
+			throw new Exception('Houve um erro ao enviar o e-mail');
+		}
 	}
 	
 	public function obterCabecalho($remet,$msg,$charset='iso-8859-1'){
@@ -91,8 +93,7 @@ class MitiEmail{
 		return $cabecalho;
 	}
 	
-	private function obterAssuntoCodificado(){
+	private function obterAssuntoCodificado($charset,$assunto){
 		return '=?'.$charset.'?b?'.base64_encode($assunto).'?=';
 	}
 }
-?>

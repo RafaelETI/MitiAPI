@@ -1,6 +1,6 @@
-<?php $MitiTratamento=new MitiTratamento(); ?>
-<?php $MitiStatus=new MitiStatus(); ?>
-<meta charset="iso-8859-1" />
+<?php $MitiTratamento=new MitiTratamento; ?>
+<?php $MitiStatus=new MitiStatus; ?>
+<meta charset="windows-1252" />
 
 <title><?php echo SISTEMA; ?></title>
 

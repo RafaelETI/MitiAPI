@@ -2,4 +2,5 @@
 
 =====Produção=====
 
+PHPUnit: code coverage;
 Miti API: criar diagrama de classes (esperar aula);

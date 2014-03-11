@@ -20,4 +20,3 @@ class MitiStatus{
 		if($mensagem===true){$mensagem='O procedimento foi realizado com sucesso';}
 	}
 }
-?>

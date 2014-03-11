@@ -1,15 +1,15 @@
-<?php require_once('mod/Config.php'); new Config(true); ?>
+<?php require_once 'mod/Config.php'; new Config(true); ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once('cabeca.php'); ?>
+<?php require_once 'cabeca.php'; ?>
 
 <script src="js/modelo_ce.js"></script>
 </head>
 <!--==========neck==========-->
 <body>
 <div id="geral">
-<?php require_once('menu.php'); ?>
+<?php require_once 'menu.php'; ?>
 
 <?php
 if(!isset($_GET['id'])){
@@ -23,6 +23,7 @@ if(!isset($_GET['id'])){
 	$value='Editar';
 }
 ?>
+
 <div class="section">
 	<div class="header">Modelo &gt; <?php echo $header; ?></div>
 	
@@ -36,7 +37,13 @@ if(!isset($_GET['id'])){
 						<th scope="row"><label for="valor">Valor</label></th>
 						
 						<td>
-							<input type="text" name="valor" id="valor" maxlength="15" required="required" />
+							<input
+								type="text"
+								name="valor"
+								id="valor"
+								maxlength="15"
+								required="required"
+							/>
 						</td>
 						
 						<td class="ultimo_filho" id="valor_miticontar"></td>
@@ -47,7 +54,14 @@ if(!isset($_GET['id'])){
 						
 						<td>
 							<label for="valor2_a">A</label>
-							<input type="radio" name="valor2" id="valor2_a" value="1" checked="checked" />
+							
+							<input
+								type="radio"
+								name="valor2"
+								id="valor2_a"
+								value="1"
+								checked="checked"
+							/>
 							
 							<label for="valor2_b">B</label>
 							<input type="radio" name="valor2" id="valor2_b" value="2" />
@@ -87,25 +101,44 @@ if(!isset($_GET['id'])){
 
 					<tr>
 						<th scope="row"><label for="arquivos">Arquivos</label></th>
-						<td><input type="file" name="arquivos[]" id="arquivos" multiple="multiple" required="required" /></td>
-						<td class="ultimo_filho" id="valor4_miticontar"></td>
+						
+						<td>
+							<input
+								type="file"
+								name="arquivos[]"
+								id="arquivos"
+								multiple="multiple"
+								required="required"
+							/>
+						</td>
+						
+						<td class="ultimo_filho" id="valor5_miticontar"></td>
 					<tr>
 					
 					<tr>
 						<th scope="row"><label for="valor5">Valor 5</label></th>
 						
 						<td>
-							<textarea name="valor5" id="valor5" maxlength="500" required="required"></textarea>
+							<textarea
+								name="valor5"
+								id="valor5"
+								maxlength="500"
+								required="required"
+							></textarea>
 						</td>
 						
-						<td class="ultimo_filho" id="valor5_miticontar"></td>
+						<td class="ultimo_filho" id="valor6_miticontar"></td>
 					</tr>
 				</tbody>
 				
 				<tfoot>
 					<tr>
 						<td colspan="3">
-							<input type="submit" name="<?php echo $name; ?>" value="<?php echo $value; ?>" />
+							<input
+								type="submit"
+								name="<?php echo $name; ?>"
+								value="<?php echo $value; ?>"
+							/>
 						</td>
 					</tr>
 				</tfoot>

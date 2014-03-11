@@ -9,12 +9,16 @@ class Usuario{
 	public function login(){
 		$this->validar();
 		$usuarios=$this->obterSenha();
-		if($usuarios['senha']!=crypt($_POST['senha'],$usuarios['senha'])){throw new Exception('Autenticação inválida');}
+		
+		if($usuarios['senha']!=crypt($_POST['senha'],$usuarios['senha'])){
+			throw new Exception('Autenticação inválida');
+		}
+		
 		$_SESSION['login']=$_POST['usuario'];
 	}
 	
 	private function validar(){
-		$MitiValidacao=new MitiValidacao();
+		$MitiValidacao=new MitiValidacao;
 		$MitiValidacao->vazio($_POST);
 	}
 	
@@ -27,4 +31,3 @@ class Usuario{
 		session_destroy();
 	}
 }
-?>

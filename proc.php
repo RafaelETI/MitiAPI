@@ -3,7 +3,7 @@
 
 if(isset($_POST['login'])){
 	try{
-		$Usuario=new Usuario();
+		$Usuario=new Usuario;
 		$Usuario->login();
 		header('location:modelo_vis.php'); exit;
 	}catch(Exception $e){
@@ -14,11 +14,10 @@ if(isset($_POST['login'])){
 
 if(isset($_POST['logout'])){
 	try{
-		$Usuario=new Usuario();
+		$Usuario=new Usuario;
 		$Usuario->logout();
 		header('location:login.php'); exit;
 	}catch(Exception $e){
 		echo $e->getMessage();
 	}
 }
-?>

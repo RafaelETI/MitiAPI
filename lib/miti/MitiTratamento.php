@@ -11,7 +11,9 @@ class MitiTratamento{
 	}
 	
 	private function htmlspecialcharsArray(&$valores,$charset){
-		foreach($valores as $i=>$v){$valores[$i]=htmlspecialchars($v,ENT_QUOTES,$charset);}
+		foreach($valores as $i=>$v){
+			$valores[$i]=htmlspecialchars($v,ENT_QUOTES,$charset);
+		}
 	}
 	
 	private function htmlspecialcharsScalar(&$valores,$charset){
@@ -63,4 +65,3 @@ class MitiTratamento{
 		$valores=str_replace($acentos,$normais,$valores);
 	}
 }
-?>

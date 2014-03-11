@@ -1,15 +1,15 @@
-<?php require_once('mod/Config.php'); new Config(true); ?>
+<?php require_once 'mod/Config.php'; new Config(true); ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once('cabeca.php'); ?>
+<?php require_once 'cabeca.php'; ?>
 
 <script src="js/modelo_bus.js"></script>
 </head>
 <!--==========neck==========-->
 <body>
 <div id="geral">
-<?php require_once('menu.php'); ?>
+<?php require_once 'menu.php'; ?>
 
 <div class="section">
 	<div class="header">Modelo &gt; Busca</div>

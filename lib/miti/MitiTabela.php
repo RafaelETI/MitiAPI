@@ -17,7 +17,7 @@ class MitiTabela{
 	}
 	
 	private function obterCampos(){
-		$MitiBD=new MitiBD();
+		$MitiBD=new MitiBD;
 		$MitiBD->requisitar('select * from '.$this->nome);
 		$this->campos=$MitiBD->obterCampos();
 	}
@@ -81,4 +81,3 @@ class MitiTabela{
 		return $this->tipos[$this->pk];
 	}
 }
-?>

@@ -2,12 +2,17 @@
 class MitiValidacao{
 	public function tamanho($valor,$tamanho){
 		if(!$valor){return;}
-		if(strlen($valor)!=$tamanho){throw new Exception('O valor deve conter '.$tamanho.' caractéres');}
+		
+		if(strlen($valor)!=$tamanho){
+			throw new Exception('O valor deve conter até '.$tamanho.' caractéres');
+		}
 	}
 	
 	public function email($valor){
 		if(!$valor){return;}
-		if(!preg_match('/^\w{2,}@\w{2,}\.(\w|\.){2,}$/',$valor)){throw new Exception('O e-mail é inválido');}
+		if(!preg_match('/^\w{2,}@\w{2,}\.(\w|\.){2,}$/',$valor)){
+			throw new Exception('O e-mail é inválido');
+		}
 	}
 	
 	public function vazio($valores){
@@ -37,12 +42,18 @@ class MitiValidacao{
 	}
 	
 	private function validarPeso($file,$i,$peso){
-		if($_FILES[$file]['size'][$i]>$peso){throw new Exception('O arquivo excede o tamanho permitido');}
+		if($_FILES[$file]['size'][$i]>$peso){
+			throw new Exception('O arquivo excede o tamanho permitido');
+		}
 	}
 	
 	private function validarTipos($file,$i,array $tipos){
 		$ok=false;
-		foreach($tipos as $v){if(strpos($_FILES[$file]['type'][$i],$v)!==false){$ok=true;}}
+		
+		foreach($tipos as $v){
+			if(strpos($_FILES[$file]['type'][$i],$v)!==false){$ok=true;}
+		}
+		
 		if(!$ok){throw new Exception('O tipo do arquivo é inválido');}
 	}
 	
@@ -58,8 +69,13 @@ class MitiValidacao{
 	}
 	
 	private function validarTamanho($tamanho,$largura,$altura){
-		if($tamanho[0]<$largura){throw new Exception('A largura da imagem é menor do que o mínimo permitido');}
-		if($tamanho[1]<$altura){throw new Exception('A altura da imagem é menor do que o mínimo permitido');}
+		if($tamanho[0]<$largura){
+			throw new Exception('A largura da imagem é menor do que o mínimo permitido');
+		}
+		
+		if($tamanho[1]<$altura){
+			throw new Exception('A altura da imagem é menor do que o mínimo permitido');
+		}
 	}
 	
 	private function validarProporcoes($tamanho,$largura,$altura){
@@ -68,8 +84,13 @@ class MitiValidacao{
 		$prop_max=$prop_args+0.1;
 		$prop_img=$tamanho[0]/$tamanho[1];
 		
-		if($prop_img<$prop_min){throw new Exception('A proporção da imagem é inválida, excedendo verticalmente');}
-		if($prop_img>$prop_max){throw new Exception('A proporção da imagem é inválida, excedendo horizontalmente');}
+		if($prop_img<$prop_min){
+			throw new Exception('A proporção da imagem é inválida, excedendo verticalmente');
+		}
+		
+		if($prop_img>$prop_max){
+			throw new Exception('A proporção da imagem é inválida, excedendo horizontalmente');
+		}
 	}
 	
 	public function CPF($cpf){
@@ -145,4 +166,3 @@ class MitiValidacao{
 		}
 	}
 }
-?>

@@ -1,1 +1,1 @@
-<?php header('location:login.php'); exit; ?>
+<?php header('location:login.php'); exit;

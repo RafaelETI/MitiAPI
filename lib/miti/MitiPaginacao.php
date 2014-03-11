@@ -68,4 +68,3 @@ class MitiPaginacao{
 		$this->link_final=$this->pg+$metade;
 	}
 }
-?>

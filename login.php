@@ -1,8 +1,8 @@
-<?php require_once('mod/Config.php'); new Config(false); ?>
+<?php require_once 'mod/Config.php'; new Config(false); ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once('cabeca.php'); ?>
+<?php require_once 'cabeca.php'; ?>
 
 <script src="js/login.js"></script>
 </head>

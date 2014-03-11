@@ -7,4 +7,3 @@ class MitiDesempenho{
 		return $micro_total;
 	}
 }
-?>

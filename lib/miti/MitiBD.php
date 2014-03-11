@@ -6,15 +6,20 @@ class MitiBD{
 	private $afetados;
 	private $id;
 	
-	public function __construct($servidor=BD_SERVIDOR,$usuario=BD_USUARIO,$senha=BD_SENHA,$banco=BD_BANCO,$charset=BD_CHARSET){
+	public function __construct(
+		$servidor=BD_SERVIDOR,$usuario=BD_USUARIO,$senha=BD_SENHA,$banco=BD_BANCO,$charset=BD_CHARSET
+	){
 		$this->conexao=new mysqli($servidor,$usuario,$senha,$banco);
 		
 		if($this->conexao->connect_error){
-			$mensagem=ini_get('display_errors')?$this->conexao->connect_error:'Não foi possível conectar ao banco de dados';
+			$erro='Não foi possível conectar ao banco de dados';
+			$mensagem=ini_get('display_errors')?$this->conexao->connect_error:$erro;
 			throw new Exception($mensagem);
 		}
 		
-		if(!$this->conexao->set_charset($charset)){throw new Exception('Houve um erro ao definir o charset');}
+		if(!$this->conexao->set_charset($charset)){
+			throw new Exception('Houve um erro ao definir o charset');
+		}
 	}
 	
 	public function escapar(&$valores){
@@ -38,11 +43,12 @@ class MitiBD{
 		$this->requisicao=$this->conexao->query($sql);
 		$micro[1]=microtime(true);
 		
-		$MitiDesempenho=new MitiDesempenho();
+		$MitiDesempenho=new MitiDesempenho;
 		$this->tempo=$MitiDesempenho->medirTempoExecucao($micro);
 		
 		if($this->conexao->error){
-			$mensagem=ini_get('display_errors')?$this->conexao->error:'Houve um erro ao realizar a requisição';
+			$erro='Houve um erro ao realizar a requisição';
+			$mensagem=ini_get('display_errors')?$this->conexao->error:$erro;
 			throw new Exception($mensagem);
 		}
 		
@@ -78,4 +84,3 @@ class MitiBD{
 		$this->conexao->close();
 	}
 }
-?>

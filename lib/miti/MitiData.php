@@ -54,4 +54,3 @@ class MitiData{
 		else if($mes==12){$mes='Dezembro';}
 	}
 }
-?>

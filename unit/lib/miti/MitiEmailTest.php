@@ -1,19 +1,12 @@
 <?php
-class MitiEmailUnit extends MitiUnit{
-	private $MitiEmail;
+require_once 'Config.php'; new Config;
+
+class MitiEmailTest extends PHPUnit_Framework_TestCase{
+	protected $MitiEmail;
 	
-	public function __construct(){
-		$this->MitiEmail=new MitiEmail();
-		$this->enviar();
-	}
-	
-	private function enviar(){
+	protected function setUp(){
+		$this->MitiEmail=new MitiEmail;
 		$this->declararFiles();
-		$cabecalho=$this->obterCabecalho();
-		
-		$this->MitiEmail->setUid('485df3a43ab6dc02a02d96b66f8eb244');
-		$this->MitiEmail->setAnexos('arquivo');
-		$this->afirmar($this->MitiEmail->obterCabecalho('nome@dominio.com','It works!'),$cabecalho,__METHOD__);
 	}
 	
 	private function declararFiles(){
@@ -21,21 +14,47 @@ class MitiEmailUnit extends MitiUnit{
 		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'msc/mitiunit.txt';
 	}
 	
-	private function obterCabecalho(){
+	public function testSetUid(){
+		$this->MitiEmail->setUid('485df3a43ab6dc02a02d96b66f8eb244');
+	}
+	
+	public function testSetCc(){
+		$this->MitiEmail->setCc('cc@dominio.com');
+	}
+	
+	public function testSetBcc(){
+		$this->MitiEmail->setBcc('bcc@dominio.com');
+	}
+
+	public function testSetReplyTo(){
+		$this->MitiEmail->setReplyTo('replyto@dominio.com');
+	}
+	
+	public function testSetAnexos(){
+		$this->MitiEmail->setAnexos('arquivo');
+	}
+	
+	public function testObterCabecalho(){
 		$cabecalho='';
 		$cabecalho.=$this->obterCabecalhoBasico();
 		$cabecalho.=$this->obterCabecalhoMensagem();
 		$cabecalho.=$this->obterCabecalhoAnexos();
 		$cabecalho.='--485df3a43ab6dc02a02d96b66f8eb244--';
 		
-		return $cabecalho;
+		$this->testSetUid();
+		$this->testSetCc();
+		$this->testSetBcc();
+		$this->testSetReplyTo();
+		$this->testSetAnexos();
+		
+		$this->assertSame($cabecalho,$this->MitiEmail->obterCabecalho('nome@dominio.com','It works!'));
 	}
 	
 	private function obterCabecalhoBasico(){
 		$cabecalho='From: nome@dominio.com'."\r\n";
-		$cabecalho.='Reply-To: '."\r\n";
-		$cabecalho.='Cc: '."\r\n";
-		$cabecalho.='Bcc: '."\r\n";
+		$cabecalho.='Reply-To: replyto@dominio.com'."\r\n";
+		$cabecalho.='Cc: cc@dominio.com'."\r\n";
+		$cabecalho.='Bcc: bcc@dominio.com'."\r\n";
 		$cabecalho.='MIME-Version: 1.0'."\r\n";
 		$cabecalho.='Content-Type: multipart/mixed; boundary="485df3a43ab6dc02a02d96b66f8eb244"'."\r\n\r\n";
 		$cabecalho.='This is a multi-part message in MIME format.'."\r\n";
@@ -63,4 +82,3 @@ class MitiEmailUnit extends MitiUnit{
 		return $cabecalho;
 	}
 }
-?>

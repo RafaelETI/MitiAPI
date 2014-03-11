@@ -16,7 +16,7 @@ class Config{
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 4.7.78');
+		define('SISTEMA','Miti Modelo 4.10.79');
 	}
 	
 	private function diretorios($dir){
@@ -25,10 +25,10 @@ class Config{
 	}
 	
 	private function banco(){
-		//localhost:root::miti_modelo:latin1
+		//localhost:root:root:miti_modelo:latin1
 		define('BD_SERVIDOR','localhost');
 		define('BD_USUARIO','root');
-		define('BD_SENHA','');
+		define('BD_SENHA','root');
 		define('BD_BANCO','miti_modelo');
 		define('BD_CHARSET','latin1');
 	}
@@ -48,7 +48,7 @@ class Config{
 			
 			foreach($pacotes as $v){
 				if(file_exists(DIR.$v.'/'.$classe.'.php')){
-					require(DIR.$v.'/'.$classe.'.php');
+					require DIR.$v.'/'.$classe.'.php';
 					break;
 				}
 			}
@@ -57,7 +57,6 @@ class Config{
 	}
 	
 	private function procedimentos(){
-		require_once(DIR.'proc.php');
+		require_once DIR.'proc.php';
 	}
 }
-?>
