@@ -1,5 +1,5 @@
 <?php
-require_once 'Config.php'; new Config;
+require_once 'Config.php'; Config::setInstance();
 
 class MitiDesempenhoTest extends PHPUnit_Framework_TestCase{
 	protected $MitiDesempenho;

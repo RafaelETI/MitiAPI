@@ -1,5 +1,5 @@
 <?php
-require_once 'Config.php'; new Config;
+require_once 'Config.php'; Config::setInstance();
 
 class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 	protected $MitiTratamento;

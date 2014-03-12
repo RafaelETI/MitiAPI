@@ -1,31 +1,39 @@
 <?php
 class Config{
-	public function __construct(){
+	private static $instance=false;
+	
+	private function __construct(){
 		$this->diretorios();
 		$this->banco();
 		$this->autoload();
 	}
 	
+	public static function setInstance(){
+		if(!self::$instance){
+			self::$instance=true;
+			new Config;
+		}
+	}
+	
 	private function diretorios(){
-		if(!defined('RAIZ')){define('RAIZ','/var/www/miti_modelo/');}
+		define('RAIZ','/var/www/miti_modelo/');
 	}
 	
 	private function banco(){
-		if(!defined('BD_SERVIDOR')){define('BD_SERVIDOR','localhost');}
-		if(!defined('BD_USUARIO')){define('BD_USUARIO','root');}
-		if(!defined('BD_SENHA')){define('BD_SENHA','root');}
-		if(!defined('BD_BANCO')){define('BD_BANCO','miti_unit');}
-		if(!defined('BD_CHARSET')){define('BD_CHARSET','latin1');}
+		define('BD_SERVIDOR','localhost');
+		define('BD_USUARIO','root');
+		define('BD_SENHA','root');
+		define('BD_BANCO','miti_unit');
+		define('BD_CHARSET','latin1');
 	}
 	
 	private function autoload(){
-		if(!function_exists('miti_autoload')){
-			function miti_autoload($classe){
-				if(file_exists(RAIZ.'lib/miti/'.$classe.'.php')){
-					require RAIZ.'lib/miti/'.$classe.'.php';
-				}
+		function miti_autoload($classe){
+			if(file_exists(RAIZ.'lib/miti/'.$classe.'.php')){
+				require RAIZ.'lib/miti/'.$classe.'.php';
 			}
-			spl_autoload_register('miti_autoload');
 		}
+		
+		spl_autoload_register('miti_autoload');
 	}
 }
