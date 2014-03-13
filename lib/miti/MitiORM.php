@@ -44,12 +44,13 @@ class MitiORM{
 	}
 	
 	private function montarValores(&$sql,array $duplas){
-		$sql.='values(';
 		$this->validar($duplas);
 		$this->tratar($duplas);
 		
+		$sql.='values(';
+		
 		$values=array();
-		foreach($duplas as $i=>$v){$values[]=$v;}
+		foreach($duplas as $v){$values[]=$v;}
 		$sql.=implode(',',$values);
 		
 		$sql.=')';
@@ -216,10 +217,10 @@ class MitiORM{
 	}
 	
 	private function montarAtribuicoes(&$sql,array $duplas){
-		$sql='update '.$this->MitiTabela->getNome().' set ';
-		
 		$this->validar($duplas);
 		$this->tratar($duplas);
+		
+		$sql='update '.$this->MitiTabela->getNome().' set ';
 		
 		$atribuicoes=array();
 		foreach($duplas as $i=>$v){$atribuicoes[]=$i.'='.$v;}
@@ -233,6 +234,30 @@ class MitiORM{
 			if(strlen($v)>$this->tamanhos[$i]){
 				throw new Exception('Limite de caractéres excedido');
 			}
+		}
+	}
+	
+	private function montarWhereAlteracao(&$sql,$pk){
+		$this->tratarPk($pk);
+		$sql.=' where '.$this->MitiTabela->getPkCampo().'='.$pk;
+	}
+	
+	public function deletar($filtro){
+		if(is_array($filtro)){
+			$sql=$this->montarExclusaoArray($filtro);
+		}else{
+			$sql=$this->montarExclusaoScalar($filtro);
+		}
+		
+		$this->MitiBD->requisitar($sql);
+		return $this->MitiBD;
+	}
+	
+	private function montarExclusaoArray($dupla){
+		$this->tratar($dupla);
+		
+		foreach($dupla as $i=>$v){
+			return 'delete from '.$this->MitiTabela->getNome().' where '.$i.'='.$v;
 		}
 	}
 	
@@ -251,18 +276,7 @@ class MitiORM{
 		}
 	}
 	
-	private function montarWhereAlteracao(&$sql,$pk){
-		$this->tratarPk($pk);
-		$sql.=' where '.$this->MitiTabela->getPkCampo().'='.$pk;
-	}
-	
-	public function deletar($pk){
-		$sql=$this->montarExclusao($pk);
-		$this->MitiBD->requisitar($sql);
-		return $this->MitiBD;
-	}
-	
-	private function montarExclusao($pk){
+	private function montarExclusaoScalar($pk){
 		$this->tratarPk($pk);
 		
 		return 'delete from '.$this->MitiTabela->getNome().

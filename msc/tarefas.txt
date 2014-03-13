@@ -2,5 +2,7 @@
 
 =====Produção=====
 
+MitiORM: controle de transação;
+Separar páginas de cadastro e edição;
 PHPUnit: code coverage;
 Miti API: criar diagrama de classes (esperar aula);

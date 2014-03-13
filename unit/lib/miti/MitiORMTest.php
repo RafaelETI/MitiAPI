@@ -11,6 +11,10 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	public function testCriar(){
 		$this->MitiORM->criar(array('id'=>2,'nome'=>'\'Tes\te"','status'=>'aaa'));
 		
+		//criado para teste de exclusao
+		$this->MitiORM->criar(array('id'=>3,'nome'=>'Aaa','status'=>1));
+		$this->MitiORM->criar(array('id'=>4,'nome'=>'Bbb','status'=>1));
+		
 		$this->MitiORM->definirCampos(array('nome','status'));
 		$teste=$this->MitiORM->ler(array('id'=>array('=',2)))->obterAssoc();
 		$this->assertSame(array('nome'=>'\'Tes\te"','status'=>'0'),$teste);
@@ -66,7 +70,7 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 		$this->MitiORM->definirCampos(array('nome'));
 		$this->MitiORM->ordenar(array('id'=>'desc'));
 		$teste=$this->MitiORM->ler()->obterAssoc();
-		$this->assertSame('\'Tes\te"',$teste['nome']);
+		$this->assertSame('Bbb',$teste['nome']);
 	}
 	
 	public function testLimitar(){
@@ -104,7 +108,20 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testDeletar(){
+		$this->deletarArray();
+		$this->deletarScalar();
+	}
+	
+	private function deletarArray(){
+		$this->MitiORM->deletar(array('status'=>1));
+		
+		$this->MitiORM->definirCampos(array('id'));
+		$this->assertSame(0,$this->MitiORM->ler(array('status'=>array('=',1)))->obterQuantidade());
+	}
+	
+	private function deletarScalar(){
 		$this->MitiORM->deletar(2);
+		
 		$this->MitiORM->definirCampos(array('id'));
 		$this->assertSame(0,$this->MitiORM->ler(array('id'=>array('=',2)))->obterQuantidade());
 	}

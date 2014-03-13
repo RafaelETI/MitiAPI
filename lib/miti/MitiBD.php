@@ -43,14 +43,14 @@ class MitiBD{
 		$this->requisicao=$this->conexao->query($sql);
 		$micro[1]=microtime(true);
 		
-		$MitiDesempenho=new MitiDesempenho;
-		$this->tempo=$MitiDesempenho->medirTempoExecucao($micro);
-		
 		if($this->conexao->error){
 			$erro='Houve um erro ao realizar a requisição';
 			$mensagem=ini_get('display_errors')?$this->conexao->error:$erro;
 			throw new Exception($mensagem);
 		}
+		
+		$MitiDesempenho=new MitiDesempenho;
+		$this->tempo=$MitiDesempenho->medirTempoExecucao($micro);
 		
 		$this->afetados=$this->conexao->affected_rows;
 		$this->id=$this->conexao->insert_id;
