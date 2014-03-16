@@ -31,7 +31,7 @@ function mitiIniciar(funcao){
 
 function mitiContar(id,quantidade){
 	var elemento=getId(id);
-
+	
 	elemento.onkeyup=function(){
 		var valor=elemento.value;
 	
@@ -53,13 +53,20 @@ function mitiContar(id,quantidade){
 //==========pagina==========
 
 mitiIniciar(function(){
+	//mitisubmit
 	var submits=getClass('mitisubmit');
+	var inputs;
+    
 	for(var x=0;x<submits.length;x++){
-		submits[x].onsubmit=function(){
-			return confirm('Tem certeza?');
-		};
+		inputs=submits[x].getElementsByTagName('input');
+		submits[x].onsubmit=confirmarSubmit(inputs);
 	}
 	
+	function confirmarSubmit(inputs){
+		return function(){return confirm('Tem certeza ('+inputs[0].value+')?');};
+	}
+	
+	//miticlick
 	var clicks=getClass('miticlick');
 	for(var x=0;x<clicks.length;x++){
 		clicks[x].onclick=function(){
@@ -89,7 +96,7 @@ mitiIniciar(function(){
 	}
 });
 
-$(document).ready(function(){
+mitiIniciar(function(){
 	$('#geral').fadeIn(1000);
 	
 	$('.menu').click(function(){
