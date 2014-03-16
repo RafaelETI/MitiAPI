@@ -16,7 +16,7 @@ class Config{
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 4.10.79');
+		define('SISTEMA','Miti Modelo 4.11.79');
 	}
 	
 	private function diretorios($dir){
@@ -27,9 +27,9 @@ class Config{
 	private function banco(){
 		//localhost:root:root:miti_modelo:latin1
 		define('BD_SERVIDOR','localhost');
-		define('BD_USUARIO','root');
-		define('BD_SENHA','root');
-		define('BD_BANCO','miti_modelo');
+		define('BD_USUARIO','usuario');
+		define('BD_SENHA','senha');
+		define('BD_BANCO','banco');
 		define('BD_CHARSET','latin1');
 	}
 	

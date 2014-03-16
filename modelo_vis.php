@@ -1,4 +1,4 @@
-<?php require_once 'mod/Config.php'; new Config(true); ?>
+<?php require_once 'mod/Config.php'; new Config(false); ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -36,7 +36,7 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="modelo_ce.php">
+						<form method="get" action="modelo_edi.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
@@ -59,7 +59,7 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="modelo_ce.php">
+						<form method="get" action="modelo_edi.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
@@ -82,7 +82,7 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="modelo_ce.php">
+						<form method="get" action="modelo_edi.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
@@ -105,7 +105,7 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="modelo_ce.php">
+						<form method="get" action="modelo_edi.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
@@ -128,7 +128,7 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="modelo_ce.php">
+						<form method="get" action="modelo_edi.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
@@ -151,7 +151,7 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="modelo_ce.php">
+						<form method="get" action="modelo_edi.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
@@ -174,7 +174,7 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="modelo_ce.php">
+						<form method="get" action="modelo_edi.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
@@ -197,7 +197,7 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="modelo_ce.php">
+						<form method="get" action="modelo_edi.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
@@ -220,7 +220,7 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="modelo_ce.php">
+						<form method="get" action="modelo_edi.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>
@@ -243,7 +243,7 @@
 					<td class="direita" title="498.9">498.9</td>
 					
 					<td class="ultimo_filho">
-						<form method="get" action="modelo_ce.php">
+						<form method="get" action="modelo_edi.php">
 							<input type="hidden" name="id" value="1" />
 							<input type="submit" value="E" title="Editar" />
 						</form>

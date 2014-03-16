@@ -3,7 +3,6 @@
 <html lang="pt-br">
 <head>
 <?php require_once 'cabeca.php'; ?>
-
 <script src="js/login.js"></script>
 </head>
 <!--==========neck==========-->

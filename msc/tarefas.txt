@@ -2,7 +2,8 @@
 
 =====Produção=====
 
-MitiORM: controle de transação;
-Separar páginas de cadastro e edição;
+consertar css e timezone;
+mensagem descritiva em exclusao;
+MitiORM: controle de transacao;
 PHPUnit: code coverage;
 Miti API: criar diagrama de classes (esperar aula);

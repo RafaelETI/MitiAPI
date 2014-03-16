@@ -1,9 +1,8 @@
-<?php require_once 'mod/Config.php'; new Config(true); ?>
+<?php require_once 'mod/Config.php'; new Config(false); ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
 <?php require_once 'cabeca.php'; ?>
-
 <script src="js/modelo_bus.js"></script>
 </head>
 <!--==========neck==========-->
@@ -25,7 +24,7 @@
 						
 						<td>
 							<select name="op" id="op">
-								<option value="like">like</option>
+								<option value="like">~</option>
 								<option value="=">=</option>
 								<option value="<">&lt;</option>
 								<option value=">">&gt;</option>
@@ -44,7 +43,7 @@
 						<td>
 							<select name="op2" id="op2">
 								<option value="=">=</option>
-								<option value="like">like</option>
+								<option value="like">~</option>
 								<option value="<">&lt;</option>
 								<option value=">">&gt;</option>
 								<option value="!=">!=</option>

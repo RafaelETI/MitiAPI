@@ -1,9 +1,8 @@
-<?php require_once 'mod/Config.php'; new Config(true); ?>
+<?php require_once 'mod/Config.php'; new Config(false); ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
 <?php require_once 'cabeca.php'; ?>
-
 <script src="js/modelo_ce.js"></script>
 </head>
 <!--==========neck==========-->
@@ -11,26 +10,11 @@
 <div id="geral">
 <?php require_once 'menu.php'; ?>
 
-<?php
-if(!isset($_GET['id'])){
-	$header='Cadastro';
-	$name='modelo_cad';
-	$value='Cadastrar';
-	$_GET['id']='';
-}else{
-	$header='Edição';
-	$name='modelo_edi';
-	$value='Editar';
-}
-?>
-
 <div class="section">
-	<div class="header">Modelo &gt; <?php echo $header; ?></div>
+	<div class="header">Modelo &gt; Cadastro</div>
 	
 	<div class="section conteudo">
 		<form method="post" action="" enctype="multipart/form-data">
-			<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
-		
 			<table>
 				<tbody>
 					<tr>
@@ -112,7 +96,7 @@ if(!isset($_GET['id'])){
 							/>
 						</td>
 						
-						<td class="ultimo_filho" id="valor5_miticontar"></td>
+						<td class="ultimo_filho" id="arquivos_miticontar"></td>
 					<tr>
 					
 					<tr>
@@ -127,7 +111,7 @@ if(!isset($_GET['id'])){
 							></textarea>
 						</td>
 						
-						<td class="ultimo_filho" id="valor6_miticontar"></td>
+						<td class="ultimo_filho" id="valor5_miticontar"></td>
 					</tr>
 				</tbody>
 				
@@ -136,8 +120,8 @@ if(!isset($_GET['id'])){
 						<td colspan="3">
 							<input
 								type="submit"
-								name="<?php echo $name; ?>"
-								value="<?php echo $value; ?>"
+								name="modelo_cad"
+								value="Cadastrar"
 							/>
 						</td>
 					</tr>

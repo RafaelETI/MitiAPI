@@ -1,7 +1,7 @@
 <div id="nav">
 	<div class="header">
 		<div><?php echo SISTEMA; ?> <span id="status"><?php echo $MitiStatus->obterMensagem(); ?></span></div>
-		<div>Usuário: <?php $MitiTratamento->htmlSpecialChars($_SESSION['login']); echo $_SESSION['login']; ?></div>
+		<div>Usuário: admin</div>
 	</div>
 	
 	<div class="section conteudo">
@@ -18,7 +18,7 @@
 		<div id="modelo_oculto">
 			<a href="modelo_vis.php">Visualização</a>
 			<a href="modelo_bus.php">Busca</a>
-			<a href="modelo_ce.php">Cadastro</a>
+			<a href="modelo_cad.php">Cadastro</a>
 		</div>
 	</div>
 </div>
