@@ -7,16 +7,26 @@ class MitiBD{
 	private $id;
 	
 	public function __construct(
-		$servidor=BD_SERVIDOR,$usuario=BD_USUARIO,$senha=BD_SENHA,$banco=BD_BANCO,$charset=BD_CHARSET
+		$servidor=BD_SERVIDOR,
+		$usuario=BD_USUARIO,
+		$senha=BD_SENHA,
+		$banco=BD_BANCO,
+		$charset=BD_CHARSET
 	){
 		$this->conexao=new mysqli($servidor,$usuario,$senha,$banco);
-		
+		$this->verificarErroConexao();
+		$this->verificarErroCharset($charset);
+	}
+	
+	private function verificarErroConexao(){
 		if($this->conexao->connect_error){
 			$erro='Não foi possível conectar ao banco de dados';
 			$mensagem=ini_get('display_errors')?$this->conexao->connect_error:$erro;
 			throw new Exception($mensagem);
 		}
-		
+	}
+	
+	private function verificarErroCharset($charset){
 		if(!$this->conexao->set_charset($charset)){
 			throw new Exception('Houve um erro ao definir o charset');
 		}
@@ -31,7 +41,9 @@ class MitiBD{
 	}
 	
 	private function escaparArray(&$valores){
-		foreach($valores as $i=>$v){$valores[$i]=$this->conexao->real_escape_string($v);}
+		foreach($valores as $i=>$v){
+			$valores[$i]=$this->conexao->real_escape_string($v);
+		}
 	}
 	
 	private function escaparString(&$valores){
@@ -43,19 +55,33 @@ class MitiBD{
 		$this->requisicao=$this->conexao->query($sql);
 		$micro[1]=microtime(true);
 		
+		$this->verificarErroRequisicao();
+		$this->setTempo($micro);
+		$this->setAfetados();
+		$this->setId();
+	}
+	
+	private function verificarErroRequisicao(){
 		if($this->conexao->error){
 			$erro='Houve um erro ao realizar a requisição';
 			$mensagem=ini_get('display_errors')?$this->conexao->error:$erro;
 			throw new Exception($mensagem);
 		}
-		
-		$MitiDesempenho=new MitiDesempenho;
-		$this->tempo=$MitiDesempenho->medirTempoExecucao($micro);
-		
-		$this->afetados=$this->conexao->affected_rows;
-		$this->id=$this->conexao->insert_id;
 	}
 	
+	private function setTempo($micro){
+		$MitiDesempenho=new MitiDesempenho;
+		$this->tempo=$MitiDesempenho->medirTempoExecucao($micro);
+	}
+	
+	private function setAfetados(){
+		$this->afetados=$this->conexao->affected_rows;
+	}
+	
+	private function setId(){
+		$this->id=$this->conexao->insert_id;
+	}
+
 	public function getTempo(){
 		return $this->tempo;
 	}

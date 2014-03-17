@@ -26,6 +26,11 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame('\\\'\\"\\\\',$teste);
 	}
 	
+	public function testRequisitarException(){
+		$this->setExpectedException('Exception','Houve um erro ao realizar a requisição');
+		$this->MitiBD->requisitar('insert into categorias values(1,"Música",null)');
+	}
+	
 	public function testGetAfetados(){
 		$this->assertSame(1,$this->MitiBD->getAfetados());
 	}

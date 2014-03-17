@@ -11,10 +11,6 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	public function testCriar(){
 		$this->MitiORM->criar(array('id'=>2,'nome'=>'\'Tes\te"','status'=>'aaa'));
 		
-		//criado para teste de exclusao
-		$this->MitiORM->criar(array('id'=>3,'nome'=>'Aaa','status'=>1));
-		$this->MitiORM->criar(array('id'=>4,'nome'=>'Bbb','status'=>1));
-		
 		$this->MitiORM->definirCampos(array('nome','status'));
 		$teste=$this->MitiORM->ler(array('id'=>array('=',2)))->obterAssoc();
 		$this->assertSame(array('nome'=>'\'Tes\te"','status'=>'0'),$teste);
@@ -70,7 +66,7 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 		$this->MitiORM->definirCampos(array('nome'));
 		$this->MitiORM->ordenar(array('id'=>'desc'));
 		$teste=$this->MitiORM->ler()->obterAssoc();
-		$this->assertSame('Bbb',$teste['nome']);
+		$this->assertSame('\'Tes\te"',$teste['nome']);
 	}
 	
 	public function testLimitar(){
@@ -88,15 +84,27 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	private function tratarLeituraEscapar(){
-		$this->assertSame(1,$this->MitiORM->ler(array('nome'=>array('=','\'Tes\te"')))->obterQuantidade());
+		$qnt=$this->MitiORM
+			->ler(array('nome'=>array('=','\'Tes\te"')))
+			->obterQuantidade();
+		
+		$this->assertSame(1,$qnt);
 	}
 	
 	private function tratarLeituraWildcard(){
-		$this->assertSame(1,$this->MitiORM->ler(array('nome'=>array('like','es')))->obterQuantidade());
+		$qnt=$this->MitiORM
+			->ler(array('nome'=>array('like','es')))
+			->obterQuantidade();
+		
+		$this->assertSame(1,$qnt);
 	}
 	
 	private function tratarLeituraSetType(){
-		$this->assertSame(1,$this->MitiORM->ler(array('status'=>array('=','tes')))->obterQuantidade());
+		$qnt=$this->MitiORM
+			->ler(array('status'=>array('=','tes')))
+			->obterQuantidade();
+		
+		$this->assertSame(1,$qnt);
 	}
 	
 	public function testAtualizar(){
@@ -113,16 +121,28 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	private function deletarArray(){
+		$this->MitiORM->criar(array('id'=>3,'nome'=>'Aaa','status'=>1));
+		$this->MitiORM->criar(array('id'=>4,'nome'=>'Bbb','status'=>1));
+		
 		$this->MitiORM->deletar(array('status'=>1));
 		
 		$this->MitiORM->definirCampos(array('id'));
-		$this->assertSame(0,$this->MitiORM->ler(array('status'=>array('=',1)))->obterQuantidade());
+		$qnt=$this->MitiORM
+			->ler(array('status'=>array('=',1)))
+			->obterQuantidade();
+		
+		$this->assertSame(0,$qnt);
 	}
 	
 	private function deletarScalar(){
 		$this->MitiORM->deletar(2);
 		
 		$this->MitiORM->definirCampos(array('id'));
-		$this->assertSame(0,$this->MitiORM->ler(array('id'=>array('=',2)))->obterQuantidade());
+		
+		$qnt=$this->MitiORM
+			->ler(array('id'=>array('=',2)))
+			->obterQuantidade();
+		
+		$this->assertSame(0,$qnt);
 	}
 }
