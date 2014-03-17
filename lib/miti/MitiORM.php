@@ -257,8 +257,10 @@ class MitiORM{
 		$this->tratar($dupla);
 		
 		foreach($dupla as $i=>$v){
-			return 'delete from '.$this->MitiTabela->getNome().' where '.$i.'='.$v;
+			$sql='delete from '.$this->MitiTabela->getNome().' where '.$i.'='.$v;
 		}
+		
+		return $sql;
 	}
 	
 	private function tratar(array &$duplas){

@@ -116,33 +116,41 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testDeletar(){
+		$this->MitiORM->deletar(2);
+		
 		$this->deletarArray();
 		$this->deletarScalar();
 	}
 	
 	private function deletarArray(){
-		$this->MitiORM->criar(array('id'=>3,'nome'=>'Aaa','status'=>1));
-		$this->MitiORM->criar(array('id'=>4,'nome'=>'Bbb','status'=>1));
+		$this->MitiORM->criar(array('id'=>3,'nome'=>'Aaa','status'=>0));
+		$this->MitiORM->criar(array('id'=>4,'nome'=>'Bbb','status'=>0));
 		
-		$this->MitiORM->deletar(array('status'=>1));
+		$this->MitiORM->deletar(array('status'=>0));
 		
 		$this->MitiORM->definirCampos(array('id'));
 		$qnt=$this->MitiORM
-			->ler(array('status'=>array('=',1)))
+			->ler(array('status'=>array('=',0)))
 			->obterQuantidade();
 		
 		$this->assertSame(0,$qnt);
 	}
 	
 	private function deletarScalar(){
-		$this->MitiORM->deletar(2);
+		$MitiORM=$this->criarRegistroMemoria();
+		$MitiORM->deletar('d');
 		
-		$this->MitiORM->definirCampos(array('id'));
-		
-		$qnt=$this->MitiORM
-			->ler(array('id'=>array('=',2)))
+		$MitiORM->definirCampos(array('id'));
+		$qnt=$MitiORM
+			->ler(array('id'=>array('=','d')))
 			->obterQuantidade();
 		
 		$this->assertSame(0,$qnt);
+	}
+	
+	private function criarRegistroMemoria(){
+		$MitiORM=new MitiORM('memoria');
+		$MitiORM->criar(array('id'=>'d','descricao'=>'Teste','categoria'=>1));
+		return $MitiORM;
 	}
 }

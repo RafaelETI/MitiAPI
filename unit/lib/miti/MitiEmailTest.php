@@ -34,6 +34,11 @@ class MitiEmailTest extends PHPUnit_Framework_TestCase{
 		$this->MitiEmail->setAnexos('arquivo');
 	}
 	
+	public function testEnviar(){
+		$this->setExpectedException('Exception','Houve um erro ao enviar o e-mail');
+		$this->MitiEmail->enviar('a@a.a','Teste','Teste 2','b@b.b');
+	}
+	
 	public function testObterCabecalho(){
 		$cabecalho='';
 		$cabecalho.=$this->obterCabecalhoBasico();

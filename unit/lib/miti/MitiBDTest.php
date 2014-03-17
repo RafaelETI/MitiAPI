@@ -9,6 +9,16 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		$this->MitiBD->requisitar('select nome from categorias where id=1');
 	}
 	
+	public function testVerificarErroConexaoException(){
+		$this->setExpectedException('Exception','Não foi possível conectar ao banco de dados');
+		$this->MitiBD=@new MitiBD('localhost','root','root','nao_existe');
+	}
+	
+	public function testVerificarErroCharsetException(){
+		$this->setExpectedException('Exception','Houve um erro ao definir o charset');
+		$this->MitiBD=new MitiBD('localhost','root','root','miti_unit','nao_existe');
+	}
+	
 	public function testEscapar(){
 		$this->escaparArray();
 		$this->escaparString();
@@ -29,6 +39,10 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	public function testRequisitarException(){
 		$this->setExpectedException('Exception','Houve um erro ao realizar a requisição');
 		$this->MitiBD->requisitar('insert into categorias values(1,"Música",null)');
+	}
+	
+	public function testGetTempo(){
+		$this->assertGreaterThan(0,$this->MitiBD->getTempo());
 	}
 	
 	public function testGetAfetados(){

@@ -8,7 +8,7 @@ class MitiPaginacao{
 	private $qnt_pg;
 	private $link_inicial;
 	private $link_final;
-
+	
 	public function __construct($num_reg,$pg,$max_links){
 		$this->num_reg=$num_reg;
 		$this->pg=$pg;
@@ -34,13 +34,13 @@ class MitiPaginacao{
 	
 	public function criar($url,$off='',$on=''){
 		$this->calcular();
-	
+		
 		if($this->pg!==1){$paginacao='<a href="'.$url.'1">Primeira</a>';}
 		else{$paginacao='<span class="'.$off.'">Primeira</span>';}
-
+		
 		if($this->pg>1){$paginacao.='<a href="'.$url.($this->pg-1).'">Anterior</a>';}
 		else{$paginacao.='<span class="'.$off.'">Anterior</span>';}
-
+		
 		for($x=$this->link_inicial;$x<=$this->link_final;$x++){
 			if($this->pg==$x){$paginacao.='<span class="'.$on.'">'.$x.'</span>';}
 			else{
@@ -48,11 +48,11 @@ class MitiPaginacao{
 				$paginacao.='<a href="'.$url.$x.'">'.$x.'</a>';
 			}
 		}
-
+		
 		if(($this->pg+1)<$this->qnt_pg){$paginacao.='<a href="'.$url.($this->pg+1).'">Próxima</a>';}
 		else{$paginacao.='<span class="'.$off.'">Próxima</span>';}
-
-		if($this->pg!==$this->qnt_pg-1){$paginacao.='<a href="'.$url.($this->qnt_pg-1).'">Última</a>';}
+		
+		if($this->pg!=($this->qnt_pg-1)){$paginacao.='<a href="'.$url.($this->qnt_pg-1).'">Última</a>';}
 		else{$paginacao.='<span class="'.$off.'">Última</span>';}
 		
 		return $paginacao;

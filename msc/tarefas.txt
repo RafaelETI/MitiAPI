@@ -2,5 +2,6 @@
 
 =====Produção=====
 
-PHPUnit: code coverage;
+abrir todos os blocos de condicao;
+PHPUnit: code coverage (NetBeans); debug;
 Miti API: criar diagrama de classes (esperar aula);

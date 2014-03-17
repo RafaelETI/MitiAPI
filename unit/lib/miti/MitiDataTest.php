@@ -21,12 +21,12 @@ class MitiDataTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testObterDiaSemana(){
-		$this->assertSame($this->MitiData->obterDiaSemana('1991-08-23'),'Sex');
+		$this->assertSame($this->MitiData->obterDiaSemana('1991-08-24'),'Sáb');
 	}
 	
 	public function testObterMes(){
-		$teste='08';
+		$teste='12';
 		$this->MitiData->obterMes($teste);
-		$this->assertSame('Agosto',$teste);
+		$this->assertSame('Dezembro',$teste);
 	}
 }
