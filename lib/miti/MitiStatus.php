@@ -1,7 +1,9 @@
 <?php
 class MitiStatus{
 	public function obterMensagem(){
-		if(!isset($_SESSION['status'])){return;}
+		if(!isset($_SESSION['status'])){
+			return;
+		}
 		
 		$mensagem=$_SESSION['status'];
 		unset($_SESSION['status']);
@@ -17,6 +19,8 @@ class MitiStatus{
 	}
 	
 	private function sucesso(&$mensagem){
-		if($mensagem===true){$mensagem='O procedimento foi realizado com sucesso';}
+		if($mensagem===true){
+			$mensagem='O procedimento foi realizado com sucesso';
+		}
 	}
 }

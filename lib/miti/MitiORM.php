@@ -37,9 +37,11 @@ class MitiORM{
 		$sql='insert into '.$this->MitiTabela->getNome().'(';
 		
 		$campos=array();
-		foreach($duplas as $i=>$v){$campos[]=$i;}
-		$sql.=implode(',',$campos);
+		foreach($duplas as $i=>$v){
+			$campos[]=$i;
+		}
 		
+		$sql.=implode(',',$campos);
 		$sql.=')';
 	}
 	
@@ -50,9 +52,11 @@ class MitiORM{
 		$sql.='values(';
 		
 		$values=array();
-		foreach($duplas as $v){$values[]=$v;}
-		$sql.=implode(',',$values);
+		foreach($duplas as $v){
+			$values[]=$v;
+		}
 		
+		$sql.=implode(',',$values);
 		$sql.=')';
 	}
 	
@@ -77,7 +81,9 @@ class MitiORM{
 	}
 	
 	public function juntar(array $tabelas){
-		foreach($tabelas as $v){$this->MitiTabelas[]=new MitiTabela($v);}
+		foreach($tabelas as $v){
+			$this->MitiTabelas[]=new MitiTabela($v);
+		}
 		
 		$join='';
 		foreach($this->MitiTabelas as $i=>$o){
@@ -104,7 +110,10 @@ class MitiORM{
 	
 	private function montarTabelaCampos(array &$tabela_campos){
 		$campos=array();
-		foreach($tabela_campos as $v){$campos[]=$this->MitiTabela->getNome().'.'.$v;}
+		foreach($tabela_campos as $v){
+			$campos[]=$this->MitiTabela->getNome().'.'.$v;
+		}
+		
 		$tabela_campos=implode(',',$campos);
 	}
 	
@@ -122,7 +131,9 @@ class MitiORM{
 	
 	public function ordenar(array $duplas){
 		$order_by=array();
-		foreach($duplas as $i=>$v){$order_by[]=$this->MitiTabela->getNome().'.'.$i.' '.$v;}
+		foreach($duplas as $i=>$v){
+			$order_by[]=$this->MitiTabela->getNome().'.'.$i.' '.$v;
+		}
 		
 		$order_by=implode(',',$order_by);
 		$order_by=' order by '.$order_by;
@@ -131,7 +142,10 @@ class MitiORM{
 	}
 	
 	public function limitar($casas,$inicio=''){
-		if($inicio){$inicio.=',';}
+		if($inicio){
+			$inicio.=',';
+		}
+		
 		$limit=' limit '.$inicio.$casas;
 		
 		$this->limit=$limit;
@@ -151,6 +165,7 @@ class MitiORM{
 	private function montarFiltros(array &$where,array $filtros){
 		if(!empty($filtros)){
 			$this->tratarLeitura($filtros);
+			
 			foreach($filtros as $i=>$v){
 				$where[]=$this->MitiTabela->getNome().'.'.$i.' '.$v[0].' '.$v[1];
 			}
@@ -162,6 +177,7 @@ class MitiORM{
 			foreach($this->MitiTabelas as $i=>$o){
 				$tipos=$o->getTipos();
 				$this->tratarLeitura($tabelas_filtros[$i],$tipos);
+				
 				foreach($tabelas_filtros[$i] as $j=>$v){
 					$where[]=$this->aliases[$i].'.'.$j.' '.$v[0].' '.$v[1];
 				}
@@ -170,7 +186,9 @@ class MitiORM{
 	}
 	
 	private function tratarLeitura(array &$filtros,array $tipos=array()){
-		if(empty($tipos)){$tipos=$this->tipos;}
+		if(empty($tipos)){
+			$tipos=$this->tipos;
+		}
 	
 		foreach($filtros as $i=>$v){
 			if($v[0]==='like'||$tipos[$i]==='string'){
@@ -223,13 +241,18 @@ class MitiORM{
 		$sql='update '.$this->MitiTabela->getNome().' set ';
 		
 		$atribuicoes=array();
-		foreach($duplas as $i=>$v){$atribuicoes[]=$i.'='.$v;}
+		foreach($duplas as $i=>$v){
+			$atribuicoes[]=$i.'='.$v;
+		}
+		
 		$sql.=implode(',',$atribuicoes);
 	}
 	
 	private function validar(array $duplas){
 		foreach($duplas as $i=>$v){
-			if(!$this->anulaveis[$i]&&!$v){throw new Exception('Valor vazio');}
+			if(!$this->anulaveis[$i]&&!$v){
+				throw new Exception('Valor vazio');
+			}
 			
 			if(strlen($v)>$this->tamanhos[$i]){
 				throw new Exception('Limite de caractéres excedido');

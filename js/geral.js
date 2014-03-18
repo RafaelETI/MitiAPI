@@ -40,8 +40,11 @@ function mitiContar(id,quantidade){
 		var contagem=getId(id+'_miticontar');
 		contagem.innerHTML=resto;
 	
-		if(contagem.style.color!=='#007e7a'&&resto>=0){contagem.style.color='#007e7a';}
-		else if(contagem.style.color!=='red'&&resto<0){contagem.style.color='red';}
+		if(contagem.style.color!=='#007e7a'&&resto>=0){
+			contagem.style.color='#007e7a';
+		}else if(contagem.style.color!=='red'&&resto<0){
+			contagem.style.color='red';
+		}
 	};
 	
 	elemento.onblur=function(){

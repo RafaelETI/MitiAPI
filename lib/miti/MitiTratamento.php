@@ -1,7 +1,9 @@
 <?php
 class MitiTratamento{
 	public function htmlSpecialChars(&$valores,$charset='iso-8859-1'){
-		if(!$valores){return;}
+		if(!$valores){
+			return;
+		}
 	
 		if(is_array($valores)){
 			$this->htmlspecialcharsArray($valores,$charset);
@@ -21,7 +23,9 @@ class MitiTratamento{
 	}
 	
 	public function encurtar(&$valores,$tamanho=5){
-		if(!$valores){return;}
+		if(!$valores){
+			return;
+		}
 	
 		if(is_array($valores)){
 			$this->encurtarArray($valores,$tamanho);
@@ -45,7 +49,9 @@ class MitiTratamento{
 	}
 	
 	public function removerAcentos(&$valores){
-		if(!$valores){return;}
+		if(!$valores){
+			return;
+		}
 	
 		$acentos=array('á','à','â','ã','ä','é','è','ê','ë','í','ì','î','ï','ó','ò','ô','õ','ö','ú','ù','û','ü','ç','Á','À','Â','Ã','Ä','É','È','Ê','Ë','Í','Ì','Î','Ï','Ó','Ò','Ô','Õ','Ö','Ú','Ù','Û','Ü','Ç');
 		$normais=array('a','a','a','a','a','e','e','e','e','i','i','i','i','o','o','o','o','o','u','u','u','u','c','A','A','A','A','A','E','E','E','E','I','I','I','I','O','O','O','O','O','U','U','U','U','C');
@@ -58,7 +64,9 @@ class MitiTratamento{
 	}
 	
 	private function removerAcentosArray(&$valores,$acentos,$normais){
-		foreach($valores as $i=>$v){$valores[$i]=str_replace($acentos,$normais,$v);}
+		foreach($valores as $i=>$v){
+			$valores[$i]=str_replace($acentos,$normais,$v);
+		}
 	}
 	
 	private function removerAcentosScalar(&$valores,$acentos,$normais){

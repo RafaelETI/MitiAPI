@@ -21,7 +21,7 @@ class MitiDataTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testObterDiaSemana(){
-		$this->assertSame($this->MitiData->obterDiaSemana('1991-08-24'),'Sáb');
+		$this->assertSame('Sáb',$this->MitiData->obterDiaSemana('1991-08-24'));
 	}
 	
 	public function testObterMes(){
