@@ -44,13 +44,13 @@ class MitiValidacao{
 	
 	public function upload($file,$peso,array $tipos){
 		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]"
-		foreach($_FILES[$file]['name'] as $i=>$v){
-			if(!$_FILES[$file]['name'][$i]){
-				continue;
+		if(isset($_FILES[$file]['name'])){
+			foreach($_FILES[$file]['name'] as $i=>$v){
+				$this->validarPeso($file,$i,$peso);
+				$this->validarTipos($file,$i,$tipos);
 			}
-			
-			$this->validarPeso($file,$i,$peso);
-			$this->validarTipos($file,$i,$tipos);
+		}else{
+			return;
 		}
 	}
 	
@@ -76,14 +76,14 @@ class MitiValidacao{
 	
 	public function uploadImagem($file,$largura,$altura){
 		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]"
-		foreach($_FILES[$file]['name'] as $i=>$v){
-			if(!$_FILES[$file]['name'][$i]){
-				continue;
+		if(isset($_FILES[$file]['name'])){
+			foreach($_FILES[$file]['name'] as $i=>$v){
+				$tamanho=getimagesize($_FILES[$file]['tmp_name'][$i]);
+				$this->validarTamanho($tamanho,$largura,$altura);
+				$this->validarProporcoes($tamanho,$largura,$altura);
 			}
-			
-			$tamanho=getimagesize($_FILES[$file]['tmp_name'][$i]);
-			$this->validarTamanho($tamanho,$largura,$altura);
-			$this->validarProporcoes($tamanho,$largura,$altura);
+		}else{
+			return;
 		}
 	}
 	

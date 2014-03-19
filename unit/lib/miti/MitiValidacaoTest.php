@@ -1,10 +1,11 @@
 <?php
-require_once 'Config.php'; Config::setInstance();
-
 class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	protected $MitiValidacao;
 	
 	protected function setUp(){
+		require_once 'Config.php';
+		Config::setInstance();
+		
 		$this->MitiValidacao=new MitiValidacao;
 		$this->declararFiles();
 	}
@@ -17,27 +18,23 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testTamanho(){
-		$teste='teste';
-		$this->MitiValidacao->tamanho($teste,5);
+		$this->MitiValidacao->tamanho('teste',5);
+		$this->assertSame(null,$this->MitiValidacao->tamanho('',5));
 	}
 	
 	public function testTamanhoException(){
 		$this->setExpectedException('Exception','O valor deve conter até 5 caractéres');
-		
-		$teste='testes';
-		$this->MitiValidacao->tamanho($teste,5);
+		$this->MitiValidacao->tamanho('testes',5);
 	}
 	
 	public function testEmail(){
-		$teste='conta@dominio.com';
-		$this->MitiValidacao->email($teste);
+		$this->MitiValidacao->email('conta@dominio.com');
+		$this->assertSame(null,$this->MitiValidacao->email(''));
 	}
 	
 	public function testEmailException(){
 		$this->setExpectedException('Exception','O e-mail é inválido');
-		
-		$teste='conta(at)dominio.com';
-		$this->MitiValidacao->email($teste);
+		$this->MitiValidacao->email('conta(at)dominio.com');
 	}
 	
 	public function testVazio(){
@@ -46,31 +43,28 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	private function vazioArray(){
-		$teste=array('a','b','c');
-		$this->MitiValidacao->vazio($teste);
+		$this->MitiValidacao->vazio(array('a','b','c'));
 	}
 	
 	public function testVazioArrayException(){
 		$this->setExpectedException('Exception','Valor vazio');
-		
-		$teste=array('a','','c');
-		$this->MitiValidacao->vazio($teste);
+		$this->MitiValidacao->vazio(array('a','','c'));
 	}
 	
 	private function vazioScalar(){
-		$teste='a';
-		$this->MitiValidacao->vazio($teste);
+		$this->MitiValidacao->vazio('a');
 	}
 	
 	public function testVazioScalarException(){
 		$this->setExpectedException('Exception','Valor vazio');
-		
-		$teste='';
-		$this->MitiValidacao->vazio($teste);
+		$this->MitiValidacao->vazio('');
 	}
 	
 	public function testUpload(){
 		$this->MitiValidacao->upload('arquivo',2048,array('jpeg','png','gif'));
+		
+		$teste=$this->MitiValidacao->upload('nao_existe',2048,array('jpeg','png','gif'));
+		$this->assertSame(null,$teste);
 	}
 	
 	public function testValidarPesoException(){
@@ -85,6 +79,9 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testUploadImagem(){
 		$this->MitiValidacao->uploadImagem('arquivo',16,16);
+		
+		$teste=$this->MitiValidacao->uploadImagem('nao_existe',16,16);
+		$this->assertSame(null,$teste);
 	}
 	
 	public function testValidarTamanhoLarguraException(){
@@ -108,60 +105,57 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testCPF(){
-		$teste='27981094003';
-		$this->MitiValidacao->CPF($teste);
+		$this->MitiValidacao->CPF('27981094003');
+		$this->assertSame(null,$this->MitiValidacao->CPF(''));
 	}
 	
 	public function testValidarQuantidadeCaracteresException(){
-		$teste='279810940033';
 		$this->setExpectedException('Exception','#1 - O CPF é inválido');
-		$this->MitiValidacao->CPF($teste);
+		$this->MitiValidacao->CPF('279810940033');
 	}
 	
 	public function testValidarApenasNumerosException(){
-		$teste='279810a4003';
 		$this->setExpectedException('Exception','#2 - O CPF é inválido');
-		$this->MitiValidacao->CPF($teste);
+		$this->MitiValidacao->CPF('279810a4003');
 	}
 	
 	public function testValidarSequenciaIgualException(){
-		$teste='88888888888';
 		$this->setExpectedException('Exception','#3 - O CPF é inválido');
-		$this->MitiValidacao->CPF($teste);
+		$this->MitiValidacao->CPF('88888888888');
 	}
 	
 	public function testValidarDigitosCPFException(){
-		$teste='27981094004';
 		$this->setExpectedException('Exception','#4 - O CPF é inválido');
-		$this->MitiValidacao->CPF($teste);
+		$this->MitiValidacao->CPF('27981094004');
 	}
 	
 	public function testCNPJ(){
-		$teste='87210343000169';
-		$this->MitiValidacao->CNPJ($teste);
+		$this->MitiValidacao->CNPJ('87210343000169');
+		$this->assertSame(null,$this->MitiValidacao->CNPJ(''));
 	}
 	
 	public function testValidarQuantidadeCaracteresCNPJException(){
-		$teste='872103430001699';
 		$this->setExpectedException('Exception','#1 - O CNPJ é inválido');
-		$this->MitiValidacao->CNPJ($teste);
+		$this->MitiValidacao->CNPJ('872103430001699');
 	}
 	
 	public function testValidarApenasNumerosCNPJException(){
-		$teste='87210343a00169';
 		$this->setExpectedException('Exception','#2 - O CNPJ é inválido');
-		$this->MitiValidacao->CNPJ($teste);
+		$this->MitiValidacao->CNPJ('87210343a00169');
 	}
 	
 	public function testValidarSequenciaZerosException(){
-		$teste='00000000000000';
 		$this->setExpectedException('Exception','#3 - O CNPJ é inválido');
-		$this->MitiValidacao->CNPJ($teste);
+		$this->MitiValidacao->CNPJ('00000000000000');
 	}
 	
 	public function testValidarDigitosCNPJException(){
-		$teste='87210343000159';
 		$this->setExpectedException('Exception','#4 - O CNPJ é inválido');
-		$this->MitiValidacao->CNPJ($teste);
+		$this->MitiValidacao->CNPJ('87210343000159');
+	}
+	
+	public function testValidarDigitosComZeroCNPJException(){
+		$this->setExpectedException('Exception','#4 - O CNPJ é inválido');
+		$this->MitiValidacao->CNPJ('80911582000106');
 	}
 }

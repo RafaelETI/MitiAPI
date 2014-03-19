@@ -1,10 +1,11 @@
 <?php
-require_once 'Config.php'; Config::setInstance();
-
 class MitiTabelaTest extends PHPUnit_Framework_TestCase{
 	protected $MitiTabela;
 	
 	protected function setUp(){
+		require_once 'Config.php';
+		Config::setInstance();
+		
 		$this->MitiTabela=new MitiTabela('categorias');
 	}
 	

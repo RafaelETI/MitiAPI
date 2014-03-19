@@ -1,10 +1,11 @@
 <?php
-require_once 'Config.php'; Config::setInstance();
-
 class MitiEmailTest extends PHPUnit_Framework_TestCase{
 	protected $MitiEmail;
 	
 	protected function setUp(){
+		require_once 'Config.php';
+		Config::setInstance();
+		
 		$this->MitiEmail=new MitiEmail;
 		$this->declararFiles();
 	}

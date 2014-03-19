@@ -2,5 +2,8 @@
 
 =====Produção=====
 
+Miti API: trocar "&" por returns;
+MitiORM::ler(): adicionar suporte as funcoes do banco;
+MitiEmail::enviar(): conseguir "sendmail";
 Test Files: code coverage (NetBeans); refatorar; debug;
 Miti API: criar diagrama de classes (esperar aula);
