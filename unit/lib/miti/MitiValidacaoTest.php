@@ -3,9 +3,6 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	protected $MitiValidacao;
 	
 	protected function setUp(){
-		require_once 'Config.php';
-		Config::setInstance();
-		
 		$this->MitiValidacao=new MitiValidacao;
 		$this->declararFiles();
 	}

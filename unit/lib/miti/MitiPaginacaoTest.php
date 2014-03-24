@@ -1,10 +1,5 @@
 <?php
 class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
-	protected function setUp(){
-		require_once 'Config.php';
-		Config::setInstance();
-	}
-	
 	public function testCriarComPoucosRegistros(){
 		$MitiPaginacao=new MitiPaginacao(1,1,1);
 		$this->assertSame(1,$MitiPaginacao->getNumReg());

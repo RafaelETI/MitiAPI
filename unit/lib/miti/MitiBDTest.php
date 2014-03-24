@@ -3,9 +3,6 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	protected $MitiBD;
 	
 	protected function setUp(){
-		require_once 'Config.php';
-		Config::setInstance();
-		
 		$this->MitiBD=new MitiBD;
 		$this->MitiBD->requisitar('select nome from categorias where id=1');
 	}

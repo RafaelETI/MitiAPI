@@ -3,9 +3,6 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 	protected $MitiTratamento;
 	
 	protected function setUp(){
-		require_once 'Config.php';
-		Config::setInstance();
-		
 		$this->MitiTratamento=new MitiTratamento;
 	}
 	

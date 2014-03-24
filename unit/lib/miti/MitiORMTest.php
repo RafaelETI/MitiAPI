@@ -3,9 +3,6 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	protected $MitiORM;
 	
 	protected function setUp(){
-		require_once 'Config.php';
-		Config::setInstance();
-		
 		$this->MitiORM=new MitiORM('categorias');
 	}
 	

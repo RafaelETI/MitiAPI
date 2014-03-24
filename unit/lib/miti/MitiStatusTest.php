@@ -3,9 +3,6 @@ class MitiStatusTest extends PHPUnit_Framework_TestCase{
 	protected $MitiStatus;
 	
 	protected function setUp(){
-		require_once 'Config.php';
-		Config::setInstance();
-		
 		$this->MitiStatus=new MitiStatus;
 	}
 	

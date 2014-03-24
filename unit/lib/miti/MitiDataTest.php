@@ -3,9 +3,6 @@ class MitiDataTest extends PHPUnit_Framework_TestCase{
 	protected $MitiData;
 	
 	protected function setUp(){
-		require_once 'Config.php';
-		Config::setInstance();
-		
 		$this->MitiData=new MitiData;
 	}
 	

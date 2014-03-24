@@ -3,9 +3,6 @@ class MitiDesempenhoTest extends PHPUnit_Framework_TestCase{
 	protected $MitiDesempenho;
 	
 	protected function setUp(){
-		require_once 'Config.php';
-		Config::setInstance();
-		
 		$this->MitiDesempenho=new MitiDesempenho;
 	}
 	
