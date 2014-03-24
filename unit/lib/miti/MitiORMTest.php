@@ -17,48 +17,29 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame(array('nome'=>'\'Tes\te"','status'=>'0'),$teste);
 	}
 	
-	public function testValidarValorVazioException(){
+	public function testCriarValorVazio(){
 		$this->setExpectedException('Exception','Valor vazio');
 		$this->MitiORM->criar(array('id'=>6,'nome'=>''));
 	}
 	
-	public function testValidarTamanhoException(){
+	public function testCriarExcessoTamanho(){
 		$this->setExpectedException('Exception','Limite de caractéres excedido');
 		$this->MitiORM->criar(array('id'=>6,'nome'=>'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'));
 	}
 	
-	public function testSetJoins(){
-		$this->MitiORM->setJoins(array('join'));
-	}
-	
-	public function testSetAliases(){
-		$this->MitiORM->setAliases(array('m'));
-	}
-	
-	public function testSetOnTabelas(){
-		$this->MitiORM->setOnTabelas(array('categorias'));
-	}
-	
-	public function testSetTabelaChaves(){
-		$this->MitiORM->setTabelaChaves(array('id'));
-	}
-	
-	public function testSetTabelasChaves(){
-		$this->MitiORM->setTabelasChaves(array('categoria'));
-	}
-	
 	public function testJuntar(){
-		$this->testSetJoins();
-		$this->testSetAliases();
-		$this->testSetOnTabelas();
-		$this->testSetTabelaChaves();
-		$this->testSetTabelasChaves();
+		$this->MitiORM->setJoins(array('join'));
+		$this->MitiORM->setAliases(array('m'));
+		$this->MitiORM->setOnTabelas(array('categorias'));
+		$this->MitiORM->setTabelaChaves(array('id'));
+		$this->MitiORM->setTabelasChaves(array('categoria'));
 		$this->MitiORM->juntar(array('memoria'));
 		
 		$this->MitiORM->definirCampos(array('id'),array(array('descricao')));
 		
+		$filtros=array('id'=>array('=','1'));
 		$tabelas_filtros=array(array('descricao'=>array('like','hur')));
-		$teste=$this->MitiORM->ler(array('id'=>array('=','1')),$tabelas_filtros)->obterAssoc();
+		$teste=$this->MitiORM->ler($filtros,$tabelas_filtros)->obterAssoc();
 		
 		$this->assertSame('Ben Hur (1959)',$teste['m_descricao']);
 	}
@@ -77,33 +58,26 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame(2,$MitiORM->ler()->obterQuantidade());
 	}
 	
-	public function testLer(){
+	public function testTratarLeituraEscapar(){
 		$this->MitiORM->definirCampos(array('id'));
-		$this->tratarLeituraEscapar();
-		$this->tratarLeituraWildcard();
-		$this->tratarLeituraSetType();
-	}
-	
-	private function tratarLeituraEscapar(){
-		$qnt=$this->MitiORM
-			->ler(array('nome'=>array('=','\'Tes\te"')))
-			->obterQuantidade();
+		$filtros=array('nome'=>array('=','\'Tes\te"'));
+		$qnt=$this->MitiORM->ler($filtros)->obterQuantidade();
 		
 		$this->assertSame(1,$qnt);
 	}
 	
-	private function tratarLeituraWildcard(){
-		$qnt=$this->MitiORM
-			->ler(array('nome'=>array('like','es')))
-			->obterQuantidade();
+	public function testTratarLeituraWildcard(){
+		$this->MitiORM->definirCampos(array('id'));
+		$filtros=array('nome'=>array('like','es'));
+		$qnt=$this->MitiORM->ler($filtros)->obterQuantidade();
 		
 		$this->assertSame(1,$qnt);
 	}
 	
-	private function tratarLeituraSetType(){
-		$qnt=$this->MitiORM
-			->ler(array('status'=>array('=','tes')))
-			->obterQuantidade();
+	public function testTratarLeituraSetType(){
+		$this->MitiORM->definirCampos(array('id'));
+		$filtros=array('status'=>array('=','tes'));
+		$qnt=$this->MitiORM->ler($filtros)->obterQuantidade();
 		
 		$this->assertSame(1,$qnt);
 	}
@@ -118,33 +92,26 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	
 	public function testDeletar(){
 		$this->MitiORM->deletar(2);
-		
-		$this->deletarArray();
-		$this->deletarScalar();
 	}
 	
-	private function deletarArray(){
+	public function testDeletarArray(){
 		$this->MitiORM->criar(array('id'=>3,'nome'=>'Aaa','status'=>0));
 		$this->MitiORM->criar(array('id'=>4,'nome'=>'Bbb','status'=>0));
 		
 		$this->MitiORM->deletar(array('status'=>0));
 		
 		$this->MitiORM->definirCampos(array('id'));
-		$qnt=$this->MitiORM
-			->ler(array('status'=>array('=',0)))
-			->obterQuantidade();
+		$qnt=$this->MitiORM->ler(array('status'=>array('=',0)))->obterQuantidade();
 		
 		$this->assertSame(0,$qnt);
 	}
 	
-	private function deletarScalar(){
+	public function testDeletarScalar(){
 		$MitiORM=$this->criarRegistroMemoria();
 		$MitiORM->deletar('d');
 		
 		$MitiORM->definirCampos(array('id'));
-		$qnt=$MitiORM
-			->ler(array('id'=>array('=','d')))
-			->obterQuantidade();
+		$qnt=$MitiORM->ler(array('id'=>array('=','d')))->obterQuantidade();
 		
 		$this->assertSame(0,$qnt);
 	}

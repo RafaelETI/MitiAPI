@@ -112,7 +112,7 @@ class MitiValidacao{
 		}
 	}
 	
-	public function CPF($cpf){
+	public function Cpf($cpf){
 		if(!$cpf){
 			return;
 		}
@@ -161,7 +161,7 @@ class MitiValidacao{
 		}
 	}
 	
-	public function CNPJ($cnpj){
+	public function Cnpj($cnpj){
 		if(!$cnpj){
 			return;
 		}

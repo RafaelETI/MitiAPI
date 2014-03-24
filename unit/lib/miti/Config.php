@@ -3,6 +3,7 @@ class Config{
 	private static $instance=false;
 	
 	private function __construct(){
+		$this->erros();
 		$this->diretorios();
 		$this->banco();
 		$this->autoload();
@@ -13,6 +14,11 @@ class Config{
 			self::$instance=true;
 			new Config;
 		}
+	}
+	
+	private function erros(){
+		error_reporting(E_ALL);
+		ini_set('display_errors',1);
 	}
 	
 	private function diretorios(){

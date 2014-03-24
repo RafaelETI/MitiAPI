@@ -32,22 +32,24 @@ class MitiBD{
 		}
 	}
 	
-	public function escapar(&$valores){
+	public function escapar($valores){
 		if(is_array($valores)){
-			$this->escaparArray($valores);
+			return $this->escaparArray($valores);
 		}else{
-			$this->escaparString($valores);
+			return $this->escaparString($valores);
 		}
 	}
 	
-	private function escaparArray(&$valores){
+	private function escaparArray($valores){
 		foreach($valores as $i=>$v){
 			$valores[$i]=$this->conexao->real_escape_string($v);
 		}
+		
+		return $valores;
 	}
 	
-	private function escaparString(&$valores){
-		$valores=$this->conexao->real_escape_string($valores);
+	private function escaparString($valores){
+		return $this->conexao->real_escape_string($valores);
 	}
 	
 	public function requisitar($sql){

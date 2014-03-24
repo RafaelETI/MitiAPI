@@ -15,45 +15,26 @@ class MitiEmailTest extends PHPUnit_Framework_TestCase{
 		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'msc/mitiunit.txt';
 	}
 	
-	public function testSetUid(){
-		$this->MitiEmail->setUid('485df3a43ab6dc02a02d96b66f8eb244');
-	}
-	
-	public function testSetCc(){
-		$this->MitiEmail->setCc('cc@dominio.com');
-	}
-	
-	public function testSetBcc(){
-		$this->MitiEmail->setBcc('bcc@dominio.com');
-	}
-
-	public function testSetReplyTo(){
-		$this->MitiEmail->setReplyTo('replyto@dominio.com');
-	}
-	
-	public function testSetAnexos(){
-		$this->MitiEmail->setAnexos('arquivo');
-	}
-	
-	public function testEnviar(){
+	public function testErroNoEnvio(){
 		$this->setExpectedException('Exception','Houve um erro ao enviar o e-mail');
-		$this->MitiEmail->enviar('a@a.a','Teste','Teste 2','b@b.b');
+		$this->MitiEmail->enviar('a@a.a','Assunto','Mensagem','b@b.b');
 	}
 	
 	public function testObterCabecalho(){
-		$cabecalho='';
-		$cabecalho.=$this->obterCabecalhoBasico();
-		$cabecalho.=$this->obterCabecalhoMensagem();
-		$cabecalho.=$this->obterCabecalhoAnexos();
-		$cabecalho.='--485df3a43ab6dc02a02d96b66f8eb244--';
+		$teste='';
+		$teste.=$this->obterCabecalhoBasico();
+		$teste.=$this->obterCabecalhoMensagem();
+		$teste.=$this->obterCabecalhoAnexos();
+		$teste.='--485df3a43ab6dc02a02d96b66f8eb244--';
 		
-		$this->testSetUid();
-		$this->testSetCc();
-		$this->testSetBcc();
-		$this->testSetReplyTo();
-		$this->testSetAnexos();
+		$this->MitiEmail->setUid('485df3a43ab6dc02a02d96b66f8eb244');
+		$this->MitiEmail->setCc('cc@dominio.com');
+		$this->MitiEmail->setBcc('bcc@dominio.com');
+		$this->MitiEmail->setReplyTo('replyto@dominio.com');
+		$this->MitiEmail->setAnexos('arquivo');
 		
-		$this->assertSame($cabecalho,$this->MitiEmail->obterCabecalho('nome@dominio.com','It works!'));
+		$cabecalho=$this->MitiEmail->obterCabecalho('nome@dominio.com','It works!');
+		$this->assertSame($teste,$cabecalho);
 	}
 	
 	private function obterCabecalhoBasico(){

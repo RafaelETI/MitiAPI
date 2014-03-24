@@ -22,8 +22,9 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame(null,$this->MitiValidacao->tamanho('',5));
 	}
 	
-	public function testTamanhoException(){
-		$this->setExpectedException('Exception','O valor deve conter até 5 caractéres');
+	public function testExcessoTamanho(){
+		$mensagem='O valor deve conter até 5 caractéres';
+		$this->setExpectedException('Exception',$mensagem);
 		$this->MitiValidacao->tamanho('testes',5);
 	}
 	
@@ -32,30 +33,25 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame(null,$this->MitiValidacao->email(''));
 	}
 	
-	public function testEmailException(){
+	public function testEmailInvalido(){
 		$this->setExpectedException('Exception','O e-mail é inválido');
 		$this->MitiValidacao->email('conta(at)dominio.com');
 	}
 	
-	public function testVazio(){
-		$this->vazioArray();
-		$this->vazioScalar();
-	}
-	
-	private function vazioArray(){
+	public function testVazioArray(){
 		$this->MitiValidacao->vazio(array('a','b','c'));
 	}
 	
-	public function testVazioArrayException(){
+	public function testVazioArrayComVazio(){
 		$this->setExpectedException('Exception','Valor vazio');
 		$this->MitiValidacao->vazio(array('a','','c'));
 	}
 	
-	private function vazioScalar(){
+	public function testVazioScalar(){
 		$this->MitiValidacao->vazio('a');
 	}
 	
-	public function testVazioScalarException(){
+	public function testVazioScalarComVazio(){
 		$this->setExpectedException('Exception','Valor vazio');
 		$this->MitiValidacao->vazio('');
 	}
@@ -63,16 +59,19 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	public function testUpload(){
 		$this->MitiValidacao->upload('arquivo',2048,array('jpeg','png','gif'));
 		
-		$teste=$this->MitiValidacao->upload('nao_existe',2048,array('jpeg','png','gif'));
+		$teste=$this->MitiValidacao
+			->upload('nao_existe',2048,array('jpeg','png','gif'));
+		
 		$this->assertSame(null,$teste);
 	}
 	
-	public function testValidarPesoException(){
-		$this->setExpectedException('Exception','O arquivo excede o tamanho permitido');
+	public function testUploadExcessoPeso(){
+		$mensagem='O arquivo excede o tamanho permitido';
+		$this->setExpectedException('Exception',$mensagem);
 		$this->MitiValidacao->upload('arquivo',1024,array('jpeg','png','gif'));
 	}
 	
-	public function testValidarTiposException(){
+	public function testUploadTipoInvalido(){
 		$this->setExpectedException('Exception','O tipo do arquivo é inválido');
 		$this->MitiValidacao->upload('arquivo',2048,array('doc','pdf','xls'));
 	}
@@ -84,78 +83,82 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame(null,$teste);
 	}
 	
-	public function testValidarTamanhoLarguraException(){
-		$this->setExpectedException('Exception','A largura da imagem é menor do que o mínimo permitido');
+	public function testUploadImagemExcessoLargura(){
+		$mensagem='A largura da imagem é menor do que o mínimo permitido';
+		$this->setExpectedException('Exception',$mensagem);
 		$this->MitiValidacao->uploadImagem('arquivo',20,16);
 	}
 	
-	public function testValidarTamanhoAlturaException(){
-		$this->setExpectedException('Exception','A altura da imagem é menor do que o mínimo permitido');
+	public function testUploadImagemExcessoAltura(){
+		$mensagem='A altura da imagem é menor do que o mínimo permitido';
+		$this->setExpectedException('Exception',$mensagem);
 		$this->MitiValidacao->uploadImagem('arquivo',16,20);
 	}
 	
-	public function testValidarProporcoesVerticalException(){
-		$this->setExpectedException('Exception','A proporção da imagem é inválida, excedendo verticalmente');
+	public function testUploadImagemProporcaoExcessoVertical(){
+		$mensagem='A proporção da imagem é inválida, excedendo verticalmente';
+		$this->setExpectedException('Exception',$mensagem);
 		$this->MitiValidacao->uploadImagem('arquivo',16,8);
 	}
 	
-	public function testValidarProporcoesHorizontalException(){
-		$this->setExpectedException('Exception','A proporção da imagem é inválida, excedendo horizontalmente');
+	public function testUploadImagemProporcaoExcessoHorizontal(){
+		$mensagem='A proporção da imagem é inválida, excedendo horizontalmente';
+		$this->setExpectedException('Exception',$mensagem);
 		$this->MitiValidacao->uploadImagem('arquivo',8,16);
 	}
 	
-	public function testCPF(){
-		$this->MitiValidacao->CPF('27981094003');
+	public function testCpf(){
+		$this->MitiValidacao->Cpf('27981094003');
 		$this->assertSame(null,$this->MitiValidacao->CPF(''));
 	}
 	
-	public function testValidarQuantidadeCaracteresException(){
+	public function testCpfExcessoCaracteres(){
 		$this->setExpectedException('Exception','#1 - O CPF é inválido');
-		$this->MitiValidacao->CPF('279810940033');
+		$this->MitiValidacao->Cpf('279810940033');
 	}
 	
-	public function testValidarApenasNumerosException(){
+	public function testCpfPresencaLetra(){
 		$this->setExpectedException('Exception','#2 - O CPF é inválido');
-		$this->MitiValidacao->CPF('279810a4003');
+		$this->MitiValidacao->Cpf('279810a4003');
 	}
 	
-	public function testValidarSequenciaIgualException(){
+	public function testCpfSequenciaIgual(){
 		$this->setExpectedException('Exception','#3 - O CPF é inválido');
-		$this->MitiValidacao->CPF('88888888888');
+		$this->MitiValidacao->Cpf('88888888888');
 	}
 	
-	public function testValidarDigitosCPFException(){
+	public function testCpfDigitoInvalido(){
 		$this->setExpectedException('Exception','#4 - O CPF é inválido');
-		$this->MitiValidacao->CPF('27981094004');
+		$this->MitiValidacao->Cpf('27981094004');
 	}
 	
-	public function testCNPJ(){
-		$this->MitiValidacao->CNPJ('87210343000169');
+	public function testCnpj(){
+		$this->MitiValidacao->Cnpj('87210343000169');
 		$this->assertSame(null,$this->MitiValidacao->CNPJ(''));
 	}
 	
-	public function testValidarQuantidadeCaracteresCNPJException(){
+	public function testCnpjExcessoCaracteres(){
 		$this->setExpectedException('Exception','#1 - O CNPJ é inválido');
-		$this->MitiValidacao->CNPJ('872103430001699');
+		$this->MitiValidacao->Cnpj('872103430001699');
 	}
 	
-	public function testValidarApenasNumerosCNPJException(){
+	public function testCnpjPresencaLetra(){
 		$this->setExpectedException('Exception','#2 - O CNPJ é inválido');
-		$this->MitiValidacao->CNPJ('87210343a00169');
+		$this->MitiValidacao->Cnpj('87210343a00169');
 	}
 	
-	public function testValidarSequenciaZerosException(){
+	public function testCnpjSequenciaZeros(){
 		$this->setExpectedException('Exception','#3 - O CNPJ é inválido');
-		$this->MitiValidacao->CNPJ('00000000000000');
+		$this->MitiValidacao->Cnpj('00000000000000');
 	}
 	
-	public function testValidarDigitosCNPJException(){
+	public function testCnpjDigitoInvalido(){
 		$this->setExpectedException('Exception','#4 - O CNPJ é inválido');
-		$this->MitiValidacao->CNPJ('87210343000159');
+		$this->MitiValidacao->Cnpj('87210343000159');
 	}
 	
-	public function testValidarDigitosComZeroCNPJException(){
+	public function testCnpjDigitoInvalidoComZero(){
 		$this->setExpectedException('Exception','#4 - O CNPJ é inválido');
-		$this->MitiValidacao->CNPJ('80911582000106');
+		$this->MitiValidacao->Cnpj('80911582000106');
 	}
 }

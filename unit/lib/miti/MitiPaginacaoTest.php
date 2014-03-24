@@ -1,28 +1,16 @@
 <?php
 class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
-	protected $MitiPaginacao;
-	
 	protected function setUp(){
 		require_once 'Config.php';
 		Config::setInstance();
+	}
+	
+	public function testCriarComPoucosRegistros(){
+		$MitiPaginacao=new MitiPaginacao(1,1,1);
+		$this->assertSame(1,$MitiPaginacao->getNumReg());
+		$this->assertSame(0,$MitiPaginacao->getInicio());
 		
-		$this->MitiPaginacao=new MitiPaginacao(1,1,1);
-	}
-	
-	public function testSetTotal(){
-		$this->MitiPaginacao->setTotal(1);
-	}
-	
-	public function testGetNumReg(){
-		$this->assertSame(1,$this->MitiPaginacao->getNumReg());
-	}
-	
-	public function testGetInicio(){
-		$this->assertSame(0,$this->MitiPaginacao->getInicio());
-	}
-	
-	public function testCriar(){
-		$this->testSetTotal();
+		$MitiPaginacao->setTotal(1);
 		
 		$afirmacao='<span class="off">Primeira</span>';
 		$afirmacao.='<span class="off">Anterior</span>';
@@ -30,13 +18,14 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 		$afirmacao.='<span class="off">Próxima</span>';
 		$afirmacao.='<span class="off">Última</span>';
 		
-		$this->assertSame($afirmacao,$this->MitiPaginacao->criar('?pg=','off','on'));
-		
-		$this->criarComMuitosRegistros();
+		$this->assertSame($afirmacao,$MitiPaginacao->criar('?pg=','off','on'));
 	}
 	
-	private function criarComMuitosRegistros(){
+	public function testCriarComMuitosRegistros(){
 		$MitiPaginacao=new MitiPaginacao(10,2,5);
+		$this->assertSame(10,$MitiPaginacao->getNumReg());
+		$this->assertSame(10,$MitiPaginacao->getInicio());
+		
 		$MitiPaginacao->setTotal(100);
 		
 		$afirmacao='<a href="?pg=1">Primeira</a>';

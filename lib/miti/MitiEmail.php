@@ -73,7 +73,7 @@ class MitiEmail{
 	
 	private function obterCabecalhoAnexos(){
 		$cabecalho='';
-	
+		
 		if($this->anexos&&$_FILES[$this->anexos]['tmp_name'][0]){
 			//sempre colocar o valor do name do "file" com "[]" no formulario
 			foreach($_FILES[$this->anexos]['tmp_name'] as $i=>$v){

@@ -192,7 +192,7 @@ class MitiORM{
 	
 		foreach($filtros as $i=>$v){
 			if($v[0]==='like'||$tipos[$i]==='string'){
-				$this->MitiBD->escapar($filtros[$i][1]);
+				$filtros[$i][1]=$this->MitiBD->escapar($v[1]);
 			}
 			
 			if($v[0]==='like'){
@@ -292,7 +292,7 @@ class MitiORM{
 				$duplas[$i]='null';
 			}else{
 				if($this->tipos[$i]==='string'){
-					$this->MitiBD->escapar($duplas[$i]);
+					$duplas[$i]=$this->MitiBD->escapar($v);
 					$duplas[$i]='"'.$duplas[$i].'"';
 				}else{
 					settype($duplas[$i],$this->tipos[$i]);
@@ -310,7 +310,7 @@ class MitiORM{
 	
 	private function tratarPk(&$pk){
 		if($this->MitiTabela->getPkTipo()==='string'){
-			$this->MitiBD->escapar($pk);
+			$pk=$this->MitiBD->escapar($pk);
 			$pk='"'.$pk.'"';
 		}else{
 			settype($pk,$this->MitiTabela->getPkTipo());

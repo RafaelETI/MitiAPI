@@ -10,35 +10,32 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		$this->MitiBD->requisitar('select nome from categorias where id=1');
 	}
 	
-	public function testVerificarErroConexaoException(){
-		$this->setExpectedException('Exception','Não foi possível conectar ao banco de dados');
+	public function testVerificarErroConexao(){
+		$mensagem="Unknown database 'nao_existe'";
+		$this->setExpectedException('Exception',$mensagem);
+		
 		$this->MitiBD=@new MitiBD('localhost','root','root','nao_existe');
 	}
 	
-	public function testVerificarErroCharsetException(){
+	public function testVerificarErroCharset(){
 		$this->setExpectedException('Exception','Houve um erro ao definir o charset');
 		$this->MitiBD=new MitiBD('localhost','root','root','miti_unit','nao_existe');
 	}
 	
-	public function testEscapar(){
-		$this->escaparArray();
-		$this->escaparString();
-	}
-	
-	private function escaparArray(){
-		$teste=array("'",'"','\\');
-		$this->MitiBD->escapar($teste);
+	public function testEscaparArray(){
+		$teste=$this->MitiBD->escapar(array("'",'"','\\'));
 		$this->assertSame(array("\\'",'\\"','\\\\'),$teste);
 	}
 	
-	private function escaparString(){
-		$teste='\'"\\';
-		$this->MitiBD->escapar($teste);
+	public function testEscaparString(){
+		$teste=$this->MitiBD->escapar('\'"\\');
 		$this->assertSame('\\\'\\"\\\\',$teste);
 	}
 	
-	public function testRequisitarException(){
-		$this->setExpectedException('Exception','Houve um erro ao realizar a requisição');
+	public function testRequisitarPkDuplicada(){
+		$mensagem="Duplicate entry '1' for key 'PRIMARY'";
+		$this->setExpectedException('Exception',$mensagem);
+		
 		$this->MitiBD->requisitar('insert into categorias values(1,"Música",null)');
 	}
 	
