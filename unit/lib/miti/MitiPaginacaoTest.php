@@ -1,5 +1,16 @@
 <?php
 class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
+	public function testCriarComNenhumRegistro(){
+		$MitiPaginacao=new MitiPaginacao(1,1,1);
+		$this->assertSame(1,$MitiPaginacao->getNumReg());
+		$this->assertSame(0,$MitiPaginacao->getInicio());
+		
+		$MitiPaginacao->setTotal(0);
+		
+		$afirmacao='Não há registros para esta busca';
+		$this->assertSame($afirmacao,$MitiPaginacao->criar('?pg=','off','on'));
+	}
+	
 	public function testCriarComPoucosRegistros(){
 		$MitiPaginacao=new MitiPaginacao(1,1,1);
 		$this->assertSame(1,$MitiPaginacao->getNumReg());

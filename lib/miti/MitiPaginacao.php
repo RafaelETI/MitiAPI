@@ -33,6 +33,10 @@ class MitiPaginacao{
 	}
 	
 	public function criar($url,$off='',$on=''){
+		if(!$this->total){
+			return 'Não há registros para esta busca';
+		}
+		
 		$this->calcular();
 		
 		if($this->pg!==1){
