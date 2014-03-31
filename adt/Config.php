@@ -16,7 +16,7 @@ class Config{
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 4.11.87');
+		define('SISTEMA','Miti Modelo 4.11.88');
 	}
 	
 	private function diretorios($dir){
@@ -38,13 +38,14 @@ class Config{
 		
 		if($restrito&&!isset($_SESSION[$sessao])){
 			$_SESSION['status']='Você não está autenticado';
-			header('location:'.RAIZ.'login.php'); exit;
+			header('location:'.RAIZ.'login.php');
+			exit;
 		}
 	}
 	
 	private function autoload(){
 		function miti_autoload($classe){
-			$pacotes=array('mod','lib/miti','unit');
+			$pacotes=array('adt','lib/miti');
 			
 			foreach($pacotes as $v){
 				if(file_exists(DIR.$v.'/'.$classe.'.php')){
@@ -53,10 +54,11 @@ class Config{
 				}
 			}
 		}
+		
 		spl_autoload_register('miti_autoload');
 	}
 	
 	private function procedimentos(){
-		require_once DIR.'proc.php';
+		require_once DIR.'main/proc.php';
 	}
 }

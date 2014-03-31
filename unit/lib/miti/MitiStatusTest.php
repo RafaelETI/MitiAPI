@@ -6,19 +6,21 @@ class MitiStatusTest extends PHPUnit_Framework_TestCase{
 		$this->MitiStatus=new MitiStatus;
 	}
 	
-	public function testObterMensagem(){
-		$_SESSION['status']=true;
-		$teste='O procedimento foi realizado com sucesso';
-		$this->assertSame($teste,$this->MitiStatus->obterMensagem());
-		unset($_SESSION['status']);
+	public function testObterAlertaComSucesso(){
+		$teste='<script>';
+		$teste.='alert("Concluído com sucesso");';
+		$teste.='location.href="teste.php";';
+		$teste.='</script>';
+		
+		$this->assertSame($teste,$this->MitiStatus->obterAlerta(true,'teste.php'));
 	}
 	
-	public function testObterMensagemSemSessao(){
-		$this->assertSame(null,$this->MitiStatus->obterMensagem());
-	}
-	
-	public function testObterAlerta(){
-		$teste='<script>alert("teste"); location.href="teste.php";</script>';
-		$this->assertSame($teste,$this->MitiStatus->obterAlerta('teste','teste.php'));
+	public function testObterAlertaComErro(){
+		$teste='<script>';
+		$teste.='alert("Teste");';
+		$teste.='location.href="teste.php";';
+		$teste.='</script>';
+		
+		$this->assertSame($teste,$this->MitiStatus->obterAlerta('Teste','teste.php'));
 	}
 }

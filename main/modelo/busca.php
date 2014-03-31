@@ -1,20 +1,24 @@
-<?php require_once 'mod/Config.php'; new Config(false); ?>
+<?php
+$dir='../../';
+require_once $dir.'adt/Config.php';
+new Config(false,$dir);
+?>
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once 'cabeca.php'; ?>
-<script src="js/modelo_bus.js"></script>
+<?php require_once DIR.'main/cabeca.php' ?>
+<script src="<?php echo DIR ?>js/modelo/busca.js"></script>
 </head>
 <!--==========neck==========-->
 <body>
 <div id="geral">
-<?php require_once 'menu.php'; ?>
+<?php require_once DIR.'main/menu.php' ?>
 
 <div class="section">
 	<div class="header">Modelo &gt; Busca</div>
 	
 	<div class="section conteudo">
-		<form method="get" action="modelo_vis.php" class="busca">
+		<form method="get" action="visualizacao.php" class="busca">
 			<input type="hidden" name="mais" value="1" />
 			
 			<table>

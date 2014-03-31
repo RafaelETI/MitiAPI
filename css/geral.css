@@ -5,7 +5,7 @@
 	padding:0px;
 }
 
-/*==========fonts==========*/
+/*==========font==========*/
 
 @font-face{
 	font-family:'Abel';
@@ -43,9 +43,9 @@ div.header,caption,thead th,tfoot td,th[scope="row"],td.ultimo_filho{
 	background:#a9c6c3;
 }
 
-/*==========tags==========*/
+/*==========tag==========*/
 
-/*divs*/
+/*div*/
 .header div:first-child,#nav .conteudo div:first-child,tfoot div:first-child{
 	float:left;
 }
@@ -64,7 +64,7 @@ div[id$="_oculto"]{
 	clear:left;
 }
 
-/*tabelas*/
+/*tabela*/
 table{
 	width:100%;
 	border-collapse:collapse;
@@ -134,7 +134,7 @@ tfoot div input[type="submit"]{
 	font-size:10px;
 }
 
-/*tabelas de formularios*/
+/*tabela de formulario*/
 form table,table input[type="text"],table input[type="password"],table textarea,table select{
 	width:100%;
 	max-width:600px;
@@ -159,7 +159,7 @@ form tfoot{
 	height:35px;
 }
 
-/*formularios*/
+/*formulario*/
 input[type="text"],input[type="password"],textarea,select{
 	color:#555;
 	font-family:Abel;
@@ -234,7 +234,7 @@ div#nav div.header{
 	padding-right:10px;
 }
 
-div#nav a{
+div#nav div.paginas a{
 	font-weight:bold;
 	text-shadow:black 0px 1px 0px;
 	background:#007e7a;
@@ -246,14 +246,9 @@ div#nav a{
 	font-family:Aubrey;
 }
 
-/*==========classes e ids==========*/
+/*==========classe e id==========*/
 
-/*status*/
-#status{
-	color:purple;
-}
-
-/*formularios*/
+/*formulario*/
 form.pequeno{
 	max-width:400px;
 }
@@ -268,6 +263,36 @@ form.busca select:first-child{
 
 form.busca input:not([type="submit"]),form.busca select{
 	width:83%;
+}
+
+/*imagem*/
+img.edicao{
+	width:15px;
+	height:15px;
+	margin:0px 5px;
+	position:relative;
+	top:2px;
+}
+
+input[type="image"].exclusao{
+	width:15px;
+	height:15px;
+	margin:0px 5px;
+	position:relative;
+	top:2px;
+}
+
+img.mais{
+	width:20px;
+	height:15px;
+	margin:0px 10px;
+	position:relative;
+	top:2px;
+}
+
+img.logout{
+	width:25px;
+	height:25px;
 }
 
 /*outros*/

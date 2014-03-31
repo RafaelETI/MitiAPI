@@ -1,26 +1,19 @@
 <?php
 class MitiStatus{
-	public function obterMensagem(){
-		if(!isset($_SESSION['status'])){
-			return;
-		}
-		
-		$mensagem=$_SESSION['status'];
-		unset($_SESSION['status']);
-		
-		$this->sucesso($mensagem);
-		
-		return $mensagem;
-	}
-	
 	public function obterAlerta($mensagem,$url){
-		$this->sucesso($mensagem);
-		return '<script>alert("'.$mensagem.'"); location.href="'.$url.'";</script>';
+		$this->verificarSucesso($mensagem);
+		
+		$js='<script>';
+		$js.='alert("'.$mensagem.'");';
+		$js.='location.href="'.$url.'";';
+		$js.='</script>';
+		
+		return $js;
 	}
 	
-	private function sucesso(&$mensagem){
+	private function verificarSucesso(&$mensagem){
 		if($mensagem===true){
-			$mensagem='O procedimento foi realizado com sucesso';
+			$mensagem='Concluído com sucesso';
 		}
 	}
 }

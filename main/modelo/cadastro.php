@@ -1,14 +1,18 @@
-<?php require_once 'mod/Config.php'; new Config(false); ?>
+<?php
+$dir='../../';
+require_once $dir.'adt/Config.php';
+new Config(false,$dir);
+?>
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once 'cabeca.php'; ?>
-<script src="js/modelo_ce.js"></script>
+<?php require_once DIR.'main/cabeca.php' ?>
+<script src="<?php echo DIR ?>js/modelo/cad_edi.js"></script>
 </head>
 <!--==========neck==========-->
 <body>
 <div id="geral">
-<?php require_once 'menu.php'; ?>
+<?php require_once DIR.'main/menu.php' ?>
 
 <div class="section">
 	<div class="header">Modelo &gt; Cadastro</div>
@@ -59,10 +63,20 @@
 						
 						<td>
 							<label for="valor3_c">C</label>
-							<input type="checkbox" name="valor3" id="valor3_c" value="1" />
+							<input
+								type="checkbox"
+								name="valor3"
+								id="valor3_c"
+								value="1"
+							/>
 							
 							<label for="valor3_d">D</label>
-							<input type="checkbox" name="valor3" id="valor3_d" value="2" />
+							<input
+								type="checkbox"
+								name="valor3"
+								id="valor3_d"
+								value="2"
+							/>
 						</td>
 						
 						<td class="ultimo_filho" id="valor3_miticontar"></td>
