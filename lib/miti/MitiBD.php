@@ -1,21 +1,25 @@
 <?php
 class MitiBD{
+	private static $MitiBD;
 	private $conexao;
 	private $requisicao;
 	private $tempo;
 	private $afetados;
 	private $id;
 	
-	public function __construct(
-		$servidor=BD_SERVIDOR,
-		$usuario=BD_USUARIO,
-		$senha=BD_SENHA,
-		$banco=BD_BANCO,
-		$charset=BD_CHARSET
-	){
-		$this->conexao=new mysqli($servidor,$usuario,$senha,$banco);
+	private function __construct(){
+		$this->conexao=new mysqli(BD_SERVIDOR,BD_USUARIO,BD_SENHA,BD_BANCO);
 		$this->verificarErroConexao();
-		$this->verificarErroCharset($charset);
+		$this->verificarErroCharset(BD_CHARSET);
+	}
+	
+	public static function getInstance(){
+		if(self::$MitiBD){
+			return self::$MitiBD;
+		}else{
+			self::$MitiBD=new MitiBD;
+			return self::$MitiBD;
+		}
 	}
 	
 	private function verificarErroConexao(){
@@ -61,6 +65,8 @@ class MitiBD{
 		$this->setTempo($micro);
 		$this->setAfetados();
 		$this->setId();
+		
+		return $this;
 	}
 	
 	private function verificarErroRequisicao(){

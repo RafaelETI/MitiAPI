@@ -17,7 +17,7 @@ class MitiORM{
 	private $limit='';
 	
 	public function __construct($tabela){
-		$this->MitiBD=new MitiBD;
+		$this->MitiBD=MitiBD::getInstance();
 	
 		$this->MitiTabela=new MitiTabela($tabela);
 		$this->tipos=$this->MitiTabela->getTipos();
@@ -29,8 +29,7 @@ class MitiORM{
 		$sql='';
 		$this->montarCampos($sql,$duplas);
 		$this->montarValores($sql,$duplas);
-		$this->MitiBD->requisitar($sql);
-		return $this->MitiBD;
+		return $this->MitiBD->requisitar($sql);
 	}
 	
 	private function montarCampos(&$sql,array &$duplas){
@@ -158,8 +157,7 @@ class MitiORM{
 		$this->montarWhere($where);
 		$sql=$this->montarLeitura($where);
 		
-		$this->MitiBD->requisitar($sql);
-		return $this->MitiBD;
+		return $this->MitiBD->requisitar($sql);
 	}
 	
 	private function montarFiltros(array &$where,array $filtros){
@@ -230,8 +228,7 @@ class MitiORM{
 		$sql='';
 		$this->montarAtribuicoes($sql,$duplas);
 		$this->montarWhereAlteracao($sql,$pk);
-		$this->MitiBD->requisitar($sql);
-		return $this->MitiBD;
+		return $this->MitiBD->requisitar($sql);
 	}
 	
 	private function montarAtribuicoes(&$sql,array $duplas){
@@ -272,8 +269,7 @@ class MitiORM{
 			$sql=$this->montarExclusaoScalar($filtro);
 		}
 		
-		$this->MitiBD->requisitar($sql);
-		return $this->MitiBD;
+		return $this->MitiBD->requisitar($sql);
 	}
 	
 	private function montarExclusaoArray($dupla){

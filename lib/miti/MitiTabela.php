@@ -17,9 +17,9 @@ class MitiTabela{
 	}
 	
 	private function obterCampos(){
-		$MitiBD=new MitiBD;
-		$MitiBD->requisitar('select * from '.$this->nome);
-		$this->campos=$MitiBD->obterCampos();
+		$this->campos=MitiBD::getInstance()
+			->requisitar('select * from '.$this->nome)
+			->obterCampos();
 	}
 	
 	private function setPk(){
