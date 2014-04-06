@@ -2,7 +2,12 @@
 
 =====Produção=====
 
-Test Files: code coverage; debug;
+Test Files(
+	MitiBD: cobertura;
+	NetBeans: custom test suite;
+	Debug;
+)
+
 MitiEmail::enviar(): conseguir "sendmail";
 MitiORM::ler(): adicionar suporte as funcoes do banco;
 Miti API: criar diagrama de classes (esperar aula);

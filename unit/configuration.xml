@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<phpunit bootstrap="/var/www/miti_modelo/unit/bootstrap.php">
+	<testsuites>
+		<testsuite name="Miti API">
+			<directory>unit/lib/miti</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

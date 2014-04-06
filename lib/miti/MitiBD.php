@@ -7,10 +7,16 @@ class MitiBD{
 	private $afetados;
 	private $id;
 	
-	private function __construct(){
-		$this->conexao=new mysqli(BD_SERVIDOR,BD_USUARIO,BD_SENHA,BD_BANCO);
+	public function __construct(
+		$servidor=BD_SERVIDOR,
+		$usuario=BD_USUARIO,
+		$senha=BD_SENHA,
+		$banco=BD_BANCO,
+		$charset=BD_CHARSET
+	){
+		$this->conexao=new mysqli($servidor,$usuario,$senha,$banco);
 		$this->verificarErroConexao();
-		$this->verificarErroCharset(BD_CHARSET);
+		$this->verificarErroCharset($charset);
 	}
 	
 	public static function getInstance(){

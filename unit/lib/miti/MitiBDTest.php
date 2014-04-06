@@ -7,6 +7,20 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		$this->MitiBD->requisitar('select nome from categorias where id=1');
 	}
 	
+	public function testErroConexao(){
+		$mensagem="Unknown database 'nao_existe'";
+		$this->setExpectedException('Exception',$mensagem);
+		
+		new MitiBD('localhost','root','root','nao_existe');
+	}
+	
+	public function testErroCharset(){
+		$mensagem='Houve um erro ao definir o charset';
+		$this->setExpectedException('Exception',$mensagem);
+		
+		new MitiBD('localhost','root','root','miti_unit','nao_existe');
+	}
+	
 	public function testEscaparArray(){
 		$teste=$this->MitiBD->escapar(array("'",'"','\\'));
 		$this->assertSame(array("\\'",'\\"','\\\\'),$teste);
