@@ -61,22 +61,27 @@ class MitiORM{
 	
 	public function setJoins(array $joins){
 		$this->joins=$joins;
+		return $this;
 	}
 	
 	public function setAliases(array $aliases){
 		$this->aliases=$aliases;
+		return $this;
 	}
 	
 	public function setOnTabelas(array $Ontabelas){
 		$this->Ontabelas=$Ontabelas;
+		return $this;
 	}
 	
 	public function setTabelaChaves(array $tabela_chaves){
 		$this->tabela_chaves=$tabela_chaves;
+		return $this;
 	}
 	
 	public function setTabelasChaves(array $tabelas_chaves){
 		$this->tabelas_chaves=$tabelas_chaves;
+		return $this;
 	}
 	
 	public function juntar(array $tabelas){
@@ -93,6 +98,7 @@ class MitiORM{
 		}
 		
 		$this->join=$join;
+		return $this;
 	}
 	
 	public function definirCampos(array $tabela_campos,array $tabelas_campos=array()){
@@ -105,6 +111,7 @@ class MitiORM{
 		}
 		
 		$this->campos=$campos;
+		return $this;
 	}
 	
 	private function montarTabelaCampos(array &$tabela_campos){
@@ -138,6 +145,7 @@ class MitiORM{
 		$order_by=' order by '.$order_by;
 		
 		$this->order_by=$order_by;
+		return $this;
 	}
 	
 	public function limitar($casas,$inicio=''){
@@ -148,6 +156,7 @@ class MitiORM{
 		$limit=' limit '.$inicio.$casas;
 		
 		$this->limit=$limit;
+		return $this;
 	}
 	
 	public function ler(array $filtros=array(),array $tabelas_filtros=array()){

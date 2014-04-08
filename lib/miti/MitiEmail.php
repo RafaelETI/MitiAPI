@@ -12,22 +12,27 @@ class MitiEmail{
 	
 	public function setUid($uid){
 		$this->uid=$uid;
+		return $this;
 	}
 	
 	public function setCc($cc){
 		$this->cc=$cc;
+		return $this;
 	}
 	
 	public function setBcc($bcc){
 		$this->bcc=$bcc;
+		return $this;
 	}
 	
 	public function setReplyTo($replyto){
 		$this->replyto=$replyto;
+		return $this;
 	}
 	
 	public function setAnexos($anexos){
 		$this->anexos=$anexos;
+		return $this;
 	}
 	
 	public function enviar($dest,$assunto,$msg,$remet,$charset='iso-8859-1'){

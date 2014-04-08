@@ -18,19 +18,19 @@ class MitiEmailTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testObterCabecalho(){
-		$teste='';
-		$teste.=$this->obterCabecalhoBasico();
-		$teste.=$this->obterCabecalhoMensagem();
-		$teste.=$this->obterCabecalhoAnexos();
-		$teste.='--485df3a43ab6dc02a02d96b66f8eb244--';
+		$teste=$this->obterCabecalhoBasico()
+			.$this->obterCabecalhoMensagem()
+			.$this->obterCabecalhoAnexos()
+			.'--485df3a43ab6dc02a02d96b66f8eb244--';
 		
-		$this->MitiEmail->setUid('485df3a43ab6dc02a02d96b66f8eb244');
-		$this->MitiEmail->setCc('cc@dominio.com');
-		$this->MitiEmail->setBcc('bcc@dominio.com');
-		$this->MitiEmail->setReplyTo('replyto@dominio.com');
-		$this->MitiEmail->setAnexos('arquivo');
+		$cabecalho=$this->MitiEmail
+			->setUid('485df3a43ab6dc02a02d96b66f8eb244')
+			->setCc('cc@dominio.com')
+			->setBcc('bcc@dominio.com')
+			->setReplyTo('replyto@dominio.com')
+			->setAnexos('arquivo')
+			->obterCabecalho('nome@dominio.com','It works!');
 		
-		$cabecalho=$this->MitiEmail->obterCabecalho('nome@dominio.com','It works!');
 		$this->assertSame($teste,$cabecalho);
 	}
 	

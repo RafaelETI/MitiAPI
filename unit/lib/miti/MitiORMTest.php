@@ -9,9 +9,12 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	public function testCriar(){
 		$this->MitiORM->criar(array('id'=>2,'nome'=>'\'Tes\te"','status'=>'aaa'));
 		
-		$this->MitiORM->definirCampos(array('nome','status'));
-		$teste=$this->MitiORM->ler(array('id'=>array('=',2)))->obterAssoc();
-		$this->assertSame(array('nome'=>'\'Tes\te"','status'=>'0'),$teste);
+		$categorias=$this->MitiORM
+			->definirCampos(array('nome','status'))
+			->ler(array('id'=>array('=',2)))
+			->obterAssoc();
+		
+		$this->assertSame(array('nome'=>'\'Tes\te"','status'=>'0'),$categorias);
 	}
 	
 	public function testCriarValorVazio(){
@@ -25,66 +28,80 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testJuntar(){
-		$this->MitiORM->setJoins(array('join'));
-		$this->MitiORM->setAliases(array('m'));
-		$this->MitiORM->setOnTabelas(array('categorias'));
-		$this->MitiORM->setTabelaChaves(array('id'));
-		$this->MitiORM->setTabelasChaves(array('categoria'));
-		$this->MitiORM->juntar(array('memoria'));
+		$categorias=$this->MitiORM
+			->setJoins(array('join'))
+			->setAliases(array('m'))
+			->setOnTabelas(array('categorias'))
+			->setTabelaChaves(array('id'))
+			->setTabelasChaves(array('categoria'))
+			->juntar(array('memoria'))
+			->definirCampos(array('id'),array(array('descricao')))
+			->ler(
+				array('id'=>array('=','1')),
+				array(array('descricao'=>array('like','hur')))
+			)->obterAssoc();
 		
-		$this->MitiORM->definirCampos(array('id'),array(array('descricao')));
-		
-		$filtros=array('id'=>array('=','1'));
-		$tabelas_filtros=array(array('descricao'=>array('like','hur')));
-		$teste=$this->MitiORM->ler($filtros,$tabelas_filtros)->obterAssoc();
-		
-		$this->assertSame('Ben Hur (1959)',$teste['m_descricao']);
+		$this->assertSame('Ben Hur (1959)',$categorias['m_descricao']);
 	}
 	
 	public function testOrdenar(){
-		$this->MitiORM->definirCampos(array('nome'));
-		$this->MitiORM->ordenar(array('id'=>'desc'));
-		$teste=$this->MitiORM->ler()->obterAssoc();
-		$this->assertSame('\'Tes\te"',$teste['nome']);
+		$categorias=$this->MitiORM
+			->definirCampos(array('nome'))
+			->ordenar(array('id'=>'desc'))
+			->ler()
+			->obterAssoc();
+		
+		$this->assertSame('\'Tes\te"',$categorias['nome']);
 	}
 	
 	public function testLimitar(){
 		$MitiORM=new MitiORM('memoria');
-		$MitiORM->definirCampos(array('id'));
-		$MitiORM->limitar(2,1);
-		$this->assertSame(2,$MitiORM->ler()->obterQuantidade());
+		
+		$quantidade=$MitiORM
+			->definirCampos(array('id'))
+			->limitar(2,1)
+			->ler()
+			->obterQuantidade();
+		
+		$this->assertSame(2,$quantidade);
 	}
 	
 	public function testTratarLeituraEscapar(){
-		$this->MitiORM->definirCampos(array('id'));
-		$filtros=array('nome'=>array('=','\'Tes\te"'));
-		$qnt=$this->MitiORM->ler($filtros)->obterQuantidade();
+		$quantidade=$this->MitiORM
+			->definirCampos(array('id'))
+			->ler(array('nome'=>array('=','\'Tes\te"')))
+			->obterQuantidade();
 		
-		$this->assertSame(1,$qnt);
+		$this->assertSame(1,$quantidade);
 	}
 	
 	public function testTratarLeituraWildcard(){
-		$this->MitiORM->definirCampos(array('id'));
-		$filtros=array('nome'=>array('like','es'));
-		$qnt=$this->MitiORM->ler($filtros)->obterQuantidade();
+		$quantidade=$this->MitiORM
+			->definirCampos(array('id'))
+			->ler(array('nome'=>array('like','es')))
+			->obterQuantidade();
 		
-		$this->assertSame(1,$qnt);
+		$this->assertSame(1,$quantidade);
 	}
 	
 	public function testTratarLeituraSetType(){
-		$this->MitiORM->definirCampos(array('id'));
-		$filtros=array('status'=>array('=','tes'));
-		$qnt=$this->MitiORM->ler($filtros)->obterQuantidade();
+		$quantidade=$this->MitiORM
+			->definirCampos(array('id'))
+			->ler(array('status'=>array('=','tes')))
+			->obterQuantidade();
 		
-		$this->assertSame(1,$qnt);
+		$this->assertSame(1,$quantidade);
 	}
 	
 	public function testAtualizar(){
 		$this->MitiORM->atualizar(array('nome'=>'Teste2','status'=>''),2);
 		
-		$this->MitiORM->definirCampos(array('nome','status'));
-		$teste=$this->MitiORM->ler(array('id'=>array('=',2)))->obterAssoc();
-		$this->assertSame(array('nome'=>'Teste2','status'=>null),$teste);
+		$categorias=$this->MitiORM
+			->definirCampos(array('nome','status'))
+			->ler(array('id'=>array('=',2)))
+			->obterAssoc();
+		
+		$this->assertSame(array('nome'=>'Teste2','status'=>null),$categorias);
 	}
 	
 	public function testDeletar(){
@@ -97,20 +114,24 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 		
 		$this->MitiORM->deletar(array('status'=>0));
 		
-		$this->MitiORM->definirCampos(array('id'));
-		$qnt=$this->MitiORM->ler(array('status'=>array('=',0)))->obterQuantidade();
+		$quantidade=$this->MitiORM
+			->definirCampos(array('id'))
+			->ler(array('status'=>array('=',0)))
+			->obterQuantidade();
 		
-		$this->assertSame(0,$qnt);
+		$this->assertSame(0,$quantidade);
 	}
 	
 	public function testDeletarScalar(){
 		$MitiORM=$this->criarRegistroMemoria();
 		$MitiORM->deletar('d');
 		
-		$MitiORM->definirCampos(array('id'));
-		$qnt=$MitiORM->ler(array('id'=>array('=','d')))->obterQuantidade();
+		$quantidade=$MitiORM
+			->definirCampos(array('id'))
+			->ler(array('id'=>array('=','d')))
+			->obterQuantidade();
 		
-		$this->assertSame(0,$qnt);
+		$this->assertSame(0,$quantidade);
 	}
 	
 	private function criarRegistroMemoria(){
