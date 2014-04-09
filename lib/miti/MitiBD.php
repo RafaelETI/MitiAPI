@@ -112,6 +112,10 @@ class MitiBD{
 		return $this->requisicao->fetch_assoc();
 	}
 	
+	public function obterObjeto(){
+		return $this->requisicao->fetch_object();
+	}
+	
 	public function obterQuantidade(){
 		return $this->requisicao->num_rows;
 	}

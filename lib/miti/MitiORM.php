@@ -13,6 +13,7 @@ class MitiORM{
 	private $tabelas_chaves;
 	private $campos;
 	private $join='';
+	private $group_by='';
 	private $order_by='';
 	private $limit='';
 	
@@ -127,6 +128,10 @@ class MitiORM{
 		$campos=array();
 		
 		foreach($this->aliases as $i=>$v){
+			if(!isset($tabelas_campos[$i])){
+				continue;
+			}
+			
 			foreach($tabelas_campos[$i] as $x){
 				$campos[]=$v.'.'.$x.' as '.$v.'_'.$x;
 			}
@@ -135,17 +140,66 @@ class MitiORM{
 		$tabelas_campos=implode(',',$campos);
 	}
 	
-	public function ordenar(array $duplas){
-		$order_by=array();
-		foreach($duplas as $i=>$v){
-			$order_by[]=$this->MitiTabela->getNome().'.'.$i.' '.$v;
+	public function agrupar(array $grupos,array $tabelas_grupos=array()){
+		$group_by=array();
+		
+		$this->montarTabelaGrupos($group_by,$grupos);
+		$this->montarTabelasGrupos($group_by,$tabelas_grupos);
+		
+		$group_by=implode(',',$group_by);
+		$group_by=' group by '.$group_by;
+		
+		$this->group_by=$group_by;
+		return $this;
+	}
+	
+	private function montarTabelaGrupos(array &$group_by,array $grupos){
+		foreach($grupos as $v){
+			$group_by[]=$this->MitiTabela->getNome().'.'.$v;
 		}
+	}
+	
+	private function montarTabelasGrupos(array &$group_by,array $tabelas_grupos){
+		foreach($this->MitiTabelas as $i=>$o){
+			if(!isset($tabelas_grupos[$i])){
+				continue;
+			}
+			
+			foreach($tabelas_grupos[$i] as $v){
+				$group_by[]=$o->getNome().'.'.$v;
+			}
+		}
+	}
+	
+	public function ordenar(array $ordens,array $tabelas_ordens=array()){
+		$order_by=array();
+		
+		$this->montarTabelaOrdens($order_by,$ordens);
+		$this->montarTabelasOrdens($order_by,$tabelas_ordens);
 		
 		$order_by=implode(',',$order_by);
 		$order_by=' order by '.$order_by;
 		
 		$this->order_by=$order_by;
 		return $this;
+	}
+	
+	private function montarTabelaOrdens(array &$order_by,array $ordens){
+		foreach($ordens as $i=>$v){
+			$order_by[]=$this->MitiTabela->getNome().'.'.$i.' '.$v;
+		}
+	}
+	
+	private function montarTabelasOrdens(array &$order_by,array $tabelas_ordens){
+		foreach($this->MitiTabelas as $i=>$o){
+			if(!isset($tabelas_ordens[$i])){
+				continue;
+			}
+			
+			foreach($tabelas_ordens[$i] as $j=>$v){
+				$order_by[]=$o->getNome().'.'.$j.' '.$v;
+			}
+		}
 	}
 	
 	public function limitar($casas,$inicio=''){
@@ -170,7 +224,7 @@ class MitiORM{
 	}
 	
 	private function montarFiltros(array &$where,array $filtros){
-		if(!empty($filtros)){
+		if($filtros){
 			$this->tratarLeitura($filtros);
 			
 			foreach($filtros as $i=>$v){
@@ -180,8 +234,12 @@ class MitiORM{
 	}
 	
 	private function montarTabelasFiltros(array &$where,array $tabelas_filtros){
-		if(!empty($tabelas_filtros)){
+		if($tabelas_filtros){
 			foreach($this->MitiTabelas as $i=>$o){
+				if(!isset($tabelas_filtros[$i])){
+					continue;
+				}
+				
 				$tipos=$o->getTipos();
 				$this->tratarLeitura($tabelas_filtros[$i],$tipos);
 				
@@ -193,7 +251,7 @@ class MitiORM{
 	}
 	
 	private function tratarLeitura(array &$filtros,array $tipos=array()){
-		if(empty($tipos)){
+		if(!$tipos){
 			$tipos=$this->tipos;
 		}
 	
@@ -213,7 +271,7 @@ class MitiORM{
 	}
 	
 	private function montarWhere(array &$where){
-		if(!empty($where)){
+		if($where){
 			$where=implode(' and ',$where);
 			$where=' where '.$where;
 		}else{
@@ -228,6 +286,7 @@ class MitiORM{
 			' from '.$this->MitiTabela->getNome().
 			$this->join.
 			$where.
+			$this->group_by.
 			$this->order_by.
 			$this->limit
 		;

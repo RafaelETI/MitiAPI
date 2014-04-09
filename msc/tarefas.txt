@@ -2,15 +2,10 @@
 
 =====Produção=====
 
-MitiORM(
-	::ordenar($ordem,$tabelas_ordens=array());
-	::ler(...,$tabelas_filtros=array());
-)
-
 Test Files(
-	MitiBD: cobertura;
 	NetBeans: custom test suite;
 	Debug;
+	100%;
 )
 
 MitiEmail::enviar(): conseguir "sendmail";
