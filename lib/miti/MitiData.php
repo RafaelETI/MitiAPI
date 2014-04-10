@@ -1,23 +1,5 @@
 <?php
 class MitiData{
-	public function br2Eua($data){
-		if(!$data){
-			return;
-		}
-		
-		$partes=explode('/',$data);
-		return $partes[2].'-'.$partes[1].'-'.$partes[0];
-	}
-	
-	public function eua2Br($data){
-		if(!$data){
-			return;
-		}
-		
-		$partes=explode('-',$data);
-		return $partes[2].'/'.$partes[1].'/'.$partes[0];
-	}
-	
 	public function obterDiaSemana($data,$curto=true){
 		if(!$data){
 			return;

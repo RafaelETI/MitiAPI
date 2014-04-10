@@ -6,16 +6,6 @@ class MitiDataTest extends PHPUnit_Framework_TestCase{
 		$this->MitiData=new MitiData;
 	}
 	
-	public function testBr2Eua(){
-		$this->assertSame(null,$this->MitiData->br2Eua(''));
-		$this->assertSame('1991-08-18',$this->MitiData->br2Eua('18/08/1991'));
-	}
-	
-	public function testEua2Br(){
-		$this->assertSame(null,$this->MitiData->eua2Br(''));
-		$this->assertSame('18/08/1991',$this->MitiData->eua2Br('1991-08-18'));
-	}
-	
 	public function testObterDiaSemana(){
 		$this->assertSame(null,$this->MitiData->obterDiaSemana(''));
 		$this->assertSame('Dom',$this->MitiData->obterDiaSemana('1991-08-18'));
