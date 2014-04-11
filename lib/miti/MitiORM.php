@@ -202,6 +202,11 @@ class MitiORM{
 		}
 	}
 	
+	public function ordenarAleatoriamente(){
+		$this->order_by=' order by rand()';
+		return $this;
+	}
+	
 	public function limitar($casas,$inicio=''){
 		if($inicio){
 			$inicio.=',';
