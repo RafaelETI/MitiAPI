@@ -1,5 +1,10 @@
 <?php
 class MitiData{
+	public function inverterBrParaEua($data){
+		$partes=explode('/',$data);
+		return $partes[2].'-'.$partes[1].'-'.$partes[0];
+	}
+	
 	public function obterDiaSemana($data,$curto=true){
 		if(!$data){
 			return;

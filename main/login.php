@@ -1,13 +1,13 @@
 <?php
-$dir='../';
-require_once $dir.'adt/Config.php';
-new Config(false,$dir);
+$raiz='../';
+require_once $raiz.'adt/Config.php';
+new Config(false,$raiz);
 ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once DIR.'main/cabeca.php' ?>
-<script src="<?php echo DIR ?>js/login.js"></script>
+<?php require_once RAIZ.'main/cabeca.php' ?>
+<script src="<?php echo RAIZ ?>js/login.js"></script>
 </head>
 <!--==========neck==========-->
 <body>

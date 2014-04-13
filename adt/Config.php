@@ -3,7 +3,7 @@ class Config{
 	public function __construct($restrito,$dir='',$sessao='login'){
 		$this->erros();
 		$this->sistema();
-		$this->diretorios($dir);
+		$this->raiz($dir);
 		$this->banco();
 		$this->sessao($restrito,$sessao);
 		$this->autoload();
@@ -12,16 +12,15 @@ class Config{
 	
 	private function erros(){
 		error_reporting(E_ALL);
-		//ini_set('display_errors',0);
+		ini_set('display_errors',1);
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 4.13.89');
+		define('SISTEMA','Miti Modelo 4.14.89');
 	}
 	
-	private function diretorios($dir){
-		define('RAIZ','http://'.$_SERVER['HTTP_HOST'].'/'.'miti_modelo/');
-		define('DIR',$dir);
+	private function raiz($dir){
+		define('RAIZ',$dir);
 	}
 	
 	private function banco(){
@@ -37,8 +36,8 @@ class Config{
 		session_start();
 		
 		if($restrito&&!isset($_SESSION[$sessao])){
-			$_SESSION['status']='Você não está autenticado';
-			header('location:'.RAIZ.'login.php');
+			$_SESSION['login_erro']='Você não está autenticado';
+			header('location:'.RAIZ.'main/login.php');
 			exit;
 		}
 	}
@@ -48,8 +47,8 @@ class Config{
 			$pacotes=array('adt','lib/miti');
 			
 			foreach($pacotes as $v){
-				if(file_exists(DIR.$v.'/'.$classe.'.php')){
-					require DIR.$v.'/'.$classe.'.php';
+				if(file_exists(RAIZ.$v.'/'.$classe.'.php')){
+					require RAIZ.$v.'/'.$classe.'.php';
 					break;
 				}
 			}
@@ -59,6 +58,6 @@ class Config{
 	}
 	
 	private function procedimentos(){
-		require_once DIR.'main/proc.php';
+		require_once RAIZ.'main/proc.php';
 	}
 }

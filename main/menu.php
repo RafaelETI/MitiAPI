@@ -11,7 +11,7 @@
 		
 		<div>
 			<a href="?logout"><img
-				src="<?php echo DIR ?>img/logout.png"
+				src="<?php echo RAIZ ?>img/logout.png"
 				alt="Saída"
 				title="Sair"
 				class="logout"
@@ -19,9 +19,9 @@
 		</div>
 		
 		<div id="modelo_oculto" class="paginas">
-			<a href="<?php echo DIR ?>main/modelo/visualizacao.php">Visualização</a>
-			<a href="<?php echo DIR ?>main/modelo/busca.php">Busca</a>
-			<a href="<?php echo DIR ?>main/modelo/cadastro.php">Cadastro</a>
+			<a href="<?php echo RAIZ ?>main/modelo/visualizacao.php">Visualização</a>
+			<a href="<?php echo RAIZ ?>main/modelo/busca.php">Busca</a>
+			<a href="<?php echo RAIZ ?>main/modelo/cadastro.php">Cadastro</a>
 		</div>
 	</div>
 </div>

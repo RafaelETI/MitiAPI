@@ -1,18 +1,18 @@
 <?php
-$dir='../../';
-require_once $dir.'adt/Config.php';
-new Config(false,$dir);
+$raiz='../../';
+require_once $raiz.'adt/Config.php';
+new Config(false,$raiz);
 ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once DIR.'main/cabeca.php' ?>
-<script src="<?php echo DIR ?>js/modelo/cad_edi.js"></script>
+<?php require_once RAIZ.'main/cabeca.php' ?>
+<script src="<?php echo RAIZ ?>js/modelo/cad_edi.js"></script>
 </head>
 <!--==========neck==========-->
 <body>
 <div id="geral">
-<?php require_once DIR.'main/menu.php' ?>
+<?php require_once RAIZ.'main/menu.php' ?>
 
 <div class="section">
 	<div class="header">Modelo &gt; Cadastro</div>
