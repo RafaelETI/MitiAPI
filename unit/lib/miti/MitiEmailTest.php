@@ -12,8 +12,7 @@ class MitiEmailTest extends PHPUnit_Framework_TestCase{
 		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'msc/mitiunit.txt';
 	}
 	
-	public function testErroNoEnvio(){
-		$this->setExpectedException('Exception','Houve um erro ao enviar o e-mail');
+	public function testEnviar(){
 		$this->MitiEmail->enviar('a@a.a','Assunto','Mensagem','b@b.b');
 	}
 	
