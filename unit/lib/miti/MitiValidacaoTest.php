@@ -105,57 +105,57 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testCpf(){
-		$this->MitiValidacao->Cpf('27981094003');
-		$this->assertSame(null,$this->MitiValidacao->CPF(''));
+		$this->MitiValidacao->cpf('27981094003');
+		$this->assertSame(null,$this->MitiValidacao->cpf(''));
 	}
 	
 	public function testCpfExcessoCaracteres(){
 		$this->setExpectedException('Exception','#1 - O CPF é inválido');
-		$this->MitiValidacao->Cpf('279810940033');
+		$this->MitiValidacao->cpf('279810940033');
 	}
 	
 	public function testCpfPresencaLetra(){
 		$this->setExpectedException('Exception','#2 - O CPF é inválido');
-		$this->MitiValidacao->Cpf('279810a4003');
+		$this->MitiValidacao->cpf('279810a4003');
 	}
 	
 	public function testCpfSequenciaIgual(){
 		$this->setExpectedException('Exception','#3 - O CPF é inválido');
-		$this->MitiValidacao->Cpf('88888888888');
+		$this->MitiValidacao->cpf('88888888888');
 	}
 	
 	public function testCpfDigitoInvalido(){
 		$this->setExpectedException('Exception','#4 - O CPF é inválido');
-		$this->MitiValidacao->Cpf('27981094004');
+		$this->MitiValidacao->cpf('27981094004');
 	}
 	
 	public function testCnpj(){
-		$this->MitiValidacao->Cnpj('87210343000169');
-		$this->assertSame(null,$this->MitiValidacao->CNPJ(''));
+		$this->MitiValidacao->cnpj('87210343000169');
+		$this->assertSame(null,$this->MitiValidacao->cnpj(''));
 	}
 	
 	public function testCnpjExcessoCaracteres(){
 		$this->setExpectedException('Exception','#1 - O CNPJ é inválido');
-		$this->MitiValidacao->Cnpj('872103430001699');
+		$this->MitiValidacao->cnpj('872103430001699');
 	}
 	
 	public function testCnpjPresencaLetra(){
 		$this->setExpectedException('Exception','#2 - O CNPJ é inválido');
-		$this->MitiValidacao->Cnpj('87210343a00169');
+		$this->MitiValidacao->cnpj('87210343a00169');
 	}
 	
 	public function testCnpjSequenciaZeros(){
 		$this->setExpectedException('Exception','#3 - O CNPJ é inválido');
-		$this->MitiValidacao->Cnpj('00000000000000');
+		$this->MitiValidacao->cnpj('00000000000000');
 	}
 	
 	public function testCnpjDigitoInvalido(){
 		$this->setExpectedException('Exception','#4 - O CNPJ é inválido');
-		$this->MitiValidacao->Cnpj('87210343000159');
+		$this->MitiValidacao->cnpj('87210343000159');
 	}
 	
 	public function testCnpjDigitoInvalidoComZero(){
 		$this->setExpectedException('Exception','#4 - O CNPJ é inválido');
-		$this->MitiValidacao->Cnpj('80911582000106');
+		$this->MitiValidacao->cnpj('80911582000106');
 	}
 }

@@ -1,18 +1,17 @@
 <?php
-$raiz='../../';
-require_once $raiz.'adt/Config.php';
-new Config(false,$raiz);
+require_once '../../adt/Config.php';
+new Config(false,'../../');
 ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once RAIZ.'main/cabeca.php' ?>
-<script src="<?php echo RAIZ ?>js/modelo/busca.js"></script>
+<?php require_once '../../main/cabeca.php' ?>
+<script src="../../js/modelo/busca.js"></script>
 </head>
 <!--==========neck==========-->
 <body>
 <div id="geral">
-<?php require_once RAIZ.'main/menu.php' ?>
+<?php require_once '../../main/menu.php' ?>
 
 <div class="section">
 	<div class="header">Modelo &gt; Busca</div>

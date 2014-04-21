@@ -1,9 +1,9 @@
 <?php
 class Config{
-	public function __construct($restrito,$dir='',$sessao='login'){
+	public function __construct($restrito,$raiz='',$sessao='login'){
 		$this->erros();
 		$this->sistema();
-		$this->raiz($dir);
+		$this->raiz($raiz);
 		$this->banco();
 		$this->sessao($restrito,$sessao);
 		$this->autoload();
@@ -16,11 +16,11 @@ class Config{
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 4.14.89');
+		define('SISTEMA','Miti Modelo 4.14.90');
 	}
 	
-	private function raiz($dir){
-		define('RAIZ',$dir);
+	private function raiz($raiz){
+		define('RAIZ',$raiz);
 	}
 	
 	private function banco(){

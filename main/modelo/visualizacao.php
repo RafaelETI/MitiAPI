@@ -1,17 +1,16 @@
 <?php
-$raiz='../../';
-require_once $raiz.'adt/Config.php';
-new Config(false,$raiz);
+require_once '../../adt/Config.php';
+new Config(false,'../../');
 ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once RAIZ.'main/cabeca.php'; ?>
+<?php require_once '../../main/cabeca.php'; ?>
 </head>
 <!--==========neck==========-->
 <body>
 <div id="geral">
-<?php require_once RAIZ.'main/menu.php'; ?>
+<?php require_once '../../main/menu.php'; ?>
 
 <div class="section">
 	<div class="header">Modelo &gt; Visualização</div>
@@ -42,7 +41,7 @@ new Config(false,$raiz);
 					
 					<td class="ultimo_filho">
 						<a href="edicao.php?id=1"><img
-							src="<?php echo RAIZ ?>img/edit.png"
+							src="../../img/edit.png"
 							alt="Pictograma de lápis"
 							title="Editar"
 							class="edicao"
@@ -58,7 +57,7 @@ new Config(false,$raiz);
 							
 							<input
 								type="image"
-								src="<?php echo RAIZ ?>img/del.png"
+								src="../../img/del.png"
 								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
@@ -80,7 +79,7 @@ new Config(false,$raiz);
 					
 					<td class="ultimo_filho">
 						<a href="edicao.php?id=1"><img
-							src="<?php echo RAIZ ?>img/edit.png"
+							src="../../img/edit.png"
 							alt="Pictograma de lápis"
 							title="Editar"
 							class="edicao"
@@ -96,7 +95,7 @@ new Config(false,$raiz);
 							
 							<input
 								type="image"
-								src="<?php echo RAIZ ?>img/del.png"
+								src="../../img/del.png"
 								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
@@ -118,7 +117,7 @@ new Config(false,$raiz);
 					
 					<td class="ultimo_filho">
 						<a href="edicao.php?id=1"><img
-							src="<?php echo RAIZ ?>img/edit.png"
+							src="../../img/edit.png"
 							alt="Pictograma de lápis"
 							title="Editar"
 							class="edicao"
@@ -134,7 +133,7 @@ new Config(false,$raiz);
 							
 							<input
 								type="image"
-								src="<?php echo RAIZ ?>img/del.png"
+								src="../../img/del.png"
 								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
@@ -156,7 +155,7 @@ new Config(false,$raiz);
 					
 					<td class="ultimo_filho">
 						<a href="edicao.php?id=1"><img
-							src="<?php echo RAIZ ?>img/edit.png"
+							src="../../img/edit.png"
 							alt="Pictograma de lápis"
 							title="Editar"
 							class="edicao"
@@ -172,7 +171,7 @@ new Config(false,$raiz);
 							
 							<input
 								type="image"
-								src="<?php echo RAIZ ?>img/del.png"
+								src="../../img/del.png"
 								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
@@ -194,7 +193,7 @@ new Config(false,$raiz);
 					
 					<td class="ultimo_filho">
 						<a href="edicao.php?id=1"><img
-							src="<?php echo RAIZ ?>img/edit.png"
+							src="../../img/edit.png"
 							alt="Pictograma de lápis"
 							title="Editar"
 							class="edicao"
@@ -210,7 +209,7 @@ new Config(false,$raiz);
 							
 							<input
 								type="image"
-								src="<?php echo RAIZ ?>img/del.png"
+								src="../../img/del.png"
 								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
@@ -232,7 +231,7 @@ new Config(false,$raiz);
 					
 					<td class="ultimo_filho">
 						<a href="edicao.php?id=1"><img
-							src="<?php echo RAIZ ?>img/edit.png"
+							src="../../img/edit.png"
 							alt="Pictograma de lápis"
 							title="Editar"
 							class="edicao"
@@ -248,7 +247,7 @@ new Config(false,$raiz);
 							
 							<input
 								type="image"
-								src="<?php echo RAIZ ?>img/del.png"
+								src="../../img/del.png"
 								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
@@ -270,7 +269,7 @@ new Config(false,$raiz);
 					
 					<td class="ultimo_filho">
 						<a href="edicao.php?id=1"><img
-							src="<?php echo RAIZ ?>img/edit.png"
+							src="../../img/edit.png"
 							alt="Pictograma de lápis"
 							title="Editar"
 							class="edicao"
@@ -286,7 +285,7 @@ new Config(false,$raiz);
 							
 							<input
 								type="image"
-								src="<?php echo RAIZ ?>img/del.png"
+								src="../../img/del.png"
 								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
@@ -308,7 +307,7 @@ new Config(false,$raiz);
 					
 					<td class="ultimo_filho">
 						<a href="edicao.php?id=1"><img
-							src="<?php echo RAIZ ?>img/edit.png"
+							src="../../img/edit.png"
 							alt="Pictograma de lápis"
 							title="Editar"
 							class="edicao"
@@ -324,7 +323,7 @@ new Config(false,$raiz);
 							
 							<input
 								type="image"
-								src="<?php echo RAIZ ?>img/del.png"
+								src="../../img/del.png"
 								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
@@ -346,7 +345,7 @@ new Config(false,$raiz);
 					
 					<td class="ultimo_filho">
 						<a href="edicao.php?id=1"><img
-							src="<?php echo RAIZ ?>img/edit.png"
+							src="../../img/edit.png"
 							alt="Pictograma de lápis"
 							title="Editar"
 							class="edicao"
@@ -362,7 +361,7 @@ new Config(false,$raiz);
 							
 							<input
 								type="image"
-								src="<?php echo RAIZ ?>img/del.png"
+								src="../../img/del.png"
 								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
@@ -384,7 +383,7 @@ new Config(false,$raiz);
 					
 					<td class="ultimo_filho">
 						<a href="edicao.php?id=1"><img
-							src="<?php echo RAIZ ?>img/edit.png"
+							src="../../img/edit.png"
 							alt="Pictograma de lápis"
 							title="Editar"
 							class="edicao"
@@ -400,7 +399,7 @@ new Config(false,$raiz);
 							
 							<input
 								type="image"
-								src="<?php echo RAIZ ?>img/del.png"
+								src="../../img/del.png"
 								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
@@ -415,7 +414,7 @@ new Config(false,$raiz);
 					<td colspan="5">
 						<div>
 							<a href="?todos=1"><img
-								src="<?php echo RAIZ ?>img/eye.png"
+								src="../../img/eye.png"
 								alt="Olho"
 								title="Ver todos"
 								class="mais"
