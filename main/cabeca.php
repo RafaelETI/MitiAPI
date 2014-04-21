@@ -10,4 +10,7 @@
 <link rel="stylesheet" href="<?php echo RAIZ ?>css/geral.css" />
 
 <script src="<?php echo RAIZ ?>lib/js/jquery_min.js"></script>
-<script src="<?php echo RAIZ ?>js/geral.js"></script>
+<script src="<?php echo RAIZ ?>lib/js/miti/MitiPadrao.js"></script>
+<script src="<?php echo RAIZ ?>lib/js/miti/MitiElemento.js"></script>
+<script src="<?php echo RAIZ ?>lib/js/miti/MitiFormulario.js"></script>
+<script src="<?php echo RAIZ ?>js/Geral.js"></script>

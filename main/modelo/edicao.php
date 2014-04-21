@@ -6,7 +6,7 @@ new Config(false,'../../');
 <html lang="pt-br">
 <head>
 <?php require_once '../../main/cabeca.php' ?>
-<script src="../../js/modelo/cad_edi.js"></script>
+<script src="../../js/modelo/Edicao.js"></script>
 </head>
 <!--==========neck==========-->
 <body>

@@ -6,7 +6,7 @@ new Config(false,'../');
 <html lang="pt-br">
 <head>
 <?php require_once '../main/cabeca.php' ?>
-<script src="../js/login.js"></script>
+<script src="../js/Login.js"></script>
 </head>
 <!--==========neck==========-->
 <body>

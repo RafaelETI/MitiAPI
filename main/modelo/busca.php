@@ -6,7 +6,7 @@ new Config(false,'../../');
 <html lang="pt-br">
 <head>
 <?php require_once '../../main/cabeca.php' ?>
-<script src="../../js/modelo/busca.js"></script>
+<script src="../../js/modelo/Busca.js"></script>
 </head>
 <!--==========neck==========-->
 <body>

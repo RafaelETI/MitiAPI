@@ -285,9 +285,9 @@ class MitiORM{
 	}
 	
 	private function montarLeitura($where){
-		return '
-			select
-				'.$this->campos.
+		return
+			'select '.
+				$this->campos.
 			' from '.$this->MitiTabela->getNome().
 			$this->join.
 			$where.
