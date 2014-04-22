@@ -1,6 +1,6 @@
 <?php
 require_once '../../adt/Config.php';
-new Config(false,'../../');
+new Config('Modelo',false,'../../');
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -133,11 +133,8 @@ new Config(false,'../../');
 				<tfoot>
 					<tr>
 						<td colspan="3">
-							<input
-								type="submit"
-								name="modelo_edi"
-								value="Editar"
-							/>
+							<input type="hidden" name="acao" value="editar" />
+							<input type="submit" value="Editar" />
 						</td>
 					</tr>
 				</tfoot>

@@ -1,6 +1,6 @@
 <?php
 require_once '../adt/Config.php';
-new Config(false,'../');
+new Config('Usuario',false,'../');
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -55,7 +55,8 @@ new Config(false,'../');
 				<tfoot>
 					<tr>
 						<th scope="row" colspan="3">
-							<input type="submit" name="login" value="Entrar" />
+							<input type="hidden" name="acao" value="login" />
+							<input type="submit" value="Entrar" />
 						</th>
 					</tr>
 				</tfoot>

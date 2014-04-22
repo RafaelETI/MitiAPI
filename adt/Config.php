@@ -1,26 +1,31 @@
 <?php
 class Config{
-	public function __construct($restrito,$raiz='',$sessao='login'){
-		$this->erros();
-		$this->sistema();
-		$this->raiz($raiz);
-		$this->banco();
-		$this->sessao($restrito,$sessao);
-		$this->autoload();
-		$this->procedimentos();
+	public function __construct($classe,$restrito,$raiz='',$sessao='login'){
+		$this
+			->erros()
+			->sistema()
+			->raiz($raiz)
+			->banco()
+			->sessao($restrito,$sessao)
+			->autoload()
+			->objeto($classe);
 	}
 	
 	private function erros(){
 		error_reporting(E_ALL);
 		ini_set('display_errors',1);
+		
+		return $this;
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 4.14.91');
+		define('SISTEMA','Miti Modelo 5.14.92');
+		return $this;
 	}
 	
 	private function raiz($raiz){
 		define('RAIZ',$raiz);
+		return $this;
 	}
 	
 	private function banco(){
@@ -30,6 +35,8 @@ class Config{
 		define('BD_SENHA','senha');
 		define('BD_BANCO','banco');
 		define('BD_CHARSET','latin1');
+		
+		return $this;
 	}
 	
 	private function sessao($restrito,$sessao){
@@ -40,6 +47,8 @@ class Config{
 			header('location:'.RAIZ.'main/login.php');
 			exit;
 		}
+		
+		return $this;
 	}
 	
 	private function autoload(){
@@ -55,9 +64,16 @@ class Config{
 		}
 		
 		spl_autoload_register('miti_autoload');
+		
+		return $this;
 	}
 	
-	private function procedimentos(){
-		require_once RAIZ.'main/proc.php';
+	private function objeto($classe){
+		if(isset($_REQUEST['acao'])){
+			$Objeto=new $classe;
+			$Objeto->$_REQUEST['acao']();
+		}
+		
+		return $this;
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 require_once '../../adt/Config.php';
-new Config(false,'../../');
+new Config('Modelo',false,'../../');
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -56,10 +56,11 @@ new Config(false,'../../');
 							
 							<input type="hidden" name="id" value="1" />
 							
+							<input type="hidden" name="acao" value="excluir" />
+							
 							<input
 								type="image"
 								src="../../img/del.png"
-								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
 							/>
@@ -94,10 +95,11 @@ new Config(false,'../../');
 							
 							<input type="hidden" name="id" value="1" />
 							
+							<input type="hidden" name="acao" value="excluir" />
+							
 							<input
 								type="image"
 								src="../../img/del.png"
-								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
 							/>
@@ -132,10 +134,11 @@ new Config(false,'../../');
 							
 							<input type="hidden" name="id" value="1" />
 							
+							<input type="hidden" name="acao" value="excluir" />
+							
 							<input
 								type="image"
 								src="../../img/del.png"
-								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
 							/>
@@ -170,10 +173,11 @@ new Config(false,'../../');
 							
 							<input type="hidden" name="id" value="1" />
 							
+							<input type="hidden" name="acao" value="excluir" />
+							
 							<input
 								type="image"
 								src="../../img/del.png"
-								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
 							/>
@@ -208,10 +212,11 @@ new Config(false,'../../');
 							
 							<input type="hidden" name="id" value="1" />
 							
+							<input type="hidden" name="acao" value="excluir" />
+							
 							<input
 								type="image"
 								src="../../img/del.png"
-								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
 							/>
@@ -246,10 +251,11 @@ new Config(false,'../../');
 							
 							<input type="hidden" name="id" value="1" />
 							
+							<input type="hidden" name="acao" value="excluir" />
+							
 							<input
 								type="image"
 								src="../../img/del.png"
-								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
 							/>
@@ -284,10 +290,11 @@ new Config(false,'../../');
 							
 							<input type="hidden" name="id" value="1" />
 							
+							<input type="hidden" name="acao" value="excluir" />
+							
 							<input
 								type="image"
 								src="../../img/del.png"
-								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
 							/>
@@ -322,10 +329,11 @@ new Config(false,'../../');
 							
 							<input type="hidden" name="id" value="1" />
 							
+							<input type="hidden" name="acao" value="excluir" />
+							
 							<input
 								type="image"
 								src="../../img/del.png"
-								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
 							/>
@@ -360,10 +368,11 @@ new Config(false,'../../');
 							
 							<input type="hidden" name="id" value="1" />
 							
+							<input type="hidden" name="acao" value="excluir" />
+							
 							<input
 								type="image"
 								src="../../img/del.png"
-								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
 							/>
@@ -398,10 +407,11 @@ new Config(false,'../../');
 							
 							<input type="hidden" name="id" value="1" />
 							
+							<input type="hidden" name="acao" value="excluir" />
+							
 							<input
 								type="image"
 								src="../../img/del.png"
-								name="modelo_del"
 								title="Excluir"
 								class="exclusao"
 							/>

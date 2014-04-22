@@ -1,6 +1,6 @@
 <?php
 require_once '../../adt/Config.php';
-new Config(false,'../../');
+new Config('Modelo',false,'../../');
 ?>
 <!doctype html>
 <html lang="pt-br">
