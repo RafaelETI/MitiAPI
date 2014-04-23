@@ -14,3 +14,7 @@
 <script src="<?php echo RAIZ ?>lib/js/miti/MitiElemento.js"></script>
 <script src="<?php echo RAIZ ?>lib/js/miti/MitiFormulario.js"></script>
 <script src="<?php echo RAIZ ?>js/Geral.js"></script>
+
+<?php
+$MitiStatus=new MitiStatus;
+echo $MitiStatus->obterAlerta();

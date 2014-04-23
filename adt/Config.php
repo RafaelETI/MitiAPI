@@ -1,6 +1,6 @@
 <?php
 class Config{
-	public function __construct($classe,$restrito,$raiz='',$sessao='login'){
+	public function __construct($Classe,$restrito,$raiz='',$sessao='login'){
 		$this
 			->erros()
 			->sistema()
@@ -8,7 +8,7 @@ class Config{
 			->banco()
 			->sessao($restrito,$sessao)
 			->autoload()
-			->objeto($classe);
+			->objeto($Classe);
 	}
 	
 	private function erros(){
@@ -19,7 +19,7 @@ class Config{
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 5.14.92');
+		define('SISTEMA','Miti Modelo 5.14.93');
 		return $this;
 	}
 	
@@ -43,7 +43,7 @@ class Config{
 		session_start();
 		
 		if($restrito&&!isset($_SESSION[$sessao])){
-			$_SESSION['login_erro']='Você não está autenticado';
+			$_SESSION['status']='Você não está autenticado';
 			header('location:'.RAIZ.'main/login.php');
 			exit;
 		}
@@ -68,12 +68,29 @@ class Config{
 		return $this;
 	}
 	
-	private function objeto($classe){
+	private function objeto($Classe){
 		if(isset($_REQUEST['acao'])){
-			$Objeto=new $classe;
-			$Objeto->$_REQUEST['acao']();
+			try{
+				$Objeto=new $Classe;
+				$url=$Objeto->$_REQUEST['acao']();
+				$_SESSION['status']=true;
+				header('location:'.$this->garantirUrl($url));
+				exit;
+			}catch(Exception $e){
+				$_SESSION['status']=$e->getMessage();
+				header('location:'.$_SERVER['REQUEST_URI']);
+				exit;
+			}
 		}
 		
 		return $this;
+	}
+	
+	private function garantirUrl($url){
+		if(!$url){
+			return $_SERVER['REQUEST_URI'];
+		}else{
+			return $url;
+		}
 	}
 }
