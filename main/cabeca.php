@@ -1,9 +1,8 @@
 <?php $MitiTratamento=new MitiTratamento ?>
 
-<meta charset="windows-1252" />
-<meta name="author" content="Rafael Barros" />
-
 <title><?php echo SISTEMA ?></title>
+
+<meta name="author" content="Rafael Barros" />
 
 <link rel="shortcut icon" href="<?php echo RAIZ ?>img/fav.png" type="image/png" />
 

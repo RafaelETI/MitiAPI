@@ -2,7 +2,8 @@
 class Config{
 	public function __construct($Classe,$restrito,$raiz='',$sessao='login'){
 		$this
-			->erros()
+			->charset()
+			->erro()
 			->sistema()
 			->raiz($raiz)
 			->banco()
@@ -11,7 +12,12 @@ class Config{
 			->objeto($Classe);
 	}
 	
-	private function erros(){
+	private function charset(){
+		header('Content-Type: text/html; charset=iso-8859-1');
+		return $this;
+	}
+	
+	private function erro(){
 		error_reporting(E_ALL);
 		ini_set('display_errors',1);
 		
@@ -19,7 +25,7 @@ class Config{
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 5.14.93');
+		define('SISTEMA','Miti Modelo 5.14.94');
 		return $this;
 	}
 	
@@ -72,25 +78,12 @@ class Config{
 		if(isset($_REQUEST['acao'])){
 			try{
 				$Objeto=new $Classe;
-				$url=$Objeto->$_REQUEST['acao']();
-				$_SESSION['status']=true;
-				header('location:'.$this->garantirUrl($url));
-				exit;
+				$Objeto->$_REQUEST['acao']();
 			}catch(Exception $e){
 				$_SESSION['status']=$e->getMessage();
-				header('location:'.$_SERVER['REQUEST_URI']);
-				exit;
 			}
 		}
 		
 		return $this;
-	}
-	
-	private function garantirUrl($url){
-		if(!$url){
-			return $_SERVER['REQUEST_URI'];
-		}else{
-			return $url;
-		}
 	}
 }
