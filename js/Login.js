@@ -1,9 +1,8 @@
-MitiPadrao.iniciar(function(){new Login;});
-
 function Login(){
 	this.focar=function(){
 		MitiElemento.getId('usuario').focus();
 	};
-	
-	this.focar();
 }
+
+var Login=new Login;
+MitiPadrao.iniciar(function(){Login.focar();});

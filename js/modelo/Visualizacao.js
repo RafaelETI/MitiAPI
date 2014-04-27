@@ -1,9 +1,8 @@
-MitiPadrao.iniciar(function(){new Visualizacao;});
-
 function Visualizacao(){
 	this.confirmarSubmit=function(){
 		MitiFormulario.confirmarSubmit();
 	};
-	
-	this.confirmarSubmit();
 }
+
+var Visualizacao=new Visualizacao;
+MitiPadrao.iniciar(function(){Visualizacao.confirmarSubmit();});

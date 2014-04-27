@@ -1,5 +1,3 @@
-MitiPadrao.iniciar(function(){new Cadastro;});
-
 function Cadastro(){
 	this.focar=function(){
 		MitiElemento.getId('valor').focus();
@@ -9,7 +7,13 @@ function Cadastro(){
 		MitiFormulario.contar('valor',15);
 		MitiFormulario.contar('valor5',450);
 	};
-	
-	this.focar();
-	this.contar();
 }
+
+var Cadastro=new Cadastro;
+
+MitiPadrao.iniciar(
+	function(){
+		Cadastro.focar();
+		Cadastro.contar();
+	}
+);

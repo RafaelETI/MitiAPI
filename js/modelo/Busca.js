@@ -1,5 +1,3 @@
-MitiPadrao.iniciar(function(){new Busca;});
-
 function Busca(){
 	this.focar=function(){
 		MitiElemento.getId('valor').focus();
@@ -8,7 +6,13 @@ function Busca(){
 	this.contar=function(){
 		MitiFormulario.contar('valor',15);
 	};
-	
-	this.focar();
-	this.contar();
 }
+
+var Busca=new Busca;
+
+MitiPadrao.iniciar(
+	function(){
+		Busca.focar();
+		Busca.contar();
+	}
+);

@@ -1,5 +1,3 @@
-MitiPadrao.iniciar(function(){new Edicao;});
-
 function Edicao(){
 	this.focar=function(){
 		MitiElemento.getId('valor').focus();
@@ -9,7 +7,13 @@ function Edicao(){
 		MitiFormulario.contar('valor',15);
 		MitiFormulario.contar('valor5',450);
 	};
-	
-	this.focar();
-	this.contar();
 }
+
+var Edicao=new Edicao;
+
+MitiPadrao.iniciar(
+	function(){
+		Edicao.focar();
+		Edicao.contar();
+	}
+);
