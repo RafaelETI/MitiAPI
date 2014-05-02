@@ -68,10 +68,6 @@ class MitiEmail{
 		$cabecalho='--'.$this->uid."\r\n";
 		$cabecalho.='Content-type:text/html; charset='.$charset."\r\n";
 		$cabecalho.='Content-Transfer-Encoding: 7bit'."\r\n\r\n";
-		
-		//recomendacao do manual
-		$msg=wordwrap($msg,70,"\r\n");
-		
 		$cabecalho.=$msg."\r\n\r\n";
 		return $cabecalho;
 	}
