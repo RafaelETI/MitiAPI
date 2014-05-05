@@ -6,7 +6,11 @@ new Config('Modelo',false,'../../');
 <html lang="pt-br">
 <head>
 <?php require_once '../../main/cabeca.php'; ?>
-<script src="../../js/modelo/Visualizacao.js"></script>
+
+<script src="../../js/Modelo.js"></script>
+<script>
+MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
+</script>
 </head>
 <!--==========neck==========-->
 <body>

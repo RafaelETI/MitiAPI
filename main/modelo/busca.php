@@ -6,7 +6,16 @@ new Config('Modelo',false,'../../');
 <html lang="pt-br">
 <head>
 <?php require_once '../../main/cabeca.php' ?>
-<script src="../../js/modelo/Busca.js"></script>
+
+<script src="../../js/Modelo.js"></script>
+<script>
+MitiPadrao.iniciar(
+	function(){
+		MitiElemento.getId('valor').focus();
+		MitiFormulario.contar('valor',15);
+	}
+);
+</script>
 </head>
 <!--==========neck==========-->
 <body>

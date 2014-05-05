@@ -6,7 +6,11 @@ new Config('Usuario',false,'../');
 <html lang="pt-br">
 <head>
 <?php require_once '../main/cabeca.php' ?>
-<script src="../js/Login.js"></script>
+	
+<script src="../js/Usuario.js"></script>
+<script>
+MitiPadrao.iniciar(function(){MitiElemento.getId('usuario').focus();});
+</script>
 </head>
 <!--==========neck==========-->
 <body>
