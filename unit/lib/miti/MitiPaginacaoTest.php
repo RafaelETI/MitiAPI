@@ -7,8 +7,10 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 		
 		$MitiPaginacao->setTotal(0);
 		
-		$afirmacao='Não há registros para esta busca';
-		$this->assertSame($afirmacao,$MitiPaginacao->criar('?pg=','off','on'));
+		$this->assertSame(
+			'Não há registros para esta busca',
+			$MitiPaginacao->criar('?pg=','off','on')
+		);
 	}
 	
 	public function testCriarComPoucosRegistros(){
@@ -18,13 +20,15 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 		
 		$MitiPaginacao->setTotal(1);
 		
-		$afirmacao='<span class="off">Primeira</span>';
-		$afirmacao.='<span class="off">Anterior</span>';
-		$afirmacao.='<span class="on">1</span>';
-		$afirmacao.='<span class="off">Próxima</span>';
-		$afirmacao.='<span class="off">Última</span>';
+		$this->assertSame(
+			'<span class="off">Primeira</span>'
+			.'<span class="off">Anterior</span>'
+			.'<span class="on">1</span>'
+			.'<span class="off">Próxima</span>'
+			.'<span class="off">Última</span>',
 		
-		$this->assertSame($afirmacao,$MitiPaginacao->criar('?pg=','off','on'));
+			$MitiPaginacao->criar('?pg=','off','on')
+		);
 	}
 	
 	public function testCriarComMuitosRegistros(){
@@ -34,15 +38,17 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 		
 		$MitiPaginacao->setTotal(100);
 		
-		$afirmacao='<a href="?pg=1">Primeira</a>';
-		$afirmacao.='<a href="?pg=1">Anterior</a>';
-		$afirmacao.='<a href="?pg=1">1</a>';
-		$afirmacao.='<span class="on">2</span>';
-		$afirmacao.='<a href="?pg=3">3</a>';
-		$afirmacao.='<a href="?pg=4">4</a>';
-		$afirmacao.='<a href="?pg=3">Próxima</a>';
-		$afirmacao.='<a href="?pg=10">Última</a>';
+		$this->assertSame(
+			'<a href="?pg=1">Primeira</a>'
+			.'<a href="?pg=1">Anterior</a>'
+			.'<a href="?pg=1">1</a>'
+			.'<span class="on">2</span>'
+			.'<a href="?pg=3">3</a>'
+			.'<a href="?pg=4">4</a>'
+			.'<a href="?pg=3">Próxima</a>'
+			.'<a href="?pg=10">Última</a>',
 		
-		$this->assertSame($afirmacao,$MitiPaginacao->criar('?pg=','off','on'));
+			$MitiPaginacao->criar('?pg=','off','on')
+		);
 	}
 }

@@ -1,6 +1,5 @@
 <?php
 class MitiBD{
-	private static $MitiBD;
 	private $conexao;
 	private $requisicao;
 	private $tempo;
@@ -14,29 +13,23 @@ class MitiBD{
 		$banco=BD_BANCO,
 		$charset=BD_CHARSET
 	){
-		$this->conexao=new mysqli($servidor,$usuario,$senha,$banco);
+		$this->conexao=@new mysqli($servidor,$usuario,$senha,$banco);
 		$this->verificarErroConexao();
-		$this->verificarErroCharset($charset);
-	}
-	
-	public static function getInstance(){
-		if(self::$MitiBD){
-			return self::$MitiBD;
-		}else{
-			self::$MitiBD=new MitiBD;
-			return self::$MitiBD;
-		}
+		$this->definirCharset($charset);
 	}
 	
 	private function verificarErroConexao(){
 		if($this->conexao->connect_error){
-			$erro='Não foi possível conectar ao banco de dados';
-			$mensagem=ini_get('display_errors')?$this->conexao->connect_error:$erro;
+			$mensagem=ini_get('display_errors')?
+				$this->conexao->connect_error:
+				'Não foi possível conectar ao banco de dados'
+			;
+			
 			throw new Exception($mensagem);
 		}
 	}
 	
-	private function verificarErroCharset($charset){
+	private function definirCharset($charset){
 		if(!$this->conexao->set_charset($charset)){
 			throw new Exception('Houve um erro ao definir o charset');
 		}
@@ -110,10 +103,6 @@ class MitiBD{
 	
 	public function obterAssoc(){
 		return $this->requisicao->fetch_assoc();
-	}
-	
-	public function obterObjeto(){
-		return $this->requisicao->fetch_object();
 	}
 	
 	public function obterQuantidade(){

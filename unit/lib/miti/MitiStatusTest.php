@@ -12,13 +12,18 @@ class MitiStatusTest extends PHPUnit_Framework_TestCase{
 	
 	public function testObterAlertaComSucesso(){
 		$_SESSION['status']=true;
-		$teste='<script>alert("Concluído com sucesso");</script>';
-		$this->assertSame($teste,$this->MitiStatus->obterAlerta());
+		
+		$this->assertSame(
+			'<script>alert("Concluído com sucesso");</script>',
+			$this->MitiStatus->obterAlerta()
+		);
 	}
 	
 	public function testObterAlertaComErro(){
 		$_SESSION['status']='Erro';
-		$teste='<script>alert("Erro");</script>';
-		$this->assertSame($teste,$this->MitiStatus->obterAlerta());
+		
+		$this->assertSame(
+			'<script>alert("Erro");</script>',$this->MitiStatus->obterAlerta()
+		);
 	}
 }

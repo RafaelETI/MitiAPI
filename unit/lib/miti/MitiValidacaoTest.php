@@ -20,8 +20,10 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testExcessoTamanho(){
-		$mensagem='O valor deve conter até 5 caractéres';
-		$this->setExpectedException('Exception',$mensagem);
+		$this->setExpectedException(
+			'Exception','O valor deve conter até 5 caractéres'
+		);
+		
 		$this->MitiValidacao->tamanho('testes',5);
 	}
 	
@@ -56,15 +58,17 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	public function testUpload(){
 		$this->MitiValidacao->upload('arquivo',2048,array('jpeg','png','gif'));
 		
-		$teste=$this->MitiValidacao
-			->upload('nao_existe',2048,array('jpeg','png','gif'));
-		
-		$this->assertSame(null,$teste);
+		$this->assertSame(
+			null,
+			$this->MitiValidacao->upload('nao_existe',2048,array('jpeg','png','gif'))
+		);
 	}
 	
 	public function testUploadExcessoPeso(){
-		$mensagem='O arquivo excede o tamanho permitido';
-		$this->setExpectedException('Exception',$mensagem);
+		$this->setExpectedException(
+			'Exception','O arquivo excede o tamanho permitido'
+		);
+		
 		$this->MitiValidacao->upload('arquivo',1024,array('jpeg','png','gif'));
 	}
 	
@@ -76,31 +80,42 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	public function testUploadImagem(){
 		$this->MitiValidacao->uploadImagem('arquivo',16,16);
 		
-		$teste=$this->MitiValidacao->uploadImagem('nao_existe',16,16);
-		$this->assertSame(null,$teste);
+		$this->assertSame(
+			null,$this->MitiValidacao->uploadImagem('nao_existe',16,16)
+		);
 	}
 	
 	public function testUploadImagemExcessoLargura(){
-		$mensagem='A largura da imagem é menor do que o mínimo permitido';
-		$this->setExpectedException('Exception',$mensagem);
+		$this->setExpectedException(
+			'Exception','A largura da imagem é menor do que o mínimo permitido'
+		);
+		
 		$this->MitiValidacao->uploadImagem('arquivo',20,16);
 	}
 	
 	public function testUploadImagemExcessoAltura(){
-		$mensagem='A altura da imagem é menor do que o mínimo permitido';
-		$this->setExpectedException('Exception',$mensagem);
+		$this->setExpectedException(
+			'Exception','A altura da imagem é menor do que o mínimo permitido'
+		);
+		
 		$this->MitiValidacao->uploadImagem('arquivo',16,20);
 	}
 	
 	public function testUploadImagemProporcaoExcessoVertical(){
-		$mensagem='A proporção da imagem é inválida, excedendo verticalmente';
-		$this->setExpectedException('Exception',$mensagem);
+		$this->setExpectedException(
+			'Exception',
+			'A proporção da imagem é inválida, excedendo verticalmente'
+		);
+		
 		$this->MitiValidacao->uploadImagem('arquivo',16,8);
 	}
 	
 	public function testUploadImagemProporcaoExcessoHorizontal(){
-		$mensagem='A proporção da imagem é inválida, excedendo horizontalmente';
-		$this->setExpectedException('Exception',$mensagem);
+		$this->setExpectedException(
+			'Exception',
+			'A proporção da imagem é inválida, excedendo horizontalmente'
+		);
+		
 		$this->MitiValidacao->uploadImagem('arquivo',8,16);
 	}
 	

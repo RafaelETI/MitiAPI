@@ -18,7 +18,7 @@ class MitiORM{
 	private $limit='';
 	
 	public function __construct($tabela){
-		$this->MitiBD=MitiBD::getInstance();
+		$this->MitiBD=new MitiBD;
 	
 		$this->MitiTabela=new MitiTabela($tabela);
 		$this->tipos=$this->MitiTabela->getTipos();

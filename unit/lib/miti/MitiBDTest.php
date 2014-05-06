@@ -3,37 +3,37 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	protected $MitiBD;
 	
 	protected function setUp(){
-		$this->MitiBD=MitiBD::getInstance();
+		$this->MitiBD=new MitiBD;
 		$this->MitiBD->requisitar('select nome from categorias where id=1');
 	}
 	
 	public function testErroConexao(){
-		$mensagem="Unknown database 'nao_existe'";
-		$this->setExpectedException('Exception',$mensagem);
-		
+		$this->setExpectedException('Exception',"Unknown database 'nao_existe'");
 		new MitiBD('localhost','root','root','nao_existe');
 	}
 	
 	public function testErroCharset(){
-		$mensagem='Houve um erro ao definir o charset';
-		$this->setExpectedException('Exception',$mensagem);
+		$this->setExpectedException(
+			'Exception','Houve um erro ao definir o charset'
+		);
 		
 		new MitiBD('localhost','root','root','miti_unit','nao_existe');
 	}
 	
 	public function testEscaparArray(){
-		$teste=$this->MitiBD->escapar(array("'",'"','\\'));
-		$this->assertSame(array("\\'",'\\"','\\\\'),$teste);
+		$this->assertSame(
+			array("\\'",'\\"','\\\\'),$this->MitiBD->escapar(array("'",'"','\\'))
+		);
 	}
 	
 	public function testEscaparString(){
-		$teste=$this->MitiBD->escapar('\'"\\');
-		$this->assertSame('\\\'\\"\\\\',$teste);
+		$this->assertSame('\\\'\\"\\\\',$this->MitiBD->escapar('\'"\\'));
 	}
 	
 	public function testRequisitarPkDuplicada(){
-		$mensagem="Duplicate entry '1' for key 'PRIMARY'";
-		$this->setExpectedException('Exception',$mensagem);
+		$this->setExpectedException(
+			'Exception',"Duplicate entry '1' for key 'PRIMARY'"
+		);
 		
 		$this->MitiBD->requisitar('insert into categorias values(1,"Música",null)');
 	}

@@ -11,13 +11,17 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testHtmlSpecialCharsArray(){
-		$teste=$this->MitiTratamento->htmlSpecialChars(array("'",'"','&','<','>'));
-		$this->assertSame(array('&#039;','&quot;','&amp;','&lt;','&gt;'),$teste);
+		$this->assertSame(
+			array('&#039;','&quot;','&amp;','&lt;','&gt;'),
+			$this->MitiTratamento->htmlSpecialChars(array("'",'"','&','<','>'))
+		);
 	}
 	
 	public function testHtmlSpecialCharsScalar(){
-		$teste=$this->MitiTratamento->htmlSpecialChars('\'"&<>');
-		$this->assertSame('&#039;&quot;&amp;&lt;&gt;',$teste);
+		$this->assertSame(
+			'&#039;&quot;&amp;&lt;&gt;',
+			$this->MitiTratamento->htmlSpecialChars('\'"&<>')
+		);
 	}
 	
 	public function testEncurtar(){
@@ -25,13 +29,19 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testEncurtarArray(){
-		$teste=$this->MitiTratamento->encurtar(array('aaaaaaaaaa','bbbbbbbbbb','cccccccccc'));
-		$this->assertSame(array('aaaaa...','bbbbb...','ccccc...'),$teste);
+		$this->assertSame(
+			array('aaaaa...','bbbbb...','ccccc...'),
+		
+			$this->MitiTratamento->encurtar(
+				array('aaaaaaaaaa','bbbbbbbbbb','cccccccccc')
+			)
+		);
 	}
 	
 	public function testEncurtarScalar(){
-		$teste=$this->MitiTratamento->encurtar('aaaaaaaaaa');
-		$this->assertSame('aaaaa...',$teste);
+		$this->assertSame(
+			'aaaaa...',$this->MitiTratamento->encurtar('aaaaaaaaaa')
+		);
 	}
 	
 	public function testRemoverAcentos(){
@@ -39,12 +49,13 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testRemoverAcentosArray(){
-		$teste=$this->MitiTratamento->removerAcentos(array('á','È','î','Õ','ü','Ç'));
-		$this->assertSame(array('a','E','i','O','u','C'),$teste);
+		$this->assertSame(
+			array('a','E','i','O','u','C'),
+			$this->MitiTratamento->removerAcentos(array('á','È','î','Õ','ü','Ç'))
+		);
 	}
 	
 	public function testRemoverAcentosScalar(){
-		$teste=$this->MitiTratamento->removerAcentos('ç');
-		$this->assertSame('c',$teste);
+		$this->assertSame('c',$this->MitiTratamento->removerAcentos('ç'));
 	}
 }
