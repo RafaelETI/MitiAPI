@@ -9,11 +9,14 @@ class MitiTabela{
 	
 	public function __construct($nome){
 		$this->nome=$nome;
-		$this->obterCampos();
-		$this->setPk();
-		$this->setTipos();
-		$this->setAnulaveis();
-		$this->setTamanhos();
+		
+		$this
+			->obterCampos()
+			->setPk()
+			->setTipos()
+			->setAnulaveis()
+			->setTamanhos()
+		;
 	}
 	
 	private function obterCampos(){
@@ -23,6 +26,8 @@ class MitiTabela{
 			->requisitar('select * from '.$this->nome)
 			->obterCampos()
 		;
+		
+		return $this;
 	}
 	
 	private function setPk(){
@@ -32,6 +37,8 @@ class MitiTabela{
 				break;
 			}
 		}
+		
+		return $this;
 	}
 	
 	private function setTipos(){
@@ -42,6 +49,8 @@ class MitiTabela{
 				$this->tipos[$o->orgname]='string';
 			}
 		}
+		
+		return $this;
 	}
 	
 	private function setAnulaveis(){
@@ -52,12 +61,16 @@ class MitiTabela{
 				$this->anulaveis[$o->orgname]=true;
 			}
 		}
+		
+		return $this;
 	}
 	
 	private function setTamanhos(){
 		foreach($this->campos as $o){
 			$this->tamanhos[$o->orgname]=$o->length;
 		}
+		
+		return $this;
 	}
 	
 	public function getNome(){

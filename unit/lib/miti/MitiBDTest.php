@@ -7,8 +7,19 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		$this->MitiBD->requisitar('select nome from categorias where id=1');
 	}
 	
-	public function testErroConexao(){
+	public function testErroConexaoComMensagemTecnica(){
 		$this->setExpectedException('Exception',"Unknown database 'nao_existe'");
+		
+		ini_set('display_errors',1);
+		new MitiBD('localhost','root','root','nao_existe');
+	}
+	
+	public function testErroConexaoComMensagemGenerica(){
+		$this->setExpectedException(
+			'Exception','Não foi possível conectar ao banco de dados'
+		);
+		
+		ini_set('display_errors',0);
 		new MitiBD('localhost','root','root','nao_existe');
 	}
 	
@@ -30,11 +41,21 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame('\\\'\\"\\\\',$this->MitiBD->escapar('\'"\\'));
 	}
 	
-	public function testRequisitarPkDuplicada(){
+	public function testErroRequisicaoComMensagemTecnica(){
 		$this->setExpectedException(
 			'Exception',"Duplicate entry '1' for key 'PRIMARY'"
 		);
 		
+		ini_set('display_errors',1);
+		$this->MitiBD->requisitar('insert into categorias values(1,"Música",null)');
+	}
+	
+	public function testErroRequisicaoComMensagemGenerica(){
+		$this->setExpectedException(
+			'Exception','Houve um erro ao realizar a requisição'
+		);
+		
+		ini_set('display_errors',0);
 		$this->MitiBD->requisitar('insert into categorias values(1,"Música",null)');
 	}
 	

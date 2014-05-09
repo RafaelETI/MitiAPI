@@ -349,10 +349,8 @@ class MitiORM{
 		$this->tratar($dupla);
 		
 		foreach($dupla as $i=>$v){
-			$sql='delete from '.$this->MitiTabela->getNome().' where '.$i.'='.$v;
+			return 'delete from '.$this->MitiTabela->getNome().' where '.$i.'='.$v;
 		}
-		
-		return $sql;
 	}
 	
 	private function tratar(array &$duplas){
@@ -373,8 +371,10 @@ class MitiORM{
 	private function montarExclusaoScalar($pk){
 		$this->tratarPk($pk);
 		
-		return 'delete from '.$this->MitiTabela->getNome().
-			' where '.$this->MitiTabela->getPkCampo().'='.$pk;
+		return
+			'delete from '.$this->MitiTabela->getNome()
+			.' where '.$this->MitiTabela->getPkCampo().'='.$pk
+		;
 	}
 	
 	private function tratarPk(&$pk){

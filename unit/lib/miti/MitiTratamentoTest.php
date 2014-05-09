@@ -6,6 +6,11 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 		$this->MitiTratamento=new MitiTratamento;
 	}
 	
+	public function testGarantirValor(){
+		$this->assertSame('a',$this->MitiTratamento->garantirValor('','a'));
+		$this->assertSame('b',$this->MitiTratamento->garantirValor('b','a'));
+	}
+	
 	public function testHtmlSpecialChars(){
 		$this->assertSame(null,$this->MitiTratamento->htmlSpecialChars(''));
 	}

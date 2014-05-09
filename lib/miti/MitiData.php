@@ -1,16 +1,44 @@
 <?php
 class MitiData{
-	public function inverterBrParaEua($data){
-		$partes=explode('/',$data);
-		return $partes[2].'-'.$partes[1].'-'.$partes[0];
-	}
-	
-	public function obterDiaSemana($data,$curto=true){
+	public function inverterBrParaEua($data,$longo=false){
 		if(!$data){
 			return;
 		}
 		
-		$dia=$this->obterDiaIngles($data);
+		$data=str_replace('/','-',$data);
+		
+		$DateTime=new DateTime($data);
+		$data=$DateTime->format('Y-m-d H:i:s');
+		
+		if(!$longo){
+			$data=substr($data,0,10);
+		}
+		
+		return $data;
+	}
+	
+	public function inverterEuaParaBr($data,$longo=false){
+		if(!$data){
+			return;
+		}
+		
+		$DateTime=new DateTime($data);
+		$data=$DateTime->format('d/m/Y H:i:s');
+		
+		if(!$longo){
+			$data=substr($data,0,10);
+		}
+		
+		return $data;
+	}
+	
+	public function obterDiaSemana($data,$longo=false){
+		if(!$data){
+			return;
+		}
+		
+		$DateTime=new DateTime($data);
+		$dia=$DateTime->format('l');
 		
 		if($dia=='Sunday'){
 			$dia='Domingo';
@@ -28,18 +56,11 @@ class MitiData{
 			$dia='Sábado';
 		}
 		
-		if($curto){
+		if(!$longo){
 			$dia=substr($dia,0,3);
 		}
 		
 		return $dia;
-	}
-	
-	private function obterDiaIngles($data){
-		$partes=explode('-',$data);
-		$data=date_create();
-		date_date_set($data,$partes[0],$partes[1],$partes[2]);
-		return date_format($data,'l');
 	}
 	
 	public function obterMes($mes){
@@ -48,31 +69,31 @@ class MitiData{
 		}
 		
 		if($mes=='01'){
-			$mes='Janeiro';
+			$dia='Janeiro';
 		}else if($mes=='02'){
-			$mes='Fevereiro';
+			$dia='Fevereiro';
 		}else if($mes=='03'){
-			$mes='Março';
+			$dia='Março';
 		}else if($mes=='04'){
-			$mes='Abril';
+			$dia='Abril';
 		}else if($mes=='05'){
-			$mes='Maio';
+			$dia='Maio';
 		}else if($mes=='06'){
-			$mes='Junho';
+			$dia='Junho';
 		}else if($mes=='07'){
-			$mes='Julho';
+			$dia='Julho';
 		}else if($mes=='08'){
-			$mes='Agosto';
+			$dia='Agosto';
 		}else if($mes=='09'){
-			$mes='Setembro';
+			$dia='Setembro';
 		}else if($mes=='10'){
-			$mes='Outubro';
+			$dia='Outubro';
 		}else if($mes=='11'){
-			$mes='Novembro';
+			$dia='Novembro';
 		}else if($mes=='12'){
-			$mes='Dezembro';
+			$dia='Dezembro';
 		}
 		
-		return $mes;
+		return $dia;
 	}
 }

@@ -43,14 +43,15 @@ class MitiValidacao{
 	}
 	
 	public function upload($file,$peso,array $tipos){
-		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]"
-		if(isset($_FILES[$file]['name'])){
-			foreach($_FILES[$file]['name'] as $i=>$v){
-				$this->validarPeso($file,$i,$peso);
-				$this->validarTipos($file,$i,$tipos);
-			}
-		}else{
+		if(!isset($_FILES[$file]['name'])){
 			return;
+		}
+		
+		//a tag form deve conter enctype="multipart/form-data",
+		//e o name deve conter []
+		foreach($_FILES[$file]['name'] as $i=>$v){
+			$this->validarPeso($file,$i,$peso);
+			$this->validarTipos($file,$i,$tipos);
 		}
 	}
 	
@@ -75,25 +76,30 @@ class MitiValidacao{
 	}
 	
 	public function uploadImagem($file,$largura,$altura){
-		//a tag form deve conter "enctype='multipart/form-data'", e o "name" deve conter "[]"
-		if(isset($_FILES[$file]['name'])){
-			foreach($_FILES[$file]['name'] as $i=>$v){
-				$tamanho=getimagesize($_FILES[$file]['tmp_name'][$i]);
-				$this->validarTamanho($tamanho,$largura,$altura);
-				$this->validarProporcoes($tamanho,$largura,$altura);
-			}
-		}else{
+		if(!isset($_FILES[$file]['name'])){
 			return;
+		}
+		
+		//a tag form deve conter enctype="multipart/form-data",
+		//e o name deve conter []
+		foreach($_FILES[$file]['name'] as $i=>$v){
+			$tamanho=getimagesize($_FILES[$file]['tmp_name'][$i]);
+			$this->validarTamanho($tamanho,$largura,$altura);
+			$this->validarProporcoes($tamanho,$largura,$altura);
 		}
 	}
 	
 	private function validarTamanho($tamanho,$largura,$altura){
 		if($tamanho[0]<$largura){
-			throw new Exception('A largura da imagem é menor do que o mínimo permitido');
+			throw new Exception(
+				'A largura da imagem é menor do que o mínimo permitido'
+			);
 		}
 		
 		if($tamanho[1]<$altura){
-			throw new Exception('A altura da imagem é menor do que o mínimo permitido');
+			throw new Exception(
+				'A altura da imagem é menor do que o mínimo permitido'
+			);
 		}
 	}
 	
@@ -104,11 +110,15 @@ class MitiValidacao{
 		$prop_img=$tamanho[0]/$tamanho[1];
 		
 		if($prop_img<$prop_min){
-			throw new Exception('A proporção da imagem é inválida, excedendo verticalmente');
+			throw new Exception(
+				'A proporção da imagem é inválida, excedendo verticalmente'
+			);
 		}
 		
 		if($prop_img>$prop_max){
-			throw new Exception('A proporção da imagem é inválida, excedendo horizontalmente');
+			throw new Exception(
+				'A proporção da imagem é inválida, excedendo horizontalmente'
+			);
 		}
 	}
 	
@@ -117,22 +127,28 @@ class MitiValidacao{
 			return;
 		}
 		
-		$this->validarQuantidadeCaracteres($cpf);
-		$this->validarApenasNumeros($cpf);
-		$this->validarSequenciaIgual($cpf);
-		$this->validarDigitosCPF($cpf);
+		$this
+			->validarQuantidadeCaracteres($cpf)
+			->validarApenasNumeros($cpf)
+			->validarSequenciaIgual($cpf)
+			->validarDigitosCPF($cpf)
+		;
 	}
 	
 	private function validarQuantidadeCaracteres($cpf){
 		if(strlen($cpf)!==11){
 			throw new Exception('#1 - O CPF é inválido');
 		}
+		
+		return $this;
 	}
 	
 	private function validarApenasNumeros($cpf){
 		if(!preg_match('/\d{11}/',$cpf)){
 			throw new Exception('#2 - O CPF é inválido');
 		}
+		
+		return $this;
 	}
 	
 	private function validarSequenciaIgual($cpf){
@@ -145,6 +161,8 @@ class MitiValidacao{
 				throw new Exception('#3 - O CPF é inválido');
 			}
 		}
+		
+		return $this;
 	}
 	
 	private function validarDigitosCPF($cpf){
@@ -159,6 +177,8 @@ class MitiValidacao{
 				throw new Exception('#4 - O CPF é inválido');
 			}
 		}
+		
+		return $this;
 	}
 	
 	public function cnpj($cnpj){
@@ -166,28 +186,36 @@ class MitiValidacao{
 			return;
 		}
 		
-		$this->validarQuantidadeCaracteresCNPJ($cnpj);
-		$this->validarApenasNumerosCNPJ($cnpj);
-		$this->validarSequenciaZeros($cnpj);
-		$this->validarDigitosCNPJ($cnpj);
+		$this
+			->validarQuantidadeCaracteresCNPJ($cnpj)
+			->validarApenasNumerosCNPJ($cnpj)
+			->validarSequenciaZeros($cnpj)
+			->validarDigitosCNPJ($cnpj)
+		;
 	}
 	
 	private function validarQuantidadeCaracteresCNPJ($cnpj){
 		if(strlen($cnpj)!==14){
 			throw new Exception('#1 - O CNPJ é inválido');
 		}
+		
+		return $this;
 	}
 	
 	private function validarApenasNumerosCNPJ($cnpj){
 		if(!preg_match('/\d{14}/',$cnpj)){
 			throw new Exception('#2 - O CNPJ é inválido');
 		}
+		
+		return $this;
 	}
 	
 	private function validarSequenciaZeros($cnpj){
 		if($cnpj=='00000000000000'){
 			throw new Exception('#3 - O CNPJ é inválido');
 		}
+		
+		return $this;
 	}
 	
 	private function validarDigitosCNPJ($cnpj){
@@ -217,5 +245,7 @@ class MitiValidacao{
 				throw new Exception('#4 - O CNPJ é inválido');
 			}
 		}
+		
+		return $this;
 	}
 }

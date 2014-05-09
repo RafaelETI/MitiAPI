@@ -10,11 +10,6 @@ class MitiEmail{
 		$this->uid=md5(uniqid(time()));
 	}
 	
-	public function setUid($uid){
-		$this->uid=$uid;
-		return $this;
-	}
-	
 	public function setCc($cc){
 		$this->cc=$cc;
 		return $this;
@@ -36,57 +31,63 @@ class MitiEmail{
 	}
 	
 	public function enviar($dest,$assunto,$msg,$remet,$charset='iso-8859-1'){
-		$cabecalho=$this->obterCabecalho($remet,$msg,$charset);
-		$assunto=$this->obterAssuntoCodificado($charset,$assunto);
-		
-		if(!mail($dest,$assunto,'',$cabecalho)){
+		if(
+			!mail(
+				$dest,
+				$this->obterAssuntoCodificado($charset,$assunto),
+				'',
+				$this->obterCabecalho($remet,$msg,$charset)
+			)
+		){
 			throw new Exception('Houve um erro ao enviar o e-mail');
 		}
 	}
 	
-	public function obterCabecalho($remet,$msg,$charset='iso-8859-1'){
-		$cabecalho=$this->obterCabecalhoBasico($remet);
-		$cabecalho.=$this->obterCabecalhoMensagem($charset,$msg);
-		$cabecalho.=$this->obterCabecalhoAnexos();
-		
-		return $cabecalho;
+	private function obterCabecalho($remet,$msg,$charset='iso-8859-1'){
+		return
+			$this->obterCabecalhoBasico($remet)
+			.$this->obterCabecalhoMensagem($charset,$msg)
+			.$this->obterCabecalhoAnexos()
+		;
 	}
 	
 	private function obterCabecalhoBasico($remet){
-		$cabecalho='From: '.$remet."\r\n";
-		$cabecalho.='Reply-To: '.$this->replyto."\r\n";
-		$cabecalho.='Cc: '.$this->cc."\r\n";
-		$cabecalho.='Bcc: '.$this->bcc."\r\n";
-		$cabecalho.='MIME-Version: 1.0'."\r\n";
-		$cabecalho.='Content-Type: multipart/mixed; boundary="'.$this->uid.'"'."\r\n\r\n";
-		$cabecalho.='This is a multi-part message in MIME format.'."\r\n";
-		
-		return $cabecalho;
+		return
+			'From: '.$remet."\r\n"
+			.'Reply-To: '.$this->replyto."\r\n"
+			.'Cc: '.$this->cc."\r\n"
+			.'Bcc: '.$this->bcc."\r\n"
+			.'MIME-Version: 1.0'."\r\n"
+			.'Content-Type: multipart/mixed; boundary="'.$this->uid.'"'."\r\n\r\n"
+			.'This is a multi-part message in MIME format.'."\r\n"
+		;
 	}
 	
 	private function obterCabecalhoMensagem($charset,$msg){
-		$cabecalho='--'.$this->uid."\r\n";
-		$cabecalho.='Content-type:text/html; charset='.$charset."\r\n";
-		$cabecalho.='Content-Transfer-Encoding: 7bit'."\r\n\r\n";
-		$cabecalho.=$msg."\r\n\r\n";
-		return $cabecalho;
+		return
+			'--'.$this->uid."\r\n"
+			.'Content-type:text/html; charset='.$charset."\r\n"
+			.'Content-Transfer-Encoding: 7bit'."\r\n\r\n"
+			.$msg."\r\n\r\n"
+		;
 	}
 	
 	private function obterCabecalhoAnexos(){
 		$cabecalho='';
 		
 		if($this->anexos&&$_FILES[$this->anexos]['tmp_name'][0]){
-			//sempre colocar o valor do name do "file" com "[]" no formulario
+			//sempre colocar o valor do name do file com [] no formulario
 			foreach($_FILES[$this->anexos]['tmp_name'] as $i=>$v){
 				$nome=basename($_FILES[$this->anexos]['name'][$i]);
-				
 				$conteudo=chunk_split(base64_encode(file_get_contents($v)));
 				
-				$cabecalho='--'.$this->uid."\r\n";
-				$cabecalho.='Content-Type: application/octet-stream; name="'.$nome.'"'."\r\n";
-				$cabecalho.='Content-Transfer-Encoding: base64'."\r\n";
-				$cabecalho.='Content-Disposition: attachment; filename="'.$nome.'"'."\r\n\r\n";
-				$cabecalho.=$conteudo."\r\n\r\n";
+				$cabecalho=
+					'--'.$this->uid."\r\n"
+					.'Content-Type: application/octet-stream; name="'.$nome.'"'."\r\n"
+					.'Content-Transfer-Encoding: base64'."\r\n"
+					.'Content-Disposition: attachment; filename="'.$nome.'"'."\r\n\r\n"
+					.$conteudo."\r\n\r\n"
+				;
 			}
 		}
 		

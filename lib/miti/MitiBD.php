@@ -20,10 +20,11 @@ class MitiBD{
 	
 	private function verificarErroConexao(){
 		if($this->conexao->connect_error){
-			$mensagem=ini_get('display_errors')?
-				$this->conexao->connect_error:
-				'Não foi possível conectar ao banco de dados'
-			;
+			if(ini_get('display_errors')){
+				$mensagem=$this->conexao->connect_error;
+			}else{
+				$mensagem='Não foi possível conectar ao banco de dados';
+			}
 			
 			throw new Exception($mensagem);
 		}
@@ -37,10 +38,12 @@ class MitiBD{
 	
 	public function escapar($valores){
 		if(is_array($valores)){
-			return $this->escaparArray($valores);
+			$valores=$this->escaparArray($valores);
 		}else{
-			return $this->escaparString($valores);
+			$valores=$this->escaparString($valores);
 		}
+		
+		return $valores;
 	}
 	
 	private function escaparArray($valores){
@@ -60,33 +63,44 @@ class MitiBD{
 		$this->requisicao=$this->conexao->query($sql);
 		$micro[1]=microtime(true);
 		
-		$this->verificarErroRequisicao();
-		$this->setTempo($micro);
-		$this->setAfetados();
-		$this->setId();
+		$this
+			->verificarErroRequisicao()
+			->setTempo($micro)
+			->setAfetados()
+			->setId()
+		;
 		
 		return $this;
 	}
 	
 	private function verificarErroRequisicao(){
 		if($this->conexao->error){
-			$erro='Houve um erro ao realizar a requisição';
-			$mensagem=ini_get('display_errors')?$this->conexao->error:$erro;
+			if(ini_get('display_errors')){
+				$mensagem=$this->conexao->error;
+			}else{
+				$mensagem='Houve um erro ao realizar a requisição';
+			}
+			
 			throw new Exception($mensagem);
 		}
+		
+		return $this;
 	}
 	
 	private function setTempo($micro){
 		$MitiDesempenho=new MitiDesempenho;
 		$this->tempo=$MitiDesempenho->medirTempoExecucao($micro);
+		return $this;
 	}
 	
 	private function setAfetados(){
 		$this->afetados=$this->conexao->affected_rows;
+		return $this;
 	}
 	
 	private function setId(){
 		$this->id=$this->conexao->insert_id;
+		return $this;
 	}
 
 	public function getTempo(){

@@ -7,8 +7,18 @@ class MitiDataTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testInverterBrParaEua(){
+		$this->assertSame(null,$this->MitiData->inverterBrParaEua(''));
+		
 		$this->assertSame(
-			'1991-08-18',$this->MitiData->inverterBrParaEua('18/08/1991')
+			'1991-08-18',$this->MitiData->inverterBrParaEua('18/08/1991 14:34:02')
+		);
+	}
+	
+	public function testInverterEuaParaBr(){
+		$this->assertSame(null,$this->MitiData->inverterEuaParaBr(''));
+		
+		$this->assertSame(
+			'18/08/1991',$this->MitiData->inverterEuaParaBr('1991-08-18 14:34:02')
 		);
 	}
 	
