@@ -14,9 +14,12 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$_FILES['arquivo']['size'][0]='1457';
 	}
 	
+	public function testTamanhoVazio(){
+		$this->assertSame(null,$this->MitiValidacao->tamanho('',5));
+	}
+	
 	public function testTamanho(){
 		$this->MitiValidacao->tamanho('teste',5);
-		$this->assertSame(null,$this->MitiValidacao->tamanho('',5));
 	}
 	
 	public function testExcessoTamanho(){
@@ -27,9 +30,12 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$this->MitiValidacao->tamanho('testes',5);
 	}
 	
+	public function testEmailVazio(){
+		$this->assertSame(null,$this->MitiValidacao->email(''));
+	}
+	
 	public function testEmail(){
 		$this->MitiValidacao->email('conta@dominio.com');
-		$this->assertSame(null,$this->MitiValidacao->email(''));
 	}
 	
 	public function testEmailInvalido(){
@@ -55,13 +61,15 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$this->MitiValidacao->vazio('');
 	}
 	
-	public function testUpload(){
-		$this->MitiValidacao->upload('arquivo',2048,array('jpeg','png','gif'));
-		
+	public function testUploadSemEnvioDeArquivo(){
 		$this->assertSame(
 			null,
 			$this->MitiValidacao->upload('nao_existe',2048,array('jpeg','png','gif'))
 		);
+	}
+	
+	public function testUpload(){
+		$this->MitiValidacao->upload('arquivo',2048,array('jpeg','png','gif'));
 	}
 	
 	public function testUploadExcessoPeso(){
@@ -119,9 +127,12 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$this->MitiValidacao->uploadImagem('arquivo',8,16);
 	}
 	
+	public function testCpfVazio(){
+		$this->assertSame(null,$this->MitiValidacao->cpf(''));
+	}
+	
 	public function testCpf(){
 		$this->MitiValidacao->cpf('27981094003');
-		$this->assertSame(null,$this->MitiValidacao->cpf(''));
 	}
 	
 	public function testCpfExcessoCaracteres(){
@@ -144,9 +155,12 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$this->MitiValidacao->cpf('27981094004');
 	}
 	
+	public function testCnpjVazio(){
+		$this->assertSame(null,$this->MitiValidacao->cnpj(''));
+	}
+	
 	public function testCnpj(){
 		$this->MitiValidacao->cnpj('87210343000169');
-		$this->assertSame(null,$this->MitiValidacao->cnpj(''));
 	}
 	
 	public function testCnpjExcessoCaracteres(){

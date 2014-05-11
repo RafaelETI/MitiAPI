@@ -6,12 +6,15 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 		$this->MitiTratamento=new MitiTratamento;
 	}
 	
-	public function testGarantirValor(){
+	public function testGarantirValorVazio(){
 		$this->assertSame('a',$this->MitiTratamento->garantirValor('','a'));
+	}
+	
+	public function testGarantirValor(){
 		$this->assertSame('b',$this->MitiTratamento->garantirValor('b','a'));
 	}
 	
-	public function testHtmlSpecialChars(){
+	public function testHtmlSpecialCharsVazio(){
 		$this->assertSame(null,$this->MitiTratamento->htmlSpecialChars(''));
 	}
 	
@@ -29,7 +32,7 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 		);
 	}
 	
-	public function testEncurtar(){
+	public function testEncurtarVazio(){
 		$this->assertSame(null,$this->MitiTratamento->encurtar(''));
 	}
 	
@@ -49,7 +52,7 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 		);
 	}
 	
-	public function testRemoverAcentos(){
+	public function testRemoverAcentosVazio(){
 		$this->assertSame(null,$this->MitiTratamento->removerAcentos(''));
 	}
 	

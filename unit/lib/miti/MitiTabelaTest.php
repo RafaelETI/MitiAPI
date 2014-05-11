@@ -3,11 +3,11 @@ class MitiTabelaTest extends PHPUnit_Framework_TestCase{
 	protected $MitiTabela;
 	
 	protected function setUp(){
-		$this->MitiTabela=new MitiTabela('categorias');
+		$this->MitiTabela=new MitiTabela('categoria');
 	}
 	
 	public function testGetNome(){
-		$this->assertSame('categorias',$this->MitiTabela->getNome());
+		$this->assertSame('categoria',$this->MitiTabela->getNome());
 	}
 	
 	public function testGetTipos(){

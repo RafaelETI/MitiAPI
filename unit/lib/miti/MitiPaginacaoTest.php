@@ -1,10 +1,17 @@
 <?php
 class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
-	public function testCriarComNenhumRegistro(){
-		$MitiPaginacao=new MitiPaginacao(1,1,1);
+	public function testGetNumReg(){
+		$MitiPaginacao=new MitiPaginacao(1,1,7);
 		$this->assertSame(1,$MitiPaginacao->getNumReg());
-		$this->assertSame(0,$MitiPaginacao->getInicio());
-		
+	}
+	
+	public function testGetInicio(){
+		$MitiPaginacao=new MitiPaginacao(15,5,10);
+		$this->assertSame(60,$MitiPaginacao->getInicio());
+	}
+	
+	public function testCriarComNenhumRegistro(){
+		$MitiPaginacao=new MitiPaginacao(1,1,3);
 		$MitiPaginacao->setTotal(0);
 		
 		$this->assertSame(
@@ -15,9 +22,6 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testCriarComPoucosRegistros(){
 		$MitiPaginacao=new MitiPaginacao(1,1,1);
-		$this->assertSame(1,$MitiPaginacao->getNumReg());
-		$this->assertSame(0,$MitiPaginacao->getInicio());
-		
 		$MitiPaginacao->setTotal(1);
 		
 		$this->assertSame(
@@ -33,9 +37,6 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testCriarComMuitosRegistros(){
 		$MitiPaginacao=new MitiPaginacao(10,2,5);
-		$this->assertSame(10,$MitiPaginacao->getNumReg());
-		$this->assertSame(10,$MitiPaginacao->getInicio());
-		
 		$MitiPaginacao->setTotal(100);
 		
 		$this->assertSame(

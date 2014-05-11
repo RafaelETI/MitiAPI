@@ -4,7 +4,11 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	
 	protected function setUp(){
 		$this->MitiBD=new MitiBD;
-		$this->MitiBD->requisitar('select nome from categorias where id=1');
+		$this->MitiBD->requisitar('select nome from categoria where id=1');
+	}
+	
+	protected function tearDown(){
+		ini_set('display_errors',1);
 	}
 	
 	public function testErroConexaoComMensagemTecnica(){
@@ -47,7 +51,7 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		);
 		
 		ini_set('display_errors',1);
-		$this->MitiBD->requisitar('insert into categorias values(1,"Música",null)');
+		$this->MitiBD->requisitar('insert into categoria values(1,"Música",null)');
 	}
 	
 	public function testErroRequisicaoComMensagemGenerica(){
@@ -56,7 +60,7 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		);
 		
 		ini_set('display_errors',0);
-		$this->MitiBD->requisitar('insert into categorias values(1,"Música",null)');
+		$this->MitiBD->requisitar('insert into categoria values(1,"Música",null)');
 	}
 	
 	public function testGetTempo(){
@@ -72,8 +76,8 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testObterAssoc(){
-		$teste=$this->MitiBD->obterAssoc();
-		$this->assertSame('Filme',$teste['nome']);
+		$categoria=$this->MitiBD->obterAssoc();
+		$this->assertSame('Filme',$categoria['nome']);
 	}
 	
 	public function testObterQuantidade(){
@@ -81,7 +85,7 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testObterCampos(){
-		$teste=$this->MitiBD->obterCampos();
-		$this->assertSame(4097,$teste[0]->flags);
+		$categoria=$this->MitiBD->obterCampos();
+		$this->assertSame(4097,$categoria[0]->flags);
 	}
 }

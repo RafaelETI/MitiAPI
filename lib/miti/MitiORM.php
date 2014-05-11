@@ -166,7 +166,7 @@ class MitiORM{
 			}
 			
 			foreach($tabelas_grupos[$i] as $v){
-				$group_by[]=$o->getNome().'.'.$v;
+				$group_by[]=$this->aliases[$i].'.'.$v;
 			}
 		}
 	}
@@ -197,7 +197,7 @@ class MitiORM{
 			}
 			
 			foreach($tabelas_ordens[$i] as $j=>$v){
-				$order_by[]=$o->getNome().'.'.$j.' '.$v;
+				$order_by[]=$this->aliases[$i].'.'.$j.' '.$v;
 			}
 		}
 	}
@@ -349,8 +349,10 @@ class MitiORM{
 		$this->tratar($dupla);
 		
 		foreach($dupla as $i=>$v){
-			return 'delete from '.$this->MitiTabela->getNome().' where '.$i.'='.$v;
+			$sql='delete from '.$this->MitiTabela->getNome().' where '.$i.'='.$v;
 		}
+		
+		return $sql;
 	}
 	
 	private function tratar(array &$duplas){
