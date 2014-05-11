@@ -12,7 +12,7 @@ class MitiTabelaTest extends PHPUnit_Framework_TestCase{
 	
 	public function testGetTipos(){
 		$this->assertSame(
-			array('id'=>'float','nome'=>'string','status'=>'float'),
+			array('id'=>'float','nome'=>'string','status'=>'string'),
 			$this->MitiTabela->getTipos()
 		);
 	}
@@ -26,7 +26,7 @@ class MitiTabelaTest extends PHPUnit_Framework_TestCase{
 	
 	public function testGetTamanhos(){
 		$this->assertSame(
-			array('id'=>3,'nome'=>30,'status'=>3),
+			array('id'=>3,'nome'=>30,'status'=>1),
 			$this->MitiTabela->getTamanhos()
 		);
 	}

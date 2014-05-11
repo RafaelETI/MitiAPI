@@ -1,75 +1,80 @@
 <?php
 class MitiORMTest extends PHPUnit_Framework_TestCase{
-	protected $MitiORM;
-	
-	protected function setUp(){
-		$this->MitiORM=new MitiORM('categoria');
-	}
-	
 	public function testCriar(){
-		$this->MitiORM->criar(array('id'=>2,'nome'=>'Teste','status'=>1));
+		$MitiORM=new MitiORM('categoria');
+		$MitiORM->criar(array('id'=>4,'nome'=>'Teste','status'=>'a'));
 		
 		$this->assertSame(
-			array('id'=>'2','nome'=>'Teste','status'=>'1'),
+			array('nome'=>'Teste','status'=>'a'),
 		
-			$this->MitiORM
-				->definirCampos(array('id','nome','status'))
-				->ler(array('id'=>array('=',2)))
+			$MitiORM
+				->definirCampos(array('nome','status'))
+				->ler(array('id'=>array('=',4)))
 				->obterAssoc()
 		);
 		
-		$this->MitiORM->deletar(2);
+		$MitiORM->deletar(4);
 	}
 	
 	public function testAtualizar(){
-		$this->MitiORM->atualizar(array('status'=>1),1);
+		$MitiORM=new MitiORM('categoria');
+		$MitiORM->atualizar(array('status'=>'b'),3);
 		
 		$this->assertSame(
-			array('status'=>'1'),
+			array('status'=>'b'),
 		
-			$this->MitiORM
+			$MitiORM
 				->definirCampos(array('status'))
-				->ler(array('id'=>array('=',1)))
+				->ler(array('id'=>array('=',3)))
 				->obterAssoc()
 		);
 		
-		$this->MitiORM->atualizar(array('status'=>''),1);
+		$MitiORM->atualizar(array('status'=>''),3);
 	}
 	
 	public function testValidarVazio(){
 		$this->setExpectedException('Exception','Valor vazio');
-		$this->MitiORM->criar(array('id'=>''));
+		
+		$MitiORM=new MitiORM('categoria');
+		$MitiORM->criar(array('id'=>''));
 	}
 	
 	public function testValidarExcessoCaracteres(){
 		$this->setExpectedException('Exception','Limite de caractéres excedido');
-		$this->MitiORM->criar(array('id'=>1000));
+		
+		$MitiORM=new MitiORM('categoria');
+		$MitiORM->criar(array('id'=>1000));
 	}
 	
 	public function testJuntar(){
-		$this->assertSame(
-			array('id'=>'1','m_descricao'=>'Spartacus (2004)'),
+		$MitiORM=new MitiORM('memoria');
 		
-			$this->MitiORM
-				->setJoins(array('join'))
-				->setAliases(array('m'))
-				->setOnTabelas(array('categoria'))
-				->setTabelaChaves(array('id'))
-				->setTabelasChaves(array('categoria'))
-				->juntar(array('memoria'))
-				->definirCampos(array('id'),array(array('descricao')))
-				->ler(
+		$this->assertSame(
+			array('id'=>'1','s_descricao'=>'Ativo'),
+		
+			$MitiORM
+				->setJoins(array('join','join'))
+				->setAliases(array('c','s'))
+				->setOnTabelas(array('memoria','c'))
+				->setTabelaChaves(array('categoria','status'))
+				->setTabelasChaves(array('id','id'))
+				->juntar(array('categoria','status'))
+				->definirCampos(
+					array('id'),array(1=>array('descricao'))
+				)->ler(
 					array(),
-					array(array('id'=>array('=',2)))
+					array(1=>array('id'=>array('=','a')))
 				)->obterAssoc()
 		);
 	}
 	
 	public function testTratarLeitura(){
+		$MitiORM=new MitiORM('categoria');
+		
 		$this->assertSame(
 			1,
 		
-			$this->MitiORM
+			$MitiORM
 				->definirCampos(array('id'))
 				->ler(array('nome'=>array('like','ilm')))
 				->obterQuantidade()
@@ -87,18 +92,20 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testOrdenarTabelaExterna(){
-		$this->assertSame(
-			array('id'=>'1','m_id'=>'3'),
+		$MitiORM=new MitiORM('memoria');
 		
-			$this->MitiORM
-				->setJoins(array('join'))
-				->setAliases(array('m'))
-				->setOnTabelas(array('categoria'))
-				->setTabelaChaves(array('id'))
-				->setTabelasChaves(array('categoria'))
-				->juntar(array('memoria'))
-				->definirCampos(array('id'),array(array('id')))
-				->ordenar(array(),array(array('id'=>'desc')))
+		$this->assertSame(
+			array('id'=>'3','s_id'=>'b'),
+		
+			$MitiORM
+				->setJoins(array('join','join'))
+				->setAliases(array('c','s'))
+				->setOnTabelas(array('memoria','c'))
+				->setTabelaChaves(array('categoria','status'))
+				->setTabelasChaves(array('id','id'))
+				->juntar(array('categoria','status'))
+				->definirCampos(array('id'),array(1=>array('id')))
+				->ordenar(array(),array(1=>array('id'=>'desc')))
 				->ler()
 				->obterAssoc()
 		);
@@ -128,23 +135,25 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 		$MitiORM->agrupar(array('categoria'));
 		
 		$this->assertSame(
-			1,$MitiORM->definirCampos(array('id'))->ler()->obterQuantidade()
+			2,$MitiORM->definirCampos(array('id'))->ler()->obterQuantidade()
 		);
 	}
 	
 	public function testAgruparTabelaExterna(){
+		$MitiORM=new MitiORM('memoria');
+		
 		$this->assertSame(
 			1,
 		
-			$this->MitiORM
-				->setJoins(array('join'))
-				->setAliases(array('m'))
-				->setOnTabelas(array('categoria'))
-				->setTabelaChaves(array('id'))
-				->setTabelasChaves(array('categoria'))
-				->juntar(array('memoria'))
+			$MitiORM
+				->setJoins(array('join','join'))
+				->setAliases(array('c','s'))
+				->setOnTabelas(array('memoria','c'))
+				->setTabelaChaves(array('categoria','status'))
+				->setTabelasChaves(array('id','id'))
+				->juntar(array('categoria','status'))
 				->definirCampos(array('id'))
-				->agrupar(array(),array(array('categoria')))
+				->agrupar(array(),array(1=>array('prioridade')))
 				->ler()
 				->obterQuantidade()
 		);
@@ -160,17 +169,33 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testDeletarArray(){
-		$this->MitiORM->criar(array('id'=>2,'nome'=>'Teste','status'=>1));
-		$this->MitiORM->criar(array('id'=>3,'nome'=>'Teste 2','status'=>1));
+		$MitiORM=new MitiORM('categoria');
+		$MitiORM->criar(array('id'=>4,'nome'=>'Teste','status'=>'c'));
+		$MitiORM->criar(array('id'=>5,'nome'=>'Teste 2','status'=>'c'));
 		
-		$this->MitiORM->deletar(array('status'=>1));
+		$MitiORM->deletar(array('status'=>'c'));
 		
 		$this->assertSame(
 			0,
 			
-			$this->MitiORM
+			$MitiORM
 				->definirCampos(array('id'))
-				->ler(array('status'=>array('=',1)))
+				->ler(array('status'=>array('=','c')))
+				->obterQuantidade()
+		);
+	}
+	
+	public function testTratarPk(){
+		$MitiORM=new MitiORM('status');
+		$MitiORM->criar(array('id'=>'d','descricao'=>'Teste'));
+		$MitiORM->deletar('d');
+		
+		$this->assertSame(
+			0,
+			
+			$MitiORM
+				->definirCampos(array('id'))
+				->ler(array('id'=>array('=','d')))
 				->obterQuantidade()
 		);
 	}
