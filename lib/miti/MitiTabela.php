@@ -76,7 +76,7 @@ class MitiTabela{
 	public function getNome(){
 		return $this->nome;
 	}
-
+	
 	public function getTipos(){
 		return $this->tipos;
 	}
