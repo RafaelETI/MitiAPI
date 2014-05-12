@@ -8,8 +8,10 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 			array('nome'=>'Teste','status'=>'a'),
 		
 			$MitiORM
-				->definirCampos(array('nome','status'))
-				->ler(array('id'=>array('=',4)))
+				->selecionar('c','nome')
+				->eSelecionar('c','status')
+				->filtrar('c','id','=',4)
+				->ler()
 				->obterAssoc()
 		);
 		
@@ -24,8 +26,9 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 			array('status'=>'b'),
 		
 			$MitiORM
-				->definirCampos(array('status'))
-				->ler(array('id'=>array('=',3)))
+				->selecionar('c','status')
+				->filtrar('c','id','=',3)
+				->ler()
 				->obterAssoc()
 		);
 		
@@ -46,128 +49,6 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 		$MitiORM->criar(array('id'=>1000));
 	}
 	
-	public function testJuntar(){
-		$MitiORM=new MitiORM('memoria');
-		
-		$this->assertSame(
-			array('id'=>'1','s_descricao'=>'Ativo'),
-		
-			$MitiORM
-				->setJoins(array('join','join'))
-				->setAliases(array('c','s'))
-				->setOnTabelas(array('memoria','c'))
-				->setTabelaChaves(array('categoria','status'))
-				->setTabelasChaves(array('id','id'))
-				->juntar(array('categoria','status'))
-				->definirCampos(
-					array('id'),array(1=>array('descricao'))
-				)->ler(
-					array(),
-					array(1=>array('id'=>array('=','a')))
-				)->obterAssoc()
-		);
-	}
-	
-	public function testTratarLeitura(){
-		$MitiORM=new MitiORM('categoria');
-		
-		$this->assertSame(
-			1,
-		
-			$MitiORM
-				->definirCampos(array('id'))
-				->ler(array('nome'=>array('like','ilm')))
-				->obterQuantidade()
-		);
-	}
-	
-	public function testOrdenar(){
-		$MitiORM=new MitiORM('memoria');
-		$MitiORM->ordenar(array('id'=>'desc'));
-		
-		$this->assertSame(
-			array('id'=>'3'),
-			$MitiORM->definirCampos(array('id'))->ler()->obterAssoc()
-		);
-	}
-	
-	public function testOrdenarTabelaExterna(){
-		$MitiORM=new MitiORM('memoria');
-		
-		$this->assertSame(
-			array('id'=>'3','s_id'=>'b'),
-		
-			$MitiORM
-				->setJoins(array('join','join'))
-				->setAliases(array('c','s'))
-				->setOnTabelas(array('memoria','c'))
-				->setTabelaChaves(array('categoria','status'))
-				->setTabelasChaves(array('id','id'))
-				->juntar(array('categoria','status'))
-				->definirCampos(array('id'),array(1=>array('id')))
-				->ordenar(array(),array(1=>array('id'=>'desc')))
-				->ler()
-				->obterAssoc()
-		);
-	}
-	
-	public function testOrdenarAleatoriamente(){
-		$MitiORM=new MitiORM('memoria');
-		$MitiORM->ordenarAleatoriamente();
-		
-		$resultado=false;
-		$controle=$MitiORM->definirCampos(array('id'))->ler()->obterAssoc();
-		
-		for($x=1;$x<=10;$x++){
-			$memoria=$MitiORM->definirCampos(array('id'))->ler()->obterAssoc();
-			
-			if($memoria['id']!=$controle['id']){
-				$resultado=true;
-				break;
-			}
-		}
-		
-		$this->assertTrue($resultado);
-	}
-	
-	public function testAgrupar(){
-		$MitiORM=new MitiORM('memoria');
-		$MitiORM->agrupar(array('categoria'));
-		
-		$this->assertSame(
-			2,$MitiORM->definirCampos(array('id'))->ler()->obterQuantidade()
-		);
-	}
-	
-	public function testAgruparTabelaExterna(){
-		$MitiORM=new MitiORM('memoria');
-		
-		$this->assertSame(
-			1,
-		
-			$MitiORM
-				->setJoins(array('join','join'))
-				->setAliases(array('c','s'))
-				->setOnTabelas(array('memoria','c'))
-				->setTabelaChaves(array('categoria','status'))
-				->setTabelasChaves(array('id','id'))
-				->juntar(array('categoria','status'))
-				->definirCampos(array('id'))
-				->agrupar(array(),array(1=>array('prioridade')))
-				->ler()
-				->obterQuantidade()
-		);
-	}
-	
-	public function testLimitar(){
-		$MitiORM=new MitiORM('memoria');
-		$MitiORM->limitar(1,2);
-		
-		$this->assertSame(
-			1,$MitiORM->definirCampos(array('id'))->ler()->obterQuantidade()
-		);
-	}
-	
 	public function testDeletarArray(){
 		$MitiORM=new MitiORM('categoria');
 		$MitiORM->criar(array('id'=>4,'nome'=>'Teste','status'=>'c'));
@@ -179,8 +60,9 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 			0,
 			
 			$MitiORM
-				->definirCampos(array('id'))
-				->ler(array('status'=>array('=','c')))
+				->selecionar('c','id')
+				->filtrar('c','status','=','c')
+				->ler()
 				->obterQuantidade()
 		);
 	}
@@ -194,9 +76,129 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 			0,
 			
 			$MitiORM
-				->definirCampos(array('id'))
-				->ler(array('id'=>array('=','d')))
+				->selecionar('s','id')
+				->filtrar('s','id','=','d')
+				->ler()
 				->obterQuantidade()
+		);
+	}
+	
+	public function testJuntar(){
+		$MitiORM=new MitiORM('memoria');
+		
+		$this->assertSame(
+			array('id'=>'1','des'=>'Ativo'),
+		
+			$MitiORM
+				->selecionar('m','id')
+				->eSelecionar('s','descricao','des')
+				->juntar('join','categoria','c','m','categoria','c','id')
+				->eJuntar('join','status','s','c','status','s','id')
+				->filtrar('s','id','=','a')
+				->ler()
+				->obterAssoc()
+		);
+	}
+	
+	public function testEFiltrar(){
+		$MitiORM=new MitiORM('memoria');
+		
+		$this->assertSame(
+			array('id'=>'1'),
+		
+			$MitiORM
+				->selecionar('m','id')
+				->filtrar('m','categoria','=','1')
+				->eFiltrar('m','descricao','=','Peaceful Warrior')
+				->ler()
+				->obterAssoc()
+		);
+	}
+	
+	public function testOuFiltrar(){
+		$MitiORM=new MitiORM('memoria');
+		
+		$this->assertSame(
+			2,
+		
+			$MitiORM
+				->selecionar('m','id')
+				->filtrar('m','id','=','1')
+				->ouFiltrar('m','id','=','2')
+				->ler()
+				->obterQuantidade()
+		);
+	}
+	
+	public function testTratarLeitura(){
+		$MitiORM=new MitiORM('categoria');
+		
+		$this->assertSame(
+			1,
+		
+			$MitiORM
+				->selecionar('c','id')
+				->filtrar('c','nome','like','ilm')
+				->ler()
+				->obterQuantidade()
+		);
+	}
+	
+	public function testOrdenar(){
+		$MitiORM=new MitiORM('memoria');
+		
+		$this->assertSame(
+			array('descricao'=>'The Village'),
+		
+			$MitiORM
+				->selecionar('m','descricao')
+				->ordenar('m','categoria','asc')
+				->eOrdenar('m','descricao','desc')
+				->ler()
+				->obterAssoc()
+		);
+	}
+	
+	public function testOrdenarAleatoriamente(){
+		$MitiORM=new MitiORM('memoria');
+		$MitiORM->selecionar('m','id')->ordenarAleatoriamente();
+		
+		$resultado=false;
+		$controle=$MitiORM->ler()->obterAssoc();
+		
+		for($x=1;$x<=10;$x++){
+			$memoria=$MitiORM->ler()->obterAssoc();
+			
+			if($memoria['id']!=$controle['id']){
+				$resultado=true;
+				break;
+			}
+		}
+		
+		$this->assertTrue($resultado);
+	}
+	
+	public function testAgrupar(){
+		$MitiORM=new MitiORM('memoria');
+		
+		$this->assertSame(
+			1,
+		
+			$MitiORM
+				->selecionar('s','id')
+				->juntar('join','categoria','c','m','categoria','c','id')
+				->eJuntar('join','status','s','c','status','s','id')
+				->agrupar('s','prioridade')
+				->ler()
+				->obterQuantidade()
+		);
+	}
+	
+	public function testLimitar(){
+		$MitiORM=new MitiORM('memoria');
+		
+		$this->assertSame(
+			1,$MitiORM->selecionar('m','id')->limitar(1,2)->ler()->obterQuantidade()
 		);
 	}
 }

@@ -32,7 +32,7 @@ class Config{
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 5.15.98');
+		define('SISTEMA','Miti Modelo 5.16.98');
 		return $this;
 	}
 	
