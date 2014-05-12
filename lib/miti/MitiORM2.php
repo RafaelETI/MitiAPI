@@ -4,8 +4,9 @@ class MitiORM2{
 	private $MitiTabela=array();
 	private $MitiBD;
 	private $campos='';
-	private $joins='';
+	private $juncoes='';
 	private $filtros='';
+	private $ordens='';
 	
 	public function __construct($tabela){
 		$this->alias=substr($tabela,0,1);
@@ -29,12 +30,12 @@ class MitiORM2{
 	}
 	
 	public function juntar(
-		$join,$externa,$alias,$alias_campo,$campo,$alias_campo_externa,$campo_externa
+		$juncao,$externa,$alias,$alias_campo,$campo,$alias_campo_externa,$campo_externa
 	){
 		$this->MitiTabela[$alias]=new MitiTabela($externa);
 		
-		$this->joins.=
-			$join.' '.$externa.' '.$alias
+		$this->juncoes.=
+			$juncao.' '.$externa.' '.$alias
 			.' on '.$alias_campo.'.'.$campo
 			.'='.$alias_campo_externa.'.'.$campo_externa.' '
 		;
@@ -70,19 +71,37 @@ class MitiORM2{
 		}
 	}
 	
+	public function ordenar($alias,$campo,$ordens,$separador=''){
+		$this->ordens.=$separador.$alias.'.'.$campo.' '.$ordens.' ';
+		return $this;
+	}
+	
+	public function eOrdenar($alias,$campo,$ordens){
+		$this->ordenar($alias,$campo,$ordens,',');
+		return $this;
+	}
+	
 	public function ler(){
-		if($this->filtros){
-			$this->filtros='where '.$this->filtros;
-		}
+		$this->verificarClausulas();
 		
 		//throw new Exception(
 		return $this->MitiBD->requisitar(
 			'select '
 				.$this->campos
-			.'from '.$this->MitiTabela[$this->alias]->getNome().' '
-				.$this->alias.' '
-			.$this->joins
+			.'from '.$this->MitiTabela[$this->alias]->getNome().' '.$this->alias.' '
+			.$this->juncoes
 			.$this->filtros
+			.$this->ordens
 		);
+	}
+	
+	private function verificarClausulas(){
+		if($this->filtros){
+			$this->filtros='where '.$this->filtros;
+		}
+		
+		if($this->ordens){
+			$this->ordens='order by '.$this->ordens;
+		}
 	}
 }
