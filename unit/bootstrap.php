@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 
 //diretorio
-define('RAIZ','/var/www/miti_modelo/');
+define('RAIZ','../');
 
 //banco
 define('BD_SERVIDOR','localhost');

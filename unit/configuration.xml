@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<phpunit bootstrap="/var/www/miti_modelo/unit/bootstrap.php"></phpunit>
+<phpunit bootstrap="bootstrap.php"></phpunit>
