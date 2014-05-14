@@ -32,7 +32,12 @@ class Config{
 	}
 	
 	private function sistema(){
-		define('SISTEMA','Miti Modelo 5.16.99');
+		if(AMBIENTE===0){
+			define('SISTEMA','Miti Modelo');
+		}else if(AMBIENTE===1){
+			define('SISTEMA','Miti Modelo 5.16.100');
+		}
+		
 		return $this;
 	}
 	
