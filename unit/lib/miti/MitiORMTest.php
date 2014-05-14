@@ -69,7 +69,7 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	
 	public function testTratarPk(){
 		$MitiORM=new MitiORM('status');
-		$MitiORM->criar(array('id'=>'d','descricao'=>'Teste'));
+		$MitiORM->criar(array('id'=>'d','descricao'=>'Teste','prioridade'=>1));
 		$MitiORM->deletar('d');
 		
 		$this->assertSame(
