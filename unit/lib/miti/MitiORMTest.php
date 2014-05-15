@@ -2,7 +2,7 @@
 class MitiORMTest extends PHPUnit_Framework_TestCase{
 	public function testCriar(){
 		$MitiORM=new MitiORM('categoria');
-		$MitiORM->criar(array('id'=>4,'nome'=>'Teste','status'=>'a'));
+		$MitiBD=$MitiORM->criar(array('id'=>4,'nome'=>'Teste','status'=>'a'));
 		
 		$this->assertSame(
 			array('nome'=>'Teste','status'=>'a'),
@@ -15,7 +15,7 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 				->obterAssoc()
 		);
 		
-		$MitiORM->deletar(4);
+		$MitiBD->rebobinar();
 	}
 	
 	public function testAtualizar(){
@@ -32,21 +32,24 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 				->obterAssoc()
 		);
 		
-		$MitiORM->atualizar(array('status'=>''),3);
+		$MitiBD=$MitiORM->atualizar(array('status'=>''),3);
+		$MitiBD->cometer();
 	}
 	
 	public function testValidarVazio(){
 		$this->setExpectedException('Exception','Valor vazio');
 		
 		$MitiORM=new MitiORM('categoria');
-		$MitiORM->criar(array('id'=>''));
+		$MitiBD=$MitiORM->criar(array('id'=>''));
+		$MitiBD->rebobinar();
 	}
 	
 	public function testValidarExcessoCaracteres(){
 		$this->setExpectedException('Exception','Limite de caractéres excedido');
 		
 		$MitiORM=new MitiORM('categoria');
-		$MitiORM->criar(array('id'=>1000));
+		$MitiBD=$MitiORM->criar(array('id'=>1000));
+		$MitiBD->rebobinar();
 	}
 	
 	public function testDeletarArray(){
@@ -54,7 +57,7 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 		$MitiORM->criar(array('id'=>4,'nome'=>'Teste','status'=>'c'));
 		$MitiORM->criar(array('id'=>5,'nome'=>'Teste 2','status'=>'c'));
 		
-		$MitiORM->deletar(array('status'=>'c'));
+		$MitiBD=$MitiORM->deletar(array('status'=>'c'));
 		
 		$this->assertSame(
 			0,
@@ -65,12 +68,14 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 				->ler()
 				->obterQuantidade()
 		);
+		
+		$MitiBD->cometer();
 	}
 	
 	public function testTratarPk(){
 		$MitiORM=new MitiORM('status');
 		$MitiORM->criar(array('id'=>'d','descricao'=>'Teste','prioridade'=>1));
-		$MitiORM->deletar('d');
+		$MitiBD=$MitiORM->deletar('d');
 		
 		$this->assertSame(
 			0,
@@ -81,6 +86,8 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 				->ler()
 				->obterQuantidade()
 		);
+		
+		$MitiBD->cometer();
 	}
 	
 	public function testJuntar(){

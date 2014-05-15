@@ -16,6 +16,7 @@ class MitiBD{
 		$this->conexao=@new mysqli($servidor,$usuario,$senha,$banco);
 		$this->verificarErroConexao();
 		$this->definirCharset($charset);
+		$this->conexao->autocommit(false);
 	}
 	
 	private function verificarErroConexao(){
@@ -113,6 +114,14 @@ class MitiBD{
 	
 	public function getId(){
 		return $this->id;
+	}
+	
+	public function cometer(){
+		$this->conexao->commit();
+	}
+	
+	public function rebobinar(){
+		$this->conexao->rollback();
 	}
 	
 	public function obterAssoc(){
