@@ -7,6 +7,7 @@ class Config{
 			->ambiente()
 			->charset()
 			->erro()
+			->sessao()
 			->raiz()
 			->banco()
 			->autoload()
@@ -14,7 +15,7 @@ class Config{
 	}
 	
 	private function ambiente(){
-		define('AMBIENTE',1);
+		define('AMBIENTE',0);
 		return $this;
 	}
 	
@@ -27,6 +28,11 @@ class Config{
 		error_reporting(E_ALL);
 		ini_set('display_errors',1);
 		
+		return $this;
+	}
+	
+	private function sessao(){
+		session_start();
 		return $this;
 	}
 	
@@ -60,9 +66,13 @@ class Config{
 	
 	private function autoload(){
 		function miti_autoload($classe){
-			//precisa de verificar se existe por causa do phpunit
-			if(file_exists(RAIZ.'lib/miti/'.$classe.'.php')){
-				require RAIZ.'lib/miti/'.$classe.'.php';
+			$pacotes=array('adt','lib/miti');
+			
+			foreach($pacotes as $v){
+				if(file_exists(RAIZ.$v.'/'.$classe.'.php')){
+					require RAIZ.$v.'/'.$classe.'.php';
+					break;
+				}
 			}
 		}
 		
