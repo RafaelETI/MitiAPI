@@ -1,7 +1,7 @@
 <?php
-new Config;
+new ConfigUnit;
 
-class Config{
+class ConfigUnit{
 	public function __construct(){
 		$this
 			->ambiente()

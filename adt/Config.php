@@ -76,6 +76,12 @@ class Config{
 		return $this;
 	}
 	
+	public static function verificarSessao($sessao='login'){
+		if(!isset($_SESSION[$sessao])){
+			throw new Exception('Você não tem permissão');
+		}
+	}
+	
 	private function autoload(){
 		function miti_autoload($classe){
 			$pacotes=array('adt','lib/miti');
@@ -97,7 +103,9 @@ class Config{
 		if(isset($_REQUEST['acao'])){
 			try{
 				$Objeto=new $Classe;
-				$Objeto->$_REQUEST['acao']();
+				$url=$Objeto->$_REQUEST['acao']();
+				header('location:'.$url);
+				exit;
 			}catch(Exception $e){
 				$_SESSION['status']=$e->getMessage();
 			}
