@@ -1,6 +1,6 @@
 <?php
 class MitiDataTest extends PHPUnit_Framework_TestCase{
-	protected $MitiData;
+	private $MitiData;
 	
 	protected function setUp(){
 		$this->MitiData=new MitiData;

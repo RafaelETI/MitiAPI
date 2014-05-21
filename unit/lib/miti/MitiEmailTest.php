@@ -1,6 +1,6 @@
 <?php
 class MitiEmailTest extends PHPUnit_Framework_TestCase{
-	protected $MitiEmail;
+	private $MitiEmail;
 	
 	protected function setUp(){
 		$this->MitiEmail=new MitiEmail;

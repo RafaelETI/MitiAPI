@@ -1,6 +1,6 @@
 <?php
 class ModeloTest extends PHPUnit_Framework_TestCase{
-	protected $Modelo;
+	private $Modelo;
 	
 	protected function setUp(){
 		$this->Modelo=new Modelo;

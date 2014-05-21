@@ -1,6 +1,6 @@
 <?php
 class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
-	protected $MitiValidacao;
+	private $MitiValidacao;
 	
 	protected function setUp(){
 		$this->MitiValidacao=new MitiValidacao;

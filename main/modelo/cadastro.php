@@ -142,7 +142,8 @@ MitiPadrao.iniciar(
 				<tfoot>
 					<tr>
 						<td colspan="3">
-							<input type="hidden" name="acao" value="cadastrar" />
+							<input type="hidden" name="metodo" value="cadastrar" />
+							<input type="hidden" name="url" value="visualizacao.php" />
 							<input type="submit" value="Cadastrar" />
 						</td>
 					</tr>

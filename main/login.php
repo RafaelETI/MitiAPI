@@ -6,7 +6,7 @@ new Config('Usuario',false,'../');
 <html lang="pt-br">
 <head>
 <?php require_once '../main/cabeca.php' ?>
-	
+
 <script src="../js/Usuario.js"></script>
 <script>
 MitiPadrao.iniciar(function(){MitiElemento.getId('usuario').focus();});
@@ -59,7 +59,14 @@ MitiPadrao.iniciar(function(){MitiElemento.getId('usuario').focus();});
 				<tfoot>
 					<tr>
 						<th scope="row" colspan="3">
-							<input type="hidden" name="acao" value="login" />
+							<input type="hidden" name="metodo" value="login" />
+							
+							<input
+								type="hidden"
+								name="url"
+								value="modelo/visualizacao.php"
+							/>
+							
 							<input type="submit" value="Entrar" />
 						</th>
 					</tr>

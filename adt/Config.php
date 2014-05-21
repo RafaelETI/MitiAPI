@@ -25,7 +25,7 @@ class Config{
 	}
 	
 	private function erro(){
-		error_reporting(E_ALL);
+		error_reporting(E_ALL|E_STRICT);
 		ini_set('display_errors',AMBIENTE);
 		
 		return $this;
@@ -35,7 +35,7 @@ class Config{
 		if(AMBIENTE===0){
 			define('SISTEMA','Miti Modelo');
 		}else if(AMBIENTE===1){
-			define('SISTEMA','Miti Modelo 5.17.100');
+			define('SISTEMA','Miti Modelo 5.17.101');
 		}
 		
 		return $this;
@@ -100,11 +100,13 @@ class Config{
 	}
 	
 	private function objeto($Classe){
-		if(isset($_REQUEST['acao'])){
+		if(isset($_REQUEST['metodo'])){
+			$this->tratarRequisicao();
+			
 			try{
 				$Objeto=new $Classe;
-				$url=$Objeto->$_REQUEST['acao']();
-				header('location:'.$url);
+				$Objeto->$_REQUEST['metodo']();
+				header('location:'.$_REQUEST['url']);
 				exit;
 			}catch(Exception $e){
 				$_SESSION['status']=$e->getMessage();
@@ -112,5 +114,16 @@ class Config{
 		}
 		
 		return $this;
+	}
+	
+	private function tratarRequisicao(){
+		unset($_POST['metodo']);
+		unset($_POST['url']);
+		unset($_GET['metodo']);
+		unset($_GET['url']);
+		
+		if(!isset($_REQUEST['url'])){
+			$_REQUEST['url']=$_SERVER['REQUEST_URI'];
+		}
 	}
 }

@@ -10,7 +10,7 @@
 		</div>
 		
 		<div>
-			<a href="../login.php?acao=logout"><img
+			<a href="../login.php?metodo=logout&url=../main/login.php"><img
 				src="<?php echo RAIZ ?>img/logout.png"
 				alt="Saída"
 				title="Sair"

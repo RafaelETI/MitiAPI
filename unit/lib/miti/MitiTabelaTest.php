@@ -1,6 +1,6 @@
 <?php
 class MitiTabelaTest extends PHPUnit_Framework_TestCase{
-	protected $MitiTabela;
+	private $MitiTabela;
 	
 	protected function setUp(){
 		$this->MitiTabela=new MitiTabela('categoria');

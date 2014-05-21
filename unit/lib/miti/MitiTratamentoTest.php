@@ -1,6 +1,6 @@
 <?php
 class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
-	protected $MitiTratamento;
+	private $MitiTratamento;
 	
 	protected function setUp(){
 		$this->MitiTratamento=new MitiTratamento;

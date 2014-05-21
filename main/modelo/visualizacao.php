@@ -60,7 +60,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 							
 							<input type="hidden" name="id" value="1" />
 							
-							<input type="hidden" name="acao" value="excluir" />
+							<input type="hidden" name="metodo" value="excluir" />
 							
 							<input
 								type="image"
@@ -99,7 +99,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 							
 							<input type="hidden" name="id" value="1" />
 							
-							<input type="hidden" name="acao" value="excluir" />
+							<input type="hidden" name="metodo" value="excluir" />
 							
 							<input
 								type="image"
@@ -138,7 +138,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 							
 							<input type="hidden" name="id" value="1" />
 							
-							<input type="hidden" name="acao" value="excluir" />
+							<input type="hidden" name="metodo" value="excluir" />
 							
 							<input
 								type="image"
@@ -177,7 +177,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 							
 							<input type="hidden" name="id" value="1" />
 							
-							<input type="hidden" name="acao" value="excluir" />
+							<input type="hidden" name="metodo" value="excluir" />
 							
 							<input
 								type="image"
@@ -216,7 +216,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 							
 							<input type="hidden" name="id" value="1" />
 							
-							<input type="hidden" name="acao" value="excluir" />
+							<input type="hidden" name="metodo" value="excluir" />
 							
 							<input
 								type="image"
@@ -255,7 +255,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 							
 							<input type="hidden" name="id" value="1" />
 							
-							<input type="hidden" name="acao" value="excluir" />
+							<input type="hidden" name="metodo" value="excluir" />
 							
 							<input
 								type="image"
@@ -294,7 +294,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 							
 							<input type="hidden" name="id" value="1" />
 							
-							<input type="hidden" name="acao" value="excluir" />
+							<input type="hidden" name="metodo" value="excluir" />
 							
 							<input
 								type="image"
@@ -333,7 +333,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 							
 							<input type="hidden" name="id" value="1" />
 							
-							<input type="hidden" name="acao" value="excluir" />
+							<input type="hidden" name="metodo" value="excluir" />
 							
 							<input
 								type="image"
@@ -372,7 +372,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 							
 							<input type="hidden" name="id" value="1" />
 							
-							<input type="hidden" name="acao" value="excluir" />
+							<input type="hidden" name="metodo" value="excluir" />
 							
 							<input
 								type="image"
@@ -411,7 +411,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 							
 							<input type="hidden" name="id" value="1" />
 							
-							<input type="hidden" name="acao" value="excluir" />
+							<input type="hidden" name="metodo" value="excluir" />
 							
 							<input
 								type="image"

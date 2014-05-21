@@ -1,16 +1,12 @@
 <?php
 class MitiBDTest extends PHPUnit_Framework_TestCase{
-	protected $MitiBD;
+	private $MitiBD;
 	
 	protected function setUp(){
 		$this->MitiBD=new MitiBD;
 		
 		//sleep colocado para que o testGetTempo seja bem sucedido
 		$this->MitiBD->requisitar('select nome,sleep(0.001) from categoria where id=1');
-	}
-	
-	protected function tearDown(){
-		ini_set('display_errors',1);
 	}
 	
 	public function testErroConexaoComMensagemTecnica(){
@@ -89,5 +85,9 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	public function testObterCampos(){
 		$categoria=$this->MitiBD->obterCampos();
 		$this->assertSame(4097,$categoria[0]->flags);
+	}
+	
+	public static function tearDownAfterClass(){
+		ini_set('display_errors',1);
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 class MitiDesempenhoTest extends PHPUnit_Framework_TestCase{
-	protected $MitiDesempenho;
+	private $MitiDesempenho;
 	
 	protected function setUp(){
 		$this->MitiDesempenho=new MitiDesempenho;

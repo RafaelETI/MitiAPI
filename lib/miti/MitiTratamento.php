@@ -8,6 +8,14 @@ class MitiTratamento{
 		return $novo;
 	}
 	
+	public function garantirPost(array $indices){
+		foreach($indices as $i){
+			if(!isset($_POST[$i])){
+				$_POST[$i]='';
+			}
+		}
+	}
+	
 	public function htmlSpecialChars($valores,$charset='iso-8859-1'){
 		if(!$valores){
 			return;
