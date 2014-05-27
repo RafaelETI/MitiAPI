@@ -64,12 +64,12 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	public function testUploadSemEnvioDeArquivo(){
 		$this->assertSame(
 			null,
-			$this->MitiValidacao->upload('nao_existe',2048,array('jpeg','png','gif'))
+			$this->MitiValidacao->upload('nao_existe',2,array('jpeg','png','gif'))
 		);
 	}
 	
 	public function testUpload(){
-		$this->MitiValidacao->upload('arquivo',2048,array('jpeg','png','gif'));
+		$this->MitiValidacao->upload('arquivo',2,array('jpeg','png','gif'));
 	}
 	
 	public function testUploadExcessoPeso(){
@@ -77,12 +77,12 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 			'Exception','O arquivo excede o tamanho permitido'
 		);
 		
-		$this->MitiValidacao->upload('arquivo',1024,array('jpeg','png','gif'));
+		$this->MitiValidacao->upload('arquivo',1,array('jpeg','png','gif'));
 	}
 	
 	public function testUploadTipoInvalido(){
 		$this->setExpectedException('Exception','O tipo do arquivo é inválido');
-		$this->MitiValidacao->upload('arquivo',2048,array('doc','pdf','xls'));
+		$this->MitiValidacao->upload('arquivo',2,array('doc','pdf','xls'));
 	}
 	
 	public function testUploadImagem(){

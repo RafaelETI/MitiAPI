@@ -56,6 +56,8 @@ class MitiValidacao{
 	}
 	
 	private function validarPeso($file,$i,$peso){
+		$peso*=1024;
+		
 		if($_FILES[$file]['size'][$i]>$peso){
 			throw new Exception('O arquivo excede o tamanho permitido');
 		}

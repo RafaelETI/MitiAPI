@@ -148,11 +148,15 @@ class MitiORM{
 	}
 	
 	public function selecionar($alias,$campo,$alias_campo='',$separador=''){
+		if($alias){
+			$alias.='.';
+		}
+		
 		if($alias_campo){
 			$alias_campo=' as '.$alias_campo;
 		}
 		
-		$this->campos.=$separador.$alias.'.'.$campo.$alias_campo.' ';
+		$this->campos.=$separador.$alias.$campo.$alias_campo.' ';
 		return $this;
 	}
 	
