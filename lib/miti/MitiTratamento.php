@@ -8,6 +8,14 @@ class MitiTratamento{
 		return $novo;
 	}
 	
+	public function garantirArquivo($imagem,$caminho){
+		if($imagem){
+			return $imagem;
+		}
+		
+		return file_get_contents($caminho);
+	}
+	
 	public function garantirPost(array $indices){
 		foreach($indices as $i){
 			if(!isset($_POST[$i])){

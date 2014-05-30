@@ -236,6 +236,10 @@ class MitiORM{
 	}
 	
 	public function limitar($quantidade,$inicio=''){
+		if(!$quantidade){
+			return $this;
+		}
+		
 		if($inicio){
 			$inicio.=',';
 		}
