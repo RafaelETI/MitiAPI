@@ -240,7 +240,7 @@ class MitiORM{
 			return $this;
 		}
 		
-		if($inicio){
+		if($inicio!==''){
 			$inicio.=',';
 		}
 		
