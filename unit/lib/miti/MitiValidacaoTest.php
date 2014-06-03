@@ -12,6 +12,8 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$_FILES['arquivo']['type'][0]='image/png';
 		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'img/mitiunit.png';
 		$_FILES['arquivo']['size'][0]='1457';
+		
+		$_FILES['arquivo2']['name'][0]='';
 	}
 	
 	public function testTamanhoVazio(){
@@ -61,15 +63,15 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$this->MitiValidacao->vazio('');
 	}
 	
+	public function testUpload(){
+		$this->MitiValidacao->upload('arquivo',2,array('jpeg','png','gif'));
+	}
+	
 	public function testUploadSemEnvioDeArquivo(){
 		$this->assertSame(
 			null,
-			$this->MitiValidacao->upload('nao_existe',2,array('jpeg','png','gif'))
+			$this->MitiValidacao->upload('arquivo2',2,array('jpeg'))
 		);
-	}
-	
-	public function testUpload(){
-		$this->MitiValidacao->upload('arquivo',2,array('jpeg','png','gif'));
 	}
 	
 	public function testUploadExcessoPeso(){
@@ -87,9 +89,12 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testUploadImagem(){
 		$this->MitiValidacao->uploadImagem('arquivo',16,16);
-		
+	}
+	
+	public function testUploadImagemSemEnvioDeArquivo(){
 		$this->assertSame(
-			null,$this->MitiValidacao->uploadImagem('nao_existe',16,16)
+			null,
+			$this->MitiValidacao->uploadImagem('arquivo2',16,16)
 		);
 	}
 	
