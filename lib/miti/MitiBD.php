@@ -1,10 +1,19 @@
 <?php
 class MitiBD{
+	private static $MitiBD;
 	private $conexao;
 	private $requisicao;
 	private $tempo;
 	private $afetados;
 	private $id;
+	
+	public static function getInstance(){
+		if(!self::$MitiBD){
+			self::$MitiBD=new MitiBD;
+		}
+		
+		return self::$MitiBD;
+	}
 	
 	public function __construct(
 		$servidor=BD_SERVIDOR,
@@ -134,9 +143,5 @@ class MitiBD{
 	
 	public function obterCampos(){
 		return $this->requisicao->fetch_fields();
-	}
-	
-	public function __destruct(){
-		$this->conexao->close();
 	}
 }
