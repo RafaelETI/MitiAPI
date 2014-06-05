@@ -15,7 +15,7 @@ class ConfigUnit{
 	}
 	
 	private function ambiente(){
-		define('AMBIENTE',0);
+		define('AMBIENTE',1);
 		return $this;
 	}
 	
@@ -40,7 +40,7 @@ class ConfigUnit{
 		if(AMBIENTE===0){
 			define('RAIZ','c:/apache24/htdocs/miti_modelo/');
 		}else if(AMBIENTE===1){
-			define('RAIZ','/var/www/miti_modelo/');
+			define('RAIZ','/var/www/html/miti_modelo/');
 		}
 		
 		return $this;
