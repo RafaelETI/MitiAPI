@@ -39,7 +39,7 @@ class MitiPaginacao{
 		
 		$this->calcular();
 		
-		if($this->pg!==1){
+		if($this->pg!=1){
 			$paginacao='<a href="'.$url.'1">Primeira</a>';
 		}else{
 			$paginacao='<span class="'.$off.'">Primeira</span>';

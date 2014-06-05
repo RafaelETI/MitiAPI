@@ -14,7 +14,7 @@ class MitiORM{
 		$this->alias=substr($tabela,0,1);
 		$this->MitiTabela[$this->alias]=new MitiTabela($tabela);
 		
-		$this->MitiBD=new MitiBD;
+		$this->MitiBD=MitiBD::getInstance();
 	}
 	
 	public function criar(array $duplas){
@@ -240,7 +240,7 @@ class MitiORM{
 			return $this;
 		}
 		
-		if($inicio){
+		if($inicio!==''){
 			$inicio.=',';
 		}
 		

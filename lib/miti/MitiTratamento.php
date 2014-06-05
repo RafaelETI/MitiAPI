@@ -24,6 +24,12 @@ class MitiTratamento{
 		}
 	}
 	
+	public function garantirGet($indice,$valor){
+		if(!isset($_GET[$indice])){
+			$_GET[$indice]=$valor;
+		}
+	}
+	
 	public function htmlSpecialChars($valores,$charset='iso-8859-1'){
 		if(!$valores){
 			return;
