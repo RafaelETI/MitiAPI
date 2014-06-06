@@ -3,9 +3,10 @@ class Config{
 	public function __construct($Classe,$restrito,$raiz='',$sessao='login'){
 		$this
 			->ambiente()
-			->charset()
-			->erro()
 			->sistema()
+			->erro()
+			->timezone()
+			->charset()
 			->raiz($raiz)
 			->banco()
 			->sessao($restrito,$sessao)
@@ -19,25 +20,29 @@ class Config{
 		return $this;
 	}
 	
-	private function charset(){
-		header('Content-Type: text/html; charset=iso-8859-1');
+	private function sistema(){
+		if(AMBIENTE===0){
+			define('SISTEMA','Miti Modelo');
+		}else if(AMBIENTE===1){
+			define('SISTEMA','Miti Modelo 5.17.103');
+		}
+		
 		return $this;
 	}
 	
 	private function erro(){
 		error_reporting(E_ALL|E_STRICT);
 		ini_set('display_errors',AMBIENTE);
-		
 		return $this;
 	}
 	
-	private function sistema(){
-		if(AMBIENTE===0){
-			define('SISTEMA','Miti Modelo');
-		}else if(AMBIENTE===1){
-			define('SISTEMA','Miti Modelo 5.17.102');
-		}
-		
+	private function timezone(){
+		date_default_timezone_set('America/Sao_Paulo');
+		return $this;
+	}
+	
+	private function charset(){
+		header('Content-Type: text/html; charset=iso-8859-1');
 		return $this;
 	}
 	

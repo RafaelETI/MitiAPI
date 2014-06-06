@@ -5,34 +5,34 @@ class ConfigUnit{
 	public function __construct(){
 		$this
 			->ambiente()
-			->charset()
 			->erro()
-			->sessao()
+			->timezone()
+			->charset()
 			->raiz()
 			->banco()
+			->sessao()
 			->autoload()
 		;
 	}
 	
 	private function ambiente(){
-		define('AMBIENTE',1);
-		return $this;
-	}
-	
-	private function charset(){
-		header('Content-Type: text/html; charset=iso-8859-1');
+		define('AMBIENTE',0);
 		return $this;
 	}
 	
 	private function erro(){
 		error_reporting(E_ALL);
 		ini_set('display_errors',1);
-		
 		return $this;
 	}
 	
-	private function sessao(){
-		session_start();
+	private function timezone(){
+		date_default_timezone_set('America/Sao_Paulo');
+		return $this;
+	}
+	
+	private function charset(){
+		header('Content-Type: text/html; charset=iso-8859-1');
 		return $this;
 	}
 	
@@ -61,6 +61,11 @@ class ConfigUnit{
 			define('BD_CHARSET','latin1');
 		}
 		
+		return $this;
+	}
+	
+	private function sessao(){
+		session_start();
 		return $this;
 	}
 	
