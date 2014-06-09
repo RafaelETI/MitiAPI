@@ -8,12 +8,12 @@ class MitiTratamento{
 		return $novo;
 	}
 	
-	public function garantirArquivo($imagem,$caminho){
-		if($imagem){
-			return $imagem;
+	public function garantirArquivo($arquivo,$caminho){
+		if(!$arquivo){
+			$arquivo=file_get_contents($caminho);
 		}
 		
-		return file_get_contents($caminho);
+		return $arquivo;
 	}
 	
 	public function garantirPost(array $indices){
