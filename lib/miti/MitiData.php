@@ -63,37 +63,53 @@ class MitiData{
 		return $dia;
 	}
 	
-	public function obterMes($mes){
-		if(!$mes){
+	public function obterMes($data,$longo=false){
+		if(!$data){
 			return;
 		}
 		
+		$DateTime=new DateTime($data);
+		$mes=$DateTime->format('m');
+		
 		if($mes=='01'){
-			$dia='Janeiro';
+			$mes='Janeiro';
 		}else if($mes=='02'){
-			$dia='Fevereiro';
+			$mes='Fevereiro';
 		}else if($mes=='03'){
-			$dia='Março';
+			$mes='Março';
 		}else if($mes=='04'){
-			$dia='Abril';
+			$mes='Abril';
 		}else if($mes=='05'){
-			$dia='Maio';
+			$mes='Maio';
 		}else if($mes=='06'){
-			$dia='Junho';
+			$mes='Junho';
 		}else if($mes=='07'){
-			$dia='Julho';
+			$mes='Julho';
 		}else if($mes=='08'){
-			$dia='Agosto';
+			$mes='Agosto';
 		}else if($mes=='09'){
-			$dia='Setembro';
+			$mes='Setembro';
 		}else if($mes=='10'){
-			$dia='Outubro';
+			$mes='Outubro';
 		}else if($mes=='11'){
-			$dia='Novembro';
+			$mes='Novembro';
 		}else if($mes=='12'){
-			$dia='Dezembro';
+			$mes='Dezembro';
 		}
 		
-		return $dia;
+		if(!$longo){
+			$mes=substr($mes,0,3).'.';
+		}
+		
+		return $mes;
+	}
+	
+	public function obterAno($data){
+		if(!$data){
+			return;
+		}
+		
+		$DateTime=new DateTime($data);
+		return $DateTime->format('Y');
 	}
 }

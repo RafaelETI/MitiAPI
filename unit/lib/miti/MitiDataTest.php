@@ -63,50 +63,58 @@ class MitiDataTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testObterMesJaneiro(){
-		$this->assertSame('Janeiro',$this->MitiData->obterMes('01'));
+		$this->assertSame('Jan.',$this->MitiData->obterMes('2014-01-01'));
 	}
 	
 	public function testObterMesFevereiro(){
-		$this->assertSame('Fevereiro',$this->MitiData->obterMes('02'));
+		$this->assertSame('Fev.',$this->MitiData->obterMes('2014-02-01'));
 	}
 	
 	public function testObterMesMarco(){
-		$this->assertSame('Março',$this->MitiData->obterMes('03'));
+		$this->assertSame('Mar.',$this->MitiData->obterMes('2014-03-01'));
 	}
 	
 	public function testObterMesAbril(){
-		$this->assertSame('Abril',$this->MitiData->obterMes('04'));
+		$this->assertSame('Abr.',$this->MitiData->obterMes('2014-04-01'));
 	}
 	
 	public function testObterMesMaio(){
-		$this->assertSame('Maio',$this->MitiData->obterMes('05'));
+		$this->assertSame('Mai.',$this->MitiData->obterMes('2014-05-01'));
 	}
 	
 	public function testObterMesJunho(){
-		$this->assertSame('Junho',$this->MitiData->obterMes('06'));
+		$this->assertSame('Jun.',$this->MitiData->obterMes('2014-06-01'));
 	}
 	
 	public function testObterMesJulho(){
-		$this->assertSame('Julho',$this->MitiData->obterMes('07'));
+		$this->assertSame('Jul.',$this->MitiData->obterMes('2014-07-01'));
 	}
 	
 	public function testObterMesAgosto(){
-		$this->assertSame('Agosto',$this->MitiData->obterMes('08'));
+		$this->assertSame('Ago.',$this->MitiData->obterMes('2014-08-01'));
 	}
 	
 	public function testObterMesSetembro(){
-		$this->assertSame('Setembro',$this->MitiData->obterMes('09'));
+		$this->assertSame('Set.',$this->MitiData->obterMes('2014-09-01'));
 	}
 	
 	public function testObterMesOutubro(){
-		$this->assertSame('Outubro',$this->MitiData->obterMes('10'));
+		$this->assertSame('Out.',$this->MitiData->obterMes('2014-10-01'));
 	}
 	
 	public function testObterMesNovembro(){
-		$this->assertSame('Novembro',$this->MitiData->obterMes('11'));
+		$this->assertSame('Nov.',$this->MitiData->obterMes('2014-11-01'));
 	}
 	
 	public function testObterMesDezembro(){
-		$this->assertSame('Dezembro',$this->MitiData->obterMes('12'));
+		$this->assertSame('Dez.',$this->MitiData->obterMes('2014-12-01'));
+	}
+	
+	public function testObterAnoVazio(){
+		$this->assertSame(null,$this->MitiData->obterAno(''));
+	}
+	
+	public function testObterAno(){
+		$this->assertSame('2014',$this->MitiData->obterAno('2014-06-08'));
 	}
 }
