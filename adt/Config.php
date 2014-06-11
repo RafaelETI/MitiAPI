@@ -4,14 +4,14 @@ class Config{
 		$this
 			->ambiente()
 			->sistema()
+			->banco()
 			->erro()
 			->timezone()
 			->charset()
 			->raiz($raiz)
-			->banco()
 			->sessao($restrito,$sessao)
 			->autoload()
-			->objeto($Classe)
+			->requisicao($Classe)
 		;
 	}
 	
@@ -24,7 +24,25 @@ class Config{
 		if(AMBIENTE===0){
 			define('SISTEMA','Miti Modelo');
 		}else if(AMBIENTE===1){
-			define('SISTEMA','Miti Modelo 5.17.105');
+			define('SISTEMA','Miti Modelo 5.17.106');
+		}
+		
+		return $this;
+	}
+	
+	private function banco(){
+		if(AMBIENTE===0){
+			define('BD_SERVIDOR','localhost');
+			define('BD_USUARIO','usuario');
+			define('BD_SENHA','senha');
+			define('BD_BANCO','banco');
+			define('BD_CHARSET','latin1');
+		}else if(AMBIENTE===1){
+			define('BD_SERVIDOR','localhost');
+			define('BD_USUARIO','usuario');
+			define('BD_SENHA','senha');
+			define('BD_BANCO','banco');
+			define('BD_CHARSET','latin1');
 		}
 		
 		return $this;
@@ -48,24 +66,6 @@ class Config{
 	
 	private function raiz($raiz){
 		define('RAIZ',$raiz);
-		return $this;
-	}
-	
-	private function banco(){
-		if(AMBIENTE===0){
-			define('BD_SERVIDOR','localhost');
-			define('BD_USUARIO','usuario');
-			define('BD_SENHA','senha');
-			define('BD_BANCO','banco');
-			define('BD_CHARSET','latin1');
-		}else if(AMBIENTE===1){
-			define('BD_SERVIDOR','localhost');
-			define('BD_USUARIO','usuario');
-			define('BD_SENHA','senha');
-			define('BD_BANCO','banco');
-			define('BD_CHARSET','latin1');
-		}
-		
 		return $this;
 	}
 	
@@ -104,7 +104,7 @@ class Config{
 		return $this;
 	}
 	
-	private function objeto($Classe){
+	private function requisicao($Classe){
 		if(isset($_REQUEST['metodo'])){
 			$this->tratarRequisicao();
 			

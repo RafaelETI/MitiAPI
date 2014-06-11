@@ -1,5 +1,5 @@
 <?php
 class Usuario{
-	public function login(){}
-	public function logout(){}
+	public function logIn(){}
+	public function logOut(){}
 }
