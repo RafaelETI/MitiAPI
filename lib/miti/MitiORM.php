@@ -14,7 +14,7 @@ class MitiORM{
 		$this->alias=substr($tabela,0,1);
 		$this->MitiTabela[$this->alias]=new MitiTabela($tabela);
 		
-		$this->MitiBD=MitiBD::getInstance();
+		$this->MitiBD=new MitiBD;
 	}
 	
 	public function criar(array $duplas){

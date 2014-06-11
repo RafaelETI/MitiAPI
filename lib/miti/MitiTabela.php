@@ -20,7 +20,7 @@ class MitiTabela{
 	}
 	
 	private function obterCampos(){
-		$MitiBD=MitiBD::getInstance();
+		$MitiBD=new MitiBD;
 		
 		$this->campos=$MitiBD
 			->requisitar('select * from '.$this->nome)

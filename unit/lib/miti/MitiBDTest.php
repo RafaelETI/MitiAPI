@@ -3,7 +3,7 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	private $MitiBD;
 	
 	protected function setUp(){
-		$this->MitiBD=MitiBD::getInstance();
+		$this->MitiBD=new MitiBD;
 		
 		//sleep colocado para que o testGetTempo seja bem sucedido
 		$this->MitiBD->requisitar('select nome,sleep(0.001) from categoria where id=1');

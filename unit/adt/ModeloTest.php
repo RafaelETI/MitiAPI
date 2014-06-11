@@ -1,4 +1,5 @@
 <?php
+//necessidade de adaptacao ao MitiBD sem singleton
 class ModeloTest extends PHPUnit_Framework_TestCase{
 //	private static $MitiBD;
 //	private static $id=array();
