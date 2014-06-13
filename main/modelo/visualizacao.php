@@ -5,7 +5,7 @@ new Config('Modelo',false,'../../');
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once '../../main/cabeca.php'; ?>
+<?php require_once '../../main/head.php'; ?>
 
 <script src="../../js/Modelo.js"></script>
 <script>
@@ -15,7 +15,7 @@ MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
 <!--==========neck==========-->
 <body>
 <div id="geral">
-<?php require_once '../../main/menu.php'; ?>
+<?php require_once '../../main/header.php'; ?>
 
 <div class="section">
 	<div class="header">Modelo &gt; Visualização</div>

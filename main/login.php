@@ -5,7 +5,7 @@ new Config('Usuario',false,'../');
 <!doctype html>
 <html lang="pt-br">
 <head>
-<?php require_once '../main/cabeca.php' ?>
+<?php require_once '../main/head.php' ?>
 
 <script src="../js/Usuario.js"></script>
 <script>

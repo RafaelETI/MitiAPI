@@ -16,7 +16,7 @@ class ConfigUnit{
 	}
 	
 	private function ambiente(){
-		define('AMBIENTE',1);
+		define('AMBIENTE',0);
 		return $this;
 	}
 	
