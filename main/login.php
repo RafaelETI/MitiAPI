@@ -1,16 +1,11 @@
-<?php
-require_once '../adt/Config.php';
-new Config('Usuario',false,'../');
-?>
+<?php require_once '../adt/Config.php'; new Config('Usuario',false,'../'); ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
 <?php require_once '../main/head.php' ?>
 
-<script src="../js/Usuario.js"></script>
-<script>
-MitiPadrao.iniciar(function(){MitiElemento.getId('usuario').focus();});
-</script>
+<?php echo $MitiTratamento->requerer('../js/Usuario.js') ?>
+<script>MitiPadrao.iniciar(function(){MitiElemento.getId('usuario').focus();});</script>
 </head>
 <!--==========neck==========-->
 <body>

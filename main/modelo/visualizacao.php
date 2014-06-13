@@ -1,16 +1,11 @@
-<?php
-require_once '../../adt/Config.php';
-new Config('Modelo',false,'../../');
-?>
+<?php require_once '../../adt/Config.php'; new Config('Modelo',false,'../../'); ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
 <?php require_once '../../main/head.php'; ?>
 
-<script src="../../js/Modelo.js"></script>
-<script>
-MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});
-</script>
+<?php echo $MitiTratamento->requerer('../../js/Modelo.js') ?>
+<script>MitiPadrao.iniciar(function(){MitiFormulario.confirmarSubmit();});</script>
 </head>
 <!--==========neck==========-->
 <body>

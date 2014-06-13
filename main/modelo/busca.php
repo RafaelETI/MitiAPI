@@ -1,13 +1,10 @@
-<?php
-require_once '../../adt/Config.php';
-new Config('Modelo',false,'../../');
-?>
+<?php require_once '../../adt/Config.php'; new Config('Modelo',false,'../../'); ?>
 <!doctype html>
 <html lang="pt-br">
 <head>
 <?php require_once '../../main/head.php' ?>
 
-<script src="../../js/Modelo.js"></script>
+<?php echo $MitiTratamento->requerer('../../js/Modelo.js') ?>
 <script>
 MitiPadrao.iniciar(
 	function(){

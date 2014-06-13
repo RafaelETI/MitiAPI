@@ -1,7 +1,3 @@
-var MitiPadrao=new MitiPadrao;
-var MitiElemento=new MitiElemento;
-var MitiFormulario=new MitiFormulario('#007E7A');
-
 function Geral(){
 	this.enfeitar=function(){
 		$('#geral').fadeIn(1000);
@@ -12,6 +8,3 @@ function Geral(){
 		});
 	};
 }
-
-var Geral=new Geral;
-MitiPadrao.iniciar(function(){Geral.enfeitar();});
