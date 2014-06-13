@@ -9,7 +9,7 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 		
 			$MitiORM
 				->selecionar('c','nome')
-				->eSelecionar('c','status')
+				->selecionar('c','status')
 				->filtrar('c','id','=',4)
 				->ler()
 				->obterAssoc()
@@ -98,9 +98,9 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 		
 			$MitiORM
 				->selecionar('m','id')
-				->eSelecionar('s','descricao','des')
+				->selecionar('s','descricao','des')
 				->juntar('join','categoria','c','m','categoria','c','id')
-				->eJuntar('join','status','s','c','status','s','id')
+				->juntar('join','status','s','c','status','s','id')
 				->filtrar('s','id','=','a')
 				->ler()
 				->obterAssoc()
@@ -160,7 +160,7 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 			$MitiORM
 				->selecionar('m','descricao')
 				->ordenar('m','categoria','asc')
-				->eOrdenar('m','descricao','desc')
+				->ordenar('m','descricao','desc')
 				->ler()
 				->obterAssoc()
 		);
@@ -194,7 +194,7 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 			$MitiORM
 				->selecionar('s','id')
 				->juntar('join','categoria','c','m','categoria','c','id')
-				->eJuntar('join','status','s','c','status','s','id')
+				->juntar('join','status','s','c','status','s','id')
 				->agrupar('s','prioridade')
 				->ler()
 				->obterQuantidade()

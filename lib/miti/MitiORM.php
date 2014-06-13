@@ -147,7 +147,7 @@ class MitiORM{
 		}
 	}
 	
-	public function selecionar($alias,$campo,$alias_campo='',$separador=''){
+	public function selecionar($alias,$campo,$alias_campo=''){
 		if($alias){
 			$alias.='.';
 		}
@@ -156,12 +156,12 @@ class MitiORM{
 			$alias_campo=' as '.$alias_campo;
 		}
 		
+		$separador='';
+		if($this->campos){
+			$separador=',';
+		}
+		
 		$this->campos.=$separador.$alias.$campo.$alias_campo.' ';
-		return $this;
-	}
-	
-	public function eSelecionar($alias,$campo,$alias_campo=''){
-		$this->selecionar($alias,$campo,$alias_campo,',');
 		return $this;
 	}
 	
@@ -174,11 +174,6 @@ class MitiORM{
 			.'='.$alias_campo_externa.'.'.$campo_externa.' '
 		;
 		
-		return $this;
-	}
-	
-	public function eJuntar($juncao,$externa,$alias,$alias_campo,$campo,$alias_campo_externa,$campo_externa){
-		$this->juntar($juncao,$externa,$alias,$alias_campo,$campo,$alias_campo_externa,$campo_externa);
 		return $this;
 	}
 	
@@ -210,28 +205,28 @@ class MitiORM{
 		}
 	}
 	
-	public function agrupar($alias,$campo,$separador=''){
+	public function agrupar($alias,$campo){
+		$separador='';
+		if($this->grupos){
+			$separador=',';
+		}
+		
 		$this->grupos.=$separador.$alias.'.'.$campo.' ';
 		return $this;
 	}
 	
-	public function eAgrupar($alias,$campo){
-		$this->agrupar($alias,$campo,',');
-		return $this;
-	}
-	
-	public function ordenar($alias,$campo,$ordens,$separador=''){
+	public function ordenar($alias,$campo,$ordens){
+		$separador='';
+		if($this->ordens){
+			$separador=',';
+		}
+		
 		$this->ordens.=$separador.$alias.'.'.$campo.' '.$ordens.' ';
 		return $this;
 	}
 	
-	public function eOrdenar($alias,$campo,$ordens){
-		$this->ordenar($alias,$campo,$ordens,',');
-		return $this;
-	}
-	
 	public function ordenarAleatoriamente(){
-		$this->ordens.='rand()';
+		$this->ordens='rand()';
 		return $this;
 	}
 	
@@ -251,7 +246,7 @@ class MitiORM{
 	public function ler(){
 		$this->verificarClausulas();
 		
-		return $this->MitiBD->requisitar(
+		$sql=
 			'select '.$this->campos
 			.'from '.$this->MitiTabela[$this->alias]->getNome().' '.$this->alias.' '
 			.$this->juncoes
@@ -259,7 +254,9 @@ class MitiORM{
 			.$this->grupos
 			.$this->ordens
 			.$this->limite
-		);
+		;
+			
+		return $this->MitiBD->requisitar($sql);
 	}
 	
 	private function verificarClausulas(){
