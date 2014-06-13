@@ -1,5 +1,20 @@
 <?php
 class MitiTratamento{
+	public function requerer($caminho){
+		$hash=md5(file_get_contents($caminho));
+		
+		$partes=explode('.',$caminho);
+		$extensao=array_pop($partes);
+		
+		if($extensao==='js'){
+			$html="<script src='$caminho?hash=$hash'></script>\n";
+		}else if($extensao==='css'){
+			$html="<link rel='stylesheet' type='text/css' href='$caminho?hash=$hash' />\n";
+		}
+		
+		return $html;
+	}
+	
 	public function garantirValor($original,$novo){
 		if($original){
 			return $original;

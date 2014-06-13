@@ -133,7 +133,7 @@ class MitiValidacao{
 			->validarQuantidadeCaracteres($cpf)
 			->validarApenasNumeros($cpf)
 			->validarSequenciaIgual($cpf)
-			->validarDigitosCPF($cpf)
+			->validarDigitosCpf($cpf)
 		;
 	}
 	
@@ -167,7 +167,7 @@ class MitiValidacao{
 		return $this;
 	}
 	
-	private function validarDigitosCPF($cpf){
+	private function validarDigitosCpf($cpf){
 		for($t=9;$t<11;$t++){
 			for($d=0,$c=0;$c<$t;$c++){
 				$d+=$cpf[$c]*(($t+1)-$c);
@@ -189,14 +189,14 @@ class MitiValidacao{
 		}
 		
 		$this
-			->validarQuantidadeCaracteresCNPJ($cnpj)
-			->validarApenasNumerosCNPJ($cnpj)
+			->validarQuantidadeCaracteresCnpj($cnpj)
+			->validarApenasNumerosCnpj($cnpj)
 			->validarSequenciaZeros($cnpj)
-			->validarDigitosCNPJ($cnpj)
+			->validarDigitosCnpj($cnpj)
 		;
 	}
 	
-	private function validarQuantidadeCaracteresCNPJ($cnpj){
+	private function validarQuantidadeCaracteresCnpj($cnpj){
 		if(strlen($cnpj)!==14){
 			throw new Exception('#1 - O CNPJ é inválido');
 		}
@@ -204,7 +204,7 @@ class MitiValidacao{
 		return $this;
 	}
 	
-	private function validarApenasNumerosCNPJ($cnpj){
+	private function validarApenasNumerosCnpj($cnpj){
 		if(!preg_match('/\d{14}/',$cnpj)){
 			throw new Exception('#2 - O CNPJ é inválido');
 		}
@@ -220,7 +220,7 @@ class MitiValidacao{
 		return $this;
 	}
 	
-	private function validarDigitosCNPJ($cnpj){
+	private function validarDigitosCnpj($cnpj){
 		$p=array(
 			array('x'=>5,'i'=>array(11,4),'p'=>12),
 			array('x'=>6,'i'=>array(12,5),'p'=>13)

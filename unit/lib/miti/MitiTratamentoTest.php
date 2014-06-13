@@ -6,6 +6,30 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 		$this->MitiTratamento=new MitiTratamento;
 	}
 	
+	public function testRequererJs(){
+		$afirmacao=
+			"<script src='"
+			.RAIZ.'js/MitiUnit.js?hash=2322a33b011d9593787988512e2ed45f'
+			."'></script>\n"
+		;
+		
+		$this->assertSame(
+			$afirmacao,$this->MitiTratamento->requerer(RAIZ.'js/MitiUnit.js')
+		);
+	}
+	
+	public function testRequererCss(){
+		$afirmacao=
+			"<link rel='stylesheet' type='text/css' href='"
+			.RAIZ.'css/mitiunit.css?hash=431f86b7bbc84cfeaa7b66544c32dc0c'
+			."' />\n"
+		;
+		
+		$this->assertSame(
+			$afirmacao,$this->MitiTratamento->requerer(RAIZ.'css/mitiunit.css')
+		);
+	}
+	
 	public function testGarantirValorVazio(){
 		$this->assertSame('a',$this->MitiTratamento->garantirValor('','a'));
 	}
