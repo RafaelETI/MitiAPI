@@ -8,8 +8,8 @@ class MitiEmailTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	private function declararFiles(){
-		$_FILES['arquivo']['name'][0]='mitiunit.txt';
-		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'msc/mitiunit.txt';
+		$_FILES['arquivo']['name'][0]='miti.txt';
+		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'unit/arquivo/miti.txt';
 	}
 	
 	public function testEnviar(){

@@ -9,24 +9,24 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 	public function testRequererJs(){
 		$afirmacao=
 			"<script src='"
-			.RAIZ.'js/MitiUnit.js?hash=2322a33b011d9593787988512e2ed45f'
+			.RAIZ.'unit/arquivo/Miti.js?hash=44cac76ce9712f378cd2ce873c867d35'
 			."'></script>\n"
 		;
 		
 		$this->assertSame(
-			$afirmacao,$this->MitiTratamento->requerer(RAIZ.'js/MitiUnit.js')
+			$afirmacao,$this->MitiTratamento->requerer(RAIZ.'unit/arquivo/Miti.js')
 		);
 	}
 	
 	public function testRequererCss(){
 		$afirmacao=
 			"<link rel='stylesheet' type='text/css' href='"
-			.RAIZ.'css/mitiunit.css?hash=431f86b7bbc84cfeaa7b66544c32dc0c'
+			.RAIZ.'unit/arquivo/miti.css?hash=e4419e0c858d91022238c61f9f47cd7b'
 			."' />\n"
 		;
 		
 		$this->assertSame(
-			$afirmacao,$this->MitiTratamento->requerer(RAIZ.'css/mitiunit.css')
+			$afirmacao,$this->MitiTratamento->requerer(RAIZ.'unit/arquivo/miti.css')
 		);
 	}
 	
@@ -45,8 +45,8 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testGarantirArquivo(){
 		$this->assertSame(
-			file_get_contents(RAIZ.'msc/mitiunit.txt'),
-			$this->MitiTratamento->garantirArquivo('',RAIZ.'msc/mitiunit.txt')
+			file_get_contents(RAIZ.'unit/arquivo/miti.txt'),
+			$this->MitiTratamento->garantirArquivo('',RAIZ.'unit/arquivo/miti.txt')
 		);
 	}
 	

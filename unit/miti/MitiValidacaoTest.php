@@ -8,9 +8,9 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	private function declararFiles(){
-		$_FILES['arquivo']['name'][0]='mitiunit.png';
+		$_FILES['arquivo']['name'][0]='miti.png';
 		$_FILES['arquivo']['type'][0]='image/png';
-		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'img/mitiunit.png';
+		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'unit/arquivo/miti.png';
 		$_FILES['arquivo']['size'][0]='1457';
 		
 		$_FILES['arquivo2']['name'][0]='';

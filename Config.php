@@ -22,9 +22,9 @@ class Config{
 	
 	private function sistema(){
 		if(AMBIENTE===0){
-			define('SISTEMA','Miti Modelo');
+			define('SISTEMA','MitiAPI');
 		}else if(AMBIENTE===1){
-			define('SISTEMA','Miti Modelo 5.18.108');
+			define('SISTEMA','MitiAPI 1.0.0');
 		}
 		
 		return $this;
@@ -73,8 +73,8 @@ class Config{
 		session_start();
 		
 		if($restrito&&!isset($_SESSION[$sessao])){
-			$_SESSION['status']='Você não está autenticado';
-			header('location:'.RAIZ.'main/login.php');
+			$_SESSION['status']='Você não está autenticado.';
+			header('location:'.RAIZ.'admin/login.php');
 			exit;
 		}
 		
@@ -83,13 +83,13 @@ class Config{
 	
 	public static function verificarSessao($sessao='login'){
 		if(!isset($_SESSION[$sessao])){
-			throw new Exception('Você não tem permissão');
+			throw new Exception('Você não tem permissão.');
 		}
 	}
 	
 	private function autoload(){
 		function miti_autoload($classe){
-			$pacotes=array('adt','lib/miti');
+			$pacotes=array('adt','miti');
 			
 			foreach($pacotes as $v){
 				if(file_exists(RAIZ.$v.'/'.$classe.'.php')){

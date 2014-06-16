@@ -16,7 +16,7 @@ class ConfigUnit{
 	}
 	
 	private function ambiente(){
-		define('AMBIENTE',0);
+		define('AMBIENTE',1);
 		return $this;
 	}
 	
@@ -38,9 +38,9 @@ class ConfigUnit{
 	
 	private function raiz(){
 		if(AMBIENTE===0){
-			define('RAIZ','c:/apache24/htdocs/miti_modelo/');
+			define('RAIZ','c:/apache24/htdocs/MitiAPI/');
 		}else if(AMBIENTE===1){
-			define('RAIZ','/var/www/html/miti_modelo/');
+			define('RAIZ','/var/www/html/MitiAPI/');
 		}
 		
 		return $this;
@@ -71,7 +71,7 @@ class ConfigUnit{
 	
 	private function autoload(){
 		function miti_autoload($classe){
-			$pacotes=array('adt','lib/miti');
+			$pacotes=array('adt','miti');
 			
 			foreach($pacotes as $v){
 				if(file_exists(RAIZ.$v.'/'.$classe.'.php')){
