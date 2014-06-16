@@ -38,21 +38,16 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame('b',$this->MitiTratamento->garantirValor('b','a'));
 	}
 	
+	public function testGarantirIndices(){
+		$_POST=$this->MitiTratamento->garantirIndices($_POST,array('teste'));
+		$this->assertTrue(isset($_POST['teste']));
+	}
+	
 	public function testGarantirArquivo(){
 		$this->assertSame(
 			file_get_contents(RAIZ.'msc/mitiunit.txt'),
 			$this->MitiTratamento->garantirArquivo('',RAIZ.'msc/mitiunit.txt')
 		);
-	}
-	
-	public function testGarantirPost(){
-		$this->MitiTratamento->garantirPost(array('teste'));
-		$this->assertTrue(isset($_POST['teste']));
-	}
-	
-	public function testGarantirGet(){
-		$this->MitiTratamento->garantirGet('teste',true);
-		$this->assertSame(true,$_GET['teste']);
 	}
 	
 	public function testHtmlSpecialCharsVazio(){

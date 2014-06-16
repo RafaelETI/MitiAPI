@@ -23,26 +23,22 @@ class MitiTratamento{
 		return $novo;
 	}
 	
+	public function garantirIndices($vetor,array $indices){
+		foreach($indices as $i){
+			if(!isset($vetor[$i])){
+				$vetor[$i]='';
+			}
+		}
+		
+		return $vetor;
+	}
+	
 	public function garantirArquivo($arquivo,$caminho){
 		if(!$arquivo){
 			$arquivo=file_get_contents($caminho);
 		}
 		
 		return $arquivo;
-	}
-	
-	public function garantirPost(array $indices){
-		foreach($indices as $i){
-			if(!isset($_POST[$i])){
-				$_POST[$i]='';
-			}
-		}
-	}
-	
-	public function garantirGet($indice,$valor){
-		if(!isset($_GET[$indice])){
-			$_GET[$indice]=$valor;
-		}
 	}
 	
 	public function htmlSpecialChars($valores,$charset='iso-8859-1'){

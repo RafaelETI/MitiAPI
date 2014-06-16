@@ -1,34 +1,24 @@
 <?php
 class MitiPaginacao{
-	private $num_reg;
-	private $pg;
-	private $inicio;
 	private $total;
-	private $max_links;
-	private $qnt_pg;
-	private $link_inicial;
-	private $link_final;
+	private $quantidade;
+	private $pagina;
+	private $quantidadeBotoes;
+	private $inicio;
+	private $quantidadePaginas;
+	private $botaoInicial;
+	private $botaoFinal;
 	
-	public function __construct($num_reg,$pg,$max_links){
-		$this->num_reg=$num_reg;
-		$this->pg=$pg;
-		$this->max_links=$max_links;
-		
-		$this->inicio=$this->pg-1;
-		$this->inicio*=$num_reg;
-	}
-	
-	public function setTotal($total){
+	public function __construct($total,$quantidade,$pagina,$quantidadeBotoes){
 		$this->total=$total;
-	}
-	
-	public function getNumReg(){
-		//chama-lo na definicao do limite de registros
-		return $this->num_reg;
+		$this->quantidade=$quantidade;
+		$this->pagina=$pagina;
+		$this->quantidadeBotoes=$quantidadeBotoes;
+		
+		$this->inicio=($this->pagina-1)*$quantidade;
 	}
 	
 	public function getInicio(){
-		//chama-lo na definicao do limite de registros
 		return $this->inicio;
 	}
 	
@@ -39,23 +29,23 @@ class MitiPaginacao{
 		
 		$this->calcular();
 		
-		if($this->pg!=1){
+		if($this->pagina!=1){
 			$paginacao='<a href="'.$url.'1">Primeira</a>';
 		}else{
 			$paginacao='<span class="'.$off.'">Primeira</span>';
 		}
 		
-		if($this->pg>1){
-			$paginacao.='<a href="'.$url.($this->pg-1).'">Anterior</a>';
+		if($this->pagina>1){
+			$paginacao.='<a href="'.$url.($this->pagina-1).'">Anterior</a>';
 		}else{
 			$paginacao.='<span class="'.$off.'">Anterior</span>';
 		}
 		
-		for($x=$this->link_inicial;$x<=$this->link_final;$x++){
-			if($this->pg==$x){
+		for($x=$this->botaoInicial;$x<=$this->botaoFinal;$x++){
+			if($this->pagina==$x){
 				$paginacao.='<span class="'.$on.'">'.$x.'</span>';
 			}else{
-				if($x<1||$x>=$this->qnt_pg){
+				if($x<1||$x>=$this->quantidadePaginas){
 					continue;
 				}
 				
@@ -63,14 +53,14 @@ class MitiPaginacao{
 			}
 		}
 		
-		if(($this->pg+1)<$this->qnt_pg){
-			$paginacao.='<a href="'.$url.($this->pg+1).'">Próxima</a>';
+		if(($this->pagina+1)<$this->quantidadePaginas){
+			$paginacao.='<a href="'.$url.($this->pagina+1).'">Próxima</a>';
 		}else{
 			$paginacao.='<span class="'.$off.'">Próxima</span>';
 		}
 		
-		if($this->pg!=($this->qnt_pg-1)){
-			$paginacao.='<a href="'.$url.($this->qnt_pg-1).'">Última</a>';
+		if($this->pagina!=($this->quantidadePaginas-1)){
+			$paginacao.='<a href="'.$url.($this->quantidadePaginas-1).'">Última</a>';
 		}else{
 			$paginacao.='<span class="'.$off.'">Última</span>';
 		}
@@ -79,12 +69,10 @@ class MitiPaginacao{
 	}
 	
 	private function calcular(){
-		$this->qnt_pg=ceil($this->total/$this->num_reg);
-		$this->qnt_pg++;
+		$this->quantidadePaginas=ceil($this->total/$this->quantidade)+1;
 		
-		$metade=ceil($this->max_links/2);
-		$metade--;
-		$this->link_inicial=$this->pg-$metade;
-		$this->link_final=$this->pg+$metade;
+		$metade=ceil($this->quantidadeBotoes/2)-1;
+		$this->botaoInicial=$this->pagina-$metade;
+		$this->botaoFinal=$this->pagina+$metade;
 	}
 }

@@ -24,7 +24,7 @@ class Config{
 		if(AMBIENTE===0){
 			define('SISTEMA','Miti Modelo');
 		}else if(AMBIENTE===1){
-			define('SISTEMA','Miti Modelo 5.18.107');
+			define('SISTEMA','Miti Modelo 5.18.108');
 		}
 		
 		return $this;
