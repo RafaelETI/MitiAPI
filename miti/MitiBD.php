@@ -1,4 +1,8 @@
 <?php
+/**
+ * MitiAPI, 2014.
+ * @author Rafael Barros <admin@rafaelbarros.eti.br>
+ */
 class MitiBD{
 	private $conexao;
 	private $requisicao;

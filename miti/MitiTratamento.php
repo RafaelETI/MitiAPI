@@ -1,4 +1,8 @@
 <?php
+/**
+ * MitiAPI, 2014.
+ * @author Rafael Barros <admin@rafaelbarros.eti.br>
+ */
 class MitiTratamento{
 	public function requerer($caminho){
 		$hash=md5(file_get_contents($caminho));
