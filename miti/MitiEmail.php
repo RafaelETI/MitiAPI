@@ -3,6 +3,7 @@
  * MitiAPI, 2014
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
+ * @link https://github.com/RafaelETI/MitiAPI
  */
 class MitiEmail{
 	private $uid;

@@ -9,7 +9,7 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 	public function testRequererJs(){
 		$afirmacao=
 			"<script src='"
-			.RAIZ.'unit/arquivo/Miti.js?hash=44cac76ce9712f378cd2ce873c867d35'
+			.RAIZ.'unit/arquivo/Miti.js?hash=9c8dae732b54244ad5d731c9b0ffda22'
 			."'></script>\n"
 		;
 		
@@ -21,7 +21,7 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 	public function testRequererCss(){
 		$afirmacao=
 			"<link rel='stylesheet' type='text/css' href='"
-			.RAIZ.'unit/arquivo/miti.css?hash=e4419e0c858d91022238c61f9f47cd7b'
+			.RAIZ.'unit/arquivo/miti.css?hash=431f86b7bbc84cfeaa7b66544c32dc0c'
 			."' />\n"
 		;
 		
