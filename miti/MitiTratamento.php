@@ -21,12 +21,12 @@ class MitiTratamento{
 		return $html;
 	}
 	
-	public function garantirValor($original,$novo){
-		if($original){
-			return $original;
+	public function substituirValor($valor,$condicao,$novo){
+		if($valor===$condicao){
+			$valor=$novo;
 		}
 		
-		return $novo;
+		return $valor;
 	}
 	
 	public function garantirIndices($vetor,array $indices){

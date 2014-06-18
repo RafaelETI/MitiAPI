@@ -30,12 +30,12 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 		);
 	}
 	
-	public function testGarantirValorVazio(){
-		$this->assertSame('a',$this->MitiTratamento->garantirValor('','a'));
+	public function testNaoSubstituirValor(){
+		$this->assertSame('a',$this->MitiTratamento->substituirValor('a','b','c'));
 	}
 	
-	public function testGarantirValor(){
-		$this->assertSame('b',$this->MitiTratamento->garantirValor('b','a'));
+	public function testSubstituirValor(){
+		$this->assertSame('c',$this->MitiTratamento->substituirValor('a','a','c'));
 	}
 	
 	public function testGarantirIndices(){
