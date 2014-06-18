@@ -22,9 +22,9 @@ class Config{
 	
 	private function sistema(){
 		if(AMBIENTE===0){
-			define('SISTEMA','MitiAPI');
+			define('SISTEMA','Miti API');
 		}else if(AMBIENTE===1){
-			define('SISTEMA','MitiAPI 1.0.0');
+			define('SISTEMA','Miti API 1.0.1');
 		}
 		
 		return $this;

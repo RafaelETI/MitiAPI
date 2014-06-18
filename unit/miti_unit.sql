@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1deb1
+-- version 4.2.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 13, 2014 at 09:21 AM
--- Server version: 5.5.37
--- PHP Version: 5.3.10-1ubuntu3.11
+-- Generation Time: Jun 17, 2014 at 07:53 PM
+-- Server version: 5.5.37-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -29,9 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `categoria` (
   `id` tinyint(3) unsigned NOT NULL,
   `nome` varchar(30) NOT NULL,
-  `status` char(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `status` (`status`)
+  `status` char(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -52,9 +50,7 @@ INSERT INTO `categoria` (`id`, `nome`, `status`) VALUES
 CREATE TABLE IF NOT EXISTS `memoria` (
   `id` tinyint(4) NOT NULL,
   `descricao` varchar(1000) NOT NULL,
-  `categoria` tinyint(3) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `categoria` (`categoria`)
+  `categoria` tinyint(3) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -75,8 +71,7 @@ INSERT INTO `memoria` (`id`, `descricao`, `categoria`) VALUES
 CREATE TABLE IF NOT EXISTS `status` (
   `id` char(1) NOT NULL,
   `descricao` varchar(20) NOT NULL,
-  `prioridade` tinyint(3) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
+  `prioridade` tinyint(3) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -89,6 +84,28 @@ INSERT INTO `status` (`id`, `descricao`, `prioridade`) VALUES
 ('c', 'Não aplicável', 1);
 
 --
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `categoria`
+--
+ALTER TABLE `categoria`
+ ADD PRIMARY KEY (`id`), ADD KEY `status` (`status`);
+
+--
+-- Indexes for table `memoria`
+--
+ALTER TABLE `memoria`
+ ADD PRIMARY KEY (`id`), ADD KEY `categoria` (`categoria`);
+
+--
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Constraints for dumped tables
 --
 
@@ -96,13 +113,13 @@ INSERT INTO `status` (`id`, `descricao`, `prioridade`) VALUES
 -- Constraints for table `categoria`
 --
 ALTER TABLE `categoria`
-  ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`id`) ON UPDATE CASCADE;
+ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `memoria`
 --
 ALTER TABLE `memoria`
-  ADD CONSTRAINT `memoria_ibfk_1` FOREIGN KEY (`categoria`) REFERENCES `categoria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `memoria_ibfk_1` FOREIGN KEY (`categoria`) REFERENCES `categoria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

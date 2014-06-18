@@ -1,6 +1,7 @@
 <?php
 /**
- * MitiAPI, 2014.
+ * MitiAPI, 2014
+ * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  */
 class MitiStatus{

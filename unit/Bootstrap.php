@@ -1,7 +1,7 @@
 <?php
-new ConfigUnit;
+new Bootstrap;
 
-class ConfigUnit{
+class Bootstrap{
 	public function __construct(){
 		$this
 			->ambiente()
