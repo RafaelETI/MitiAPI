@@ -95,7 +95,7 @@ class MitiBD{
 			if(ini_get('display_errors')){
 				$mensagem=$this->conexao->connect_error;
 			}else{
-				$mensagem='Não foi possível conectar ao banco de dados';
+				$mensagem='Não foi possível conectar ao banco de dados.';
 			}
 			
 			throw new Exception($mensagem);
@@ -112,7 +112,7 @@ class MitiBD{
 	 */
 	private function definirCharset($charset){
 		if(!$this->conexao->set_charset($charset)){
-			throw new Exception('Houve um erro ao definir o charset');
+			throw new Exception('Houve um erro ao definir o charset.');
 		}
 	}
 	
@@ -169,7 +169,7 @@ class MitiBD{
 	 * 
 	 * @api
 	 * @param string $sql Recomenda-se o uso de um ORM para a montagem do SQL.
-	 * @return \MitiBD Para usar como Fluent Interface.
+	 * @return \MitiBD
 	 */
 	public function requisitar($sql){
 		$microtimes=array(microtime(true));
@@ -192,15 +192,15 @@ class MitiBD{
 	 * A mensagem será técnica ou genérica baseado na configuração do PHP sobre
 	 * a impressão de erros na tela. Mesma regra da mensagem de erro da conexão.
 	 * 
-	 * @return \MitiBD Para usar como Fluent Interface.
 	 * @throws Exception Em caso de falha na requisição.
+	 * @return \MitiBD
 	 */
 	private function verificarErroRequisicao(){
 		if($this->conexao->error){
 			if(ini_get('display_errors')){
 				$mensagem=$this->conexao->error;
 			}else{
-				$mensagem='Houve um erro ao realizar a requisição';
+				$mensagem='Houve um erro ao realizar a requisição.';
 			}
 			
 			throw new Exception($mensagem);
@@ -210,10 +210,10 @@ class MitiBD{
 	}
 	
 	/**
-	 * Atribui o tempo da requisição à propriedade respectiva
+	 * Define o tempo da requisição
 	 * 
 	 * @param float[] $microtimes
-	 * @return \MitiBD Para usar como Fluent Interface.
+	 * @return \MitiBD
 	 */
 	private function setTempo($microtimes){
 		$MitiDesempenho=new MitiDesempenho;
@@ -222,9 +222,9 @@ class MitiBD{
 	}
 	
 	/**
-	 * Atribui a quantidade de registros afetados à propriedade respectiva
+	 * Define a quantidade de registros afetados
 	 * 
-	 * @return \MitiBD Para usar como Fluent Interface.
+	 * @return \MitiBD
 	 */
 	private function setAfetados(){
 		$this->afetados=$this->conexao->affected_rows;
@@ -232,9 +232,9 @@ class MitiBD{
 	}
 	
 	/**
-	 * Atribui o id auto incrementado da última inserção à propriedade respectiva
+	 * Define o id auto incrementado da última inserção
 	 * 
-	 * @return \MitiBD Para usar como Fluent Interface.
+	 * @return \MitiBD
 	 */
 	private function setId(){
 		$this->id=$this->conexao->insert_id;

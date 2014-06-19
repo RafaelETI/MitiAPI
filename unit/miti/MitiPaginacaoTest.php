@@ -10,7 +10,7 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 		
 		$this->assertSame(
 			'Não há registros para esta busca',
-			$MitiPaginacao->criar('?pagina=','off','on')
+			$MitiPaginacao->criar('?pagina=','on','off')
 		);
 	}
 	
@@ -24,7 +24,7 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 			.'<span class="off">Próxima</span>'
 			.'<span class="off">Última</span>',
 		
-			$MitiPaginacao->criar('?pagina=','off','on')
+			$MitiPaginacao->criar('?pagina=','on','off')
 		);
 	}
 	
@@ -41,7 +41,7 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 			.'<a href="?pagina=3">Próxima</a>'
 			.'<a href="?pagina=10">Última</a>',
 		
-			$MitiPaginacao->criar('?pagina=','off','on')
+			$MitiPaginacao->criar('?pagina=','on','off')
 		);
 	}
 }

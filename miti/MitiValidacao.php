@@ -12,7 +12,7 @@ class MitiValidacao{
 		}
 		
 		if(strlen($valor)!=$tamanho){
-			throw new Exception('O valor deve conter até '.$tamanho.' caractéres');
+			throw new Exception('O valor deve conter até '.$tamanho.' caractéres.');
 		}
 	}
 	
@@ -22,7 +22,7 @@ class MitiValidacao{
 		}
 		
 		if(!preg_match('/^\w{2,}@\w{2,}\.(\w|\.){2,}$/',$valor)){
-			throw new Exception('O e-mail é inválido');
+			throw new Exception('O e-mail é inválido.');
 		}
 	}
 	
@@ -37,14 +37,14 @@ class MitiValidacao{
 	private function vazioArray($valores){
 		foreach($valores as $v){
 			if(!$v){
-				throw new Exception('Valor vazio');
+				throw new Exception('Valor vazio.');
 			}
 		}
 	}
 	
 	private function vazioScalar($valores){
 		if(!$valores){
-			throw new Exception('Valor vazio');
+			throw new Exception('Valor vazio.');
 		}
 	}
 	
@@ -65,7 +65,7 @@ class MitiValidacao{
 		$peso*=1024;
 		
 		if($_FILES[$file]['size'][$i]>$peso){
-			throw new Exception('O arquivo excede o tamanho permitido');
+			throw new Exception('O arquivo excede o tamanho permitido.');
 		}
 	}
 	
@@ -79,7 +79,7 @@ class MitiValidacao{
 		}
 		
 		if(!$ok){
-			throw new Exception('O tipo do arquivo é inválido');
+			throw new Exception('O tipo do arquivo é inválido.');
 		}
 	}
 	
@@ -100,13 +100,13 @@ class MitiValidacao{
 	private function validarTamanho($tamanho,$largura,$altura){
 		if($tamanho[0]<$largura){
 			throw new Exception(
-				'A largura da imagem é menor do que o mínimo permitido'
+				'A largura da imagem é menor do que o mínimo permitido.'
 			);
 		}
 		
 		if($tamanho[1]<$altura){
 			throw new Exception(
-				'A altura da imagem é menor do que o mínimo permitido'
+				'A altura da imagem é menor do que o mínimo permitido.'
 			);
 		}
 	}
@@ -119,13 +119,13 @@ class MitiValidacao{
 		
 		if($prop_img<$prop_min){
 			throw new Exception(
-				'A proporção da imagem é inválida, excedendo verticalmente'
+				'A proporção da imagem é inválida, excedendo verticalmente.'
 			);
 		}
 		
 		if($prop_img>$prop_max){
 			throw new Exception(
-				'A proporção da imagem é inválida, excedendo horizontalmente'
+				'A proporção da imagem é inválida, excedendo horizontalmente.'
 			);
 		}
 	}
@@ -145,7 +145,7 @@ class MitiValidacao{
 	
 	private function validarQuantidadeCaracteres($cpf){
 		if(strlen($cpf)!==11){
-			throw new Exception('#1 - O CPF é inválido');
+			throw new Exception('#1 - O CPF é inválido.');
 		}
 		
 		return $this;
@@ -153,7 +153,7 @@ class MitiValidacao{
 	
 	private function validarApenasNumeros($cpf){
 		if(!preg_match('/\d{11}/',$cpf)){
-			throw new Exception('#2 - O CPF é inválido');
+			throw new Exception('#2 - O CPF é inválido.');
 		}
 		
 		return $this;
@@ -166,7 +166,7 @@ class MitiValidacao{
 			}
 			
 			if($i==10){
-				throw new Exception('#3 - O CPF é inválido');
+				throw new Exception('#3 - O CPF é inválido.');
 			}
 		}
 		
@@ -182,7 +182,7 @@ class MitiValidacao{
 			$d=((10*$d)%11)%10;
 			
 			if($cpf[$c]!=$d){
-				throw new Exception('#4 - O CPF é inválido');
+				throw new Exception('#4 - O CPF é inválido.');
 			}
 		}
 		
@@ -204,7 +204,7 @@ class MitiValidacao{
 	
 	private function validarQuantidadeCaracteresCnpj($cnpj){
 		if(strlen($cnpj)!==14){
-			throw new Exception('#1 - O CNPJ é inválido');
+			throw new Exception('#1 - O CNPJ é inválido.');
 		}
 		
 		return $this;
@@ -212,7 +212,7 @@ class MitiValidacao{
 	
 	private function validarApenasNumerosCnpj($cnpj){
 		if(!preg_match('/\d{14}/',$cnpj)){
-			throw new Exception('#2 - O CNPJ é inválido');
+			throw new Exception('#2 - O CNPJ é inválido.');
 		}
 		
 		return $this;
@@ -220,7 +220,7 @@ class MitiValidacao{
 	
 	private function validarSequenciaZeros($cnpj){
 		if($cnpj=='00000000000000'){
-			throw new Exception('#3 - O CNPJ é inválido');
+			throw new Exception('#3 - O CNPJ é inválido.');
 		}
 		
 		return $this;
@@ -250,7 +250,7 @@ class MitiValidacao{
 			}
 			
 			if($cnpj[$p[$y]['p']]!=$digito){
-				throw new Exception('#4 - O CNPJ é inválido');
+				throw new Exception('#4 - O CNPJ é inválido.');
 			}
 		}
 		

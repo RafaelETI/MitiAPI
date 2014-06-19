@@ -84,11 +84,11 @@ class MitiORM{
 		
 		foreach($duplas as $i=>$v){
 			if(!$anulaveis[$i]&&!$v){
-				throw new Exception('Valor vazio');
+				throw new Exception('Valor vazio.');
 			}
 			
 			if(strlen($v)>$tamanhos[$i]){
-				throw new Exception('Limite de caractéres excedido');
+				throw new Exception('Limite de caractéres excedido.');
 			}
 		}
 	}

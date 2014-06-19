@@ -5,61 +5,161 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+
+/**
+ * Envio de e-mail
+ * 
+ * É sempre enviado no formato HTML.
+ * 
+ * Permite definições de cópias e anexos.
+ */
 class MitiEmail{
+	/**
+	 * @var string Delimitações do cabeçalho. Deve ser um valor único.
+	 */
 	private $uid;
-	private $cc='';
-	private $bcc='';
-	private $replyto='';
-	private $anexos=false;
 	
+	/**
+	 * @var string Cópia carbono.
+	 */
+	private $cc='';
+	
+	/**
+	 * @var string Cópia carbono oculta.
+	 */
+	private $bcc='';
+	
+	/**
+	 * @var string Responder para. Ainda descobrindo a utilidade.
+	 */
+	private $replyto='';
+	
+	/**
+	 * @var string Name do formulário dos arquivos.
+	 */
+	private $anexos='';
+	
+	/**
+	 * Define o UID
+	 * 
+	 * @api
+	 */
 	public function __construct(){
 		$this->uid=md5(uniqid(time()));
 	}
 	
+	/**
+	 * Define o e-mail da cópia carbono
+	 * 
+	 * @api
+	 * @param string $cc
+	 * @return \MitiEmail
+	 */
 	public function setCc($cc){
 		$this->cc=$cc;
 		return $this;
 	}
 	
+	/**
+	 * Define o e-mail da cópia carbono oculta
+	 * 
+	 * Evite. É falta de educação.
+	 * 
+	 * @api
+	 * @param string $bcc
+	 * @return \MitiEmail
+	 */
 	public function setBcc($bcc){
 		$this->bcc=$bcc;
 		return $this;
 	}
 	
+	/**
+	 * Define o e-mail para resposta
+	 * 
+	 * @api
+	 * @param string $replyto
+	 * @return \MitiEmail
+	 */
 	public function setReplyTo($replyto){
 		$this->replyto=$replyto;
 		return $this;
 	}
 	
+	/**
+	 * Define o name do formulário dos arquivos
+	 * 
+	 * O valor deve ser passado sem colchetes, mesmo em caso de upload múltiplo,
+	 * ao passo que o name do formulário deve sempre possuí-los, mesmo se o
+	 * upload não for múltiplo.
+	 * 
+	 * @api
+	 * @param string $anexos
+	 * @return \MitiEmail
+	 */
 	public function setAnexos($anexos){
 		$this->anexos=$anexos;
 		return $this;
 	}
 	
-	public function enviar($dest,$assunto,$msg,$remet,$charset='iso-8859-1'){
+	/**
+	 * Envia o e-mail
+	 * 
+	 * O remetente não é passado como parâmetro da função mail() porque ele
+	 * faz parte do cabeçalho.
+	 * 
+	 * Basta existir um arquivo, o qual foi configurado para o PHP, mesmo que
+	 * ele não faça nada, que a mail() retorna true. Isso é interessante para o
+	 * ambiente de desenvolvimento.
+	 * 
+	 * @api
+	 * @param string $destinatario
+	 * @param string $assunto
+	 * @param string $mensagem
+	 * @param string $remetente
+	 * @param string $charset
+	 * @throws Exception Em caso de falha de envio.
+	 */
+	public function enviar(
+		$destinatario,$assunto,$mensagem,$remetente,$charset='iso-8859-1'
+	){
 		if(
 			!mail(
-				$dest,
-				$this->obterAssuntoCodificado($charset,$assunto),
+				$destinatario,
+				$this->codificarAssunto($charset,$assunto),
 				'',
-				$this->obterCabecalho($remet,$msg,$charset)
+				$this->montarCabecalho($remetente,$mensagem,$charset)
 			)
 		){
-			throw new Exception('Houve um erro ao enviar o e-mail');
+			throw new Exception('Houve um erro ao enviar o e-mail.');
 		}
 	}
 	
-	private function obterCabecalho($remet,$msg,$charset='iso-8859-1'){
+	/**
+	 * Monta a unificação de todo o cabeçalho
+	 * 
+	 * @param string $remetente
+	 * @param string $mensagem
+	 * @param string $charset
+	 * @return string
+	 */
+	private function montarCabecalho($remetente,$mensagem,$charset='iso-8859-1'){
 		return
-			$this->obterCabecalhoBasico($remet)
-			.$this->obterCabecalhoMensagem($charset,$msg)
-			.$this->obterCabecalhoAnexos()
+			$this->montarCabecalhoBasico($remetente)
+			.$this->montarCabecalhoMensagem($charset,$mensagem)
+			.$this->montarCabecalhoAnexos()
 		;
 	}
 	
-	private function obterCabecalhoBasico($remet){
+	/**
+	 * Monta a string do cabeçalho básico
+	 * 
+	 * @param string $remetente
+	 * @return string
+	 */
+	private function montarCabecalhoBasico($remetente){
 		return
-			'From: '.$remet."\r\n"
+			'From: '.$remetente."\r\n"
 			.'Reply-To: '.$this->replyto."\r\n"
 			.'Cc: '.$this->cc."\r\n"
 			.'Bcc: '.$this->bcc."\r\n"
@@ -69,20 +169,31 @@ class MitiEmail{
 		;
 	}
 	
-	private function obterCabecalhoMensagem($charset,$msg){
+	/**
+	 * Monta a string do cabeçalho da mensagem
+	 * 
+	 * @param string $charset
+	 * @param string $mensagem
+	 * @return string
+	 */
+	private function montarCabecalhoMensagem($charset,$mensagem){
 		return
 			'--'.$this->uid."\r\n"
 			.'Content-type:text/html; charset='.$charset."\r\n"
 			.'Content-Transfer-Encoding: 7bit'."\r\n\r\n"
-			.$msg."\r\n\r\n"
+			.$mensagem."\r\n\r\n"
 		;
 	}
 	
-	private function obterCabecalhoAnexos(){
+	/**
+	 * Monta a string do cabeçalho dos anexos
+	 * 
+	 * @return string
+	 */
+	private function montarCabecalhoAnexos(){
 		$cabecalho='';
 		
 		if($this->anexos&&$_FILES[$this->anexos]['tmp_name'][0]){
-			//sempre colocar o valor do name do file com [] no formulario
 			foreach($_FILES[$this->anexos]['tmp_name'] as $i=>$v){
 				$nome=basename($_FILES[$this->anexos]['name'][$i]);
 				$conteudo=chunk_split(base64_encode(file_get_contents($v)));
@@ -101,7 +212,16 @@ class MitiEmail{
 		return $cabecalho;
 	}
 	
-	private function obterAssuntoCodificado($charset,$assunto){
+	/**
+	 * Codifica o assunto
+	 * 
+	 * Estranho, mas funciona.
+	 * 
+	 * @param string $charset
+	 * @param string $assunto
+	 * @return string
+	 */
+	private function codificarAssunto($charset,$assunto){
 		return '=?'.$charset.'?b?'.base64_encode($assunto).'?=';
 	}
 }
