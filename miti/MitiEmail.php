@@ -118,7 +118,7 @@ class MitiEmail{
 	 * @param string $mensagem
 	 * @param string $remetente
 	 * @param string $charset
-	 * @throws Exception Em caso de falha de envio.
+	 * @throws Exception
 	 */
 	public function enviar(
 		$destinatario,$assunto,$mensagem,$remetente,$charset='iso-8859-1'

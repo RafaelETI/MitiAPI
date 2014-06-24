@@ -88,7 +88,7 @@ class MitiBD{
 	 * Geralmente acontece por causa da configuração do ambiente: diferentes
 	 * máquinas de desenvolvimento, ambiente de teste, ou de produção.
 	 * 
-	 * @throws Exception Em caso de falha na conexão.
+	 * @throws Exception
 	 */
 	private function verificarErroConexao(){
 		if($this->conexao->connect_error){
@@ -107,8 +107,7 @@ class MitiBD{
 	 * 
 	 * @param string $charset O valor compatível com iso-8859-1 é latin1.
 	 * 
-	 * @throws Exception Em caso de falha na definição do charset. Muito raro
-	 * de acontecer.
+	 * @throws Exception Muito raro de acontecer.
 	 */
 	private function definirCharset($charset){
 		if(!$this->conexao->set_charset($charset)){
@@ -192,8 +191,8 @@ class MitiBD{
 	 * A mensagem será técnica ou genérica baseado na configuração do PHP sobre
 	 * a impressão de erros na tela. Mesma regra da mensagem de erro da conexão.
 	 * 
-	 * @throws Exception Em caso de falha na requisição.
 	 * @return \MitiBD
+	 * @throws Exception
 	 */
 	private function verificarErroRequisicao(){
 		if($this->conexao->error){

@@ -5,7 +5,26 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+
+/**
+ * Pacote de operações de tratamento de valor
+ */
 class MitiTratamento{
+	/**
+	 * Cria o html para inclusão de arquivos CSS e JS
+	 * 
+	 * A diferença de chamar diretamente é que esse método parametriza o link
+	 * com o hash do arquivo, fazendo com que sempre que haja uma alteração
+	 * no conteúdo do arquivo, o navegador veja como um novo arquivo e não use
+	 * o que já está em cache.
+	 * 
+	 * Não é interessante de se usar com arquivos de terceiros, visto que esses,
+	 * à princípio, não são alterados permanecendo com o mesmo nome.
+	 * 
+	 * @api
+	 * @param string $caminho
+	 * @return string
+	 */
 	public function requerer($caminho){
 		$hash=md5(file_get_contents($caminho));
 		
@@ -21,6 +40,15 @@ class MitiTratamento{
 		return $html;
 	}
 	
+	/**
+	 * Substitui um valor baseado em um valor condicional
+	 * 
+	 * @api
+	 * @param mixed $valor
+	 * @param mixed $condicao
+	 * @param mixed $novo
+	 * @return mixed
+	 */
 	public function substituirValor($valor,$condicao,$novo){
 		if($valor===$condicao){
 			$valor=$novo;
@@ -29,6 +57,16 @@ class MitiTratamento{
 		return $valor;
 	}
 	
+	/**
+	 * Garante a existência de índices de um vetor
+	 * 
+	 * Se o índice da iteração não existir, recebe uma string vazia.
+	 * 
+	 * @api
+	 * @param mixed[] $vetor
+	 * @param string[] $indices
+	 * @return mixed[]
+	 */
 	public function garantirIndices($vetor,array $indices){
 		foreach($indices as $i){
 			if(!isset($vetor[$i])){
@@ -39,6 +77,14 @@ class MitiTratamento{
 		return $vetor;
 	}
 	
+	/**
+	 * Garante o conteúdo do código fonte de um arquivo
+	 * 
+	 * @api
+	 * @param string $arquivo
+	 * @param string $caminho
+	 * @return string
+	 */
 	public function garantirArquivo($arquivo,$caminho){
 		if(!$arquivo){
 			$arquivo=file_get_contents($caminho);
@@ -47,6 +93,17 @@ class MitiTratamento{
 		return $arquivo;
 	}
 	
+	/**
+	 * Extende a capacidade da função nativa htmlspecialchars()
+	 * 
+	 * Faz com que ela aceite também vetores, que considere aspas, e que
+	 * considere a codificação iso-8859-1 por padrão.
+	 * 
+	 * @api
+	 * @param string|string[] $valores
+	 * @param string $charset
+	 * @return string|string[]|null
+	 */
 	public function htmlSpecialChars($valores,$charset='iso-8859-1'){
 		if(!$valores){
 			return;
@@ -61,7 +118,14 @@ class MitiTratamento{
 		return $valores;
 	}
 	
-	private function htmlSpecialCharsArray($valores,$charset){
+	/**
+	 * Itera a função nativa htmlspecialchars sobre um vetor
+	 * 
+	 * @param string[] $valores
+	 * @param string $charset
+	 * @return string[]
+	 */
+	private function htmlSpecialCharsArray(array $valores,$charset){
 		foreach($valores as $i=>$v){
 			$valores[$i]=htmlspecialchars($v,ENT_QUOTES,$charset);
 		}
@@ -69,10 +133,25 @@ class MitiTratamento{
 		return $valores;
 	}
 	
-	private function htmlSpecialCharsScalar($valores,$charset){
-		return htmlspecialchars($valores,ENT_QUOTES,$charset);
+	/**
+	 * Passa uma string pela função nativa htmlspecialchars
+	 * 
+	 * @param string $valor
+	 * @param string $charset
+	 * @return string
+	 */
+	private function htmlSpecialCharsScalar($valor,$charset){
+		return htmlspecialchars($valor,ENT_QUOTES,$charset);
 	}
 	
+	/**
+	 * Encurta a quantidade de caractéres de um valor ou valores
+	 * 
+	 * @api
+	 * @param mixed|mixed[] $valores
+	 * @param int $tamanho
+	 * @return mixed|mixed[]|null
+	 */
 	public function encurtar($valores,$tamanho=5){
 		if(!$valores){
 			return;
@@ -87,7 +166,14 @@ class MitiTratamento{
 		return $valores;
 	}
 	
-	private function encurtarArray($valores,$tamanho){
+	/**
+	 * Itera um vetor encurtando todos os seus valores
+	 * 
+	 * @param mixed[] $valores
+	 * @param int $tamanho
+	 * @return mixed[]
+	 */
+	private function encurtarArray(array $valores,$tamanho){
 		foreach($valores as $i=>$v){
 			if(strlen($v)>$tamanho+2){
 				$valores[$i]=substr($v,0,$tamanho).'...';
@@ -97,15 +183,28 @@ class MitiTratamento{
 		return $valores;
 	}
 	
-	private function encurtarScalar($valores,$tamanho){
-		if(strlen($valores)>$tamanho+2){
-			$valores=substr($valores,0,$tamanho).'...';
+	/**
+	 * Encurta o tamanho de um valor
+	 * 
+	 * @param mixed $valor
+	 * @param int $tamanho
+	 * @return mixed
+	 */
+	private function encurtarScalar($valor,$tamanho){
+		if(strlen($valor)>$tamanho+2){
+			$valor=substr($valor,0,$tamanho).'...';
 		}
 		
-		//a cobertura do teste unitario pede o retorno aqui
-		return $valores;
+		return $valor;
 	}
 	
+	/**
+	 * Remove os acentos de um valor ou valores
+	 * 
+	 * @api
+	 * @param string|string[] $valores
+	 * @return string|string[]|null
+	 */
 	public function removerAcentos($valores){
 		if(!$valores){
 			return;
@@ -132,7 +231,15 @@ class MitiTratamento{
 		return $valores;
 	}
 	
-	private function removerAcentosArray($valores,$acentos,$normais){
+	/**
+	 * Itera sobre um vetor removendo os acentos de seus valores
+	 * 
+	 * @param string[] $valores
+	 * @param string[] $acentos
+	 * @param string[] $normais
+	 * @return string[]
+	 */
+	private function removerAcentosArray(array $valores,$acentos,$normais){
 		foreach($valores as $i=>$v){
 			$valores[$i]=str_replace($acentos,$normais,$v);
 		}
@@ -140,7 +247,15 @@ class MitiTratamento{
 		return $valores;
 	}
 	
-	private function removerAcentosScalar($valores,$acentos,$normais){
-		return str_replace($acentos,$normais,$valores);
+	/**
+	 * Remove os acentos de um valor
+	 * 
+	 * @param string $valor
+	 * @param string[] $acentos
+	 * @param string[] $normais
+	 * @return string
+	 */
+	private function removerAcentosScalar($valor,$acentos,$normais){
+		return str_replace($acentos,$normais,$valor);
 	}
 }

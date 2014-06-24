@@ -63,11 +63,10 @@ class MitiTabela{
 	/**
 	 * Define o vetor de objetos dos campos
 	 * 
-	 * @throws Exception Implicitamente, em caso de falha na requisição. Por
-	 * causa dessa requisição, deve-se instanciar todo objeto que realizar um
-	 * ORM, dentro de um bloco try...catch.
-	 * 
 	 * @return \MitiTabela
+	 * 
+	 * @throws Exception Implicitamente. Por causa dessa requisição, deve-se
+	 * instanciar todo objeto que realizar um ORM, dentro de um bloco try...catch.
 	 */
 	private function mapearCampos(){
 		$MitiBD=new MitiBD;

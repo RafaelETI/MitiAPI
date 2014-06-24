@@ -5,7 +5,20 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+
+/**
+ * Pacote de validações
+ */
 class MitiValidacao{
+	/**
+	 * Valida a quantidade de caractéres de um valor
+	 * 
+	 * @api
+	 * @param mixed $valor
+	 * @param int $tamanho
+	 * @return null
+	 * @throws Exception
+	 */
 	public function tamanho($valor,$tamanho){
 		if(!$valor){
 			return;
@@ -16,6 +29,16 @@ class MitiValidacao{
 		}
 	}
 	
+	/**
+	 * Valida o formato de um e-mail
+	 * 
+	 * O formato deve ser algo parecido com: aa(at)aa.aa
+	 * 
+	 * @api
+	 * @param string $valor
+	 * @return null
+	 * @throws Exception
+	 */
 	public function email($valor){
 		if(!$valor){
 			return;
@@ -26,6 +49,16 @@ class MitiValidacao{
 		}
 	}
 	
+	/**
+	 * Valida se um valor ou valores não são equivalentes à vazio
+	 * 
+	 * Diferente da maioria dos métodos, não retorna null se o valor for
+	 * equivalente à false porque sua própria validação já verifica se o valor
+	 * é equivalente à vazio.
+	 * 
+	 * @api
+	 * @param mixed|mixed[] $valores
+	 */
 	public function vazio($valores){
 		if(is_array($valores)){
 			$this->vazioArray($valores);
@@ -34,7 +67,13 @@ class MitiValidacao{
 		}
 	}
 	
-	private function vazioArray($valores){
+	/**
+	 * Valida se algum valor de um vetor é equivalente à vazio
+	 * 
+	 * @param mixed[] $valores
+	 * @throws Exception
+	 */
+	private function vazioArray(array $valores){
 		foreach($valores as $v){
 			if(!$v){
 				throw new Exception('Valor vazio.');
@@ -42,26 +81,53 @@ class MitiValidacao{
 		}
 	}
 	
-	private function vazioScalar($valores){
-		if(!$valores){
+	/**
+	 * Valida se um valor é equivalente à vazio
+	 * 
+	 * @param mixed $valor
+	 * @throws Exception
+	 */
+	private function vazioScalar($valor){
+		if(!$valor){
 			throw new Exception('Valor vazio.');
 		}
 	}
 	
+	/**
+	 * Valida um arquivo em upload
+	 * 
+	 * O atributo name da tag input file do formulário HTML deve ser concatenado
+	 * à [] (colchetes), mesmo que o upload não seja múltiplo, porque o programa
+	 * manuseia uma estrutura de dados igual à que seria se o upload fosse
+	 * múltiplo.
+	 * 
+	 * @api
+	 * @param string $file Name do input file sem colchetes.
+	 * @param int $peso Em kylobytes.
+	 * 
+	 * @param string[] $tipos Pedaços de strings pertencentes aos mime types
+	 * desejados
+	 */
 	public function upload($file,$peso,array $tipos){
-		//a tag form deve conter enctype="multipart/form-data",
-		//e o name deve conter []
 		foreach($_FILES[$file]['name'] as $i=>$v){
 			if(!$v){
 				break;
 			}
 			
-			$this->validarPeso($file,$i,$peso);
-			$this->validarTipos($file,$i,$tipos);
+			$this->peso($file,$i,$peso);
+			$this->tipos($file,$i,$tipos);
 		}
 	}
 	
-	private function validarPeso($file,$i,$peso){
+	/**
+	 * Valida o peso de um arquivo
+	 * 
+	 * @param string $file
+	 * @param int $i Índice do vetor do upload
+	 * @param int $peso
+	 * @throws Exception
+	 */
+	private function peso($file,$i,$peso){
 		$peso*=1024;
 		
 		if($_FILES[$file]['size'][$i]>$peso){
@@ -69,7 +135,15 @@ class MitiValidacao{
 		}
 	}
 	
-	private function validarTipos($file,$i,array $tipos){
+	/**
+	 * Valida o tipo do arquivo
+	 * 
+	 * @param string $file
+	 * @param int $i Índice do vetor do upload
+	 * @param string[] $tipos
+	 * @throws Exception
+	 */
+	private function tipos($file,$i,array $tipos){
 		$ok=false;
 		
 		foreach($tipos as $v){
@@ -83,39 +157,66 @@ class MitiValidacao{
 		}
 	}
 	
+	/**
+	 * Valida uma imagem em upload
+	 * 
+	 * O atributo name da tag input file do formulário HTML deve ser concatenado
+	 * à [] (colchetes), mesmo que o upload não seja múltiplo, porque o programa
+	 * manuseia uma estrutura de dados igual à que seria se o upload fosse
+	 * múltiplo.
+	 * 
+	 * @api
+	 * @param string $file Name do input file sem colchetes.
+	 * @param int $largura Em pixels.
+	 * @param int $altura Em pixels.
+	 */
 	public function uploadImagem($file,$largura,$altura){
-		//a tag form deve conter enctype="multipart/form-data",
-		//e o name deve conter []
 		foreach($_FILES[$file]['name'] as $i=>$v){
 			if(!$v){
 				break;
 			}
 			
-			$tamanho=getimagesize($_FILES[$file]['tmp_name'][$i]);
-			$this->validarTamanho($tamanho,$largura,$altura);
-			$this->validarProporcoes($tamanho,$largura,$altura);
+			$dimensoes=getimagesize($_FILES[$file]['tmp_name'][$i]);
+			$this->dimensoes($dimensoes,$largura,$altura);
+			$this->proporcoes($dimensoes,$largura,$altura);
 		}
 	}
 	
-	private function validarTamanho($tamanho,$largura,$altura){
-		if($tamanho[0]<$largura){
+	/**
+	 * Valida as dimensões de uma imagem
+	 * 
+	 * @param int[] $dimensoes
+	 * @param int $largura
+	 * @param int $altura
+	 * @throws Exception
+	 */
+	private function dimensoes($dimensoes,$largura,$altura){
+		if($dimensoes[0]<$largura){
 			throw new Exception(
 				'A largura da imagem é menor do que o mínimo permitido.'
 			);
 		}
 		
-		if($tamanho[1]<$altura){
+		if($dimensoes[1]<$altura){
 			throw new Exception(
 				'A altura da imagem é menor do que o mínimo permitido.'
 			);
 		}
 	}
 	
-	private function validarProporcoes($tamanho,$largura,$altura){
+	/**
+	 * Valida as proporções de uma imagem
+	 * 
+	 * @param int[] $dimensoes
+	 * @param int $largura
+	 * @param int $altura
+	 * @throws Exception
+	 */
+	private function proporcoes($dimensoes,$largura,$altura){
 		$prop_args=$largura/$altura;
 		$prop_min=$prop_args-0.1;
 		$prop_max=$prop_args+0.1;
-		$prop_img=$tamanho[0]/$tamanho[1];
+		$prop_img=$dimensoes[0]/$dimensoes[1];
 		
 		if($prop_img<$prop_min){
 			throw new Exception(
@@ -130,115 +231,193 @@ class MitiValidacao{
 		}
 	}
 	
+	/**
+	 * Valida um CPF
+	 * 
+	 * @api
+	 * @param string $cpf
+	 * @return null
+	 */
 	public function cpf($cpf){
 		if(!$cpf){
 			return;
 		}
 		
 		$this
-			->validarQuantidadeCaracteres($cpf)
-			->validarApenasNumeros($cpf)
-			->validarSequenciaIgual($cpf)
-			->validarDigitosCpf($cpf)
+			->quantidadeCaracteres($cpf)
+			->apenasNumeros($cpf)
+			->sequenciaIgual($cpf)
+			->digitosCpf($cpf)
 		;
 	}
 	
-	private function validarQuantidadeCaracteres($cpf){
+	/**
+	 * Valida a quantidade de caractéres
+	 * 
+	 * A numeração na mensagem de exceção é para que o desenvolvedor consiga
+	 * localizar o código que lançou a exceção sem que o usuário tenha uma
+	 * mensagem explícita do erro, para que haja uma menor chance de burlamento.
+	 * 
+	 * @param string $cpf
+	 * @return \MitiValidacao
+	 * @throws Exception
+	 */
+	private function quantidadeCaracteres($cpf){
 		if(strlen($cpf)!==11){
-			throw new Exception('#1 - O CPF é inválido.');
+			throw new Exception('#1 O CPF é inválido.');
 		}
 		
 		return $this;
 	}
 	
-	private function validarApenasNumeros($cpf){
+	/**
+	 * Valida se apenas possui números
+	 * 
+	 * @param string $cpf
+	 * @return \MitiValidacao
+	 * @throws Exception
+	 */
+	private function apenasNumeros($cpf){
 		if(!preg_match('/\d{11}/',$cpf)){
-			throw new Exception('#2 - O CPF é inválido.');
+			throw new Exception('#2 O CPF é inválido.');
 		}
 		
 		return $this;
 	}
 	
-	private function validarSequenciaIgual($cpf){
-		for($i=1,$y=$cpf[0];$i<=10;$i++){
-			if($y!=$cpf[$i]){
+	/**
+	 * Valida se é uma sequência de números repetidos
+	 * 
+	 * Por incrível que pareça, repetições de sequências de um à nove satisfazem
+	 * os cálculos dos dígitos verificadores.
+	 * 
+	 * @param string $cpf
+	 * @return \MitiValidacao
+	 * @throws Exception
+	 */
+	private function sequenciaIgual($cpf){
+		for($i=1,$j=$cpf[0];$i<=10;$i++){
+			if($j!=$cpf[$i]){
 				break;
 			}
 			
 			if($i==10){
-				throw new Exception('#3 - O CPF é inválido.');
+				throw new Exception('#3 O CPF é inválido.');
 			}
 		}
 		
 		return $this;
 	}
 	
-	private function validarDigitosCpf($cpf){
-		for($t=9;$t<11;$t++){
-			for($d=0,$c=0;$c<$t;$c++){
-				$d+=$cpf[$c]*(($t+1)-$c);
+	/**
+	 * Valida os dígitos verificadores
+	 * 
+	 * @param string $cpf
+	 * @return \MitiValidacao
+	 * @throws Exception
+	 */
+	private function digitosCpf($cpf){
+		for($i=9;$i<=10;$i++){
+			for($digito=0,$numero=0;$numero<$i;$numero++){
+				$digito+=$cpf[$numero]*(($i+1)-$numero);
 			}
 			
-			$d=((10*$d)%11)%10;
+			$digito=((10*$digito)%11)%10;
 			
-			if($cpf[$c]!=$d){
-				throw new Exception('#4 - O CPF é inválido.');
+			if($cpf[$numero]!=$digito){
+				throw new Exception('#4 O CPF é inválido.');
 			}
 		}
 		
 		return $this;
 	}
 	
+	/**
+	 * Valida um CNPJ
+	 * 
+	 * @api
+	 * @param string $cnpj
+	 * @return null
+	 */
 	public function cnpj($cnpj){
 		if(!$cnpj){
 			return;
 		}
 		
 		$this
-			->validarQuantidadeCaracteresCnpj($cnpj)
-			->validarApenasNumerosCnpj($cnpj)
-			->validarSequenciaZeros($cnpj)
-			->validarDigitosCnpj($cnpj)
+			->quantidadeCaracteresCnpj($cnpj)
+			->apenasNumerosCnpj($cnpj)
+			->sequenciaZeros($cnpj)
+			->digitosCnpj($cnpj)
 		;
 	}
 	
-	private function validarQuantidadeCaracteresCnpj($cnpj){
+	/**
+	 * Valida a quantidade de caractéres
+	 * 
+	 * A numeração na mensagem de exceção é para que o desenvolvedor consiga
+	 * localizar o código que lançou a exceção sem que o usuário tenha uma
+	 * mensagem explícita do erro, para que haja uma menor chance de burlamento.
+	 * 
+	 * @param string $cnpj
+	 * @return \MitiValidacao
+	 * @throws Exception
+	 */
+	private function quantidadeCaracteresCnpj($cnpj){
 		if(strlen($cnpj)!==14){
-			throw new Exception('#1 - O CNPJ é inválido.');
+			throw new Exception('#1 O CNPJ é inválido.');
 		}
 		
 		return $this;
 	}
 	
-	private function validarApenasNumerosCnpj($cnpj){
+	/**
+	 * Valida se apenas possui números
+	 * 
+	 * @param string $cnpj
+	 * @return \MitiValidacao
+	 * @throws Exception
+	 */
+	private function apenasNumerosCnpj($cnpj){
 		if(!preg_match('/\d{14}/',$cnpj)){
-			throw new Exception('#2 - O CNPJ é inválido.');
+			throw new Exception('#2 O CNPJ é inválido.');
 		}
 		
 		return $this;
 	}
 	
-	private function validarSequenciaZeros($cnpj){
+	/**
+	 * Valida se é uma sequência de zeros
+	 * 
+	 * Diferente do CPF, essa é a única sequência numérica problemática.
+	 * 
+	 * @param string $cnpj
+	 * @return \MitiValidacao
+	 * @throws Exception
+	 */
+	private function sequenciaZeros($cnpj){
 		if($cnpj=='00000000000000'){
-			throw new Exception('#3 - O CNPJ é inválido.');
+			throw new Exception('#3 O CNPJ é inválido.');
 		}
 		
 		return $this;
 	}
 	
-	private function validarDigitosCnpj($cnpj){
-		$p=array(
-			array('x'=>5,'i'=>array(11,4),'p'=>12),
-			array('x'=>6,'i'=>array(12,5),'p'=>13)
-		);
-		
-		for($y=0;$y<=1;$y++){
-			for($i=0,$x=$p[$y]['x'],$soma=0;$i<=$p[$y]['i'][0];$i++){
-				if($i===$p[$y]['i'][1]){
+	/**
+	 * Valida os dígitos verificadores
+	 * 
+	 * @param string $cnpj
+	 * @return \MitiValidacao
+	 * @throws Exception
+	 */
+	private function digitosCnpj($cnpj){
+		for($i=0;$i<=1;$i++){
+			for($numero=0,$x=5+$i,$soma=0;$numero<=11+$i;$numero++){
+				if($numero===4+$i){
 					$x=9;
 				}
 				
-				$soma+=$cnpj[$i]*$x--;
+				$soma+=$cnpj[$numero]*$x--;
 			}
 			
 			$resto=$soma%11;
@@ -249,8 +428,8 @@ class MitiValidacao{
 				$digito=11-$resto;
 			}
 			
-			if($cnpj[$p[$y]['p']]!=$digito){
-				throw new Exception('#4 - O CNPJ é inválido.');
+			if($cnpj[12+$i]!=$digito){
+				throw new Exception('#4 O CNPJ é inválido.');
 			}
 		}
 		

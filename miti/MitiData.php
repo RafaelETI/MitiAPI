@@ -5,7 +5,27 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+
+/**
+ * Pacote de operações sobre data
+ * 
+ * Dois motivos importantes: oferece suporte para datas no formato brasileiro, e
+ * não assume a data atual na ausência de uma outra na construção do objeto;
+ * diferente da classe nativa DateTime.
+ */
 class MitiData{
+	/**
+	 * Inverte uma data no formato brasileiro para o formato norte americano
+	 * 
+	 * Basta trocar a barra pelo hífen que a classe DateTime reconhece como data,
+	 * ou seja, não precisa estar na ordem do formato americano. Até porque, se
+	 * precisasse, não haveria sentido em usá-la.
+	 * 
+	 * @api
+	 * @param string $data
+	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
+	 * @return string|null
+	 */
 	public function inverterBrParaEua($data,$longo=false){
 		if(!$data){
 			return;
@@ -23,6 +43,14 @@ class MitiData{
 		return $data;
 	}
 	
+	/**
+	 * Inverte um data no formato norte americano para o formato brasileiro
+	 * 
+	 * @api
+	 * @param string $data
+	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
+	 * @return string|null
+	 */
 	public function inverterEuaParaBr($data,$longo=false){
 		if(!$data){
 			return;
@@ -38,7 +66,17 @@ class MitiData{
 		return $data;
 	}
 	
-	public function obterDiaSemana($data,$longo=false){
+	/**
+	 * Obtém o dia da semana à partir de uma data, em forma de texto
+	 * 
+	 * É um trabalho majoritariamente de tradução.
+	 * 
+	 * @api
+	 * @param string $data
+	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
+	 * @return string|null
+	 */
+	public function obterDiaDaSemana($data,$longo=false){
 		if(!$data){
 			return;
 		}
@@ -69,6 +107,14 @@ class MitiData{
 		return $dia;
 	}
 	
+	/**
+	 * Obtém o mês à partir de uma data, em forma de texto
+	 * 
+	 * @api
+	 * @param string $data
+	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
+	 * @return string|null
+	 */
 	public function obterMes($data,$longo=false){
 		if(!$data){
 			return;
@@ -110,6 +156,13 @@ class MitiData{
 		return $mes;
 	}
 	
+	/**
+	 * Obtém o ano à partir de uma data
+	 * 
+	 * @api
+	 * @param string $data
+	 * @return string|null
+	 */
 	public function obterAno($data){
 		if(!$data){
 			return;

@@ -26,36 +26,36 @@ class MitiDataTest extends PHPUnit_Framework_TestCase{
 		);
 	}
 	
-	public function testObterDiaSemanaVazio(){
-		$this->assertSame(null,$this->MitiData->obterDiaSemana(''));
+	public function testObterDiaDaSemanaVazio(){
+		$this->assertSame(null,$this->MitiData->obterDiaDaSemana(''));
 	}
 	
-	public function testObterDiaSemanaDomingo(){
-		$this->assertSame('Dom',$this->MitiData->obterDiaSemana('1991-08-18'));
+	public function testObterDiaDaSemanaDomingo(){
+		$this->assertSame('Dom',$this->MitiData->obterDiaDaSemana('1991-08-18'));
 	}
 	
-	public function testObterDiaSemanaSegunda(){
-		$this->assertSame('Seg',$this->MitiData->obterDiaSemana('1991-08-19'));
+	public function testObterDiaDaSemanaSegunda(){
+		$this->assertSame('Seg',$this->MitiData->obterDiaDaSemana('1991-08-19'));
 	}
 	
-	public function testObterDiaSemanaTerca(){
-		$this->assertSame('Ter',$this->MitiData->obterDiaSemana('1991-08-20'));
+	public function testObterDiaDaSemanaTerca(){
+		$this->assertSame('Ter',$this->MitiData->obterDiaDaSemana('1991-08-20'));
 	}
 	
-	public function testObterDiaSemanaQuarta(){
-		$this->assertSame('Qua',$this->MitiData->obterDiaSemana('1991-08-21'));
+	public function testObterDiaDaSemanaQuarta(){
+		$this->assertSame('Qua',$this->MitiData->obterDiaDaSemana('1991-08-21'));
 	}
 	
-	public function testObterDiaSemanaQuinta(){
-		$this->assertSame('Qui',$this->MitiData->obterDiaSemana('1991-08-22'));
+	public function testObterDiaDaSemanaQuinta(){
+		$this->assertSame('Qui',$this->MitiData->obterDiaDaSemana('1991-08-22'));
 	}
 	
-	public function testObterDiaSemanaSexta(){
-		$this->assertSame('Sex',$this->MitiData->obterDiaSemana('1991-08-23'));
+	public function testObterDiaDaSemanaSexta(){
+		$this->assertSame('Sex',$this->MitiData->obterDiaDaSemana('1991-08-23'));
 	}
 	
-	public function testObterDiaSemanaSabado(){
-		$this->assertSame('Sáb',$this->MitiData->obterDiaSemana('1991-08-24'));
+	public function testObterDiaDaSemanaSabado(){
+		$this->assertSame('Sáb',$this->MitiData->obterDiaDaSemana('1991-08-24'));
 	}
 	
 	public function testObterMesVazio(){
