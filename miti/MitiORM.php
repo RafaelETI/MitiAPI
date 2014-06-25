@@ -295,7 +295,7 @@ class MitiORM{
 	}
 	
 	/**
-	 * Trata os dados
+	 * Trata os dados à serem inseridos no banco
 	 * 
 	 * Impede-se SQL Injection, além de outros tratamentos.
 	 * 
@@ -340,6 +340,28 @@ class MitiORM{
 		return $pk;
 	}
 	
+	/**
+	 * Seleciona um campo de uma tabela
+	 * 
+	 * Para selecionar-se mais de um campo, chamar esse método quantas vezes
+	 * forem necessárias.
+	 * 
+	 * Pode-se usar funções do banco de dados nessa seleção. Definí-los no
+	 * segundo parâmetro. Nesse caso, deixar o primeiro parâmetro vazio.
+	 * 
+	 * @api
+	 * @param string $alias De qualquer tabela.
+	 * @param string $campo De qualquer tabela.
+	 * 
+	 * @param string $alias_campo Importante para resolver conflitros com campos
+	 * de tabelas juntadas ou para simplificar nomes criados à partir do uso de
+	 * funções do banco.
+	 * 
+	 * @return \MitiORM
+	 * 
+	 * @todo Melhorar a forma de chamar funções do banco. Não é bom ter que
+	 * deixar o primeiro parâmetro vazio.
+	 */
 	public function selecionar($alias,$campo,$alias_campo=''){
 		if($alias){
 			$alias.='.';
@@ -358,6 +380,22 @@ class MitiORM{
 		return $this;
 	}
 	
+	/**
+	 * Junta a tabela principal com uma tabela externa
+	 * 
+	 * Para juntar-se mais de uma tabela, chamar esse método quantas vezes forem
+	 * necessárias.
+	 * 
+	 * @api
+	 * @param string $juncao join, left join, etc.
+	 * @param string $externa Nome da tabela externa à ser juntada.
+	 * @param string $alias Da tabela externa.
+	 * @param string $alias_campo
+	 * @param string $campo
+	 * @param string $alias_campo_externa
+	 * @param string $campo_externa
+	 * @return \MitiORM
+	 */
 	public function juntar(
 		$juncao,$externa,$alias,$alias_campo,$campo,$alias_campo_externa,$campo_externa
 	){
@@ -372,22 +410,86 @@ class MitiORM{
 		return $this;
 	}
 	
+	/**
+	 * Filtra os registros de uma seleção
+	 * 
+	 * Chamá-lo apenas uma vez. Na necessidade de mais de um filtro, usar os
+	 * outros métodos de filtragem.
+	 * 
+	 * @api
+	 * @param string $alias De qualquer tabela.
+	 * @param string $campo De qualquer tabela.
+	 * @param string $operador =, !=, like, >, >=, etc.
+	 * @param mixed $valor
+	 * @param string $separador Utilizado preferencialmente por método interno.
+	 * @return \MitiORM
+	 */
 	public function filtrar($alias,$campo,$operador,$valor,$separador=''){
 		$valor=$this->tratarLeitura($alias,$campo,$operador,$valor);
 		$this->filtros.=$separador.' '.$alias.'.'.$campo.' '.$operador.' '.$valor.' ';
 		return $this;
 	}
 	
+	/**
+	 * Filtra os registros de uma seleção
+	 * 
+	 * Une-se ao filtro anterior com a operação and.
+	 * 
+	 * Para criar mais de um filtro, chamar esse método quantas vezes forem
+	 * necessárias.
+	 * 
+	 * É uma possibilidade de interface mais intuitiva para o usuário, já que
+	 * abstrai a operação no nome do método, e não em uma passagem de parâmetro.
+	 * 
+	 * @api
+	 * @param string $alias De qualquer tabela.
+	 * @param string $campo De qualquer tabela.
+	 * @param string $operador =, !=, like, >, >=, etc.
+	 * @param mixed $valor
+	 * @return \MitiORM
+	 */
 	public function eFiltrar($alias,$campo,$operador,$valor){
 		$this->filtrar($alias,$campo,$operador,$valor,'and');
 		return $this;
 	}
 	
+	/**
+	 * Filtra os registros de uma seleção
+	 * 
+	 * Une-se ao filtro anterior com a operação or.
+	 * 
+	 * Para criar mais de um filtro, chamar esse método quantas vezes forem
+	 * necessárias.
+	 * 
+	 * É uma possibilidade de interface mais intuitiva para o usuário, já que
+	 * abstrai a operação no nome do método, e não em uma passagem de parâmetro.
+	 * 
+	 * @api
+	 * @param string $alias De qualquer tabela.
+	 * @param string $campo De qualquer tabela.
+	 * @param string $operador =, !=, like, >, >=, etc.
+	 * @param mixed $valor
+	 * @return \MitiORM
+	 */
 	public function ouFiltrar($alias,$campo,$operador,$valor){
 		$this->filtrar($alias,$campo,$operador,$valor,'or');
 		return $this;
 	}
 	
+	/**
+	 * Trata os dados passados em um filtro
+	 * 
+	 * Impede-se SQL Injection, além de outros tratamentos.
+	 * 
+	 * Em caso de operação like, sempre considera curingas dos dois lados do
+	 * dado.
+	 * 
+	 * @param string $alias
+	 * @param string $campo
+	 * @param string $operador
+	 * @param mixed $valor
+	 * @return mixed
+	 */
 	private function tratarLeitura($alias,$campo,$operador,$valor){
 		$tipos=$this->MitiTabela[$alias]->getTipos();
 		
@@ -402,6 +504,19 @@ class MitiORM{
 		return $valor;
 	}
 	
+	/**
+	 * Agrupa os registros selecionados, à partir de um campo
+	 * 
+	 * Para agrupar mais de um campo, chamar esse método quantas vezes forem
+	 * necessárias.
+	 * 
+	 * Geralmente usado em conjunto com uma função de agregação do banco.
+	 * 
+	 * @api
+	 * @param string $alias De qualquer tabela.
+	 * @param string $campo De qualquer tabela.
+	 * @return \MitiORM
+	 */
 	public function agrupar($alias,$campo){
 		$separador='';
 		if($this->grupos){
@@ -412,6 +527,18 @@ class MitiORM{
 		return $this;
 	}
 	
+	/**
+	 * Ordena os registros selecionados, à partir de um campo
+	 * 
+	 * Para ordenar mais de um campo, chamar esse método quantas vezes forem
+	 * necessárias.
+	 * 
+	 * @api
+	 * @param string $alias De qualquer tabela.
+	 * @param string $campo De qualquer tabela.
+	 * @param string $ordens asc ou desc.
+	 * @return \MitiORM
+	 */
 	public function ordenar($alias,$campo,$ordens){
 		$separador='';
 		if($this->ordens){
@@ -422,11 +549,34 @@ class MitiORM{
 		return $this;
 	}
 	
+	/**
+	 * Ordena os registros selecionados, aleatoriamente
+	 * 
+	 * Não criar outras ordens quando usar este método, podem surgir resultados
+	 * inesperados.
+	 * 
+	 * @api
+	 * @return \MitiORM
+	 */
 	public function ordenarAleatoriamente(){
 		$this->ordens='rand()';
 		return $this;
 	}
 	
+	/**
+	 * Limita a quantidade e posições dos registros.
+	 * 
+	 * O primeiro registro da seleção tem a posição zero.
+	 * 
+	 * A ordem dos parâmetros é o contrário da linguagem SQL para que dê menos
+	 * trabalho ao usuário informar apenas uma quantidade, sem início. O que é
+	 * muito comum.
+	 * 
+	 * @api
+	 * @param int $quantidade
+	 * @param int $inicio Incluindo zero.
+	 * @return \MitiORM
+	 */
 	public function limitar($quantidade,$inicio=''){
 		if(!$quantidade){
 			return $this;
@@ -440,8 +590,20 @@ class MitiORM{
 		return $this;
 	}
 	
+	/**
+	 * Lê registros da tabela (Read do CRUD)
+	 * 
+	 * Usa-se a variável $sql para facilitar o debug.
+	 * 
+	 * @api
+	 * @return \MitiBD
+	 * @throws Exception Implicitamente.
+	 */
 	public function ler(){
-		$this->verificarClausulas();
+		$this->filtros=$this->concatenarClausula($this->filtros,'where');
+		$this->grupos=$this->concatenarClausula($this->grupos,'group by');
+		$this->ordens=$this->concatenarClausula($this->ordens,'order by');
+		$this->limite=$this->concatenarClausula($this->limite,'limit');
 		
 		$sql=
 			'select '.$this->campos
@@ -452,25 +614,22 @@ class MitiORM{
 			.$this->ordens
 			.$this->limite
 		;
-			
+		
 		return $this->MitiBD->requisitar($sql);
 	}
 	
-	private function verificarClausulas(){
-		if($this->filtros&&strpos($this->filtros,'where')===false){
-			$this->filtros='where '.$this->filtros;
+	/**
+	 * Concatena cláusula SQL às montagens anteriores das instruções
+	 * 
+	 * @param string $propriedade
+	 * @param string $sql
+	 * @return string
+	 */
+	private function concatenarClausula($propriedade,$sql){
+		if($propriedade&&strpos($propriedade,$sql)===false){
+			$propriedade=$sql.' '.$propriedade;
 		}
 		
-		if($this->grupos&&strpos($this->grupos,'group by')===false){
-			$this->grupos='group by '.$this->grupos;
-		}
-		
-		if($this->ordens&&strpos($this->ordens,'order by')===false){
-			$this->ordens='order by '.$this->ordens;
-		}
-		
-		if($this->limite&&strpos($this->limite,'limit')===false){
-			$this->limite='limit '.$this->limite;
-		}
+		return $propriedade;
 	}
 }
