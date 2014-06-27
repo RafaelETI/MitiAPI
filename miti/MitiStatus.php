@@ -31,7 +31,7 @@ class MitiStatus{
 	 * @global string[] $_SESSION Dependência do escopo global.
 	 * @return string
 	 */
-	public function alertar(){
+	public static function alertar(){
 		if(!isset($_SESSION['status'])){
 			return;
 		}

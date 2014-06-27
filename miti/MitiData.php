@@ -26,7 +26,7 @@ class MitiData{
 	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
 	 * @return string|null
 	 */
-	public function inverterBrParaEua($data,$longo=false){
+	public static function inverterBrParaEua($data,$longo=false){
 		if(!$data){
 			return;
 		}
@@ -51,7 +51,7 @@ class MitiData{
 	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
 	 * @return string|null
 	 */
-	public function inverterEuaParaBr($data,$longo=false){
+	public static function inverterEuaParaBr($data,$longo=false){
 		if(!$data){
 			return;
 		}
@@ -76,7 +76,7 @@ class MitiData{
 	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
 	 * @return string|null
 	 */
-	public function obterDiaDaSemana($data,$longo=false){
+	public static function obterDiaDaSemana($data,$longo=false){
 		if(!$data){
 			return;
 		}
@@ -115,7 +115,7 @@ class MitiData{
 	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
 	 * @return string|null
 	 */
-	public function obterMes($data,$longo=false){
+	public static function obterMes($data,$longo=false){
 		if(!$data){
 			return;
 		}
@@ -163,7 +163,7 @@ class MitiData{
 	 * @param string $data
 	 * @return string|null
 	 */
-	public function obterAno($data){
+	public static function obterAno($data){
 		if(!$data){
 			return;
 		}

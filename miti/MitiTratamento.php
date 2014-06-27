@@ -25,7 +25,7 @@ class MitiTratamento{
 	 * @param string $caminho
 	 * @return string
 	 */
-	public function requerer($caminho){
+	public static function requerer($caminho){
 		$hash=md5(file_get_contents($caminho));
 		
 		$partes=explode('.',$caminho);
@@ -49,7 +49,7 @@ class MitiTratamento{
 	 * @param mixed $novo
 	 * @return mixed
 	 */
-	public function substituirValor($valor,$condicao,$novo){
+	public static function substituirValor($valor,$condicao,$novo){
 		if($valor===$condicao){
 			$valor=$novo;
 		}
@@ -67,7 +67,7 @@ class MitiTratamento{
 	 * @param string[] $indices
 	 * @return mixed[]
 	 */
-	public function garantirIndices($vetor,array $indices){
+	public static function garantirIndices($vetor,array $indices){
 		foreach($indices as $i){
 			if(!isset($vetor[$i])){
 				$vetor[$i]='';
@@ -85,7 +85,7 @@ class MitiTratamento{
 	 * @param string $caminho
 	 * @return string
 	 */
-	public function garantirArquivo($arquivo,$caminho){
+	public static function garantirArquivo($arquivo,$caminho){
 		if(!$arquivo){
 			$arquivo=file_get_contents($caminho);
 		}
@@ -104,15 +104,15 @@ class MitiTratamento{
 	 * @param string $charset
 	 * @return string|string[]|null
 	 */
-	public function htmlSpecialChars($valores,$charset='iso-8859-1'){
+	public static function htmlSpecialChars($valores,$charset='iso-8859-1'){
 		if(!$valores){
 			return;
 		}
 		
 		if(is_array($valores)){
-			$valores=$this->htmlSpecialCharsArray($valores,$charset);
+			$valores=self::htmlSpecialCharsArray($valores,$charset);
 		}else{
-			$valores=$this->htmlSpecialCharsScalar($valores,$charset);
+			$valores=self::htmlSpecialCharsScalar($valores,$charset);
 		}
 		
 		return $valores;
@@ -125,7 +125,7 @@ class MitiTratamento{
 	 * @param string $charset
 	 * @return string[]
 	 */
-	private function htmlSpecialCharsArray(array $valores,$charset){
+	private static function htmlSpecialCharsArray(array $valores,$charset){
 		foreach($valores as $i=>$v){
 			$valores[$i]=htmlspecialchars($v,ENT_QUOTES,$charset);
 		}
@@ -140,7 +140,7 @@ class MitiTratamento{
 	 * @param string $charset
 	 * @return string
 	 */
-	private function htmlSpecialCharsScalar($valor,$charset){
+	private static function htmlSpecialCharsScalar($valor,$charset){
 		return htmlspecialchars($valor,ENT_QUOTES,$charset);
 	}
 	
@@ -152,15 +152,15 @@ class MitiTratamento{
 	 * @param int $tamanho
 	 * @return mixed|mixed[]|null
 	 */
-	public function encurtar($valores,$tamanho=5){
+	public static function encurtar($valores,$tamanho=5){
 		if(!$valores){
 			return;
 		}
 	
 		if(is_array($valores)){
-			$valores=$this->encurtarArray($valores,$tamanho);
+			$valores=self::encurtarArray($valores,$tamanho);
 		}else{
-			$valores=$this->encurtarScalar($valores,$tamanho);
+			$valores=self::encurtarScalar($valores,$tamanho);
 		}
 		
 		return $valores;
@@ -173,7 +173,7 @@ class MitiTratamento{
 	 * @param int $tamanho
 	 * @return mixed[]
 	 */
-	private function encurtarArray(array $valores,$tamanho){
+	private static function encurtarArray(array $valores,$tamanho){
 		foreach($valores as $i=>$v){
 			if(strlen($v)>$tamanho+2){
 				$valores[$i]=substr($v,0,$tamanho).'...';
@@ -190,7 +190,7 @@ class MitiTratamento{
 	 * @param int $tamanho
 	 * @return mixed
 	 */
-	private function encurtarScalar($valor,$tamanho){
+	private static function encurtarScalar($valor,$tamanho){
 		if(strlen($valor)>$tamanho+2){
 			$valor=substr($valor,0,$tamanho).'...';
 		}
@@ -205,7 +205,7 @@ class MitiTratamento{
 	 * @param string|string[] $valores
 	 * @return string|string[]|null
 	 */
-	public function removerAcentos($valores){
+	public static function removerAcentos($valores){
 		if(!$valores){
 			return;
 		}
@@ -223,9 +223,9 @@ class MitiTratamento{
 		);
 		
 		if(is_array($valores)){
-			$valores=$this->removerAcentosArray($valores,$acentos,$normais);
+			$valores=self::removerAcentosArray($valores,$acentos,$normais);
 		}else{
-			$valores=$this->removerAcentosScalar($valores,$acentos,$normais);
+			$valores=self::removerAcentosScalar($valores,$acentos,$normais);
 		}
 		
 		return $valores;
@@ -239,7 +239,7 @@ class MitiTratamento{
 	 * @param string[] $normais
 	 * @return string[]
 	 */
-	private function removerAcentosArray(array $valores,$acentos,$normais){
+	private static function removerAcentosArray(array $valores,$acentos,$normais){
 		foreach($valores as $i=>$v){
 			$valores[$i]=str_replace($acentos,$normais,$v);
 		}
@@ -255,7 +255,7 @@ class MitiTratamento{
 	 * @param string[] $normais
 	 * @return string
 	 */
-	private function removerAcentosScalar($valor,$acentos,$normais){
+	private static function removerAcentosScalar($valor,$acentos,$normais){
 		return str_replace($acentos,$normais,$valor);
 	}
 }

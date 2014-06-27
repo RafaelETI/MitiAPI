@@ -25,7 +25,7 @@ class MitiDesempenho{
 	 * @param int $tamanho Tamanho do retorno.
 	 * @return string Representação textual do tempo de execução do processo.
 	 */
-	public function medirTempoExecucao(array $microtimes,$tamanho=6){
+	public static function medirTempoExecucao(array $microtimes,$tamanho=6){
 		return substr($microtimes[1]-$microtimes[0],0,$tamanho);
 	}
 }

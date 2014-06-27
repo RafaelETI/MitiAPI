@@ -1,11 +1,5 @@
 <?php
 class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
-	private $MitiTratamento;
-	
-	protected function setUp(){
-		$this->MitiTratamento=new MitiTratamento;
-	}
-	
 	public function testRequererJs(){
 		$afirmacao=
 			"<script src='"
@@ -14,7 +8,7 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 		;
 		
 		$this->assertSame(
-			$afirmacao,$this->MitiTratamento->requerer(RAIZ.'unit/arquivo/Miti.js')
+			$afirmacao,MitiTratamento::requerer(RAIZ.'unit/arquivo/Miti.js')
 		);
 	}
 	
@@ -26,80 +20,75 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 		;
 		
 		$this->assertSame(
-			$afirmacao,$this->MitiTratamento->requerer(RAIZ.'unit/arquivo/miti.css')
+			$afirmacao,MitiTratamento::requerer(RAIZ.'unit/arquivo/miti.css')
 		);
 	}
 	
 	public function testNaoSubstituirValor(){
-		$this->assertSame('a',$this->MitiTratamento->substituirValor('a','b','c'));
+		$this->assertSame('a',MitiTratamento::substituirValor('a','b','c'));
 	}
 	
 	public function testSubstituirValor(){
-		$this->assertSame('c',$this->MitiTratamento->substituirValor('a','a','c'));
+		$this->assertSame('c',MitiTratamento::substituirValor('a','a','c'));
 	}
 	
 	public function testGarantirIndices(){
-		$_POST=$this->MitiTratamento->garantirIndices($_POST,array('teste'));
+		$_POST=MitiTratamento::garantirIndices($_POST,array('teste'));
 		$this->assertTrue(isset($_POST['teste']));
 	}
 	
 	public function testGarantirArquivo(){
 		$this->assertSame(
 			file_get_contents(RAIZ.'unit/arquivo/miti.txt'),
-			$this->MitiTratamento->garantirArquivo('',RAIZ.'unit/arquivo/miti.txt')
+			MitiTratamento::garantirArquivo('',RAIZ.'unit/arquivo/miti.txt')
 		);
 	}
 	
 	public function testHtmlSpecialCharsVazio(){
-		$this->assertSame(null,$this->MitiTratamento->htmlSpecialChars(''));
+		$this->assertSame(null,MitiTratamento::htmlSpecialChars(''));
 	}
 	
 	public function testHtmlSpecialCharsArray(){
 		$this->assertSame(
 			array('&#039;','&quot;','&amp;','&lt;','&gt;'),
-			$this->MitiTratamento->htmlSpecialChars(array("'",'"','&','<','>'))
+			MitiTratamento::htmlSpecialChars(array("'",'"','&','<','>'))
 		);
 	}
 	
 	public function testHtmlSpecialCharsScalar(){
 		$this->assertSame(
 			'&#039;&quot;&amp;&lt;&gt;',
-			$this->MitiTratamento->htmlSpecialChars('\'"&<>')
+			MitiTratamento::htmlSpecialChars('\'"&<>')
 		);
 	}
 	
 	public function testEncurtarVazio(){
-		$this->assertSame(null,$this->MitiTratamento->encurtar(''));
+		$this->assertSame(null,MitiTratamento::encurtar(''));
 	}
 	
 	public function testEncurtarArray(){
 		$this->assertSame(
 			array('aaaaa...','bbbbb...','ccccc...'),
-		
-			$this->MitiTratamento->encurtar(
-				array('aaaaaaaaaa','bbbbbbbbbb','cccccccccc')
-			)
+			MitiTratamento::encurtar(array('aaaaaaaaaa','bbbbbbbbbb','cccccccccc'))
 		);
 	}
 	
 	public function testEncurtarScalar(){
-		$this->assertSame(
-			'aaaaa...',$this->MitiTratamento->encurtar('aaaaaaaaaa')
-		);
+		$this->assertSame('aaaaa...',MitiTratamento::encurtar('aaaaaaaaaa'));
 	}
 	
 	public function testRemoverAcentosVazio(){
-		$this->assertSame(null,$this->MitiTratamento->removerAcentos(''));
+		$this->assertSame(null,MitiTratamento::removerAcentos(''));
 	}
 	
 	public function testRemoverAcentosArray(){
 		$this->assertSame(
 			array('a','E','i','O','u','C'),
-			$this->MitiTratamento->removerAcentos(array('á','È','î','Õ','ü','Ç'))
+			MitiTratamento::removerAcentos(array('á','È','î','Õ','ü','Ç'))
 		);
 	}
 	
 	public function testRemoverAcentosScalar(){
-		$this->assertSame('c',$this->MitiTratamento->removerAcentos('ç'));
+		$this->assertSame('c',MitiTratamento::removerAcentos('ç'));
 	}
 }

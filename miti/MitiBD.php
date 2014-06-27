@@ -215,8 +215,7 @@ class MitiBD{
 	 * @return \MitiBD
 	 */
 	private function setTempo($microtimes){
-		$MitiDesempenho=new MitiDesempenho;
-		$this->tempo=$MitiDesempenho->medirTempoExecucao($microtimes);
+		$this->tempo=MitiDesempenho::medirTempoExecucao($microtimes);
 		return $this;
 	}
 	

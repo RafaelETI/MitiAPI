@@ -19,7 +19,7 @@ class MitiValidacao{
 	 * @return null
 	 * @throws Exception
 	 */
-	public function tamanho($valor,$tamanho){
+	public static function tamanho($valor,$tamanho){
 		if(!$valor){
 			return;
 		}
@@ -39,7 +39,7 @@ class MitiValidacao{
 	 * @return null
 	 * @throws Exception
 	 */
-	public function email($valor){
+	public static function email($valor){
 		if(!$valor){
 			return;
 		}
@@ -59,11 +59,11 @@ class MitiValidacao{
 	 * @api
 	 * @param mixed|mixed[] $valores
 	 */
-	public function vazio($valores){
+	public static function vazio($valores){
 		if(is_array($valores)){
-			$this->vazioArray($valores);
+			self::vazioArray($valores);
 		}else{
-			$this->vazioScalar($valores);
+			self::vazioScalar($valores);
 		}
 	}
 	
@@ -73,7 +73,7 @@ class MitiValidacao{
 	 * @param mixed[] $valores
 	 * @throws Exception
 	 */
-	private function vazioArray(array $valores){
+	private static function vazioArray(array $valores){
 		foreach($valores as $v){
 			if(!$v){
 				throw new Exception('Valor vazio.');
@@ -87,7 +87,7 @@ class MitiValidacao{
 	 * @param mixed $valor
 	 * @throws Exception
 	 */
-	private function vazioScalar($valor){
+	private static function vazioScalar($valor){
 		if(!$valor){
 			throw new Exception('Valor vazio.');
 		}
@@ -108,14 +108,14 @@ class MitiValidacao{
 	 * @param string[] $tipos Pedaços de strings pertencentes aos mime types
 	 * desejados
 	 */
-	public function upload($file,$peso,array $tipos){
+	public static function upload($file,$peso,array $tipos){
 		foreach($_FILES[$file]['name'] as $i=>$v){
 			if(!$v){
 				break;
 			}
 			
-			$this->peso($file,$i,$peso);
-			$this->tipos($file,$i,$tipos);
+			self::peso($file,$i,$peso);
+			self::tipos($file,$i,$tipos);
 		}
 	}
 	
@@ -127,7 +127,7 @@ class MitiValidacao{
 	 * @param int $peso
 	 * @throws Exception
 	 */
-	private function peso($file,$i,$peso){
+	private static function peso($file,$i,$peso){
 		$peso*=1024;
 		
 		if($_FILES[$file]['size'][$i]>$peso){
@@ -143,7 +143,7 @@ class MitiValidacao{
 	 * @param string[] $tipos
 	 * @throws Exception
 	 */
-	private function tipos($file,$i,array $tipos){
+	private static function tipos($file,$i,array $tipos){
 		$ok=false;
 		
 		foreach($tipos as $v){
@@ -170,15 +170,15 @@ class MitiValidacao{
 	 * @param int $largura Em pixels.
 	 * @param int $altura Em pixels.
 	 */
-	public function uploadImagem($file,$largura,$altura){
+	public static function uploadImagem($file,$largura,$altura){
 		foreach($_FILES[$file]['name'] as $i=>$v){
 			if(!$v){
 				break;
 			}
 			
 			$dimensoes=getimagesize($_FILES[$file]['tmp_name'][$i]);
-			$this->dimensoes($dimensoes,$largura,$altura);
-			$this->proporcoes($dimensoes,$largura,$altura);
+			self::dimensoes($dimensoes,$largura,$altura);
+			self::proporcoes($dimensoes,$largura,$altura);
 		}
 	}
 	
@@ -190,7 +190,7 @@ class MitiValidacao{
 	 * @param int $altura
 	 * @throws Exception
 	 */
-	private function dimensoes($dimensoes,$largura,$altura){
+	private static function dimensoes($dimensoes,$largura,$altura){
 		if($dimensoes[0]<$largura){
 			throw new Exception(
 				'A largura da imagem é menor do que o mínimo permitido.'
@@ -212,7 +212,7 @@ class MitiValidacao{
 	 * @param int $altura
 	 * @throws Exception
 	 */
-	private function proporcoes($dimensoes,$largura,$altura){
+	private static function proporcoes($dimensoes,$largura,$altura){
 		$prop_args=$largura/$altura;
 		$prop_min=$prop_args-0.1;
 		$prop_max=$prop_args+0.1;
@@ -238,17 +238,15 @@ class MitiValidacao{
 	 * @param string $cpf
 	 * @return null
 	 */
-	public function cpf($cpf){
+	public static function cpf($cpf){
 		if(!$cpf){
 			return;
 		}
 		
-		$this
-			->quantidadeCaracteres($cpf)
-			->apenasNumeros($cpf)
-			->sequenciaIgual($cpf)
-			->digitosCpf($cpf)
-		;
+		self::quantidadeCaracteres($cpf);
+		self::apenasNumeros($cpf);
+		self::sequenciaIgual($cpf);
+		self::digitosCpf($cpf);
 	}
 	
 	/**
@@ -262,12 +260,10 @@ class MitiValidacao{
 	 * @return \MitiValidacao
 	 * @throws Exception
 	 */
-	private function quantidadeCaracteres($cpf){
+	private static function quantidadeCaracteres($cpf){
 		if(strlen($cpf)!==11){
 			throw new Exception('#1 O CPF é inválido.');
 		}
-		
-		return $this;
 	}
 	
 	/**
@@ -277,12 +273,10 @@ class MitiValidacao{
 	 * @return \MitiValidacao
 	 * @throws Exception
 	 */
-	private function apenasNumeros($cpf){
+	private static function apenasNumeros($cpf){
 		if(!preg_match('/\d{11}/',$cpf)){
 			throw new Exception('#2 O CPF é inválido.');
 		}
-		
-		return $this;
 	}
 	
 	/**
@@ -295,7 +289,7 @@ class MitiValidacao{
 	 * @return \MitiValidacao
 	 * @throws Exception
 	 */
-	private function sequenciaIgual($cpf){
+	private static function sequenciaIgual($cpf){
 		for($i=1,$j=$cpf[0];$i<=10;$i++){
 			if($j!=$cpf[$i]){
 				break;
@@ -305,8 +299,6 @@ class MitiValidacao{
 				throw new Exception('#3 O CPF é inválido.');
 			}
 		}
-		
-		return $this;
 	}
 	
 	/**
@@ -316,7 +308,7 @@ class MitiValidacao{
 	 * @return \MitiValidacao
 	 * @throws Exception
 	 */
-	private function digitosCpf($cpf){
+	private static function digitosCpf($cpf){
 		for($i=9;$i<=10;$i++){
 			for($digito=0,$numero=0;$numero<$i;$numero++){
 				$digito+=$cpf[$numero]*(($i+1)-$numero);
@@ -328,8 +320,6 @@ class MitiValidacao{
 				throw new Exception('#4 O CPF é inválido.');
 			}
 		}
-		
-		return $this;
 	}
 	
 	/**
@@ -339,17 +329,15 @@ class MitiValidacao{
 	 * @param string $cnpj
 	 * @return null
 	 */
-	public function cnpj($cnpj){
+	public static function cnpj($cnpj){
 		if(!$cnpj){
 			return;
 		}
 		
-		$this
-			->quantidadeCaracteresCnpj($cnpj)
-			->apenasNumerosCnpj($cnpj)
-			->sequenciaZeros($cnpj)
-			->digitosCnpj($cnpj)
-		;
+		self::quantidadeCaracteresCnpj($cnpj);
+		self::apenasNumerosCnpj($cnpj);
+		self::sequenciaZeros($cnpj);
+		self::digitosCnpj($cnpj);
 	}
 	
 	/**
@@ -363,12 +351,10 @@ class MitiValidacao{
 	 * @return \MitiValidacao
 	 * @throws Exception
 	 */
-	private function quantidadeCaracteresCnpj($cnpj){
+	private static function quantidadeCaracteresCnpj($cnpj){
 		if(strlen($cnpj)!==14){
 			throw new Exception('#1 O CNPJ é inválido.');
 		}
-		
-		return $this;
 	}
 	
 	/**
@@ -378,12 +364,10 @@ class MitiValidacao{
 	 * @return \MitiValidacao
 	 * @throws Exception
 	 */
-	private function apenasNumerosCnpj($cnpj){
+	private static function apenasNumerosCnpj($cnpj){
 		if(!preg_match('/\d{14}/',$cnpj)){
 			throw new Exception('#2 O CNPJ é inválido.');
 		}
-		
-		return $this;
 	}
 	
 	/**
@@ -395,12 +379,10 @@ class MitiValidacao{
 	 * @return \MitiValidacao
 	 * @throws Exception
 	 */
-	private function sequenciaZeros($cnpj){
+	private static function sequenciaZeros($cnpj){
 		if($cnpj=='00000000000000'){
 			throw new Exception('#3 O CNPJ é inválido.');
 		}
-		
-		return $this;
 	}
 	
 	/**
@@ -410,7 +392,7 @@ class MitiValidacao{
 	 * @return \MitiValidacao
 	 * @throws Exception
 	 */
-	private function digitosCnpj($cnpj){
+	private static function digitosCnpj($cnpj){
 		for($i=0;$i<=1;$i++){
 			for($numero=0,$x=5+$i,$soma=0;$numero<=11+$i;$numero++){
 				if($numero===4+$i){
@@ -432,7 +414,5 @@ class MitiValidacao{
 				throw new Exception('#4 O CNPJ é inválido.');
 			}
 		}
-		
-		return $this;
 	}
 }
