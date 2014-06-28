@@ -18,7 +18,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testExcessoTamanho(){
-		$this->setExpectedException('Exception','O valor deve conter até 5 caractéres');
+		$this->setExpectedException('Exception','O valor deve conter até 5 caractéres.');
 		MitiValidacao::tamanho('testes',5);
 	}
 	
@@ -31,7 +31,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testEmailInvalido(){
-		$this->setExpectedException('Exception','O e-mail é inválido');
+		$this->setExpectedException('Exception','O e-mail é inválido.');
 		MitiValidacao::email('conta(at)dominio.com');
 	}
 	
@@ -40,7 +40,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testVazioArrayComVazio(){
-		$this->setExpectedException('Exception','Valor vazio');
+		$this->setExpectedException('Exception','Valor vazio.');
 		MitiValidacao::vazio(array('a','','c'));
 	}
 	
@@ -49,7 +49,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testVazioScalarComVazio(){
-		$this->setExpectedException('Exception','Valor vazio');
+		$this->setExpectedException('Exception','Valor vazio.');
 		MitiValidacao::vazio('');
 	}
 	
@@ -62,12 +62,12 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testUploadExcessoPeso(){
-		$this->setExpectedException('Exception','O arquivo excede o tamanho permitido');
+		$this->setExpectedException('Exception','O arquivo excede o tamanho permitido.');
 		MitiValidacao::upload('arquivo',1,array('jpeg','png','gif'));
 	}
 	
 	public function testUploadTipoInvalido(){
-		$this->setExpectedException('Exception','O tipo do arquivo é inválido');
+		$this->setExpectedException('Exception','O tipo do arquivo é inválido.');
 		MitiValidacao::upload('arquivo',2,array('doc','pdf','xls'));
 	}
 	
@@ -81,7 +81,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testUploadImagemExcessoLargura(){
 		$this->setExpectedException(
-			'Exception','A largura da imagem é menor do que o mínimo permitido'
+			'Exception','A largura da imagem é menor do que o mínimo permitido.'
 		);
 		
 		MitiValidacao::uploadImagem('arquivo',20,16);
@@ -89,7 +89,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testUploadImagemExcessoAltura(){
 		$this->setExpectedException(
-			'Exception','A altura da imagem é menor do que o mínimo permitido'
+			'Exception','A altura da imagem é menor do que o mínimo permitido.'
 		);
 		
 		MitiValidacao::uploadImagem('arquivo',16,20);
@@ -97,7 +97,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testUploadImagemProporcaoExcessoVertical(){
 		$this->setExpectedException(
-			'Exception','A proporção da imagem é inválida, excedendo verticalmente'
+			'Exception','A proporção da imagem é inválida, excedendo verticalmente.'
 		);
 		
 		MitiValidacao::uploadImagem('arquivo',16,8);
@@ -105,7 +105,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testUploadImagemProporcaoExcessoHorizontal(){
 		$this->setExpectedException(
-			'Exception','A proporção da imagem é inválida, excedendo horizontalmente'
+			'Exception','A proporção da imagem é inválida, excedendo horizontalmente.'
 		);
 		
 		MitiValidacao::uploadImagem('arquivo',8,16);
@@ -120,22 +120,22 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testCpfExcessoCaracteres(){
-		$this->setExpectedException('Exception','#1 O CPF é inválido');
+		$this->setExpectedException('Exception','#1 O CPF é inválido.');
 		MitiValidacao::cpf('279810940033');
 	}
 	
 	public function testCpfPresencaLetra(){
-		$this->setExpectedException('Exception','#2 O CPF é inválido');
+		$this->setExpectedException('Exception','#2 O CPF é inválido.');
 		MitiValidacao::cpf('279810a4003');
 	}
 	
 	public function testCpfSequenciaIgual(){
-		$this->setExpectedException('Exception','#3 O CPF é inválido');
+		$this->setExpectedException('Exception','#3 O CPF é inválido.');
 		MitiValidacao::cpf('88888888888');
 	}
 	
 	public function testCpfDigitoInvalido(){
-		$this->setExpectedException('Exception','#4 O CPF é inválido');
+		$this->setExpectedException('Exception','#4 O CPF é inválido.');
 		MitiValidacao::cpf('27981094004');
 	}
 	
@@ -148,27 +148,27 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testCnpjExcessoCaracteres(){
-		$this->setExpectedException('Exception','#1 O CNPJ é inválido');
+		$this->setExpectedException('Exception','#1 O CNPJ é inválido.');
 		MitiValidacao::cnpj('872103430001699');
 	}
 	
 	public function testCnpjPresencaLetra(){
-		$this->setExpectedException('Exception','#2 O CNPJ é inválido');
+		$this->setExpectedException('Exception','#2 O CNPJ é inválido.');
 		MitiValidacao::cnpj('87210343a00169');
 	}
 	
 	public function testCnpjSequenciaZeros(){
-		$this->setExpectedException('Exception','#3 O CNPJ é inválido');
+		$this->setExpectedException('Exception','#3 O CNPJ é inválido.');
 		MitiValidacao::cnpj('00000000000000');
 	}
 	
 	public function testCnpjDigitoInvalido(){
-		$this->setExpectedException('Exception','#4 O CNPJ é inválido');
+		$this->setExpectedException('Exception','#4 O CNPJ é inválido.');
 		MitiValidacao::cnpj('87210343000159');
 	}
 	
 	public function testCnpjDigitoInvalidoComZero(){
-		$this->setExpectedException('Exception','#4 O CNPJ é inválido');
+		$this->setExpectedException('Exception','#4 O CNPJ é inválido.');
 		MitiValidacao::cnpj('80911582000106');
 	}
 }

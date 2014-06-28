@@ -37,7 +37,7 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testValidarVazio(){
-		$this->setExpectedException('Exception','Valor vazio');
+		$this->setExpectedException('Exception',"Valor vazio para o campo 'id'.");
 		
 		$MitiORM=new MitiORM('categoria');
 		$MitiBD=$MitiORM->criar(array('id'=>''));
@@ -45,7 +45,9 @@ class MitiORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testValidarExcessoCaracteres(){
-		$this->setExpectedException('Exception','Limite de caractéres excedido');
+		$this->setExpectedException(
+			'Exception',"Limite de caractéres excedido para o campo 'id'."
+		);
 		
 		$MitiORM=new MitiORM('categoria');
 		$MitiBD=$MitiORM->criar(array('id'=>1000));

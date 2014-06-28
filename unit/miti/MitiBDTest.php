@@ -18,7 +18,7 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	
 	public function testErroConexaoComMensagemGenerica(){
 		$this->setExpectedException(
-			'Exception','Não foi possível conectar ao banco de dados'
+			'Exception','Não foi possível conectar ao banco de dados.'
 		);
 		
 		ini_set('display_errors',0);
@@ -27,7 +27,7 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	
 	public function testErroCharset(){
 		$this->setExpectedException(
-			'Exception','Houve um erro ao definir o charset'
+			'Exception','Houve um erro ao definir o charset.'
 		);
 		
 		new MitiBD('localhost','root','root','miti_unit','nao_existe');
@@ -54,7 +54,7 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 	
 	public function testErroRequisicaoComMensagemGenerica(){
 		$this->setExpectedException(
-			'Exception','Houve um erro ao realizar a requisição'
+			'Exception','Houve um erro ao realizar a requisição.'
 		);
 		
 		ini_set('display_errors',0);
