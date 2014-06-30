@@ -143,7 +143,7 @@ class MitiEmail{
 	 * @param string $charset
 	 * @return string
 	 */
-	private function montarCabecalho($remetente,$mensagem,$charset='iso-8859-1'){
+	private function montarCabecalho($remetente,$mensagem,$charset){
 		return
 			$this->montarCabecalhoBasico($remetente)
 			.$this->montarCabecalhoMensagem($charset,$mensagem)

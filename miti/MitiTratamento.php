@@ -97,7 +97,7 @@ class MitiTratamento{
 	 * Extende a capacidade da função nativa htmlspecialchars()
 	 * 
 	 * Faz com que ela aceite também vetores, que considere aspas, e que
-	 * considere a codificação iso-8859-1 por padrão.
+	 * considere outra codificação por padrão.
 	 * 
 	 * @api
 	 * @param string|string[] $valores
