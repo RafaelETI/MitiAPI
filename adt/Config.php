@@ -72,9 +72,11 @@ class Config{
 	
 	private function raiz(){
 		if(AMBIENTE===0){
-			define('RAIZ',$_SERVER['DOCUMENT_ROOT'].'/');
+			define('RAIZ_OS',$_SERVER['DOCUMENT_ROOT'].'/');
+			define('RAIZ_WEB','http://'.$_SERVER['HTTP_HOST'].'/');
 		}else if(AMBIENTE===1){
-			define('RAIZ',$_SERVER['DOCUMENT_ROOT'].'/MitiAPI/');
+			define('RAIZ_OS',$_SERVER['DOCUMENT_ROOT'].'/MitiAPI/');
+			define('RAIZ_WEB','http://'.$_SERVER['HTTP_HOST'].'/MitiAPI/');
 		}
 		
 		return $this;
@@ -85,7 +87,7 @@ class Config{
 		
 		if($restrito&&!isset($_SESSION[$sessao])){
 			$_SESSION['status']='Você não está autenticado.';
-			header('location:'.RAIZ.'admin/index.php');
+			header('location:'.RAIZ_WEB.'admin/index.php');
 			exit;
 		}
 		
@@ -103,8 +105,8 @@ class Config{
 			$pacotes=array('adt','miti');
 			
 			foreach($pacotes as $v){
-				if(file_exists(RAIZ.$v.'/'.$classe.'.php')){
-					require RAIZ.$v.'/'.$classe.'.php';
+				if(file_exists(RAIZ_OS.$v.'/'.$classe.'.php')){
+					require RAIZ_OS.$v.'/'.$classe.'.php';
 					break;
 				}
 			}
