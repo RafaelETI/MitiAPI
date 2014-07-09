@@ -1,6 +1,6 @@
 <?php
 class Config{
-	public function __construct($Classe,$restrito,$raiz='',$sessao='login'){
+	public function __construct($Classe,$restrito,$sessao='login'){
 		$this
 			->ambiente()
 			->sistema()
@@ -8,7 +8,7 @@ class Config{
 			->erro()
 			->timezone()
 			->charset()
-			->raiz($raiz)
+			->raiz()
 			->sessao($restrito,$sessao)
 			->autoload()
 			->requisicao($Classe)
@@ -23,8 +23,8 @@ class Config{
 	private function sistema(){
 		if(AMBIENTE===0){
 			define('SISTEMA','Miti API');
-		}else if(AMBIENTE===1){
-			define('SISTEMA','Miti API 1.1.7');
+		}else{
+			define('SISTEMA','Miti API 1.1.8');
 		}
 		
 		return $this;
@@ -32,25 +32,31 @@ class Config{
 	
 	private function banco(){
 		if(AMBIENTE===0){
-			define('BD_SERVIDOR','localhost');
+			define('BD_SERVIDOR','servidor');
 			define('BD_USUARIO','usuario');
 			define('BD_SENHA','senha');
 			define('BD_BANCO','banco');
-			define('BD_CHARSET','latin1');
+			define('BD_CHARSET','charset');
 		}else if(AMBIENTE===1){
-			define('BD_SERVIDOR','localhost');
+			define('BD_SERVIDOR','servidor');
 			define('BD_USUARIO','usuario');
 			define('BD_SENHA','senha');
 			define('BD_BANCO','banco');
-			define('BD_CHARSET','latin1');
+			define('BD_CHARSET','charset');
 		}
 		
 		return $this;
 	}
 	
 	private function erro(){
-		error_reporting(E_ALL|E_STRICT);
-		ini_set('display_errors',AMBIENTE);
+		error_reporting(-1);
+		
+		if(AMBIENTE===0){
+			ini_set('display_errors',0);
+		}else{
+			ini_set('display_errors',1);
+		}
+		
 		return $this;
 	}
 	
@@ -64,8 +70,13 @@ class Config{
 		return $this;
 	}
 	
-	private function raiz($raiz){
-		define('RAIZ',$raiz);
+	private function raiz(){
+		if(AMBIENTE===0){
+			define('RAIZ',$_SERVER['DOCUMENT_ROOT'].'/');
+		}else if(AMBIENTE===1){
+			define('RAIZ',$_SERVER['DOCUMENT_ROOT'].'/MitiAPI/');
+		}
+		
 		return $this;
 	}
 	
@@ -74,7 +85,7 @@ class Config{
 		
 		if($restrito&&!isset($_SESSION[$sessao])){
 			$_SESSION['status']='Você não está autenticado.';
-			header('location:'.RAIZ.'admin/login.php');
+			header('location:'.RAIZ.'admin/index.php');
 			exit;
 		}
 		
@@ -88,7 +99,7 @@ class Config{
 	}
 	
 	private function autoload(){
-		function miti_autoload($classe){
+		function mitiAutoload($classe){
 			$pacotes=array('adt','miti');
 			
 			foreach($pacotes as $v){
@@ -99,7 +110,7 @@ class Config{
 			}
 		}
 		
-		spl_autoload_register('miti_autoload');
+		spl_autoload_register('mitiAutoload');
 		
 		return $this;
 	}

@@ -21,7 +21,7 @@ class Bootstrap{
 	}
 	
 	private function erro(){
-		error_reporting(E_ALL);
+		error_reporting(-1);
 		ini_set('display_errors',1);
 		return $this;
 	}
@@ -37,23 +37,18 @@ class Bootstrap{
 	}
 	
 	private function raiz(){
-		if(AMBIENTE===0){
-			define('RAIZ','c:/apache24/htdocs/MitiAPI/');
-		}else if(AMBIENTE===1){
-			define('RAIZ','/var/www/html/MitiAPI/');
-		}
-		
+		define('RAIZ',__DIR__.'/../');
 		return $this;
 	}
 	
 	private function banco(){
-		if(AMBIENTE===0){
+		if(AMBIENTE===1){
 			define('BD_SERVIDOR','localhost');
 			define('BD_USUARIO','root');
 			define('BD_SENHA','root');
 			define('BD_BANCO','miti_unit');
 			define('BD_CHARSET','latin1');
-		}else if(AMBIENTE===1){
+		}else if(AMBIENTE===2){
 			define('BD_SERVIDOR','localhost');
 			define('BD_USUARIO','root');
 			define('BD_SENHA','root');
@@ -70,7 +65,7 @@ class Bootstrap{
 	}
 	
 	private function autoload(){
-		function miti_autoload($classe){
+		function mitiAutoload($classe){
 			$pacotes=array('adt','miti');
 			
 			foreach($pacotes as $v){
@@ -81,7 +76,7 @@ class Bootstrap{
 			}
 		}
 		
-		spl_autoload_register('miti_autoload');
+		spl_autoload_register('mitiAutoload');
 		
 		return $this;
 	}
