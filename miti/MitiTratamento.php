@@ -60,17 +60,18 @@ class MitiTratamento{
 	/**
 	 * Garante a existência de índices de um vetor
 	 * 
-	 * Se o índice da iteração não existir, recebe uma string vazia.
+	 * O valor com o qual os índices são inicializados é passado por parâmetro.
 	 * 
 	 * @api
 	 * @param mixed[] $vetor
 	 * @param string[] $indices
+	 * @param mixed $valor
 	 * @return mixed[]
 	 */
-	public static function garantirIndices($vetor,array $indices){
+	public static function garantirIndices($vetor,array $indices,$valor=''){
 		foreach($indices as $i){
 			if(!isset($vetor[$i])){
-				$vetor[$i]='';
+				$vetor[$i]=$valor;
 			}
 		}
 		

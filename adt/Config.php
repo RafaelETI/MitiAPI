@@ -24,7 +24,7 @@ class Config{
 		if(AMBIENTE===0){
 			define('SISTEMA','Miti API');
 		}else{
-			define('SISTEMA','Miti API 1.1.8');
+			define('SISTEMA','Miti API 1.1.9');
 		}
 		
 		return $this;
@@ -141,7 +141,7 @@ class Config{
 		unset($_GET['url']);
 		
 		if(!isset($_REQUEST['url'])){
-			$_REQUEST['url']=$_SERVER['REQUEST_URI'];
+			$_REQUEST['url']=$_SERVER['HTTP_REFERER'];
 		}
 	}
 }
