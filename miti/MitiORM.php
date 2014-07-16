@@ -1,6 +1,6 @@
 <?php
 /**
- * MitiAPI, 2014
+ * Miti API, 2014
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -107,7 +107,7 @@ class MitiORM{
 	 * @api
 	 * @param string[] $duplas Vetor indexado pelos nomes dos campos da tabela.
 	 * @return \MitiBD
-	 * @throws Exception Implicitamente.
+	 * @throws \Exception Implicitamente.
 	 */
 	public function criar(array $duplas){
 		$sql='';
@@ -172,7 +172,7 @@ class MitiORM{
 	 * @param string[] $duplas Vetor indexado pelos nomes dos campos da tabela.
 	 * @param string $pk Nome do campo da chave primária.
 	 * @return \MitiBD
-	 * @throws Exception Implicitamente.
+	 * @throws \Exception Implicitamente.
 	 */
 	public function atualizar(array $duplas,$pk){
 		$sql='';
@@ -224,7 +224,7 @@ class MitiORM{
 	 * 
 	 * @param string[] $duplas
 	 * 
-	 * @throws Exception Se o valor for vazio e o campo não permitir nulo, ou se
+	 * @throws \Exception Se o valor for vazio e o campo não permitir nulo, ou se
 	 * o valor exceder o limite de caractéres que o campo permite.
 	 */
 	private function validar(array $duplas){
@@ -248,7 +248,7 @@ class MitiORM{
 	 * @api
 	 * @param mixed|mixed[] $filtro Se for um vetor, deve conter apenas uma dupla.
 	 * @return \MitiBD
-	 * @throws Exception Implicitamente.
+	 * @throws \Exception Implicitamente.
 	 */
 	public function deletar($filtro){
 		if(is_array($filtro)){
@@ -597,7 +597,7 @@ class MitiORM{
 	 * 
 	 * @api
 	 * @return \MitiBD
-	 * @throws Exception Implicitamente.
+	 * @throws \Exception Implicitamente.
 	 */
 	public function ler(){
 		$this->filtros=$this->concatenarClausula($this->filtros,'where');

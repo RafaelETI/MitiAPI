@@ -1,6 +1,6 @@
 <?php
 /**
- * MitiAPI, 2014
+ * Miti API, 2014
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -65,7 +65,7 @@ class MitiTabela{
 	 * 
 	 * @return \MitiTabela
 	 * 
-	 * @throws Exception Implicitamente. Por causa dessa requisição, deve-se
+	 * @throws \Exception Implicitamente. Por causa dessa requisição, deve-se
 	 * instanciar todo objeto que realizar um ORM, dentro de um bloco try...catch.
 	 */
 	private function mapearCampos(){

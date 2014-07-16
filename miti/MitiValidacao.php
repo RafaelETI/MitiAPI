@@ -1,6 +1,6 @@
 <?php
 /**
- * MitiAPI, 2014
+ * Miti API, 2014
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -17,7 +17,7 @@ class MitiValidacao{
 	 * @param mixed $valor
 	 * @param int $tamanho
 	 * @return null
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public static function tamanho($valor,$tamanho){
 		if(!$valor){
@@ -37,7 +37,7 @@ class MitiValidacao{
 	 * @api
 	 * @param string $valor
 	 * @return null
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public static function email($valor){
 		if(!$valor){
@@ -71,7 +71,7 @@ class MitiValidacao{
 	 * Valida se algum valor de um vetor é equivalente à vazio
 	 * 
 	 * @param mixed[] $valores
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function vazioArray(array $valores){
 		foreach($valores as $v){
@@ -85,7 +85,7 @@ class MitiValidacao{
 	 * Valida se um valor é equivalente à vazio
 	 * 
 	 * @param mixed $valor
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function vazioScalar($valor){
 		if(!$valor){
@@ -125,7 +125,7 @@ class MitiValidacao{
 	 * @param string $file
 	 * @param int $i Índice do vetor do upload
 	 * @param int $peso
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function peso($file,$i,$peso){
 		$peso*=1024;
@@ -141,7 +141,7 @@ class MitiValidacao{
 	 * @param string $file
 	 * @param int $i Índice do vetor do upload
 	 * @param string[] $tipos
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function tipos($file,$i,array $tipos){
 		$ok=false;
@@ -188,7 +188,7 @@ class MitiValidacao{
 	 * @param int[] $dimensoes
 	 * @param int $largura
 	 * @param int $altura
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function dimensoes($dimensoes,$largura,$altura){
 		if($dimensoes[0]<$largura){
@@ -210,7 +210,7 @@ class MitiValidacao{
 	 * @param int[] $dimensoes
 	 * @param int $largura
 	 * @param int $altura
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function proporcoes($dimensoes,$largura,$altura){
 		$prop_args=$largura/$altura;
@@ -258,7 +258,7 @@ class MitiValidacao{
 	 * 
 	 * @param string $cpf
 	 * @return \MitiValidacao
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function quantidadeCaracteres($cpf){
 		if(strlen($cpf)!==11){
@@ -271,7 +271,7 @@ class MitiValidacao{
 	 * 
 	 * @param string $cpf
 	 * @return \MitiValidacao
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function apenasNumeros($cpf){
 		if(!preg_match('/\d{11}/',$cpf)){
@@ -287,7 +287,7 @@ class MitiValidacao{
 	 * 
 	 * @param string $cpf
 	 * @return \MitiValidacao
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function sequenciaIgual($cpf){
 		for($i=1,$j=$cpf[0];$i<=10;$i++){
@@ -306,7 +306,7 @@ class MitiValidacao{
 	 * 
 	 * @param string $cpf
 	 * @return \MitiValidacao
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function digitosCpf($cpf){
 		for($i=9;$i<=10;$i++){
@@ -349,7 +349,7 @@ class MitiValidacao{
 	 * 
 	 * @param string $cnpj
 	 * @return \MitiValidacao
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function quantidadeCaracteresCnpj($cnpj){
 		if(strlen($cnpj)!==14){
@@ -362,7 +362,7 @@ class MitiValidacao{
 	 * 
 	 * @param string $cnpj
 	 * @return \MitiValidacao
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function apenasNumerosCnpj($cnpj){
 		if(!preg_match('/\d{14}/',$cnpj)){
@@ -377,7 +377,7 @@ class MitiValidacao{
 	 * 
 	 * @param string $cnpj
 	 * @return \MitiValidacao
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function sequenciaZeros($cnpj){
 		if($cnpj=='00000000000000'){
@@ -390,7 +390,7 @@ class MitiValidacao{
 	 * 
 	 * @param string $cnpj
 	 * @return \MitiValidacao
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private static function digitosCnpj($cnpj){
 		for($i=0;$i<=1;$i++){

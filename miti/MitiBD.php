@@ -1,6 +1,6 @@
 <?php
 /**
- * MitiAPI, 2014
+ * Miti API, 2014
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -88,7 +88,7 @@ class MitiBD{
 	 * Geralmente acontece por causa da configuração do ambiente: diferentes
 	 * máquinas de desenvolvimento, ambiente de teste, ou de produção.
 	 * 
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private function verificarErroConexao(){
 		if($this->conexao->connect_error){
@@ -107,7 +107,7 @@ class MitiBD{
 	 * 
 	 * @param string $charset O valor compatível com iso-8859-1 é latin1.
 	 * 
-	 * @throws Exception Muito raro de acontecer.
+	 * @throws \Exception Muito raro de acontecer.
 	 */
 	private function definirCharset($charset){
 		if(!$this->conexao->set_charset($charset)){
@@ -192,7 +192,7 @@ class MitiBD{
 	 * a impressão de erros na tela. Mesma regra da mensagem de erro da conexão.
 	 * 
 	 * @return \MitiBD
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private function verificarErroRequisicao(){
 		if($this->conexao->error){

@@ -1,6 +1,6 @@
 <?php
 /**
- * MitiAPI, 2014
+ * Miti API, 2014
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -118,7 +118,7 @@ class MitiEmail{
 	 * @param string $mensagem
 	 * @param string $remetente
 	 * @param string $charset
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function enviar(
 		$destinatario,$assunto,$mensagem,$remetente,$charset='iso-8859-1'
