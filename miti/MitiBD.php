@@ -176,7 +176,7 @@ class MitiBD{
 		$microtimes[1]=microtime(true);
 		
 		$this
-			->verificarErroRequisicao()
+			->verificarErroRequisicao($sql)
 			->setTempo($microtimes)
 			->setAfetados()
 			->setId()
@@ -194,10 +194,10 @@ class MitiBD{
 	 * @return \MitiBD
 	 * @throws \Exception
 	 */
-	private function verificarErroRequisicao(){
+	private function verificarErroRequisicao($sql){
 		if($this->conexao->error){
 			if(ini_get('display_errors')){
-				$mensagem=$this->conexao->error;
+				$mensagem="{$this->conexao->error}\n\n$sql";
 			}else{
 				$mensagem='Houve um erro ao realizar a requisição.';
 			}
@@ -215,7 +215,7 @@ class MitiBD{
 	 * @return \MitiBD
 	 */
 	private function setTempo($microtimes){
-		$this->tempo=MitiDesempenho::medirTempoExecucao($microtimes);
+		$this->tempo=MitiDesempenho::medirTempoDeExecucao($microtimes);
 		return $this;
 	}
 	
@@ -291,18 +291,6 @@ class MitiBD{
 	 */
 	public function cometer(){
 		$this->conexao->commit();
-	}
-	
-	/**
-	 * Rebobina a última transação aberta
-	 * 
-	 * Sua utilidade está em dúvida, visto que basta não cometer a transação
-	 * para que ela seja rebobinada automaticamente.
-	 * 
-	 * @api
-	 */
-	public function rebobinar(){
-		$this->conexao->rollback();
 	}
 	
 	/**

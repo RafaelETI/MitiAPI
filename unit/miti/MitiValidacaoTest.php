@@ -61,12 +61,12 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame(null,MitiValidacao::upload('arquivo2',2,array('jpeg')));
 	}
 	
-	public function testUploadExcessoPeso(){
+	public function testUploadComExcessoDePeso(){
 		$this->setExpectedException('Exception','O arquivo excede o tamanho permitido.');
 		MitiValidacao::upload('arquivo',1,array('jpeg','png','gif'));
 	}
 	
-	public function testUploadTipoInvalido(){
+	public function testUploadComTipoInvalido(){
 		$this->setExpectedException('Exception','O tipo do arquivo é inválido.');
 		MitiValidacao::upload('arquivo',2,array('doc','pdf','xls'));
 	}
@@ -79,7 +79,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame(null,MitiValidacao::uploadImagem('arquivo2',16,16));
 	}
 	
-	public function testUploadImagemExcessoLargura(){
+	public function testUploadImagemComExcessoDeLargura(){
 		$this->setExpectedException(
 			'Exception','A largura da imagem é menor do que o mínimo permitido.'
 		);
@@ -87,7 +87,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		MitiValidacao::uploadImagem('arquivo',20,16);
 	}
 	
-	public function testUploadImagemExcessoAltura(){
+	public function testUploadImagemComExcessoDeAltura(){
 		$this->setExpectedException(
 			'Exception','A altura da imagem é menor do que o mínimo permitido.'
 		);
@@ -95,7 +95,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		MitiValidacao::uploadImagem('arquivo',16,20);
 	}
 	
-	public function testUploadImagemProporcaoExcessoVertical(){
+	public function testUploadImagemComProporcaoEmExcessoNaVertical(){
 		$this->setExpectedException(
 			'Exception','A proporção da imagem é inválida, excedendo verticalmente.'
 		);
@@ -103,7 +103,7 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		MitiValidacao::uploadImagem('arquivo',16,8);
 	}
 	
-	public function testUploadImagemProporcaoExcessoHorizontal(){
+	public function testUploadImagemComProporcaoEmExcessoNaHorizontal(){
 		$this->setExpectedException(
 			'Exception','A proporção da imagem é inválida, excedendo horizontalmente.'
 		);
@@ -119,22 +119,22 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		MitiValidacao::cpf('27981094003');
 	}
 	
-	public function testCpfExcessoCaracteres(){
+	public function testCpfComExcessoDeCaracteres(){
 		$this->setExpectedException('Exception','#1 O CPF é inválido.');
 		MitiValidacao::cpf('279810940033');
 	}
 	
-	public function testCpfPresencaLetra(){
+	public function testCpfComPresencaDeLetra(){
 		$this->setExpectedException('Exception','#2 O CPF é inválido.');
 		MitiValidacao::cpf('279810a4003');
 	}
 	
-	public function testCpfSequenciaIgual(){
+	public function testCpfComSequenciaIgual(){
 		$this->setExpectedException('Exception','#3 O CPF é inválido.');
 		MitiValidacao::cpf('88888888888');
 	}
 	
-	public function testCpfDigitoInvalido(){
+	public function testCpfComDigitoInvalido(){
 		$this->setExpectedException('Exception','#4 O CPF é inválido.');
 		MitiValidacao::cpf('27981094004');
 	}
@@ -147,27 +147,27 @@ class MitiValidacaoTest extends PHPUnit_Framework_TestCase{
 		MitiValidacao::cnpj('87210343000169');
 	}
 	
-	public function testCnpjExcessoCaracteres(){
+	public function testCnpjComExcessoDeCaracteres(){
 		$this->setExpectedException('Exception','#1 O CNPJ é inválido.');
 		MitiValidacao::cnpj('872103430001699');
 	}
 	
-	public function testCnpjPresencaLetra(){
+	public function testCnpjComPresencaDeLetra(){
 		$this->setExpectedException('Exception','#2 O CNPJ é inválido.');
 		MitiValidacao::cnpj('87210343a00169');
 	}
 	
-	public function testCnpjSequenciaZeros(){
+	public function testCnpjComSequenciaDeZeros(){
 		$this->setExpectedException('Exception','#3 O CNPJ é inválido.');
 		MitiValidacao::cnpj('00000000000000');
 	}
 	
-	public function testCnpjDigitoInvalido(){
+	public function testCnpjComDigitoInvalido(){
 		$this->setExpectedException('Exception','#4 O CNPJ é inválido.');
 		MitiValidacao::cnpj('87210343000159');
 	}
 	
-	public function testCnpjDigitoInvalidoComZero(){
+	public function testCnpjComDigitoInvalidoComZero(){
 		$this->setExpectedException('Exception','#4 O CNPJ é inválido.');
 		MitiValidacao::cnpj('80911582000106');
 	}

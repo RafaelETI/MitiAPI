@@ -7,9 +7,7 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 			."'></script>\n"
 		;
 		
-		$this->assertSame(
-			$afirmacao,MitiTratamento::requerer(RAIZ.'unit/arquivo/Miti.js')
-		);
+		$this->assertSame($afirmacao,MitiTratamento::requerer(RAIZ.'unit/arquivo/Miti.js'));
 	}
 	
 	public function testRequererCss(){
@@ -19,9 +17,7 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 			."' />\n"
 		;
 		
-		$this->assertSame(
-			$afirmacao,MitiTratamento::requerer(RAIZ.'unit/arquivo/miti.css')
-		);
+		$this->assertSame($afirmacao,MitiTratamento::requerer(RAIZ.'unit/arquivo/miti.css'));
 	}
 	
 	public function testNaoSubstituirValor(){
@@ -56,10 +52,8 @@ class MitiTratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testHtmlSpecialCharsScalar(){
-		$this->assertSame(
-			'&#039;&quot;&amp;&lt;&gt;',
-			MitiTratamento::htmlSpecialChars('\'"&<>')
-		);
+		$especiais='&#039;&quot;&amp;&lt;&gt;';
+		$this->assertSame($especiais,MitiTratamento::htmlSpecialChars('\'"&<>'));
 	}
 	
 	public function testEncurtarVazio(){

@@ -9,53 +9,52 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		$this->MitiBD->requisitar('select nome,sleep(0.001) from categoria where id=1');
 	}
 	
-	public function testErroConexaoComMensagemTecnica(){
+	public function testErroDeConexaoComMensagemTecnica(){
 		$this->setExpectedException('Exception',"Unknown database 'nao_existe'");
 		
 		ini_set('display_errors',1);
 		new MitiBD('localhost','root','root','nao_existe');
 	}
 	
-	public function testErroConexaoComMensagemGenerica(){
-		$this->setExpectedException(
-			'Exception','Não foi possível conectar ao banco de dados.'
-		);
+	public function testErroDeConexaoComMensagemGenerica(){
+		$mensagem='Não foi possível conectar ao banco de dados.';
+		$this->setExpectedException('Exception',$mensagem);
 		
 		ini_set('display_errors',0);
 		new MitiBD('localhost','root','root','nao_existe');
 	}
 	
-	public function testErroCharset(){
-		$this->setExpectedException(
-			'Exception','Houve um erro ao definir o charset.'
-		);
+	public function testErroDeCharset(){
+		$mensagem='Houve um erro ao definir o charset.';
+		$this->setExpectedException('Exception',$mensagem);
 		
 		new MitiBD('localhost','root','root','miti_unit','nao_existe');
 	}
 	
 	public function testEscaparArray(){
-		$this->assertSame(
-			array("\\'",'\\"','\\\\'),$this->MitiBD->escapar(array("'",'"','\\'))
-		);
+		$especiais=$this->MitiBD->escapar(array("'",'"','\\'));
+		$this->assertSame(array("\\'",'\\"','\\\\'),$especiais);
 	}
 	
 	public function testEscaparString(){
 		$this->assertSame('\\\'\\"\\\\',$this->MitiBD->escapar('\'"\\'));
 	}
 	
-	public function testErroRequisicaoComMensagemTecnica(){
-		$this->setExpectedException(
-			'Exception',"Duplicate entry '1' for key 'PRIMARY'"
-		);
+	public function testErroDeRequisicaoComMensagemTecnica(){
+		$mensagem=
+			"Duplicate entry '1' for key 'PRIMARY'\n\n"
+			.'insert into categoria values(1,"Música",null)'
+		;
+		
+		$this->setExpectedException('Exception',$mensagem);
 		
 		ini_set('display_errors',1);
 		$this->MitiBD->requisitar('insert into categoria values(1,"Música",null)');
 	}
 	
-	public function testErroRequisicaoComMensagemGenerica(){
-		$this->setExpectedException(
-			'Exception','Houve um erro ao realizar a requisição.'
-		);
+	public function testErroDeRequisicaoComMensagemGenerica(){
+		$mensagem='Houve um erro ao realizar a requisição.';
+		$this->setExpectedException('Exception',$mensagem);
 		
 		ini_set('display_errors',0);
 		$this->MitiBD->requisitar('insert into categoria values(1,"Música",null)');

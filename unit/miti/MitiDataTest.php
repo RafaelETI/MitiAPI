@@ -5,9 +5,8 @@ class MitiDataTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testInverterBrParaEua(){
-		$this->assertSame(
-			'1991-08-18',MitiData::inverterBrParaEua('18/08/1991 14:34:02')
-		);
+		$data=MitiData::inverterBrParaEua('18/08/1991 14:34:02');
+		$this->assertSame('1991-08-18',$data);
 	}
 	
 	public function testInverterEuaParaBrVazio(){
@@ -15,40 +14,39 @@ class MitiDataTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testInverterEuaParaBr(){
-		$this->assertSame(
-			'18/08/1991',MitiData::inverterEuaParaBr('1991-08-18 14:34:02')
-		);
+		$data=MitiData::inverterEuaParaBr('1991-08-18 14:34:02');
+		$this->assertSame('18/08/1991',$data);
 	}
 	
 	public function testObterDiaDaSemanaVazio(){
 		$this->assertSame(null,MitiData::obterDiaDaSemana(''));
 	}
 	
-	public function testObterDiaDaSemanaDomingo(){
+	public function testObterDomingo(){
 		$this->assertSame('Dom',MitiData::obterDiaDaSemana('1991-08-18'));
 	}
 	
-	public function testObterDiaDaSemanaSegunda(){
+	public function testObterSegunda(){
 		$this->assertSame('Seg',MitiData::obterDiaDaSemana('1991-08-19'));
 	}
 	
-	public function testObterDiaDaSemanaTerca(){
+	public function testObterTerca(){
 		$this->assertSame('Ter',MitiData::obterDiaDaSemana('1991-08-20'));
 	}
 	
-	public function testObterDiaDaSemanaQuarta(){
+	public function testObterQuarta(){
 		$this->assertSame('Qua',MitiData::obterDiaDaSemana('1991-08-21'));
 	}
 	
-	public function testObterDiaDaSemanaQuinta(){
+	public function testObterQuinta(){
 		$this->assertSame('Qui',MitiData::obterDiaDaSemana('1991-08-22'));
 	}
 	
-	public function testObterDiaDaSemanaSexta(){
+	public function testObterSexta(){
 		$this->assertSame('Sex',MitiData::obterDiaDaSemana('1991-08-23'));
 	}
 	
-	public function testObterDiaDaSemanaSabado(){
+	public function testObterSabado(){
 		$this->assertSame('Sáb',MitiData::obterDiaDaSemana('1991-08-24'));
 	}
 	
@@ -56,51 +54,51 @@ class MitiDataTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame(null,MitiData::obterMes(''));
 	}
 	
-	public function testObterMesJaneiro(){
+	public function testObterJaneiro(){
 		$this->assertSame('Jan.',MitiData::obterMes('2014-01-01'));
 	}
 	
-	public function testObterMesFevereiro(){
+	public function testObterFevereiro(){
 		$this->assertSame('Fev.',MitiData::obterMes('2014-02-01'));
 	}
 	
-	public function testObterMesMarco(){
+	public function testObterMarco(){
 		$this->assertSame('Mar.',MitiData::obterMes('2014-03-01'));
 	}
 	
-	public function testObterMesAbril(){
+	public function testObterAbril(){
 		$this->assertSame('Abr.',MitiData::obterMes('2014-04-01'));
 	}
 	
-	public function testObterMesMaio(){
+	public function testObterMaio(){
 		$this->assertSame('Mai.',MitiData::obterMes('2014-05-01'));
 	}
 	
-	public function testObterMesJunho(){
+	public function testObterJunho(){
 		$this->assertSame('Jun.',MitiData::obterMes('2014-06-01'));
 	}
 	
-	public function testObterMesJulho(){
+	public function testObterJulho(){
 		$this->assertSame('Jul.',MitiData::obterMes('2014-07-01'));
 	}
 	
-	public function testObterMesAgosto(){
+	public function testObterAgosto(){
 		$this->assertSame('Ago.',MitiData::obterMes('2014-08-01'));
 	}
 	
-	public function testObterMesSetembro(){
+	public function testObterSetembro(){
 		$this->assertSame('Set.',MitiData::obterMes('2014-09-01'));
 	}
 	
-	public function testObterMesOutubro(){
+	public function testObterOutubro(){
 		$this->assertSame('Out.',MitiData::obterMes('2014-10-01'));
 	}
 	
-	public function testObterMesNovembro(){
+	public function testObterNovembro(){
 		$this->assertSame('Nov.',MitiData::obterMes('2014-11-01'));
 	}
 	
-	public function testObterMesDezembro(){
+	public function testObterDezembro(){
 		$this->assertSame('Dez.',MitiData::obterMes('2014-12-01'));
 	}
 	

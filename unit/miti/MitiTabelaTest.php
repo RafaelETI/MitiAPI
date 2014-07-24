@@ -11,24 +11,18 @@ class MitiTabelaTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testGetTipos(){
-		$this->assertSame(
-			array('id'=>'float','nome'=>'string','status'=>'string'),
-			$this->MitiTabela->getTipos()
-		);
+		$tipos=array('id'=>'float','nome'=>'string','status'=>'string');
+		$this->assertSame($tipos,$this->MitiTabela->getTipos());
 	}
 	
 	public function testGetAnulaveis(){
-		$this->assertSame(
-			array('id'=>false,'nome'=>false,'status'=>true),
-			$this->MitiTabela->getAnulaveis()
-		);
+		$anulaveis=array('id'=>false,'nome'=>false,'status'=>true);
+		$this->assertSame($anulaveis,$this->MitiTabela->getAnulaveis());
 	}
 	
 	public function testGetTamanhos(){
-		$this->assertSame(
-			array('id'=>3,'nome'=>30,'status'=>1),
-			$this->MitiTabela->getTamanhos()
-		);
+		$tamanhos=array('id'=>3,'nome'=>30,'status'=>1);
+		$this->assertSame($tamanhos,$this->MitiTabela->getTamanhos());
 	}
 	
 	public function testGetPkCampo(){

@@ -6,11 +6,8 @@ class MitiStatusTest extends PHPUnit_Framework_TestCase{
 	
 	public function testAlertarComSucesso(){
 		$_SESSION['status']=true;
-		
-		$this->assertSame(
-			'<script>alert("Concluído com sucesso.");</script>',
-			MitiStatus::alertar()
-		);
+		$js='<script>alert("Concluído com sucesso.");</script>';
+		$this->assertSame($js,MitiStatus::alertar());
 	}
 	
 	public function testAlertarComErro(){
