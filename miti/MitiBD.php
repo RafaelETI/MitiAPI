@@ -7,7 +7,7 @@
  */
 
 /**
- * Abstração da conexão com um banco de dados
+ * Abstração de conexão com banco de dados
  * 
  * Atualmente apenas interage com o MySQL, mas permite uma futura relação
  * com outros bancos. Responsável por conectar no banco, executar querys,

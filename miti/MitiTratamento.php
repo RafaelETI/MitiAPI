@@ -7,7 +7,7 @@
  */
 
 /**
- * Pacote de operações de tratamento de valor
+ * Tratamento de dados
  */
 class MitiTratamento{
 	/**

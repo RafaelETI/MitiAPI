@@ -7,7 +7,7 @@
  */
 
 /**
- * Pacote de operações sobre data
+ * Operação sobre data
  * 
  * Dois motivos importantes: oferece suporte para datas no formato brasileiro, e
  * não assume a data atual na ausência de uma outra na construção do objeto;

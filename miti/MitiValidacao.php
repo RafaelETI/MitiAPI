@@ -7,7 +7,7 @@
  */
 
 /**
- * Pacote de validações
+ * Validação de dados
  */
 class MitiValidacao{
 	/**

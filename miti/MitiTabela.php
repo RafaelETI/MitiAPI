@@ -7,9 +7,11 @@
  */
 
 /**
- * ORM automático
+ * Mapeamento automático de tabela de banco de dados
  * 
  * Não faz parte da API. Serve apenas para uso interno da própria API.
+ * 
+ * O mapeamento é feito em tempo de execução.
  */
 class MitiTabela{
 	/**
