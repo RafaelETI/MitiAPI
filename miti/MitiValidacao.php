@@ -257,7 +257,6 @@ class MitiValidacao{
 	 * mensagem explícita do erro, para que haja uma menor chance de burlamento.
 	 * 
 	 * @param string $cpf
-	 * @return \MitiValidacao
 	 * @throws \Exception
 	 */
 	private static function quantidadeCaracteres($cpf){
@@ -270,7 +269,6 @@ class MitiValidacao{
 	 * Valida se apenas possui números
 	 * 
 	 * @param string $cpf
-	 * @return \MitiValidacao
 	 * @throws \Exception
 	 */
 	private static function apenasNumeros($cpf){
@@ -286,7 +284,6 @@ class MitiValidacao{
 	 * os cálculos dos dígitos verificadores.
 	 * 
 	 * @param string $cpf
-	 * @return \MitiValidacao
 	 * @throws \Exception
 	 */
 	private static function sequenciaIgual($cpf){
@@ -305,7 +302,6 @@ class MitiValidacao{
 	 * Valida os dígitos verificadores
 	 * 
 	 * @param string $cpf
-	 * @return \MitiValidacao
 	 * @throws \Exception
 	 */
 	private static function digitosCpf($cpf){
@@ -348,7 +344,6 @@ class MitiValidacao{
 	 * mensagem explícita do erro, para que haja uma menor chance de burlamento.
 	 * 
 	 * @param string $cnpj
-	 * @return \MitiValidacao
 	 * @throws \Exception
 	 */
 	private static function quantidadeCaracteresCnpj($cnpj){
@@ -361,7 +356,6 @@ class MitiValidacao{
 	 * Valida se apenas possui números
 	 * 
 	 * @param string $cnpj
-	 * @return \MitiValidacao
 	 * @throws \Exception
 	 */
 	private static function apenasNumerosCnpj($cnpj){
@@ -376,7 +370,6 @@ class MitiValidacao{
 	 * Diferente do CPF, essa é a única sequência numérica problemática.
 	 * 
 	 * @param string $cnpj
-	 * @return \MitiValidacao
 	 * @throws \Exception
 	 */
 	private static function sequenciaZeros($cnpj){
@@ -389,7 +382,6 @@ class MitiValidacao{
 	 * Valida os dígitos verificadores
 	 * 
 	 * @param string $cnpj
-	 * @return \MitiValidacao
 	 * @throws \Exception
 	 */
 	private static function digitosCnpj($cnpj){
