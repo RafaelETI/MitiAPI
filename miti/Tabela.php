@@ -5,6 +5,7 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * Mapeamento automático de tabela de banco de dados
@@ -13,7 +14,7 @@
  * 
  * O mapeamento é feito em tempo de execução.
  */
-class MitiTabela{
+class Tabela{
 	/**
 	 * @var string Nome da tabela.
 	 */
@@ -65,15 +66,15 @@ class MitiTabela{
 	/**
 	 * Define o vetor de objetos dos campos
 	 * 
-	 * @return \MitiTabela
+	 * @return Tabela
 	 * 
 	 * @throws \Exception Implicitamente. Por causa dessa requisição, deve-se
 	 * instanciar todo objeto que realizar um ORM, dentro de um bloco try...catch.
 	 */
 	private function mapearCampos(){
-		$MitiBD=new MitiBD;
+		$BD=new BD;
 		
-		$this->campos=$MitiBD
+		$this->campos=$BD
 			->requisitar('select * from '.$this->nome)
 			->obterCampos()
 		;
@@ -84,7 +85,7 @@ class MitiTabela{
 	/**
 	 * Define o nome do campo da chave primária
 	 * 
-	 * @return \MitiTabela
+	 * @return Tabela
 	 */
 	private function setPk(){
 		foreach($this->campos as $o){
@@ -104,7 +105,7 @@ class MitiTabela{
 	 * float, e o resto como string. Esses dois valores bastam por motivo de
 	 * escape para manuseio do banco.
 	 * 
-	 * @return \MitiTabela
+	 * @return Tabela
 	 */
 	private function setTipos(){
 		foreach($this->campos as $o){
@@ -123,7 +124,7 @@ class MitiTabela{
 	 * 
 	 * true significa que o campo aceita valor nulo, e false, que não aceita.
 	 * 
-	 * @return \MitiTabela
+	 * @return Tabela
 	 */
 	private function setAnulaveis(){
 		foreach($this->campos as $o){
@@ -140,7 +141,7 @@ class MitiTabela{
 	/**
 	 * Define o tamanho máximo de cada campo
 	 * 
-	 * @return \MitiTabela
+	 * @return Tabela
 	 */
 	private function setTamanhos(){
 		foreach($this->campos as $o){

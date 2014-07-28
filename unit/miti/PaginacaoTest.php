@@ -1,19 +1,19 @@
 <?php
-class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
+class PaginacaoTest extends PHPUnit_Framework_TestCase{
 	public function testGetInicio(){
-		$MitiPaginacao=new MitiPaginacao(100,15,5,10);
-		$this->assertSame(60,$MitiPaginacao->getInicio());
+		$Paginacao=new Miti\Paginacao(100,15,5,10);
+		$this->assertSame(60,$Paginacao->getInicio());
 	}
 	
 	public function testCriarComNenhumRegistro(){
-		$MitiPaginacao=new MitiPaginacao(0,1,1,3);
+		$Paginacao=new Miti\Paginacao(0,1,1,3);
 		
 		$mensagem='Não há registros para esta busca';
-		$this->assertSame($mensagem,$MitiPaginacao->criar('?pagina=','on','off'));
+		$this->assertSame($mensagem,$Paginacao->criar('?pagina=','on','off'));
 	}
 	
 	public function testCriarComPoucosRegistros(){
-		$MitiPaginacao=new MitiPaginacao(1,1,1,1);
+		$Paginacao=new Miti\Paginacao(1,1,1,1);
 		
 		$html='<span class="off">Primeira</span>'
 			.'<span class="off">Anterior</span>'
@@ -22,11 +22,11 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 			.'<span class="off">Última</span>'
 		;
 		
-		$this->assertSame($html,$MitiPaginacao->criar('?pagina=','on','off'));
+		$this->assertSame($html,$Paginacao->criar('?pagina=','on','off'));
 	}
 	
 	public function testCriarComMuitosRegistros(){
-		$MitiPaginacao=new MitiPaginacao(100,10,2,5);
+		$Paginacao=new Miti\Paginacao(100,10,2,5);
 		
 		$html='<a href="?pagina=1">Primeira</a>'
 			.'<a href="?pagina=1">Anterior</a>'
@@ -38,6 +38,6 @@ class MitiPaginacaoTest extends PHPUnit_Framework_TestCase{
 			.'<a href="?pagina=10">Última</a>'
 		;
 		
-		$this->assertSame($html,$MitiPaginacao->criar('?pagina=','on','off'));
+		$this->assertSame($html,$Paginacao->criar('?pagina=','on','off'));
 	}
 }

@@ -1,19 +1,19 @@
 <?php
-class MitiBDTest extends PHPUnit_Framework_TestCase{
-	private $MitiBD;
+class BDTest extends PHPUnit_Framework_TestCase{
+	private $BD;
 	
 	protected function setUp(){
-		$this->MitiBD=new MitiBD;
+		$this->BD=new Miti\BD;
 		
-		//sleep colocado para que o testGetTempo seja bem sucedido
-		$this->MitiBD->requisitar('select nome,sleep(0.001) from categoria where id=1');
+		//sleep colocado para que o testGetTempo possa ser bem sucedido
+		$this->BD->requisitar('select nome,sleep(0.001) from categoria where id=1');
 	}
 	
 	public function testErroDeConexaoComMensagemTecnica(){
 		$this->setExpectedException('Exception',"Unknown database 'nao_existe'");
 		
 		ini_set('display_errors',1);
-		new MitiBD('localhost','root','root','nao_existe');
+		new Miti\BD('localhost','root','root','nao_existe');
 	}
 	
 	public function testErroDeConexaoComMensagemGenerica(){
@@ -21,23 +21,23 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('Exception',$mensagem);
 		
 		ini_set('display_errors',0);
-		new MitiBD('localhost','root','root','nao_existe');
+		new Miti\BD('localhost','root','root','nao_existe');
 	}
 	
 	public function testErroDeCharset(){
 		$mensagem='Houve um erro ao definir o charset.';
 		$this->setExpectedException('Exception',$mensagem);
 		
-		new MitiBD('localhost','root','root','miti_unit','nao_existe');
+		new Miti\BD('localhost','root','root','miti_unit','nao_existe');
 	}
 	
 	public function testEscaparArray(){
-		$especiais=$this->MitiBD->escapar(array("'",'"','\\'));
+		$especiais=$this->BD->escapar(array("'",'"','\\'));
 		$this->assertSame(array("\\'",'\\"','\\\\'),$especiais);
 	}
 	
 	public function testEscaparString(){
-		$this->assertSame('\\\'\\"\\\\',$this->MitiBD->escapar('\'"\\'));
+		$this->assertSame('\\\'\\"\\\\',$this->BD->escapar('\'"\\'));
 	}
 	
 	public function testErroDeRequisicaoComMensagemTecnica(){
@@ -49,7 +49,7 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('Exception',$mensagem);
 		
 		ini_set('display_errors',1);
-		$this->MitiBD->requisitar('insert into categoria values(1,"Música",null)');
+		$this->BD->requisitar('insert into categoria values(1,"Música",null)');
 	}
 	
 	public function testErroDeRequisicaoComMensagemGenerica(){
@@ -57,32 +57,32 @@ class MitiBDTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('Exception',$mensagem);
 		
 		ini_set('display_errors',0);
-		$this->MitiBD->requisitar('insert into categoria values(1,"Música",null)');
+		$this->BD->requisitar('insert into categoria values(1,"Música",null)');
 	}
 	
 	public function testGetTempo(){
-		$this->assertGreaterThan(0,$this->MitiBD->getTempo());
+		$this->assertGreaterThan(0,$this->BD->getTempo());
 	}
 	
 	public function testGetAfetados(){
-		$this->assertSame(1,$this->MitiBD->getAfetados());
+		$this->assertSame(1,$this->BD->getAfetados());
 	}
 	
 	public function testGetId(){
-		$this->assertSame(0,$this->MitiBD->getId());
+		$this->assertSame(0,$this->BD->getId());
 	}
 	
 	public function testObterAssoc(){
-		$categoria=$this->MitiBD->obterAssoc();
+		$categoria=$this->BD->obterAssoc();
 		$this->assertSame('Filme',$categoria['nome']);
 	}
 	
 	public function testObterQuantidade(){
-		$this->assertSame(1,$this->MitiBD->obterQuantidade());
+		$this->assertSame(1,$this->BD->obterQuantidade());
 	}
 	
 	public function testObterCampos(){
-		$categoria=$this->MitiBD->obterCampos();
+		$categoria=$this->BD->obterCampos();
 		$this->assertSame(4097,$categoria[0]->flags);
 	}
 	

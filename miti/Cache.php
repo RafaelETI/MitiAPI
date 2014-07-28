@@ -5,6 +5,7 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * Controle de cache
@@ -13,7 +14,7 @@
  * sendo que ele não é executado via servidor web, fazendo com que seja difícil
  * a manipulação do cabeçalho HTTP.
  */
-class MitiCache{
+class Cache{
 	/**
 	 * Define o tempo de validade do recurso
 	 * 
@@ -31,10 +32,9 @@ class MitiCache{
 		
 		header("cache-control:max-age=$segundos");
 
-		$DateTime=new DateTime;
+		$DateTime=new \DateTime;
 		$agora=$DateTime->format(DateTime::RFC1123);
-		$DateTime->modify("+$segundos sec");
-		$validade=$DateTime->format(DateTime::RFC1123);
+		$validade=$DateTime->modify("+$segundos sec")->format(DateTime::RFC1123);
 		
 		header("last-modified:$validade");
 

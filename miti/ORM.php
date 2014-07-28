@@ -5,11 +5,12 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * ORM (Object Relational Mapping)
  * 
- * Há uma dependência com a classe MitiTabela que é a que na verdade faz o
+ * Há uma dependência com a classe Tabela que é a que na verdade faz o
  * mapeamento com a tabela do banco. Essa classe é responsável por realizar os
  * manuseios no banco baseando-se nesse mapeamento.
  * 
@@ -26,22 +27,22 @@
  * ou seja, a que é designada após a cláusula from do SQL; as externas são as
  * que são juntadas à principal através de cláusulas join.
  */
-class MitiORM{
+class ORM{
 	/**
 	 * @var string Alias da tabela principal da requisição.
 	 */
 	private $alias;
 	
 	/**
-	 * @var \MitiTabela[] Indexado pelo alias de cada tabela. O objeto da tabela
+	 * @var Tabela[] Indexado pelo alias de cada tabela. O objeto da tabela
 	 * principal fica na primeira posição, e as externas no resto.
 	 */
-	private $MitiTabela=array();
+	private $Tabela=array();
 	
 	/**
-	 * @var \MitiBD
+	 * @var BD
 	 */
-	private $MitiBD;
+	private $BD;
 	
 	/**
 	 * @var string Concatenação dos campos à serem selecionados no select.
@@ -88,9 +89,9 @@ class MitiORM{
 	 */
 	public function __construct($tabela){
 		$this->alias=substr($tabela,0,1);
-		$this->MitiTabela[$this->alias]=new MitiTabela($tabela);
+		$this->Tabela[$this->alias]=new Tabela($tabela);
 		
-		$this->MitiBD=new MitiBD;
+		$this->BD=new BD;
 	}
 	
 	/**
@@ -106,14 +107,14 @@ class MitiORM{
 	 * 
 	 * @api
 	 * @param string[] $duplas Vetor indexado pelos nomes dos campos da tabela.
-	 * @return \MitiBD
+	 * @return BD
 	 * @throws \Exception Implicitamente.
 	 */
 	public function criar(array $duplas){
 		$sql='';
 		$sql=$this->montarCampos($sql,$duplas);
 		$sql=$this->montarValores($sql,$duplas);
-		return $this->MitiBD->requisitar($sql);
+		return $this->BD->requisitar($sql);
 	}
 	
 	/**
@@ -124,7 +125,7 @@ class MitiORM{
 	 * @return string
 	 */
 	private function montarCampos($sql,array $duplas){
-		$sql='insert into '.$this->MitiTabela[$this->alias]->getNome().'(';
+		$sql='insert into '.$this->Tabela[$this->alias]->getNome().'(';
 		
 		$campos=array();
 		foreach($duplas as $i=>$v){
@@ -171,14 +172,14 @@ class MitiORM{
 	 * @api
 	 * @param string[] $duplas Vetor indexado pelos nomes dos campos da tabela.
 	 * @param string $pk Nome do campo da chave primária.
-	 * @return \MitiBD
+	 * @return BD
 	 * @throws \Exception Implicitamente.
 	 */
 	public function atualizar(array $duplas,$pk){
 		$sql='';
 		$sql=$this->montarAtribuicoes($sql,$duplas);
 		$sql=$this->montarWhereAlteracao($sql,$pk);
-		return $this->MitiBD->requisitar($sql);
+		return $this->BD->requisitar($sql);
 	}
 	
 	/**
@@ -192,7 +193,7 @@ class MitiORM{
 		$this->validar($duplas);
 		$duplas=$this->tratar($duplas);
 		
-		$sql='update '.$this->MitiTabela[$this->alias]->getNome().' set ';
+		$sql='update '.$this->Tabela[$this->alias]->getNome().' set ';
 		
 		$atribuicoes=array();
 		foreach($duplas as $i=>$v){
@@ -216,7 +217,7 @@ class MitiORM{
 	 */
 	private function montarWhereAlteracao($sql,$pk){
 		$pk=$this->tratarPk($pk);
-		return $sql.' where '.$this->MitiTabela[$this->alias]->getPkCampo().'='.$pk;
+		return $sql.' where '.$this->Tabela[$this->alias]->getPkCampo().'='.$pk;
 	}
 	
 	/**
@@ -228,16 +229,16 @@ class MitiORM{
 	 * o valor exceder o limite de caractéres que o campo permite.
 	 */
 	private function validar(array $duplas){
-		$tamanhos=$this->MitiTabela[$this->alias]->getTamanhos();
-		$anulaveis=$this->MitiTabela[$this->alias]->getAnulaveis();
+		$tamanhos=$this->Tabela[$this->alias]->getTamanhos();
+		$anulaveis=$this->Tabela[$this->alias]->getAnulaveis();
 		
 		foreach($duplas as $i=>$v){
 			if(!$anulaveis[$i]&&!$v){
-				throw new Exception("Valor vazio para o campo '$i'.");
+				throw new \Exception("Valor vazio para o campo '$i'.");
 			}
 			
 			if(strlen($v)>$tamanhos[$i]){
-				throw new Exception("Limite de caractéres excedido para o campo '$i'.");
+				throw new \Exception("Limite de caractéres excedido para o campo '$i'.");
 			}
 		}
 	}
@@ -247,7 +248,7 @@ class MitiORM{
 	 * 
 	 * @api
 	 * @param mixed|mixed[] $filtro Se for um vetor, deve conter apenas uma dupla.
-	 * @return \MitiBD
+	 * @return BD
 	 * @throws \Exception Implicitamente.
 	 */
 	public function deletar($filtro){
@@ -257,7 +258,7 @@ class MitiORM{
 			$sql=$this->montarExclusaoScalar($filtro);
 		}
 		
-		return $this->MitiBD->requisitar($sql);
+		return $this->BD->requisitar($sql);
 	}
 	
 	/**
@@ -271,7 +272,7 @@ class MitiORM{
 		
 		foreach($dupla as $i=>$v){
 			$sql=
-				'delete from '.$this->MitiTabela[$this->alias]->getNome()
+				'delete from '.$this->Tabela[$this->alias]->getNome()
 				.' where '.$i.'='.$v
 			;
 		}
@@ -289,8 +290,8 @@ class MitiORM{
 		$pk=$this->tratarPk($pk);
 		
 		return
-			'delete from '.$this->MitiTabela[$this->alias]->getNome()
-			.' where '.$this->MitiTabela[$this->alias]->getPkCampo().'='.$pk
+			'delete from '.$this->Tabela[$this->alias]->getNome()
+			.' where '.$this->Tabela[$this->alias]->getPkCampo().'='.$pk
 		;
 	}
 	
@@ -303,14 +304,14 @@ class MitiORM{
 	 * @return string[]
 	 */
 	private function tratar(array $duplas){
-		$tipos=$this->MitiTabela[$this->alias]->getTipos();
+		$tipos=$this->Tabela[$this->alias]->getTipos();
 		
 		foreach($duplas as $i=>$v){
 			if($v===''){
 				$duplas[$i]='null';
 			}else{
 				if($tipos[$i]==='string'){
-					$duplas[$i]=$this->MitiBD->escapar($v);
+					$duplas[$i]=$this->BD->escapar($v);
 					$duplas[$i]='"'.$duplas[$i].'"';
 				}else{
 					settype($duplas[$i],$tipos[$i]);
@@ -330,11 +331,11 @@ class MitiORM{
 	 * @return string
 	 */
 	private function tratarPk($pk){
-		if($this->MitiTabela[$this->alias]->getPkTipo()==='string'){
-			$pk=$this->MitiBD->escapar($pk);
+		if($this->Tabela[$this->alias]->getPkTipo()==='string'){
+			$pk=$this->BD->escapar($pk);
 			$pk='"'.$pk.'"';
 		}else{
-			settype($pk,$this->MitiTabela[$this->alias]->getPkTipo());
+			settype($pk,$this->Tabela[$this->alias]->getPkTipo());
 		}
 		
 		return $pk;
@@ -357,7 +358,7 @@ class MitiORM{
 	 * de tabelas juntadas ou para simplificar nomes criados à partir do uso de
 	 * funções do banco.
 	 * 
-	 * @return \MitiORM
+	 * @return ORM
 	 * 
 	 * @todo Melhorar a forma de chamar funções do banco. Não é bom ter que
 	 * deixar o primeiro parâmetro vazio.
@@ -394,12 +395,12 @@ class MitiORM{
 	 * @param string $campo
 	 * @param string $alias_campo_externa
 	 * @param string $campo_externa
-	 * @return \MitiORM
+	 * @return ORM
 	 */
 	public function juntar(
 		$juncao,$externa,$alias,$alias_campo,$campo,$alias_campo_externa,$campo_externa
 	){
-		$this->MitiTabela[$alias]=new MitiTabela($externa);
+		$this->Tabela[$alias]=new Tabela($externa);
 		
 		$this->juncoes.=
 			$juncao.' '.$externa.' '.$alias
@@ -422,7 +423,7 @@ class MitiORM{
 	 * @param string $operador =, !=, like, >, >=, etc.
 	 * @param mixed $valor
 	 * @param string $separador Utilizado preferencialmente por método interno.
-	 * @return \MitiORM
+	 * @return ORM
 	 */
 	public function filtrar($alias,$campo,$operador,$valor,$separador=''){
 		$valor=$this->tratarLeitura($alias,$campo,$operador,$valor);
@@ -446,7 +447,7 @@ class MitiORM{
 	 * @param string $campo De qualquer tabela.
 	 * @param string $operador =, !=, like, >, >=, etc.
 	 * @param mixed $valor
-	 * @return \MitiORM
+	 * @return ORM
 	 */
 	public function eFiltrar($alias,$campo,$operador,$valor){
 		$this->filtrar($alias,$campo,$operador,$valor,'and');
@@ -469,7 +470,7 @@ class MitiORM{
 	 * @param string $campo De qualquer tabela.
 	 * @param string $operador =, !=, like, >, >=, etc.
 	 * @param mixed $valor
-	 * @return \MitiORM
+	 * @return ORM
 	 */
 	public function ouFiltrar($alias,$campo,$operador,$valor){
 		$this->filtrar($alias,$campo,$operador,$valor,'or');
@@ -491,12 +492,12 @@ class MitiORM{
 	 * @return mixed
 	 */
 	private function tratarLeitura($alias,$campo,$operador,$valor){
-		$tipos=$this->MitiTabela[$alias]->getTipos();
+		$tipos=$this->Tabela[$alias]->getTipos();
 		
 		if($operador==='like'){
-			$valor='"%'.$this->MitiBD->escapar($valor).'%"';
+			$valor='"%'.$this->BD->escapar($valor).'%"';
 		}else if($tipos[$campo]==='string'){
-			$valor='"'.$this->MitiBD->escapar($valor).'"';
+			$valor='"'.$this->BD->escapar($valor).'"';
 		}else{
 			settype($valor,$tipos[$campo]);
 		}
@@ -515,7 +516,7 @@ class MitiORM{
 	 * @api
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
-	 * @return \MitiORM
+	 * @return ORM
 	 */
 	public function agrupar($alias,$campo){
 		$separador='';
@@ -537,7 +538,7 @@ class MitiORM{
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
 	 * @param string $ordens asc ou desc.
-	 * @return \MitiORM
+	 * @return ORM
 	 */
 	public function ordenar($alias,$campo,$ordens){
 		$separador='';
@@ -556,7 +557,7 @@ class MitiORM{
 	 * inesperados.
 	 * 
 	 * @api
-	 * @return \MitiORM
+	 * @return ORM
 	 */
 	public function ordenarAleatoriamente(){
 		$this->ordens='rand()';
@@ -575,7 +576,7 @@ class MitiORM{
 	 * @api
 	 * @param int $quantidade
 	 * @param int $inicio Incluindo zero.
-	 * @return \MitiORM
+	 * @return ORM
 	 */
 	public function limitar($quantidade,$inicio=''){
 		if(!$quantidade){
@@ -596,7 +597,7 @@ class MitiORM{
 	 * Usa-se a variável $sql para facilitar o debug.
 	 * 
 	 * @api
-	 * @return \MitiBD
+	 * @return BD
 	 * @throws \Exception Implicitamente.
 	 */
 	public function ler(){
@@ -607,7 +608,7 @@ class MitiORM{
 		
 		$sql=
 			'select '.$this->campos
-			.'from '.$this->MitiTabela[$this->alias]->getNome().' '.$this->alias.' '
+			.'from '.$this->Tabela[$this->alias]->getNome().' '.$this->alias.' '
 			.$this->juncoes
 			.$this->filtros
 			.$this->grupos
@@ -615,7 +616,7 @@ class MitiORM{
 			.$this->limite
 		;
 		
-		return $this->MitiBD->requisitar($sql);
+		return $this->BD->requisitar($sql);
 	}
 	
 	/**

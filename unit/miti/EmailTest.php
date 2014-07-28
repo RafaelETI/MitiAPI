@@ -1,14 +1,14 @@
 <?php
-class MitiEmailTest extends PHPUnit_Framework_TestCase{
+class EmailTest extends PHPUnit_Framework_TestCase{
 	public static function setUpBeforeClass(){
 		$_FILES['arquivo']['name'][0]='miti.txt';
-		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'unit/arquivo/miti.txt';
+		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'/unit/arquivo/miti.txt';
 	}
 	
 	public function testEnviar(){
-		$this->MitiEmail=new MitiEmail;
+		$this->Email=new Miti\Email;
 		
-		$this->MitiEmail
+		$this->Email
 			->setCc('cc@dominio.com')
 			->setBcc('bcc@dominio.com')
 			->setReplyTo('replyto@dominio.com')

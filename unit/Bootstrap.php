@@ -5,7 +5,6 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
-
 new Bootstrap;
 
 /**
@@ -37,7 +36,7 @@ class Bootstrap{
 	 * Há a intenção de que esse seja o único ponto de manutenção ao trocar o
 	 * sistema de ambiente.
 	 * 
-	 * @return \Bootstrap
+	 * @return Bootstrap
 	 */
 	private function ambiente(){
 		define('AMBIENTE',1);
@@ -53,7 +52,7 @@ class Bootstrap{
 	 * Se o servidor do banco de dados for o mesmo de onde o sistema está
 	 * hospedado, usar localhost.
 	 * 
-	 * @return \Bootstrap
+	 * @return Bootstrap
 	 */
 	private function banco(){
 		if(AMBIENTE===1){
@@ -76,7 +75,7 @@ class Bootstrap{
 	/**
 	 * Configura como o PHP trata os erros do sistema
 	 * 
-	 * @return \Bootstrap
+	 * @return Bootstrap
 	 */
 	private function erro(){
 		error_reporting(-1);
@@ -90,7 +89,7 @@ class Bootstrap{
 	 * Vide a lista de timezones que o PHP suporta:
 	 * {@link http://php.net/manual/en/timezones.php}.
 	 * 
-	 * @return \Bootstrap
+	 * @return Bootstrap
 	 */
 	private function timezone(){
 		date_default_timezone_set('America/Sao_Paulo');
@@ -100,17 +99,17 @@ class Bootstrap{
 	/**
 	 * Configura a raiz do sistema
 	 * 
-	 * @return \Bootstrap
+	 * @return Bootstrap
 	 */
 	private function raiz(){
-		define('RAIZ',__DIR__.'/../');
+		define('RAIZ',__DIR__.'/..');
 		return $this;
 	}
 	
 	/**
 	 * Inicia a sessão
 	 * 
-	 * @return \Bootstrap
+	 * @return Bootstrap
 	 */
 	private function sessao(){
 		session_start();
@@ -120,25 +119,32 @@ class Bootstrap{
 	/**
 	 * Configura a função de autoload de classes
 	 * 
-	 * Ela não atende nem ao PSR-0 ({@link http://www.php-fig.org/psr/psr-0/}),
-	 * nem ao PSR-4 ({@link http://www.php-fig.org/psr/psr-4/}).
+	 * O nome completamente qualificado da classe deve conter apenas um nível de
+	 * namespace mais o nome da classe. Para o nome do namespace deve haver uma
+	 * pasta de mesmo nome, mas com letras minúsculas, na raíz do sistema, com
+	 * um arquivo com o mesmo nome da classe dentro dela.
 	 * 
-	 * Adicionar os diretórios desejados no array respectivo, e nomear o arquivo
-	 * com o mesmo nome da classe, ex: Classe.php -> Classe{.
+	 * Os nomes das classes, devem respeitar as mesmas caixas altas e baixas,
+	 * tanto no código, quanto no arquivo. Enquanto para o namespace, o nome da
+	 * pasta deve ser todo minúsculo, podendo o nome, no código, ser de qualquer
+	 * forma.
 	 * 
-	 * @return \Bootstrap
+	 * Exemplo de namespace: namespace Pasta; -> pasta/.
+	 * Exemplo de classe: class Abstracao{; -> Abstracao.php.
+	 * 
+	 * @return Bootstrap
+	 * 
+	 * @todo O ideal é que o nome completamente qualificado da classe não esteja
+	 * restrito à apenas um nível de namespace.
 	 */
 	private function autoload(){
-		function mitiAutoload($Classe){
-			foreach(array('adt','miti') as $v){
-				if(file_exists(RAIZ.$v.'/'.$Classe.'.php')){
-					require RAIZ.$v.'/'.$Classe.'.php';
-					break;
-				}
-			}
-		}
-		
-		spl_autoload_register('mitiAutoload');
+		spl_autoload_register(function($fully){
+			$partes=explode('\\',$fully);
+			$namespace=strtolower(reset($partes));
+			$Classe=end($partes);
+
+			require RAIZ."/$namespace/$Classe.php";
+		});
 		
 		return $this;
 	}

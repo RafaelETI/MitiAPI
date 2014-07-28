@@ -5,6 +5,7 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * Envio de e-mail
@@ -13,7 +14,7 @@
  * 
  * Permite definições de cópias e anexos.
  */
-class MitiEmail{
+class Email{
 	/**
 	 * @var string Delimitações do cabeçalho. Deve ser um valor único.
 	 */
@@ -53,7 +54,7 @@ class MitiEmail{
 	 * 
 	 * @api
 	 * @param string $cc
-	 * @return \MitiEmail
+	 * @return Email
 	 */
 	public function setCc($cc){
 		$this->cc=$cc;
@@ -67,7 +68,7 @@ class MitiEmail{
 	 * 
 	 * @api
 	 * @param string $bcc
-	 * @return \MitiEmail
+	 * @return Email
 	 */
 	public function setBcc($bcc){
 		$this->bcc=$bcc;
@@ -79,7 +80,7 @@ class MitiEmail{
 	 * 
 	 * @api
 	 * @param string $replyto
-	 * @return \MitiEmail
+	 * @return Email
 	 */
 	public function setReplyTo($replyto){
 		$this->replyto=$replyto;
@@ -95,7 +96,7 @@ class MitiEmail{
 	 * 
 	 * @api
 	 * @param string $anexos
-	 * @return \MitiEmail
+	 * @return Email
 	 */
 	public function setAnexos($anexos){
 		$this->anexos=$anexos;
@@ -131,7 +132,7 @@ class MitiEmail{
 				$this->montarCabecalho($remetente,$mensagem,$charset)
 			)
 		){
-			throw new Exception('Houve um erro ao enviar o e-mail.');
+			throw new \Exception('Houve um erro ao enviar o e-mail.');
 		}
 	}
 	

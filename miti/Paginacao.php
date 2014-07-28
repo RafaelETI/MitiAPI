@@ -5,6 +5,7 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * Paginação HTML
@@ -13,7 +14,7 @@
  * passando esses filtros na query string dos botões html, consegue-se realizar
  * uma paginação que leva em conta a busca do usuário.
  */
-class MitiPaginacao{
+class Paginacao{
 	/**
 	 * @var int Total de registros selecionados na requisição.
 	 */

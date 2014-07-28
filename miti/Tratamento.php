@@ -5,11 +5,12 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * Tratamento de dados
  */
-class MitiTratamento{
+class Tratamento{
 	/**
 	 * Cria o html para inclusão de arquivos CSS e JS
 	 * 

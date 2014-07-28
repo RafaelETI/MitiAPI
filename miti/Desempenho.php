@@ -5,11 +5,12 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * Medição de desempenho de procedimentos computacionais
  */
-class MitiDesempenho{
+class Desempenho{
 	/**
 	 * Mede o tempo de execução de um procedimento
 	 * 

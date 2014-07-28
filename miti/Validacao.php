@@ -5,11 +5,12 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * Validação de dados
  */
-class MitiValidacao{
+class Validacao{
 	/**
 	 * Valida a quantidade de caractéres de um valor
 	 * 
@@ -25,7 +26,7 @@ class MitiValidacao{
 		}
 		
 		if(strlen($valor)!=$tamanho){
-			throw new Exception('O valor deve conter até '.$tamanho.' caractéres.');
+			throw new \Exception('O valor deve conter até '.$tamanho.' caractéres.');
 		}
 	}
 	
@@ -45,7 +46,7 @@ class MitiValidacao{
 		}
 		
 		if(!preg_match('/^\w{2,}@\w{2,}\.(\w|\.){2,}$/',$valor)){
-			throw new Exception('O e-mail é inválido.');
+			throw new \Exception('O e-mail é inválido.');
 		}
 	}
 	
@@ -76,7 +77,7 @@ class MitiValidacao{
 	private static function vazioArray(array $valores){
 		foreach($valores as $v){
 			if(!$v){
-				throw new Exception('Valor vazio.');
+				throw new \Exception('Valor vazio.');
 			}
 		}
 	}
@@ -89,7 +90,7 @@ class MitiValidacao{
 	 */
 	private static function vazioScalar($valor){
 		if(!$valor){
-			throw new Exception('Valor vazio.');
+			throw new \Exception('Valor vazio.');
 		}
 	}
 	
@@ -131,7 +132,7 @@ class MitiValidacao{
 		$peso*=1024;
 		
 		if($_FILES[$file]['size'][$i]>$peso){
-			throw new Exception('O arquivo excede o tamanho permitido.');
+			throw new \Exception('O arquivo excede o tamanho permitido.');
 		}
 	}
 	
@@ -153,7 +154,7 @@ class MitiValidacao{
 		}
 		
 		if(!$ok){
-			throw new Exception('O tipo do arquivo é inválido.');
+			throw new \Exception('O tipo do arquivo é inválido.');
 		}
 	}
 	
@@ -192,13 +193,13 @@ class MitiValidacao{
 	 */
 	private static function dimensoes($dimensoes,$largura,$altura){
 		if($dimensoes[0]<$largura){
-			throw new Exception(
+			throw new \Exception(
 				'A largura da imagem é menor do que o mínimo permitido.'
 			);
 		}
 		
 		if($dimensoes[1]<$altura){
-			throw new Exception(
+			throw new \Exception(
 				'A altura da imagem é menor do que o mínimo permitido.'
 			);
 		}
@@ -219,13 +220,13 @@ class MitiValidacao{
 		$prop_img=$dimensoes[0]/$dimensoes[1];
 		
 		if($prop_img<$prop_min){
-			throw new Exception(
+			throw new \Exception(
 				'A proporção da imagem é inválida, excedendo verticalmente.'
 			);
 		}
 		
 		if($prop_img>$prop_max){
-			throw new Exception(
+			throw new \Exception(
 				'A proporção da imagem é inválida, excedendo horizontalmente.'
 			);
 		}
@@ -261,7 +262,7 @@ class MitiValidacao{
 	 */
 	private static function quantidadeCaracteres($cpf){
 		if(strlen($cpf)!==11){
-			throw new Exception('#1 O CPF é inválido.');
+			throw new \Exception('#1 O CPF é inválido.');
 		}
 	}
 	
@@ -273,7 +274,7 @@ class MitiValidacao{
 	 */
 	private static function apenasNumeros($cpf){
 		if(!preg_match('/\d{11}/',$cpf)){
-			throw new Exception('#2 O CPF é inválido.');
+			throw new \Exception('#2 O CPF é inválido.');
 		}
 	}
 	
@@ -293,7 +294,7 @@ class MitiValidacao{
 			}
 			
 			if($i==10){
-				throw new Exception('#3 O CPF é inválido.');
+				throw new \Exception('#3 O CPF é inválido.');
 			}
 		}
 	}
@@ -313,7 +314,7 @@ class MitiValidacao{
 			$digito=((10*$digito)%11)%10;
 			
 			if($cpf[$numero]!=$digito){
-				throw new Exception('#4 O CPF é inválido.');
+				throw new \Exception('#4 O CPF é inválido.');
 			}
 		}
 	}
@@ -348,7 +349,7 @@ class MitiValidacao{
 	 */
 	private static function quantidadeCaracteresCnpj($cnpj){
 		if(strlen($cnpj)!==14){
-			throw new Exception('#1 O CNPJ é inválido.');
+			throw new \Exception('#1 O CNPJ é inválido.');
 		}
 	}
 	
@@ -360,7 +361,7 @@ class MitiValidacao{
 	 */
 	private static function apenasNumerosCnpj($cnpj){
 		if(!preg_match('/\d{14}/',$cnpj)){
-			throw new Exception('#2 O CNPJ é inválido.');
+			throw new \Exception('#2 O CNPJ é inválido.');
 		}
 	}
 	
@@ -374,7 +375,7 @@ class MitiValidacao{
 	 */
 	private static function sequenciaZeros($cnpj){
 		if($cnpj=='00000000000000'){
-			throw new Exception('#3 O CNPJ é inválido.');
+			throw new \Exception('#3 O CNPJ é inválido.');
 		}
 	}
 	
@@ -403,7 +404,7 @@ class MitiValidacao{
 			}
 			
 			if($cnpj[12+$i]!=$digito){
-				throw new Exception('#4 O CNPJ é inválido.');
+				throw new \Exception('#4 O CNPJ é inválido.');
 			}
 		}
 	}

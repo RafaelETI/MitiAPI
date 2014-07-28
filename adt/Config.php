@@ -5,6 +5,7 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace ADT;
 
 /**
  * Configuração do sistema
@@ -65,7 +66,7 @@ class Config{
 	 * erros sejam mostrados na tela. Sempre conferir o sistema on-line quando
 	 * subir esse arquivo.
 	 * 
-	 * @return \Config
+	 * @return Config
 	 */
 	private function ambiente(){
 		define('AMBIENTE',1);
@@ -79,13 +80,13 @@ class Config{
 	 * interfaces para que possa-se identificar facilmente se o sistema está
 	 * configurado para o ambiente de produção ou não.
 	 * 
-	 * @return \Config
+	 * @return Config
 	 */
 	private function sistema(){
 		if(AMBIENTE===0){
 			define('SISTEMA','Miti API');
 		}else{
-			define('SISTEMA','Miti API 1.2.10');
+			define('SISTEMA','Miti API 1.2.11');
 		}
 		
 		return $this;
@@ -100,7 +101,7 @@ class Config{
 	 * Se o servidor do banco de dados for o mesmo de onde o sistema está
 	 * hospedado, usar localhost.
 	 * 
-	 * @return \Config
+	 * @return Config
 	 */
 	private function banco(){
 		if(AMBIENTE===0){
@@ -126,7 +127,7 @@ class Config{
 	 * É uma das principais configurações de segurança. Nunca mostre os erros
 	 * emitidos pelo PHP diretamente na tela, no ambiente de produção!
 	 * 
-	 * @return \Config
+	 * @return Config
 	 */
 	private function erro(){
 		error_reporting(-1);
@@ -146,7 +147,7 @@ class Config{
 	 * Vide a lista de timezones que o PHP suporta:
 	 * {@link http://php.net/manual/en/timezones.php}.
 	 * 
-	 * @return \Config
+	 * @return Config
 	 */
 	private function timezone(){
 		date_default_timezone_set('America/Sao_Paulo');
@@ -159,7 +160,7 @@ class Config{
 	 * Dessa forma o charset já é definido no cabeçalho do HTTP, portanto, não
 	 * há a necessidade de usar a meta tag do HTML para isso.
 	 * 
-	 * @return \Config
+	 * @return Config
 	 */
 	private function charset(){
 		header('content-type:text/html; charset=iso-8859-1');
@@ -174,15 +175,15 @@ class Config{
 	 * Para o ambiente de produção, caso o sistema não esteja na raiz do domínio,
 	 * deve-se complementar o caminho para se chegar até ele no código.
 	 * 
-	 * @return \Config
+	 * @return Config
 	 */
 	private function raiz(){
 		if(AMBIENTE===0){
-			define('RAIZ_OS',$_SERVER['DOCUMENT_ROOT'].'/');
-			define('RAIZ_WEB','http://'.$_SERVER['HTTP_HOST'].'/');
+			define('RAIZ_OS',$_SERVER['DOCUMENT_ROOT']);
+			define('RAIZ_WEB','http://'.$_SERVER['HTTP_HOST']);
 		}else if(AMBIENTE===1){
-			define('RAIZ_OS',$_SERVER['DOCUMENT_ROOT'].'/MitiAPI/');
-			define('RAIZ_WEB','http://'.$_SERVER['HTTP_HOST'].'/MitiAPI/');
+			define('RAIZ_OS',$_SERVER['DOCUMENT_ROOT'].'/MitiAPI');
+			define('RAIZ_WEB','http://'.$_SERVER['HTTP_HOST'].'/MitiAPI');
 		}
 		
 		return $this;
@@ -196,14 +197,14 @@ class Config{
 	 * 
 	 * @param bool $restrito
 	 * @param string $sessao
-	 * @return \Config
+	 * @return Config
 	 */
 	private function sessao($restrito,$sessao){
 		session_start();
 		
 		if($restrito&&!isset($_SESSION[$sessao])){
 			$_SESSION['status']='Você não está autenticado.';
-			header('location:'.RAIZ_WEB.'admin/index.php');
+			header('location:'.RAIZ_WEB);
 			exit;
 		}
 		
@@ -235,25 +236,32 @@ class Config{
 	/**
 	 * Configura a função de autoload de classes
 	 * 
-	 * Ela não atende nem ao PSR-0 ({@link http://www.php-fig.org/psr/psr-0/}),
-	 * nem ao PSR-4 ({@link http://www.php-fig.org/psr/psr-4/}).
+	 * O nome completamente qualificado da classe deve conter apenas um nível de
+	 * namespace mais o nome da classe. Para o nome do namespace deve haver uma
+	 * pasta de mesmo nome, mas com letras minúsculas, na raíz do sistema, com
+	 * um arquivo com o mesmo nome da classe dentro dela.
 	 * 
-	 * Adicionar os diretórios desejados no array respectivo, e nomear o arquivo
-	 * com o mesmo nome da classe, ex: Classe.php -> Classe{.
+	 * Os nomes das classes, devem respeitar as mesmas caixas altas e baixas,
+	 * tanto no código, quanto no arquivo. Enquanto para o namespace, o nome da
+	 * pasta deve ser todo minúsculo, podendo o nome, no código, ser de qualquer
+	 * forma.
 	 * 
-	 * @return \Config
+	 * Exemplo de namespace: namespace Pasta; -> pasta/.
+	 * Exemplo de classe: class Abstracao{; -> Abstracao.php.
+	 * 
+	 * @return Config
+	 * 
+	 * @todo O ideal é que o nome completamente qualificado da classe não esteja
+	 * restrito à apenas um nível de namespace.
 	 */
 	private function autoload(){
-		function mitiAutoload($Classe){
-			foreach(array('adt','miti') as $v){
-				if(file_exists(RAIZ_OS.$v.'/'.$Classe.'.php')){
-					require RAIZ_OS.$v.'/'.$Classe.'.php';
-					break;
-				}
-			}
-		}
-		
-		spl_autoload_register('mitiAutoload');
+		spl_autoload_register(function($fully){
+			$partes=explode('\\',$fully);
+			$namespace=reset($partes);
+			$Classe=end($partes);
+
+			require RAIZ_OS."/$namespace/$Classe.php";
+		});
 		
 		return $this;
 	}
@@ -277,7 +285,7 @@ class Config{
 	 * requisição GET, em caso de sucesso.
 	 * 
 	 * @param string $Classe
-	 * @return \Config
+	 * @return Config
 	 */
 	private function requisicao($Classe){
 		if(isset($_REQUEST['metodo'])){

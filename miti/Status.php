@@ -5,6 +5,7 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * Controle de mensagens de status de procedimentos
@@ -13,7 +14,7 @@
  * e o método devem ser instanciados em um arquivo unificado (i.e. que todas as
  * páginas chamem).
  */
-class MitiStatus{
+class Status{
 	/**
 	 * Retorna HTML mais JavaScript que gera a mensagem do status
 	 * 

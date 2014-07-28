@@ -5,6 +5,7 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * Operação sobre data
@@ -13,7 +14,7 @@
  * não assume a data atual na ausência de uma outra na construção do objeto;
  * diferente da classe nativa DateTime.
  */
-class MitiData{
+class Data{
 	/**
 	 * Inverte uma data no formato brasileiro para o formato norte americano
 	 * 
@@ -33,7 +34,7 @@ class MitiData{
 		
 		$data=str_replace('/','-',$data);
 		
-		$DateTime=new DateTime($data);
+		$DateTime=new \DateTime($data);
 		$data=$DateTime->format('Y-m-d H:i:s');
 		
 		if(!$longo){
@@ -56,7 +57,7 @@ class MitiData{
 			return;
 		}
 		
-		$DateTime=new DateTime($data);
+		$DateTime=new \DateTime($data);
 		$data=$DateTime->format('d/m/Y H:i:s');
 		
 		if(!$longo){
@@ -81,7 +82,7 @@ class MitiData{
 			return;
 		}
 		
-		$DateTime=new DateTime($data);
+		$DateTime=new \DateTime($data);
 		$dia=$DateTime->format('l');
 		
 		if($dia=='Sunday'){
@@ -120,7 +121,7 @@ class MitiData{
 			return;
 		}
 		
-		$DateTime=new DateTime($data);
+		$DateTime=new \DateTime($data);
 		$mes=$DateTime->format('m');
 		
 		if($mes=='01'){
@@ -168,7 +169,7 @@ class MitiData{
 			return;
 		}
 		
-		$DateTime=new DateTime($data);
+		$DateTime=new \DateTime($data);
 		return $DateTime->format('Y');
 	}
 }

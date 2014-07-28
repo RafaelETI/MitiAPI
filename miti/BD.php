@@ -5,6 +5,7 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
+namespace Miti;
 
 /**
  * Abstração de conexão com banco de dados
@@ -16,7 +17,7 @@
  * 
  * Preferencialmente utilizada através de um ORM.
  */
-class MitiBD{
+class BD{
 	/**
 	 * @var Object
 	 */
@@ -72,7 +73,7 @@ class MitiBD{
 		$banco=BD_BANCO,
 		$charset=BD_CHARSET
 	){
-		$this->conexao=@new mysqli($servidor,$usuario,$senha,$banco);
+		$this->conexao=@new \mysqli($servidor,$usuario,$senha,$banco);
 		$this->verificarErroConexao();
 		$this->definirCharset($charset);
 		$this->conexao->autocommit(false);
@@ -98,7 +99,7 @@ class MitiBD{
 				$mensagem='Não foi possível conectar ao banco de dados.';
 			}
 			
-			throw new Exception($mensagem);
+			throw new \Exception($mensagem);
 		}
 	}
 	
@@ -111,7 +112,7 @@ class MitiBD{
 	 */
 	private function definirCharset($charset){
 		if(!$this->conexao->set_charset($charset)){
-			throw new Exception('Houve um erro ao definir o charset.');
+			throw new \Exception('Houve um erro ao definir o charset.');
 		}
 	}
 	
@@ -168,7 +169,7 @@ class MitiBD{
 	 * 
 	 * @api
 	 * @param string $sql Recomenda-se o uso de um ORM para a montagem do SQL.
-	 * @return \MitiBD
+	 * @return BD
 	 */
 	public function requisitar($sql){
 		$microtimes=array(microtime(true));
@@ -191,7 +192,7 @@ class MitiBD{
 	 * A mensagem será técnica ou genérica baseado na configuração do PHP sobre
 	 * a impressão de erros na tela. Mesma regra da mensagem de erro da conexão.
 	 * 
-	 * @return \MitiBD
+	 * @return BD
 	 * @throws \Exception
 	 */
 	private function verificarErroRequisicao($sql){
@@ -202,7 +203,7 @@ class MitiBD{
 				$mensagem='Houve um erro ao realizar a requisição.';
 			}
 			
-			throw new Exception($mensagem);
+			throw new \Exception($mensagem);
 		}
 		
 		return $this;
@@ -212,17 +213,17 @@ class MitiBD{
 	 * Define o tempo da requisição
 	 * 
 	 * @param float[] $microtimes
-	 * @return \MitiBD
+	 * @return BD
 	 */
 	private function setTempo($microtimes){
-		$this->tempo=MitiDesempenho::medirTempoDeExecucao($microtimes);
+		$this->tempo=Desempenho::medirTempoDeExecucao($microtimes);
 		return $this;
 	}
 	
 	/**
 	 * Define a quantidade de registros afetados
 	 * 
-	 * @return \MitiBD
+	 * @return BD
 	 */
 	private function setAfetados(){
 		$this->afetados=$this->conexao->affected_rows;
@@ -232,7 +233,7 @@ class MitiBD{
 	/**
 	 * Define o id auto incrementado da última inserção
 	 * 
-	 * @return \MitiBD
+	 * @return BD
 	 */
 	private function setId(){
 		$this->id=$this->conexao->insert_id;
