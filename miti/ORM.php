@@ -14,7 +14,7 @@ namespace Miti;
  * mapeamento com a tabela do banco. Essa classe é responsável por realizar os
  * manuseios no banco baseando-se nesse mapeamento.
  * 
- * A característica mais visível para o usuário, ao utilizar esse classe, é a
+ * A característica mais visível para o usuário, ao utilizar essa classe, é a
  * eliminação da necessidade de se escrever códigos SQL. Além desta, existem
  * outras vantagens como a eliminação da necessidade de se preocupar com
  * abertura e fechamento de conexão com o banco, com tratamento contra SQL
@@ -101,7 +101,7 @@ class ORM{
 	 * do id auto incrementado gerado pelo banco para o registro que acabara de
 	 * ser inserido.
 	 * 
-	 * A forma mais prática de se criar o vetor à ser criado no banco é dar
+	 * A forma mais prática de se criar o vetor à ser enviado ao banco é dar
 	 * aos names dos campos do formulário, os mesmos nomes do campos da tabela.
 	 * Pode-se argumentar que é uma falha de segurança, mas pode valer a pena.
 	 * 
@@ -165,7 +165,7 @@ class ORM{
 	/**
 	 * Atualiza um registro na tabela (Update do CRUD)
 	 * 
-	 * A forma mais prática de se criar o vetor à ser criado no banco é dar
+	 * A forma mais prática de se criar o vetor à ser enviado ao banco é dar
 	 * aos names dos campos do formulário, os mesmos nomes do campos da tabela.
 	 * Pode-se argumentar que é uma falha de segurança, mas pode valer a pena.
 	 * 
@@ -354,7 +354,7 @@ class ORM{
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
 	 * 
-	 * @param string $alias_campo Importante para resolver conflitros com campos
+	 * @param string $alias_campo Importante para resolver conflitos com campos
 	 * de tabelas juntadas ou para simplificar nomes criados à partir do uso de
 	 * funções do banco.
 	 * 
@@ -593,8 +593,6 @@ class ORM{
 	
 	/**
 	 * Lê registros da tabela (Read do CRUD)
-	 * 
-	 * Usa-se a variável $sql para facilitar o debug.
 	 * 
 	 * @api
 	 * @return BD
