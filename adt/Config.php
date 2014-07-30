@@ -34,7 +34,7 @@ class Config{
 	 * 
 	 * @param string $sessao Nome da sessão.
 	 */
-	public function __construct($Classe,$restrito,$sessao='login'){
+	public function __construct($Classe,$restrito,$sessao='usuario'){
 		$this
 			->ambiente()
 			->sistema()
@@ -227,9 +227,9 @@ class Config{
 	 * @param string $sessao
 	 * @throws \Exception
 	 */
-	public static function verificarSessao($sessao='login'){
+	public static function verificarSessao($sessao='usuario'){
 		if(!isset($_SESSION[$sessao])){
-			throw new Exception('Você não tem permissão.');
+			throw new \Exception('Você não tem permissão.');
 		}
 	}
 	
@@ -289,14 +289,14 @@ class Config{
 	 */
 	private function requisicao($Classe){
 		if(isset($_REQUEST['metodo'])){
-			$this->tratarRequisicao();
+			$requisicao=$this->tratarRequisicao();
 			
 			try{
 				$Objeto=new $Classe;
-				$Objeto->$_REQUEST['metodo']();
-				header('location:'.$_REQUEST['url']);
+				$Objeto->$_REQUEST['metodo']($requisicao);
+				header("location:{$_REQUEST['url']}");
 				exit;
-			}catch(Exception $e){
+			}catch(\Exception $e){
 				$_SESSION['status']=$e->getMessage();
 			}
 		}
@@ -307,17 +307,18 @@ class Config{
 	/**
 	 * Trata as variáveis da requisição
 	 * 
-	 * As variáveis "metodo" e "url" são eliminadas para que as super globais
-	 * $_POST e $_GET tenham apenas valores interessantes aos métodos requisitados.
+	 * As variáveis "metodo" e "url" são eliminadas para que o parâmetro passado
+	 * ao método tenha apenas valores importantes à ele.
 	 */
 	private function tratarRequisicao(){
-		unset($_POST['metodo']);
-		unset($_POST['url']);
-		unset($_GET['metodo']);
-		unset($_GET['url']);
-		
 		if(!isset($_REQUEST['url'])){
 			$_REQUEST['url']=$_SERVER['HTTP_REFERER'];
 		}
+		
+		$requisicao=$_REQUEST;
+		unset($requisicao['metodo']);
+		unset($requisicao['url']);
+		
+		return $requisicao;
 	}
 }
