@@ -6,7 +6,7 @@ class EmailTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testEnviar(){
-		$this->Email=new Miti\Email;
+		$this->Email=new \miti\Email;
 		
 		$this->Email
 			->setCc('cc@dominio.com')

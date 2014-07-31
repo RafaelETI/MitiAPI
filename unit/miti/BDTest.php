@@ -3,7 +3,7 @@ class BDTest extends PHPUnit_Framework_TestCase{
 	private $BD;
 	
 	protected function setUp(){
-		$this->BD=new Miti\BD;
+		$this->BD=new \miti\BD;
 		
 		//sleep colocado para que o testGetTempo possa ser bem sucedido
 		$this->BD->requisitar('select nome,sleep(0.001) from categoria where id=1');
@@ -13,7 +13,7 @@ class BDTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('Exception',"Unknown database 'nao_existe'");
 		
 		ini_set('display_errors',1);
-		new Miti\BD('localhost','root','root','nao_existe');
+		new \miti\BD('localhost','root','root','nao_existe');
 	}
 	
 	public function testErroDeConexaoComMensagemGenerica(){
@@ -21,14 +21,14 @@ class BDTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('Exception',$mensagem);
 		
 		ini_set('display_errors',0);
-		new Miti\BD('localhost','root','root','nao_existe');
+		new \miti\BD('localhost','root','root','nao_existe');
 	}
 	
 	public function testErroDeCharset(){
 		$mensagem='Houve um erro ao definir o charset.';
 		$this->setExpectedException('Exception',$mensagem);
 		
-		new Miti\BD('localhost','root','root','miti_unit','nao_existe');
+		new \miti\BD('localhost','root','root','miti_unit','nao_existe');
 	}
 	
 	public function testEscaparArray(){

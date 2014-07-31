@@ -5,7 +5,7 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
-namespace Miti;
+namespace miti;
 
 /**
  * Controle de mensagens de status de procedimentos

@@ -3,7 +3,7 @@ class TabelaTest extends PHPUnit_Framework_TestCase{
 	private $Tabela;
 	
 	protected function setUp(){
-		$this->Tabela=new Miti\Tabela('categoria');
+		$this->Tabela=new \miti\Tabela('categoria');
 	}
 	
 	public function testGetNome(){

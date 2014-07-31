@@ -5,7 +5,7 @@
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
-namespace Miti;
+namespace miti;
 
 /**
  * Mapeamento automático de tabela de banco de dados

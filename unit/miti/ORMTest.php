@@ -3,7 +3,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	public function testValidarVazio(){
 		$this->setExpectedException('Exception',"Valor vazio para o campo 'id'.");
 		
-		$ORM=new Miti\ORM('categoria');
+		$ORM=new \miti\ORM('categoria');
 		$ORM->criar(array('id'=>''));
 	}
 	
@@ -11,23 +11,23 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 		$mensagem="Limite de caractéres excedido para o campo 'id'.";
 		$this->setExpectedException('Exception',$mensagem);
 		
-		$ORM=new Miti\ORM('categoria');
+		$ORM=new \miti\ORM('categoria');
 		$ORM->criar(array('id'=>1000));
 	}
 	
 	public function testCriar(){
-		$ORM=new Miti\ORM('categoria');
+		$ORM=new \miti\ORM('categoria');
 		$ORM->criar(array('id'=>4,'nome'=>'Teste','status'=>'c'));
 		$ORM->criar(array('id'=>5,'nome'=>'Teste 2','status'=>''))->cometer();
 	}
 	
 	public function testAtualizar(){
-		$ORM=new Miti\ORM('categoria');
+		$ORM=new \miti\ORM('categoria');
 		$ORM->atualizar(array('status'=>'c'),5)->cometer();
 	}
 	
 	public function testDeletarArray(){
-		$ORM=new Miti\ORM('categoria');
+		$ORM=new \miti\ORM('categoria');
 		$BD=$ORM->deletar(array('status'=>'c'));
 		
 		$categoria=$ORM
@@ -43,13 +43,13 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testTratarPk(){
-		$ORM=new Miti\ORM('status');
+		$ORM=new \miti\ORM('status');
 		$ORM->criar(array('id'=>'d','descricao'=>'Teste','prioridade'=>1));
 		$ORM->deletar('d')->cometer();
 	}
 	
 	public function testJuntar(){
-		$ORM=new Miti\ORM('memoria');
+		$ORM=new \miti\ORM('memoria');
 		
 		$memoria=$ORM
 			->selecionar('m','id')
@@ -65,7 +65,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testEFiltrar(){
-		$ORM=new Miti\ORM('memoria');
+		$ORM=new \miti\ORM('memoria');
 		
 		$memoria=$ORM
 			->selecionar('m','id')
@@ -79,7 +79,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testOuFiltrar(){
-		$ORM=new Miti\ORM('memoria');
+		$ORM=new \miti\ORM('memoria');
 		
 		$memoria=$ORM
 			->selecionar('m','id')
@@ -93,7 +93,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testTratarLeitura(){
-		$ORM=new Miti\ORM('categoria');
+		$ORM=new \miti\ORM('categoria');
 		
 		$categoria=$ORM
 			->selecionar('c','id')
@@ -106,7 +106,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testOrdenar(){
-		$ORM=new Miti\ORM('memoria');
+		$ORM=new \miti\ORM('memoria');
 		
 		$memoria=$ORM
 			->selecionar('m','descricao')
@@ -120,7 +120,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testOrdenarAleatoriamente(){
-		$ORM=new Miti\ORM('memoria');
+		$ORM=new \miti\ORM('memoria');
 		$ORM->selecionar('m','id')->ordenarAleatoriamente();
 		
 		$resultado=false;
@@ -139,7 +139,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testAgrupar(){
-		$ORM=new Miti\ORM('memoria');
+		$ORM=new \miti\ORM('memoria');
 		
 		$memoria=$ORM
 			->selecionar('s','id')
@@ -154,13 +154,13 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testLimitarZero(){
-		$ORM=new Miti\ORM('memoria');
+		$ORM=new \miti\ORM('memoria');
 		$quantidade=$ORM->selecionar('m','id')->limitar(0)->ler()->obterQuantidade();
 		$this->assertSame(3,$quantidade);
 	}
 	
 	public function testLimitar(){
-		$ORM=new Miti\ORM('memoria');
+		$ORM=new \miti\ORM('memoria');
 		$quantidade=$ORM->selecionar('m','id')->limitar(1,2)->ler()->obterQuantidade();
 		$this->assertSame(1,$quantidade);
 	}

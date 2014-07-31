@@ -119,31 +119,18 @@ class Bootstrap{
 	/**
 	 * Configura a função de autoload de classes
 	 * 
-	 * O nome completamente qualificado da classe deve conter apenas um nível de
-	 * namespace mais o nome da classe. Para o nome do namespace deve haver uma
-	 * pasta de mesmo nome, mas com letras minúsculas, na raíz do sistema, com
-	 * um arquivo com o mesmo nome da classe dentro dela.
+	 * Para os nomes dos namespaces devem haver pastas de mesmo nome, começando
+	 * da raíz do sistema, tendo, por fim, um arquivo com o mesmo nome da classe.
 	 * 
-	 * Os nomes das classes, devem respeitar as mesmas caixas altas e baixas,
-	 * tanto no código, quanto no arquivo. Enquanto para o namespace, o nome da
-	 * pasta deve ser todo minúsculo, podendo o nome, no código, ser de qualquer
-	 * forma.
-	 * 
-	 * Exemplo de namespace: namespace Pasta; -> pasta/.
-	 * Exemplo de classe: class Abstracao{; -> Abstracao.php.
+	 * Todos os nomes devem respeitar as mesmas caixas altas e baixas, tanto no
+	 * código, quanto no sistema de arquivos.
 	 * 
 	 * @return Bootstrap
-	 * 
-	 * @todo O ideal é que o nome completamente qualificado da classe não esteja
-	 * restrito à apenas um nível de namespace.
 	 */
 	private function autoload(){
-		spl_autoload_register(function($fully){
-			$partes=explode('\\',$fully);
-			$namespace=strtolower(reset($partes));
-			$Classe=end($partes);
-			$arquivo=RAIZ."/$namespace/$Classe.php";
-
+		spl_autoload_register(function($Classe){
+			$arquivo=RAIZ."/$Classe.php";
+			
 			if(file_exists($arquivo)){
 				require $arquivo;
 			}
