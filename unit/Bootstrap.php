@@ -142,8 +142,11 @@ class Bootstrap{
 			$partes=explode('\\',$fully);
 			$namespace=strtolower(reset($partes));
 			$Classe=end($partes);
+			$arquivo=RAIZ."/$namespace/$Classe.php";
 
-			require RAIZ."/$namespace/$Classe.php";
+			if(file_exists($arquivo)){
+				require $arquivo;
+			}
 		});
 		
 		return $this;

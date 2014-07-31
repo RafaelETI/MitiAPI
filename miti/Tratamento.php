@@ -30,12 +30,12 @@ class Tratamento{
 		$hash=md5(file_get_contents($caminho));
 		
 		$partes=explode('.',$caminho);
-		$extensao=array_pop($partes);
+		$extensao=end($partes);
 		
 		if($extensao==='js'){
 			$html="<script src='$caminho?hash=$hash'></script>\n";
 		}else if($extensao==='css'){
-			$html="<link rel='stylesheet' type='text/css' href='$caminho?hash=$hash' />\n";
+			$html="<link rel='stylesheet' href='$caminho?hash=$hash' />\n";
 		}
 		
 		return $html;

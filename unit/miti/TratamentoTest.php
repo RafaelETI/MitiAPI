@@ -12,7 +12,7 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testRequererCss(){
 		$afirmacao=
-			"<link rel='stylesheet' type='text/css' href='"
+			"<link rel='stylesheet' href='"
 			.RAIZ.'/unit/arquivo/miti.css?hash=0460587e6b979a3273027e4f079219dd'
 			."' />\n"
 		;
