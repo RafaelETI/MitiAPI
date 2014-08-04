@@ -86,7 +86,7 @@ class Config{
 		if(AMBIENTE===0){
 			define('SISTEMA','Miti API');
 		}else{
-			define('SISTEMA','Miti API 1.2.12');
+			define('SISTEMA','Miti API 1.2.13');
 		}
 		
 		return $this;
@@ -276,7 +276,7 @@ class Config{
 			
 			try{
 				$Objeto=new $Classe;
-				$Objeto->$_REQUEST['metodo']($requisicao);
+				$_SESSION['status']=$Objeto->$_REQUEST['metodo']($requisicao);
 				header("location:{$_REQUEST['url']}");
 				exit;
 			}catch(\Exception $e){
