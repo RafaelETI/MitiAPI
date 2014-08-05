@@ -18,7 +18,12 @@ namespace adt;
  */
 class Config{
 	/**
-	 * Chama todos os métodos de configuração da classe
+	 * @var array
+	 */
+	private $config;
+	
+	/**
+	 * Chama todos os métodos da classe
 	 * 
 	 * É aqui que se parametriza algumas configurações do sistema, o que é feito
 	 * por página.
@@ -27,22 +32,23 @@ class Config{
 	 * 
 	 * @param string $Classe Nome da classe responsável por tratar requisições
 	 * na página. Com isso, apenas uma classe, no máximo, fica responsável por
-	 * página. Caso tenha o valor vazio, a página não trata nenhuma requisição.
+	 * página. Caso tenha o valor vazio, não haverá classe que trate requisições.
 	 * 
 	 * @param bool $restrito Define se a página é restrita ao acesso, ou seja,
 	 * se apenas pode ser acessada se o usuário possuir uma sessão ativa.
 	 * 
-	 * @param string $sessao Nome da sessão.
+	 * @param string $sessao Nome da sessão do usuário.
 	 */
 	public function __construct($Classe,$restrito,$sessao='usuario'){
 		$this
+			->config()
 			->ambiente()
-			->sistema()
-			->banco()
 			->erro()
+			->sistema()
 			->timezone()
 			->charset()
 			->raiz()
+			->banco()
 			->sessao($restrito,$sessao)
 			->autoload()
 			->requisicao($Classe)
@@ -50,14 +56,50 @@ class Config{
 	}
 	
 	/**
+	 * Define os parâmetros de configuração do sistema
+	 * 
+	 * Esse é o único método que deve ser alterado para a parametrização do sistema.
+	 * 
+	 * Caso surjam mais configurações de ambientes, adicioná-las onde for cabível.
+	 * 
+	 * @return Config
+	 */
+	private function config(){
+		$this->config=array(
+			'ambiente'=>1,
+			'sistema'=>'Miti API',
+			'versao'=>'1.2.14',
+			'timezone'=>'America/Sao_Paulo',
+			'charset'=>'iso-8859-1',
+			'raiz'=>array(0=>'',1=>'MitiAPI'),
+
+			'banco'=>array(
+				0=>array(
+					'servidor'=>'',
+					'usuario'=>'',
+					'senha'=>'',
+					'banco'=>'',
+					'charset'=>'',
+				),
+
+				1=>array(
+					'servidor'=>'',
+					'usuario'=>'',
+					'senha'=>'',
+					'banco'=>'',
+					'charset'=>'',
+				),
+			),
+		);
+		
+		return $this;
+	}
+	
+	/**
 	 * Configura o ambiente do sistema
 	 * 
 	 * Por convenção, o ambiente de produção é o de valor zero, e os outros são
-	 * incrementados em um.
-	 * 
-	 * Por padrão essa classe tem definições para dois ambientes. Caso queira-se
-	 * adicionar mais, deve-se adicionar novas configurações nos outros métodos
-	 * cabíveis.
+	 * incrementados em um!
 	 * 
 	 * Há a intenção de que esse seja o único ponto de manutenção ao trocar o
 	 * sistema de ambiente. Muito cuidado para não enviar esse arquivo para a
@@ -66,58 +108,13 @@ class Config{
 	 * erros sejam mostrados na tela. Sempre conferir o sistema on-line quando
 	 * subir esse arquivo.
 	 * 
+	 * O mais importante da declaração dessa constante é o seu docblock, além da
+	 * facilidade de leitura nos métodos seguintes.
+	 * 
 	 * @return Config
 	 */
 	private function ambiente(){
-		define('AMBIENTE',1);
-		return $this;
-	}
-	
-	/**
-	 * Configura o nome e a versão do sistema
-	 * 
-	 * Recomenda-se chamar essa constante em algum lugar visível de todas as
-	 * interfaces para que possa-se identificar facilmente se o sistema está
-	 * configurado para o ambiente de produção ou não.
-	 * 
-	 * @return Config
-	 */
-	private function sistema(){
-		if(AMBIENTE===0){
-			define('SISTEMA','Miti API');
-		}else{
-			define('SISTEMA','Miti API 1.2.13');
-		}
-		
-		return $this;
-	}
-	
-	/**
-	 * Configura a conexão com o banco de dados
-	 * 
-	 * No caso do MySQL, ele aceita, dentre outros, os charsets latin1 e utf8
-	 * (escritos dessa forma).
-	 * 
-	 * Se o servidor do banco de dados for o mesmo de onde o sistema está
-	 * hospedado, usar localhost.
-	 * 
-	 * @return Config
-	 */
-	private function banco(){
-		if(AMBIENTE===0){
-			define('BD_SERVIDOR','servidor');
-			define('BD_USUARIO','usuario');
-			define('BD_SENHA','senha');
-			define('BD_BANCO','banco');
-			define('BD_CHARSET','charset');
-		}else if(AMBIENTE===1){
-			define('BD_SERVIDOR','servidor');
-			define('BD_USUARIO','usuario');
-			define('BD_SENHA','senha');
-			define('BD_BANCO','banco');
-			define('BD_CHARSET','charset');
-		}
-		
+		define('AMBIENTE',$this->config['ambiente']);
 		return $this;
 	}
 	
@@ -142,6 +139,25 @@ class Config{
 	}
 	
 	/**
+	 * Configura o nome e a versão do sistema
+	 * 
+	 * Recomenda-se chamar essa constante em algum lugar visível de todas as
+	 * interfaces para que possa-se identificar facilmente se o sistema está
+	 * configurado para o ambiente de produção ou não.
+	 * 
+	 * @return Config
+	 */
+	private function sistema(){
+		if(AMBIENTE===0){
+			define('SISTEMA',$this->config['sistema']);
+		}else{
+			define('SISTEMA',$this->config['sistema'].' '.$this->config['versao']);
+		}
+		
+		return $this;
+	}
+	
+	/**
 	 * Configura a timezone do PHP
 	 * 
 	 * Vide a lista de timezones que o PHP suporta:
@@ -150,7 +166,7 @@ class Config{
 	 * @return Config
 	 */
 	private function timezone(){
-		date_default_timezone_set('America/Sao_Paulo');
+		date_default_timezone_set($this->config['timezone']);
 		return $this;
 	}
 	
@@ -163,7 +179,8 @@ class Config{
 	 * @return Config
 	 */
 	private function charset(){
-		header('content-type:text/html; charset=iso-8859-1');
+		define('CHARSET',$this->config['charset']);
+		header('content-type:text/html; charset='.CHARSET);
 		return $this;
 	}
 	
@@ -172,19 +189,35 @@ class Config{
 	 * 
 	 * Tanto da perspectiva do sistema operacional, quanto da internet.
 	 * 
-	 * Para o ambiente de produção, caso o sistema não esteja na raiz do domínio,
-	 * deve-se complementar o caminho para se chegar até ele no código.
+	 * Configura-se uma string que não seja vazia caso o sistema não esteja na
+	 * raíz do diretório web, mas em um subdiretório.
 	 * 
 	 * @return Config
 	 */
 	private function raiz(){
-		if(AMBIENTE===0){
-			define('RAIZ_OS',$_SERVER['DOCUMENT_ROOT']);
-			define('RAIZ_WEB','http://'.$_SERVER['HTTP_HOST']);
-		}else if(AMBIENTE===1){
-			define('RAIZ_OS',$_SERVER['DOCUMENT_ROOT'].'/MitiAPI');
-			define('RAIZ_WEB','http://'.$_SERVER['HTTP_HOST'].'/MitiAPI');
-		}
+		define('RAIZ_OS',$_SERVER['DOCUMENT_ROOT'].'/'.$this->config['raiz'][AMBIENTE]);
+		define('RAIZ_WEB','http://'.$_SERVER['HTTP_HOST'].'/'.$this->config['raiz'][AMBIENTE]);
+		
+		return $this;
+	}
+	
+	/**
+	 * Configura a conexão com o banco de dados
+	 * 
+	 * No caso do MySQL, ele aceita, dentre outros, os charsets latin1 e utf8
+	 * (escritos dessa forma).
+	 * 
+	 * Se o servidor do banco de dados for o mesmo de onde o sistema está
+	 * hospedado, usar localhost.
+	 * 
+	 * @return Config
+	 */
+	private function banco(){
+		define('BD_SERVIDOR',$this->config['banco'][AMBIENTE]['servidor']);
+		define('BD_USUARIO',$this->config['banco'][AMBIENTE]['usuario']);
+		define('BD_SENHA',$this->config['banco'][AMBIENTE]['senha']);
+		define('BD_BANCO',$this->config['banco'][AMBIENTE]['banco']);
+		define('BD_CHARSET',$this->config['banco'][AMBIENTE]['charset']);
 		
 		return $this;
 	}

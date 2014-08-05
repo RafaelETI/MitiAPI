@@ -122,7 +122,7 @@ class Email{
 	 * @throws \Exception
 	 */
 	public function enviar(
-		$destinatario,$assunto,$mensagem,$remetente,$charset='iso-8859-1'
+		$destinatario,$assunto,$mensagem,$remetente,$charset=CHARSET
 	){
 		if(
 			!mail(

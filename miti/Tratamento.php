@@ -106,7 +106,7 @@ class Tratamento{
 	 * @param string $charset
 	 * @return string|string[]|null
 	 */
-	public static function htmlSpecialChars($valores,$charset='iso-8859-1'){
+	public static function htmlSpecialChars($valores,$charset=CHARSET){
 		if(!$valores){
 			return;
 		}

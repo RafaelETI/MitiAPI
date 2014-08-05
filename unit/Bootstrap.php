@@ -10,28 +10,59 @@ new Bootstrap;
 /**
  * Bootstrap para o PHPUnit
  * 
- * Esse arquivo é instanciado aqui mesmo, e seu diretório é considerado a raíz dos
- * testes.
+ * Essa classe é instanciada aqui mesmo.
  */
 class Bootstrap{
+	/**
+	 * @var array 
+	 */
+	private $config;
+	
 	public function __construct(){
 		$this
+			->config()
 			->ambiente()
-			->banco()
 			->erro()
 			->timezone()
+			->charset()
 			->raiz()
+			->banco()
 			->sessao()
 			->autoload()
 		;
 	}
 	
 	/**
-	 * Configura o ambiente do sistema
+	 * Define os parâmetros de configuração do sistema
 	 * 
-	 * Por padrão essa classe tem definições para dois ambientes. Caso queira-se
-	 * adicionar mais, deve-se adicionar novas configurações nos outros métodos
-	 * cabíveis.
+	 * Esse é o único método que deve ser alterado para a parametrização do sistema.
+	 * 
+	 * Caso surjam mais configurações de ambientes, adicioná-las onde for cabível.
+	 * 
+	 * @return Bootstrap
+	 */
+	private function config(){
+		$this->config=array(
+			'ambiente'=>0,
+			'timezone'=>'America/Sao_Paulo',
+			'charset'=>'iso-8859-1',
+
+			'banco'=>array(
+				0=>array(
+					'servidor'=>'localhost',
+					'usuario'=>'root',
+					'senha'=>'root',
+					'banco'=>'miti_unit',
+					'charset'=>'latin1',
+				),
+			),
+		);
+		
+		return $this;
+	}
+	
+	/**
+	 * Configura o ambiente do sistema
 	 * 
 	 * Há a intenção de que esse seja o único ponto de manutenção ao trocar o
 	 * sistema de ambiente.
@@ -39,36 +70,7 @@ class Bootstrap{
 	 * @return Bootstrap
 	 */
 	private function ambiente(){
-		define('AMBIENTE',1);
-		return $this;
-	}
-	
-	/**
-	 * Configura a conexão com o banco de dados
-	 * 
-	 * O MySQL aceita, dentre outros, os charsets latin1 e utf8, escritos dessa
-	 * forma.
-	 * 
-	 * Se o servidor do banco de dados for o mesmo de onde o sistema está
-	 * hospedado, usar localhost.
-	 * 
-	 * @return Bootstrap
-	 */
-	private function banco(){
-		if(AMBIENTE===1){
-			define('BD_SERVIDOR','localhost');
-			define('BD_USUARIO','root');
-			define('BD_SENHA','root');
-			define('BD_BANCO','miti_unit');
-			define('BD_CHARSET','latin1');
-		}else if(AMBIENTE===2){
-			define('BD_SERVIDOR','localhost');
-			define('BD_USUARIO','root');
-			define('BD_SENHA','root');
-			define('BD_BANCO','miti_unit');
-			define('BD_CHARSET','latin1');
-		}
-		
+		define('AMBIENTE',$this->config['ambiente']);
 		return $this;
 	}
 	
@@ -92,7 +94,17 @@ class Bootstrap{
 	 * @return Bootstrap
 	 */
 	private function timezone(){
-		date_default_timezone_set('America/Sao_Paulo');
+		date_default_timezone_set($this->config['timezone']);
+		return $this;
+	}
+	
+	/**
+	 * Define o charset do sistema
+	 * 
+	 * @return Config
+	 */
+	private function charset(){
+		define('CHARSET',$this->config['charset']);
 		return $this;
 	}
 	
@@ -103,6 +115,27 @@ class Bootstrap{
 	 */
 	private function raiz(){
 		define('RAIZ',__DIR__.'/..');
+		return $this;
+	}
+	
+	/**
+	 * Configura a conexão com o banco de dados
+	 * 
+	 * O MySQL aceita, dentre outros, os charsets latin1 e utf8, escritos dessa
+	 * forma.
+	 * 
+	 * Se o servidor do banco de dados for o mesmo de onde o sistema está
+	 * hospedado, usar localhost.
+	 * 
+	 * @return Bootstrap
+	 */
+	private function banco(){
+		define('BD_SERVIDOR',$this->config['banco'][AMBIENTE]['servidor']);
+		define('BD_USUARIO',$this->config['banco'][AMBIENTE]['usuario']);
+		define('BD_SENHA',$this->config['banco'][AMBIENTE]['senha']);
+		define('BD_BANCO',$this->config['banco'][AMBIENTE]['banco']);
+		define('BD_CHARSET',$this->config['banco'][AMBIENTE]['charset']);
+		
 		return $this;
 	}
 	
