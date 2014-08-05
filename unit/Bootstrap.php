@@ -16,7 +16,7 @@ class Bootstrap{
 	/**
 	 * @var array 
 	 */
-	private $config;
+	private $config=array();
 	
 	public function __construct(){
 		$this
@@ -42,20 +42,16 @@ class Bootstrap{
 	 * @return Bootstrap
 	 */
 	private function config(){
-		$this->config=array(
-			'ambiente'=>0,
-			'timezone'=>'America/Sao_Paulo',
-			'charset'=>'iso-8859-1',
+		$this->config['ambiente']=0;
+		$this->config['timezone']='America/Sao_Paulo';
+		$this->config['charset']='iso-8859-1';
 
-			'banco'=>array(
-				0=>array(
-					'servidor'=>'localhost',
-					'usuario'=>'root',
-					'senha'=>'root',
-					'banco'=>'miti_unit',
-					'charset'=>'latin1',
-				),
-			),
+		$this->config['banco'][0]=array(
+			'servidor'=>'localhost',
+			'usuario'=>'root',
+			'senha'=>'root',
+			'banco'=>'miti_unit',
+			'charset'=>'latin1',
 		);
 		
 		return $this;

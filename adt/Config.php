@@ -20,7 +20,7 @@ class Config{
 	/**
 	 * @var array
 	 */
-	private $config;
+	private $config=array();
 	
 	/**
 	 * Chama todos os métodos da classe
@@ -65,31 +65,29 @@ class Config{
 	 * @return Config
 	 */
 	private function config(){
-		$this->config=array(
-			'ambiente'=>1,
-			'sistema'=>'Miti API',
-			'versao'=>'1.2.14',
-			'timezone'=>'America/Sao_Paulo',
-			'charset'=>'iso-8859-1',
-			'raiz'=>array(0=>'',1=>'MitiAPI'),
-
-			'banco'=>array(
-				0=>array(
-					'servidor'=>'',
-					'usuario'=>'',
-					'senha'=>'',
-					'banco'=>'',
-					'charset'=>'',
-				),
-
-				1=>array(
-					'servidor'=>'',
-					'usuario'=>'',
-					'senha'=>'',
-					'banco'=>'',
-					'charset'=>'',
-				),
-			),
+		$this->config['ambiente']=1;
+		$this->config['sistema']='Miti API';
+		$this->config['versao']='1.2.14';
+		$this->config['timezone']='America/Sao_Paulo';
+		$this->config['charset']='iso-8859-1';
+		
+		$this->config['raiz'][0]='';
+		$this->config['raiz'][1]='MitiAPI';
+		
+		$this->config['banco'][0]=array(
+			'servidor'=>'',
+			'usuario'=>'',
+			'senha'=>'',
+			'banco'=>'',
+			'charset'=>'',
+		);
+		
+		$this->config['banco'][1]=array(
+			'servidor'=>'',
+			'usuario'=>'',
+			'senha'=>'',
+			'banco'=>'',
+			'charset'=>'',
 		);
 		
 		return $this;
