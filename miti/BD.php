@@ -73,10 +73,22 @@ class BD{
 		$banco=BD_BANCO,
 		$charset=BD_CHARSET
 	){
+		$this->verificarExistenciaDaExtensao();
 		$this->conexao=@new \mysqli($servidor,$usuario,$senha,$banco);
-		$this->verificarErroConexao();
+		$this->verificarErroDeConexao();
 		$this->definirCharset($charset);
 		$this->conexao->autocommit(false);
+	}
+	
+	/**
+	 * Verifica a existência da extensão do PHP para trabalhar com o banco de dados
+	 * 
+	 * @throws \Exception Se a extensão do PHP necessária não tiver sido carregada.
+	 */
+	private function verificarExistenciaDaExtensao(){
+		if(!in_array('mysqli',get_loaded_extensions())){
+			throw new \Exception('A classe '.__CLASS__.' depende da extensão mysqli.');
+		}
 	}
 	
 	/**
@@ -91,7 +103,7 @@ class BD{
 	 * 
 	 * @throws \Exception
 	 */
-	private function verificarErroConexao(){
+	private function verificarErroDeConexao(){
 		if($this->conexao->connect_error){
 			if(ini_get('display_errors')){
 				$mensagem=$this->conexao->connect_error;
