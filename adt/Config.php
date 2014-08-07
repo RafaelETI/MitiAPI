@@ -67,7 +67,7 @@ class Config{
 	private function config(){
 		$this->config['ambiente']=1;
 		$this->config['sistema']='Miti API';
-		$this->config['versao']='1.2.15';
+		$this->config['versao']='1.3.15';
 		$this->config['timezone']='America/Sao_Paulo';
 		$this->config['charset']='iso-8859-1';
 		
@@ -258,7 +258,7 @@ class Config{
 	 * @param string $sessao
 	 * @throws \Exception
 	 */
-	public static function verificarSessao($sessao='usuario'){
+	public static function trancar($sessao='usuario'){
 		if(!isset($_SESSION[$sessao])){
 			throw new \Exception('Você não tem permissão.');
 		}

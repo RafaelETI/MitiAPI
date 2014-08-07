@@ -73,12 +73,7 @@ class Tabela{
 	 */
 	private function mapearCampos(){
 		$BD=new BD;
-		
-		$this->campos=$BD
-			->requisitar('select * from '.$this->nome)
-			->obterCampos()
-		;
-		
+		$this->campos=$BD->requisitar('select * from '.$this->nome)->obterCampos();
 		return $this;
 	}
 	

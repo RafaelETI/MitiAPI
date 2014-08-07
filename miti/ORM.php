@@ -34,6 +34,36 @@ class ORM{
 	private $alias;
 	
 	/**
+	 * @var string Nome da tabela principal.
+	 */
+	private $tabela;
+	
+	/**
+	 * @var string Campo da chave primária da tabela principal.
+	 */
+	private $pk;
+	
+	/**
+	 * @var string Tipo do campo da chave primária da tabela principal.
+	 */
+	private $pkTipo;
+	
+	/**
+	 * @var string[] Tipos dos campos da tabela principal.
+	 */
+	private $tipos;
+	
+	/**
+	 * @var int[] Tamanhos dos campos da tabela principal.
+	 */
+	private $tamanhos;
+	
+	/**
+	 * @var bool[] Permissões de nulidade dos campos da tabela principal.
+	 */
+	private $anulaveis;
+	
+	/**
 	 * @var Tabela[] Indexado pelo alias de cada tabela. O objeto da tabela
 	 * principal fica na primeira posição, e as externas no resto.
 	 */
@@ -91,6 +121,13 @@ class ORM{
 		$this->alias=substr($tabela,0,1);
 		$this->Tabela[$this->alias]=new Tabela($tabela);
 		
+		$this->tabela=$this->Tabela[$this->alias]->getNome();
+		$this->pk=$this->Tabela[$this->alias]->getPkCampo();
+		$this->pkTipo=$this->Tabela[$this->alias]->getPkTipo();
+		$this->tipos=$this->Tabela[$this->alias]->getTipos();
+		$this->tamanhos=$this->Tabela[$this->alias]->getTamanhos();
+		$this->anulaveis=$this->Tabela[$this->alias]->getAnulaveis();
+		
 		$this->BD=new BD;
 	}
 	
@@ -106,14 +143,14 @@ class ORM{
 	 * Pode-se argumentar que é uma falha de segurança, mas pode valer a pena.
 	 * 
 	 * @api
-	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
+	 * @param string[] $duplas Vetor indexado pelos nomes dos campos da tabela.
 	 * @return BD
 	 * @throws \Exception Implicitamente.
 	 */
-	public function criar(array $tupla){
+	public function criar(array $duplas){
 		$sql='';
-		$sql=$this->montarCampos($sql,$tupla);
-		$sql=$this->montarValores($sql,$tupla);
+		$sql=$this->montarCampos($sql,$duplas);
+		$sql=$this->montarValores($sql,$duplas);
 		return $this->BD->requisitar($sql);
 	}
 	
@@ -121,14 +158,14 @@ class ORM{
 	 * Monta o início e a parte dos campos da instrução
 	 * 
 	 * @param string $sql
-	 * @param string[] $tupla
+	 * @param string[] $duplas
 	 * @return string
 	 */
-	private function montarCampos($sql,array $tupla){
-		$sql='insert into '.$this->Tabela[$this->alias]->getNome().'(';
+	private function montarCampos($sql,array $duplas){
+		$sql="insert into $this->tabela(";
 		
 		$campos=array();
-		foreach($tupla as $i=>$v){
+		foreach($duplas as $i=>$v){
 			$campos[]=$i;
 		}
 		
@@ -142,17 +179,17 @@ class ORM{
 	 * Monta a parte dos valores e o final da instrução
 	 * 
 	 * @param string $sql
-	 * @param string[] $tupla
+	 * @param string[] $duplas
 	 * @return string
 	 */
-	private function montarValores($sql,array $tupla){
-		$this->validar($tupla);
-		$tupla=$this->tratar($tupla);
+	private function montarValores($sql,array $duplas){
+		$this->validar($duplas);
+		$duplas=$this->tratar($duplas);
 		
 		$sql.='values(';
 		
 		$values=array();
-		foreach($tupla as $v){
+		foreach($duplas as $v){
 			$values[]=$v;
 		}
 		
@@ -170,14 +207,14 @@ class ORM{
 	 * Pode-se argumentar que é uma falha de segurança, mas pode valer a pena.
 	 * 
 	 * @api
-	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
+	 * @param string[] $duplas Vetor indexado pelos nomes dos campos da tabela.
 	 * @param string $pk Nome do campo da chave primária.
 	 * @return BD
 	 * @throws \Exception Implicitamente.
 	 */
-	public function atualizar(array $tupla,$pk){
+	public function atualizar(array $duplas,$pk){
 		$sql='';
-		$sql=$this->montarAtribuicoes($sql,$tupla);
+		$sql=$this->montarAtribuicoes($sql,$duplas);
 		$sql=$this->montarWhereAlteracao($sql,$pk);
 		return $this->BD->requisitar($sql);
 	}
@@ -186,17 +223,17 @@ class ORM{
 	 * Monta a parte das atribuições de valores da instrução
 	 * 
 	 * @param string $sql
-	 * @param string[] $tupla
+	 * @param string[] $duplas
 	 * @return string
 	 */
-	private function montarAtribuicoes($sql,array $tupla){
-		$this->validar($tupla);
-		$tupla=$this->tratar($tupla);
+	private function montarAtribuicoes($sql,array $duplas){
+		$this->validar($duplas);
+		$duplas=$this->tratar($duplas);
 		
-		$sql='update '.$this->Tabela[$this->alias]->getNome().' set ';
+		$sql="update $this->tabela set ";
 		
 		$atribuicoes=array();
-		foreach($tupla as $i=>$v){
+		foreach($duplas as $i=>$v){
 			$atribuicoes[]=$i.'='.$v;
 		}
 		
@@ -217,27 +254,24 @@ class ORM{
 	 */
 	private function montarWhereAlteracao($sql,$pk){
 		$pk=$this->tratarPk($pk);
-		return $sql.' where '.$this->Tabela[$this->alias]->getPkCampo().'='.$pk;
+		return "$sql where $this->pk=$pk";
 	}
 	
 	/**
 	 * Valida os dados à serem inseridos
 	 * 
-	 * @param string[] $tupla
+	 * @param string[] $duplas
 	 * 
 	 * @throws \Exception Se o valor for vazio e o campo não permitir nulo, ou se
 	 * o valor exceder o limite de caractéres que o campo permite.
 	 */
-	private function validar(array $tupla){
-		$tamanhos=$this->Tabela[$this->alias]->getTamanhos();
-		$anulaveis=$this->Tabela[$this->alias]->getAnulaveis();
-		
-		foreach($tupla as $i=>$v){
-			if(!$anulaveis[$i]&&!$v){
+	private function validar(array $duplas){
+		foreach($duplas as $i=>$v){
+			if(!$this->anulaveis[$i]&&!$v){
 				throw new \Exception("Valor vazio para o campo '$i'.");
 			}
 			
-			if(strlen($v)>$tamanhos[$i]){
+			if(strlen($v)>$this->tamanhos[$i]){
 				throw new \Exception("Limite de caractéres excedido para o campo '$i'.");
 			}
 		}
@@ -269,14 +303,7 @@ class ORM{
 	 */
 	private function montarExclusaoArray(array $dupla){
 		$dupla=$this->tratar($dupla);
-		
-		foreach($dupla as $i=>$v){
-			$sql=
-				'delete from '.$this->Tabela[$this->alias]->getNome()
-				.' where '.$i.'='.$v
-			;
-		}
-		
+		foreach($dupla as $i=>$v){$sql="delete from $this->tabela where $i=$v";}
 		return $sql;
 	}
 	
@@ -288,11 +315,7 @@ class ORM{
 	 */
 	private function montarExclusaoScalar($pk){
 		$pk=$this->tratarPk($pk);
-		
-		return
-			'delete from '.$this->Tabela[$this->alias]->getNome()
-			.' where '.$this->Tabela[$this->alias]->getPkCampo().'='.$pk
-		;
+		return "delete from $this->tabela where $this->pk=$pk";
 	}
 	
 	/**
@@ -300,26 +323,24 @@ class ORM{
 	 * 
 	 * Impede-se SQL Injection, além de outros tratamentos.
 	 * 
-	 * @param string[] $tupla
+	 * @param string[] $duplas
 	 * @return string[]
 	 */
-	private function tratar(array $tupla){
-		$tipos=$this->Tabela[$this->alias]->getTipos();
-		
-		foreach($tupla as $i=>$v){
+	private function tratar(array $duplas){
+		foreach($duplas as $i=>$v){
 			if($v===''){
-				$tupla[$i]='null';
+				$duplas[$i]='null';
 			}else{
-				if($tipos[$i]==='string'){
-					$tupla[$i]=$this->BD->escapar($v);
-					$tupla[$i]='"'.$tupla[$i].'"';
+				if($this->tipos[$i]==='string'){
+					$duplas[$i]=$this->BD->escapar($v);
+					$duplas[$i]='"'.$duplas[$i].'"';
 				}else{
-					settype($tupla[$i],$tipos[$i]);
+					settype($duplas[$i],$this->tipos[$i]);
 				}
 			}
 		}
 		
-		return $tupla;
+		return $duplas;
 	}
 	
 	/**
@@ -331,11 +352,11 @@ class ORM{
 	 * @return string
 	 */
 	private function tratarPk($pk){
-		if($this->Tabela[$this->alias]->getPkTipo()==='string'){
+		if($this->pkTipo==='string'){
 			$pk=$this->BD->escapar($pk);
 			$pk='"'.$pk.'"';
 		}else{
-			settype($pk,$this->Tabela[$this->alias]->getPkTipo());
+			settype($pk,$this->pkTipo);
 		}
 		
 		return $pk;
@@ -347,9 +368,6 @@ class ORM{
 	 * Para selecionar-se mais de um campo, chamar esse método quantas vezes
 	 * forem necessárias.
 	 * 
-	 * Pode-se usar funções do banco de dados nessa seleção. Definí-los no
-	 * segundo parâmetro. Nesse caso, deixar o primeiro parâmetro vazio.
-	 * 
 	 * @api
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
@@ -358,26 +376,16 @@ class ORM{
 	 * de tabelas juntadas ou para simplificar nomes criados à partir do uso de
 	 * funções do banco.
 	 * 
-	 * @return ORM
+	 * @param string $funcao Função do banco a ser chamada passando $alias.$campo
+	 * como %s.
 	 * 
-	 * @todo Melhorar a forma de chamar funções do banco. Não é bom ter que
-	 * deixar o primeiro parâmetro vazio.
+	 * @return ORM
 	 */
-	public function selecionar($alias,$campo,$alias_campo=''){
-		if($alias){
-			$alias.='.';
-		}
-		
-		if($alias_campo){
-			$alias_campo=' as '.$alias_campo;
-		}
-		
-		$separador='';
-		if($this->campos){
-			$separador=',';
-		}
-		
-		$this->campos.=$separador.$alias.$campo.$alias_campo.' ';
+	public function selecionar($alias,$campo,$alias_campo='',$funcao='%s'){
+		$separador=$this->campos?',':'';
+		$campo=sprintf($funcao,"$alias.$campo");
+		if($alias_campo){$alias_campo=' as '.$alias_campo;}
+		$this->campos.="$separador $campo $alias_campo ";
 		return $this;
 	}
 	
@@ -403,9 +411,9 @@ class ORM{
 		$this->Tabela[$alias]=new Tabela($externa);
 		
 		$this->juncoes.=
-			$juncao.' '.$externa.' '.$alias
-			.' on '.$alias_campo.'.'.$campo
-			.'='.$alias_campo_externa.'.'.$campo_externa.' '
+			"$juncao $externa $alias"
+			." on $alias_campo.$campo"
+			."=$alias_campo_externa.$campo_externa "
 		;
 		
 		return $this;
@@ -417,63 +425,37 @@ class ORM{
 	 * Chamá-lo apenas uma vez. Na necessidade de mais de um filtro, usar os
 	 * outros métodos de filtragem.
 	 * 
+	 * Esse docblock vale também, em grande parte, para os métodos eFiltrar() e
+	 * ouFiltrar().
+	 * 
 	 * @api
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
 	 * @param string $operador =, !=, like, >, >=, etc.
 	 * @param mixed $valor
-	 * @param string $separador Utilizado preferencialmente por método interno.
+	 * 
+	 * @param string $funcao Função do banco a ser chamada passando $alias.$campo
+	 * como %s.
+	 * 
+	 * @param string $separador Utilizado, preferencialmente, pelos outros métodos
+	 * de filtragem.
+	 * 
 	 * @return ORM
 	 */
-	public function filtrar($alias,$campo,$operador,$valor,$separador=''){
+	public function filtrar($alias,$campo,$operador,$valor,$funcao='%s',$separador=''){
 		$valor=$this->tratarLeitura($alias,$campo,$operador,$valor);
-		$this->filtros.=$separador.' '.$alias.'.'.$campo.' '.$operador.' '.$valor.' ';
+		$campo=sprintf($funcao,"$alias.$campo");
+		$this->filtros.="$separador $campo $operador $valor ";
 		return $this;
 	}
 	
-	/**
-	 * Filtra os registros de uma seleção
-	 * 
-	 * Une-se ao filtro anterior com a operação and.
-	 * 
-	 * Para criar mais de um filtro, chamar esse método quantas vezes forem
-	 * necessárias.
-	 * 
-	 * É uma possibilidade de interface mais intuitiva para o usuário, já que
-	 * abstrai a operação no nome do método, e não em uma passagem de parâmetro.
-	 * 
-	 * @api
-	 * @param string $alias De qualquer tabela.
-	 * @param string $campo De qualquer tabela.
-	 * @param string $operador =, !=, like, >, >=, etc.
-	 * @param mixed $valor
-	 * @return ORM
-	 */
-	public function eFiltrar($alias,$campo,$operador,$valor){
-		$this->filtrar($alias,$campo,$operador,$valor,'and');
+	public function eFiltrar($alias,$campo,$operador,$valor,$funcao='%s'){
+		$this->filtrar($alias,$campo,$operador,$valor,$funcao,'and');
 		return $this;
 	}
 	
-	/**
-	 * Filtra os registros de uma seleção
-	 * 
-	 * Une-se ao filtro anterior com a operação or.
-	 * 
-	 * Para criar mais de um filtro, chamar esse método quantas vezes forem
-	 * necessárias.
-	 * 
-	 * É uma possibilidade de interface mais intuitiva para o usuário, já que
-	 * abstrai a operação no nome do método, e não em uma passagem de parâmetro.
-	 * 
-	 * @api
-	 * @param string $alias De qualquer tabela.
-	 * @param string $campo De qualquer tabela.
-	 * @param string $operador =, !=, like, >, >=, etc.
-	 * @param mixed $valor
-	 * @return ORM
-	 */
-	public function ouFiltrar($alias,$campo,$operador,$valor){
-		$this->filtrar($alias,$campo,$operador,$valor,'or');
+	public function ouFiltrar($alias,$campo,$operador,$valor,$funcao='%s'){
+		$this->filtrar($alias,$campo,$operador,$valor,$funcao,'or');
 		return $this;
 	}
 	
@@ -519,12 +501,8 @@ class ORM{
 	 * @return ORM
 	 */
 	public function agrupar($alias,$campo){
-		$separador='';
-		if($this->grupos){
-			$separador=',';
-		}
-		
-		$this->grupos.=$separador.$alias.'.'.$campo.' ';
+		$separador=$this->grupos?',':'';
+		$this->grupos.="$separador $alias.$campo ";
 		return $this;
 	}
 	
@@ -541,12 +519,8 @@ class ORM{
 	 * @return ORM
 	 */
 	public function ordenar($alias,$campo,$ordens){
-		$separador='';
-		if($this->ordens){
-			$separador=',';
-		}
-		
-		$this->ordens.=$separador.$alias.'.'.$campo.' '.$ordens.' ';
+		$separador=$this->ordens?',':'';
+		$this->ordens.="$separador $alias.$campo $ordens ";
 		return $this;
 	}
 	
@@ -579,14 +553,8 @@ class ORM{
 	 * @return ORM
 	 */
 	public function limitar($quantidade,$inicio=''){
-		if(!$quantidade){
-			return $this;
-		}
-		
-		if($inicio!==''){
-			$inicio.=',';
-		}
-		
+		if(!$quantidade){return $this;}
+		if($inicio!==''){$inicio.=',';}
 		$this->limite=$inicio.$quantidade;
 		return $this;
 	}
@@ -605,8 +573,8 @@ class ORM{
 		$this->limite=$this->concatenarClausula($this->limite,'limit');
 		
 		$sql=
-			'select '.$this->campos
-			.'from '.$this->Tabela[$this->alias]->getNome().' '.$this->alias.' '
+			"select $this->campos"
+			."from $this->tabela $this->alias "
 			.$this->juncoes
 			.$this->filtros
 			.$this->grupos
@@ -626,7 +594,7 @@ class ORM{
 	 */
 	private function concatenarClausula($propriedade,$sql){
 		if($propriedade&&strpos($propriedade,$sql)===false){
-			$propriedade=$sql.' '.$propriedade;
+			$propriedade="$sql $propriedade";
 		}
 		
 		return $propriedade;
