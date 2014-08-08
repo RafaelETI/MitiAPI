@@ -188,12 +188,7 @@ class BD{
 		$this->requisicao=$this->conexao->query($sql);
 		$microtimes[1]=microtime(true);
 		
-		$this
-			->verificarErroRequisicao($sql)
-			->setTempo($microtimes)
-			->setAfetados()
-			->setId()
-		;
+		$this->verificarErroRequisicao($sql)->setTempo($microtimes)->setAfetados()->setId();
 		
 		return $this;
 	}

@@ -10,10 +10,6 @@ namespace miti;
 /**
  * ORM (Object Relational Mapping)
  * 
- * Há uma dependência com a classe Tabela que é a que na verdade faz o
- * mapeamento com a tabela do banco. Essa classe é responsável por realizar os
- * manuseios no banco baseando-se nesse mapeamento.
- * 
  * A característica mais visível para o usuário, ao utilizar essa classe, é a
  * eliminação da necessidade de se escrever códigos SQL. Além desta, existem
  * outras vantagens como a eliminação da necessidade de se preocupar com
@@ -29,106 +25,195 @@ namespace miti;
  */
 class ORM{
 	/**
-	 * @var string Alias da tabela principal da requisição.
-	 */
-	private $alias;
-	
-	/**
-	 * @var string Nome da tabela principal.
-	 */
-	private $tabela;
-	
-	/**
-	 * @var string Campo da chave primária da tabela principal.
-	 */
-	private $pk;
-	
-	/**
-	 * @var string Tipo do campo da chave primária da tabela principal.
-	 */
-	private $pkTipo;
-	
-	/**
-	 * @var string[] Tipos dos campos da tabela principal.
-	 */
-	private $tipos;
-	
-	/**
-	 * @var int[] Tamanhos dos campos da tabela principal.
-	 */
-	private $tamanhos;
-	
-	/**
-	 * @var bool[] Permissões de nulidade dos campos da tabela principal.
-	 */
-	private $anulaveis;
-	
-	/**
-	 * @var Tabela[] Indexado pelo alias de cada tabela. O objeto da tabela
-	 * principal fica na primeira posição, e as externas no resto.
-	 */
-	private $Tabela=array();
-	
-	/**
 	 * @var BD
 	 */
 	private $BD;
 	
 	/**
-	 * @var string Concatenação dos campos à serem selecionados no select.
+	 * @var ORM[] Indexado pelo alias de cada tabela externa.
 	 */
-	private $campos='';
+	private $ORM=array();
 	
 	/**
-	 * @var string Concatenação dos joins do select.
+	 * @var string
+	 */
+	private $alias;
+	
+	/**
+	 * @var string
+	 */
+	private $tabela;
+	
+	/**
+	 * @var Object[]
+	 */
+	private $campos;
+	
+	/**
+	 * @var string Não oferece suporte para chave primária composta.
+	 */
+	private $pk;
+	
+	/**
+	 * @var string[]
+	 */
+	private $tipos=array();
+	
+	/**
+	 * @var int[]
+	 */
+	private $tamanhos=array();
+	
+	/**
+	 * @var bool[]
+	 */
+	private $anulaveis=array();
+	
+	/**
+	 * @var string
+	 */
+	private $selecoes='';
+	
+	/**
+	 * @var string
 	 */
 	private $juncoes='';
 	
 	/**
-	 * @var string Concatenação dos filtros para a cláusula where.
+	 * @var string
 	 */
 	private $filtros='';
 	
 	/**
-	 * @var string Concatenação dos agrupamentos para a cláusula group by.
+	 * @var string
 	 */
 	private $grupos='';
 	
 	/**
-	 * @var string Concatenação das ordenações para a cláusula order by.
+	 * @var string
 	 */
 	private $ordens='';
 	
 	/**
-	 * @var string Concatenação do limite de registros no select, possivelmente
-	 * com a definição de um início.
+	 * @var string
 	 */
 	private $limite;
 	
 	/**
-	 * Define o alias e objeto da tabela principal, e a conexão com o banco
+	 * Cria uma conexão com o banco e mapeia a tabela principal
 	 * 
 	 * O alias da principal é sempre a primeira letra no seu nome.
 	 * 
 	 * Os aliases das externas são preferencialmente também as primeiras letras,
-	 * mas em caso de conflito, pode-se usar mais letras. Eles são definidos nas
+	 * mas em caso de conflito, pode-se usar outro nome. Eles são definidos nas
 	 * junções, assim como os objetos de mapeamento respectivos.
 	 * 
 	 * @api
 	 * @param string $tabela Nome da tabela principal.
 	 */
 	public function __construct($tabela){
-		$this->alias=substr($tabela,0,1);
-		$this->Tabela[$this->alias]=new Tabela($tabela);
-		
-		$this->tabela=$this->Tabela[$this->alias]->getNome();
-		$this->pk=$this->Tabela[$this->alias]->getPkCampo();
-		$this->pkTipo=$this->Tabela[$this->alias]->getPkTipo();
-		$this->tipos=$this->Tabela[$this->alias]->getTipos();
-		$this->tamanhos=$this->Tabela[$this->alias]->getTamanhos();
-		$this->anulaveis=$this->Tabela[$this->alias]->getAnulaveis();
-		
 		$this->BD=new BD;
+		$this->alias=substr($tabela,0,1);
+		$this->tabela=$tabela;
+		
+		$this->mapearCampos()->setPk()->setTipos()->setAnulaveis()->setTamanhos();
+	}
+	
+	/**
+	 * Define o vetor de objetos dos campos
+	 * 
+	 * @return ORM
+	 * 
+	 * @throws \Exception Implicitamente.
+	 */
+	private function mapearCampos(){
+		$this->campos=$this->BD->requisitar("select * from $this->tabela")->obterCampos();
+		return $this;
+	}
+	
+	/**
+	 * Define o nome do campo da chave primária
+	 * 
+	 * @return ORM
+	 */
+	private function setPk(){
+		foreach($this->campos as $o){
+			if($o->flags&2){
+				$this->pk=$o->orgname;
+				break;
+			}
+		}
+		
+		return $this;
+	}
+	
+	public function getPk(){
+		return $this->pk;
+	}
+	
+	/**
+	 * Define o tipo de cada campo
+	 * 
+	 * Considera-se apenas duas situações: todo número é identificado como
+	 * float, e o resto como string. Esses dois valores bastam por motivo de
+	 * escape para manuseio do banco.
+	 * 
+	 * @return ORM
+	 */
+	private function setTipos(){
+		foreach($this->campos as $o){
+			if($o->flags&32768){
+				$this->tipos[$o->orgname]='float';
+			}else{
+				$this->tipos[$o->orgname]='string';
+			}
+		}
+		
+		return $this;
+	}
+	
+	public function getTipos(){
+		return $this->tipos;
+	}
+	
+	/**
+	 * Define a permissão de nulidade de cada campo
+	 * 
+	 * true significa que o campo aceita valor nulo, e false, que não aceita.
+	 * 
+	 * @return ORM
+	 */
+	private function setAnulaveis(){
+		foreach($this->campos as $o){
+			if($o->flags&1){
+				$this->anulaveis[$o->orgname]=false;
+			}else{
+				$this->anulaveis[$o->orgname]=true;
+			}
+		}
+		
+		return $this;
+	}
+	
+	public function getAnulaveis(){
+		return $this->anulaveis;
+	}
+	
+	/**
+	 * Define o tamanho máximo de cada campo
+	 * 
+	 * @return ORM
+	 */
+	private function setTamanhos(){
+		foreach($this->campos as $o){
+			$this->tamanhos[$o->orgname]=$o->length;
+		}
+		
+		return $this;
+	}
+	
+	public function getTamanhos(){
+		return $this->tamanhos;
 	}
 	
 	/**
@@ -140,7 +225,7 @@ class ORM{
 	 * 
 	 * A forma mais prática de se criar o vetor à ser enviado ao banco é dar
 	 * aos names dos campos do formulário, os mesmos nomes do campos da tabela.
-	 * Pode-se argumentar que é uma falha de segurança, mas pode valer a pena.
+	 * Pode-se argumentar que é uma falha de segurança.
 	 * 
 	 * @api
 	 * @param string[] $duplas Vetor indexado pelos nomes dos campos da tabela.
@@ -165,9 +250,7 @@ class ORM{
 		$sql="insert into $this->tabela(";
 		
 		$campos=array();
-		foreach($duplas as $i=>$v){
-			$campos[]=$i;
-		}
+		foreach($duplas as $i=>$v){$campos[]=$i;}
 		
 		$sql.=implode(',',$campos);
 		$sql.=')';
@@ -189,9 +272,7 @@ class ORM{
 		$sql.='values(';
 		
 		$values=array();
-		foreach($duplas as $v){
-			$values[]=$v;
-		}
+		foreach($duplas as $v){$values[]=$v;}
 		
 		$sql.=implode(',',$values);
 		$sql.=')';
@@ -234,7 +315,7 @@ class ORM{
 		
 		$atribuicoes=array();
 		foreach($duplas as $i=>$v){
-			$atribuicoes[]=$i.'='.$v;
+			$atribuicoes[]="$i=$v";
 		}
 		
 		$sql.=implode(',',$atribuicoes);
@@ -333,7 +414,7 @@ class ORM{
 			}else{
 				if($this->tipos[$i]==='string'){
 					$duplas[$i]=$this->BD->escapar($v);
-					$duplas[$i]='"'.$duplas[$i].'"';
+					$duplas[$i]="'$duplas[$i]'";
 				}else{
 					settype($duplas[$i],$this->tipos[$i]);
 				}
@@ -352,11 +433,11 @@ class ORM{
 	 * @return string
 	 */
 	private function tratarPk($pk){
-		if($this->pkTipo==='string'){
+		if($this->tipos[$this->pk]==='string'){
 			$pk=$this->BD->escapar($pk);
-			$pk='"'.$pk.'"';
+			$pk="'$pk'";
 		}else{
-			settype($pk,$this->pkTipo);
+			settype($pk,$this->tipos[$this->pk]);
 		}
 		
 		return $pk;
@@ -382,10 +463,10 @@ class ORM{
 	 * @return ORM
 	 */
 	public function selecionar($alias,$campo,$alias_campo='',$funcao='%s'){
-		$separador=$this->campos?',':'';
+		$separador=$this->selecoes?',':'';
 		$campo=sprintf($funcao,"$alias.$campo");
-		if($alias_campo){$alias_campo=' as '.$alias_campo;}
-		$this->campos.="$separador $campo $alias_campo ";
+		if($alias_campo){$alias_campo=" as $alias_campo";}
+		$this->selecoes.="$separador $campo $alias_campo ";
 		return $this;
 	}
 	
@@ -408,7 +489,7 @@ class ORM{
 	public function juntar(
 		$juncao,$externa,$alias,$alias_campo,$campo,$alias_campo_externa,$campo_externa
 	){
-		$this->Tabela[$alias]=new Tabela($externa);
+		$this->ORM[$alias]=new ORM($externa);
 		
 		$this->juncoes.=
 			"$juncao $externa $alias"
@@ -474,12 +555,12 @@ class ORM{
 	 * @return mixed
 	 */
 	private function tratarLeitura($alias,$campo,$operador,$valor){
-		$tipos=$this->Tabela[$alias]->getTipos();
+		$tipos=$alias===$this->alias?$this->tipos:$this->ORM[$alias]->getTipos();
 		
 		if($operador==='like'){
-			$valor='"%'.$this->BD->escapar($valor).'%"';
+			$valor="'%{$this->BD->escapar($valor)}%'";
 		}else if($tipos[$campo]==='string'){
-			$valor='"'.$this->BD->escapar($valor).'"';
+			$valor="'{$this->BD->escapar($valor)}'";
 		}else{
 			settype($valor,$tipos[$campo]);
 		}
@@ -573,7 +654,7 @@ class ORM{
 		$this->limite=$this->concatenarClausula($this->limite,'limit');
 		
 		$sql=
-			"select $this->campos"
+			"select $this->selecoes"
 			."from $this->tabela $this->alias "
 			.$this->juncoes
 			.$this->filtros

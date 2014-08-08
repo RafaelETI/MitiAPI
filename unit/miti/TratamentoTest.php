@@ -34,10 +34,9 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testGarantirArquivo(){
-		$this->assertSame(
-			file_get_contents(RAIZ.'/unit/arquivo/miti.txt'),
-			\miti\Tratamento::garantirArquivo('',RAIZ.'/unit/arquivo/miti.txt')
-		);
+		$esperado=file_get_contents(RAIZ.'/unit/arquivo/miti.txt');
+		$arquivo=\miti\Tratamento::garantirArquivo('',RAIZ.'/unit/arquivo/miti.txt');
+		$this->assertSame($esperado,$arquivo);
 	}
 	
 	public function testHtmlSpecialCharsVazio(){
@@ -45,15 +44,14 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testHtmlSpecialCharsArray(){
-		$this->assertSame(
-			array('&#039;','&quot;','&amp;','&lt;','&gt;'),
-			\miti\Tratamento::htmlSpecialChars(array("'",'"','&','<','>'))
-		);
+		$esperado=array('&#039;','&quot;','&amp;','&lt;','&gt;');
+		$escapados=\miti\Tratamento::htmlSpecialChars(array("'",'"','&','<','>'));
+		$this->assertSame($esperado,$escapados);
 	}
 	
 	public function testHtmlSpecialCharsScalar(){
-		$especiais='&#039;&quot;&amp;&lt;&gt;';
-		$this->assertSame($especiais,\miti\Tratamento::htmlSpecialChars('\'"&<>'));
+		$esperado='&#039;&quot;&amp;&lt;&gt;';
+		$this->assertSame($esperado,\miti\Tratamento::htmlSpecialChars('\'"&<>'));
 	}
 	
 	public function testEncurtarVazio(){
@@ -61,28 +59,12 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testEncurtarArray(){
-		$this->assertSame(
-			array('aaaaa...','bbbbb...','ccccc...'),
-			\miti\Tratamento::encurtar(array('aaaaaaaaaa','bbbbbbbbbb','cccccccccc'))
-		);
+		$esperado=array('aaaaa...','bbbbb...','ccccc...');
+		$curtos=\miti\Tratamento::encurtar(array('aaaaaaaaaa','bbbbbbbbbb','cccccccccc'));
+		$this->assertSame($esperado,$curtos);
 	}
 	
 	public function testEncurtarScalar(){
 		$this->assertSame('aaaaa...',\miti\Tratamento::encurtar('aaaaaaaaaa'));
-	}
-	
-	public function testRemoverAcentosVazio(){
-		$this->assertSame(null,\miti\Tratamento::removerAcentos(''));
-	}
-	
-	public function testRemoverAcentosArray(){
-		$this->assertSame(
-			array('a','E','i','O','u','C'),
-			\miti\Tratamento::removerAcentos(array('á','È','î','Õ','ü','Ç'))
-		);
-	}
-	
-	public function testRemoverAcentosScalar(){
-		$this->assertSame('c',\miti\Tratamento::removerAcentos('ç'));
 	}
 }

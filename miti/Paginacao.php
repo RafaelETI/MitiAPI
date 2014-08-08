@@ -119,44 +119,39 @@ class Paginacao{
 	 * @return string
 	 */
 	public function criar($url,$on='',$off=''){
-		if(!$this->total){
-			return 'Não há registros para esta busca';
-		}
+		if(!$this->total){return 'Não há registros para esta busca';}
 		
 		if($this->pagina!=1){
-			$paginacao='<a href="'.$url.'1">Primeira</a>';
+			$paginacao="<a href='{$url}1'>Primeira</a>";
 		}else{
-			$paginacao='<span class="'.$off.'">Primeira</span>';
+			$paginacao="<span class='$off'>Primeira</span>";
 		}
 		
 		if($this->pagina>1){
-			$paginacao.='<a href="'.$url.($this->pagina-1).'">Anterior</a>';
+			$paginacao.="<a href='$url".($this->pagina-1)."'>Anterior</a>";
 		}else{
-			$paginacao.='<span class="'.$off.'">Anterior</span>';
+			$paginacao.="<span class='$off'>Anterior</span>";
 		}
 		
 		for($x=$this->botaoInicial;$x<=$this->botaoFinal;$x++){
 			if($this->pagina==$x){
-				$paginacao.='<span class="'.$on.'">'.$x.'</span>';
+				$paginacao.="<span class='$on'>$x</span>";
 			}else{
-				if($x<1||$x>=$this->quantidadePaginas){
-					continue;
-				}
-				
-				$paginacao.='<a href="'.$url.$x.'">'.$x.'</a>';
+				if($x<1||$x>=$this->quantidadePaginas){continue;}
+				$paginacao.="<a href='$url$x'>$x</a>";
 			}
 		}
 		
 		if(($this->pagina+1)<$this->quantidadePaginas){
-			$paginacao.='<a href="'.$url.($this->pagina+1).'">Próxima</a>';
+			$paginacao.="<a href='$url".($this->pagina+1)."'>Próxima</a>";
 		}else{
-			$paginacao.='<span class="'.$off.'">Próxima</span>';
+			$paginacao.="<span class='$off'>Próxima</span>";
 		}
 		
 		if($this->pagina!=($this->quantidadePaginas-1)){
-			$paginacao.='<a href="'.$url.($this->quantidadePaginas-1).'">Última</a>';
+			$paginacao.="<a href='$url".($this->quantidadePaginas-1)."'>Última</a>";
 		}else{
-			$paginacao.='<span class="'.$off.'">Última</span>';
+			$paginacao.="<span class='$off'>Última</span>";
 		}
 		
 		return $paginacao;

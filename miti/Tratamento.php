@@ -51,10 +51,7 @@ class Tratamento{
 	 * @return mixed
 	 */
 	public static function substituirValor($valor,$condicao,$novo){
-		if($valor===$condicao){
-			$valor=$novo;
-		}
-		
+		if($valor===$condicao){$valor=$novo;}
 		return $valor;
 	}
 	
@@ -71,9 +68,7 @@ class Tratamento{
 	 */
 	public static function garantirIndices($vetor,array $indices,$valor=''){
 		foreach($indices as $i){
-			if(!isset($vetor[$i])){
-				$vetor[$i]=$valor;
-			}
+			if(!isset($vetor[$i])){$vetor[$i]=$valor;}
 		}
 		
 		return $vetor;
@@ -88,10 +83,7 @@ class Tratamento{
 	 * @return string
 	 */
 	public static function garantirArquivo($arquivo,$caminho){
-		if(!$arquivo){
-			$arquivo=file_get_contents($caminho);
-		}
-		
+		if(!$arquivo){$arquivo=file_get_contents($caminho);}
 		return $arquivo;
 	}
 	
@@ -107,9 +99,7 @@ class Tratamento{
 	 * @return string|string[]|null
 	 */
 	public static function htmlSpecialChars($valores,$charset=CHARSET){
-		if(!$valores){
-			return;
-		}
+		if(!$valores){return;}
 		
 		if(is_array($valores)){
 			$valores=self::htmlSpecialCharsArray($valores,$charset);
@@ -155,9 +145,7 @@ class Tratamento{
 	 * @return mixed|mixed[]|null
 	 */
 	public static function encurtar($valores,$tamanho=5){
-		if(!$valores){
-			return;
-		}
+		if(!$valores){return;}
 	
 		if(is_array($valores)){
 			$valores=self::encurtarArray($valores,$tamanho);
@@ -177,9 +165,7 @@ class Tratamento{
 	 */
 	private static function encurtarArray(array $valores,$tamanho){
 		foreach($valores as $i=>$v){
-			if(strlen($v)>$tamanho+2){
-				$valores[$i]=substr($v,0,$tamanho).'...';
-			}
+			if(strlen($v)>$tamanho+2){$valores[$i]=substr($v,0,$tamanho).'...';}
 		}
 		
 		return $valores;
@@ -193,71 +179,7 @@ class Tratamento{
 	 * @return mixed
 	 */
 	private static function encurtarScalar($valor,$tamanho){
-		if(strlen($valor)>$tamanho+2){
-			$valor=substr($valor,0,$tamanho).'...';
-		}
-		
+		if(strlen($valor)>$tamanho+2){$valor=substr($valor,0,$tamanho).'...';}
 		return $valor;
-	}
-	
-	/**
-	 * Remove os acentos de um valor ou valores
-	 * 
-	 * @api
-	 * @param string|string[] $valores
-	 * @return string|string[]|null
-	 */
-	public static function removerAcentos($valores){
-		if(!$valores){
-			return;
-		}
-	
-		$acentos=array(
-			'á','à','â','ã','ä','é','è','ê','ë','í','ì','î','ï','ó','ò','ô','õ',
-			'ö','ú','ù','û','ü','ç','Á','À','Â','Ã','Ä','É','È','Ê','Ë','Í','Ì',
-			'Î','Ï','Ó','Ò','Ô','Õ','Ö','Ú','Ù','Û','Ü','Ç'
-		);
-		
-		$normais=array(
-			'a','a','a','a','a','e','e','e','e','i','i','i','i','o','o','o','o',
-			'o','u','u','u','u','c','A','A','A','A','A','E','E','E','E','I','I',
-			'I','I','O','O','O','O','O','U','U','U','U','C'
-		);
-		
-		if(is_array($valores)){
-			$valores=self::removerAcentosArray($valores,$acentos,$normais);
-		}else{
-			$valores=self::removerAcentosScalar($valores,$acentos,$normais);
-		}
-		
-		return $valores;
-	}
-	
-	/**
-	 * Itera sobre um vetor removendo os acentos de seus valores
-	 * 
-	 * @param string[] $valores
-	 * @param string[] $acentos
-	 * @param string[] $normais
-	 * @return string[]
-	 */
-	private static function removerAcentosArray(array $valores,$acentos,$normais){
-		foreach($valores as $i=>$v){
-			$valores[$i]=str_replace($acentos,$normais,$v);
-		}
-		
-		return $valores;
-	}
-	
-	/**
-	 * Remove os acentos de um valor
-	 * 
-	 * @param string $valor
-	 * @param string[] $acentos
-	 * @param string[] $normais
-	 * @return string
-	 */
-	private static function removerAcentosScalar($valor,$acentos,$normais){
-		return str_replace($acentos,$normais,$valor);
 	}
 }

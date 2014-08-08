@@ -80,34 +80,26 @@ class ValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testUploadImagemComExcessoDeLargura(){
-		$this->setExpectedException(
-			'Exception','A largura da imagem é menor do que o mínimo permitido.'
-		);
-		
+		$mensagem='A largura da imagem é menor do que o mínimo permitido.';
+		$this->setExpectedException('Exception',$mensagem);
 		\miti\Validacao::uploadImagem('arquivo',20,16);
 	}
 	
 	public function testUploadImagemComExcessoDeAltura(){
-		$this->setExpectedException(
-			'Exception','A altura da imagem é menor do que o mínimo permitido.'
-		);
-		
+		$mensagem='A altura da imagem é menor do que o mínimo permitido.';
+		$this->setExpectedException('Exception',$mensagem);
 		\miti\Validacao::uploadImagem('arquivo',16,20);
 	}
 	
 	public function testUploadImagemComProporcaoEmExcessoNaVertical(){
-		$this->setExpectedException(
-			'Exception','A proporção da imagem é inválida, excedendo verticalmente.'
-		);
-		
+		$mensagem='A proporção da imagem é inválida, excedendo verticalmente.';
+		$this->setExpectedException('Exception',$mensagem);
 		\miti\Validacao::uploadImagem('arquivo',16,8);
 	}
 	
 	public function testUploadImagemComProporcaoEmExcessoNaHorizontal(){
-		$this->setExpectedException(
-			'Exception','A proporção da imagem é inválida, excedendo horizontalmente.'
-		);
-		
+		$mensagem='A proporção da imagem é inválida, excedendo horizontalmente.';
+		$this->setExpectedException('Exception',$mensagem);
 		\miti\Validacao::uploadImagem('arquivo',8,16);
 	}
 	

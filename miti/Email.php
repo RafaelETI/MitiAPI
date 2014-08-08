@@ -160,13 +160,13 @@ class Email{
 	 */
 	private function montarCabecalhoBasico($remetente){
 		return
-			'From: '.$remetente."\r\n"
-			.'Reply-To: '.$this->replyto."\r\n"
-			.'Cc: '.$this->cc."\r\n"
-			.'Bcc: '.$this->bcc."\r\n"
-			.'MIME-Version: 1.0'."\r\n"
-			.'Content-Type: multipart/mixed; boundary="'.$this->uid.'"'."\r\n\r\n"
-			.'This is a multi-part message in MIME format.'."\r\n"
+			"From: $remetente\r\n"
+			."Reply-To: $this->replyto\r\n"
+			."Cc: $this->cc\r\n"
+			."Bcc: $this->bcc\r\n"
+			."MIME-Version: 1.0\r\n"
+			."Content-Type: multipart/mixed; boundary='$this->uid'\r\n\r\n"
+			."This is a multi-part message in MIME format\r\n"
 		;
 	}
 	
@@ -179,10 +179,10 @@ class Email{
 	 */
 	private function montarCabecalhoMensagem($charset,$mensagem){
 		return
-			'--'.$this->uid."\r\n"
-			.'Content-type:text/html; charset='.$charset."\r\n"
-			.'Content-Transfer-Encoding: 7bit'."\r\n\r\n"
-			.$mensagem."\r\n\r\n"
+			"--$this->uid\r\n"
+			."Content-type:text/html; charset=$charset\r\n"
+			."Content-Transfer-Encoding: 7bit\r\n\r\n"
+			."$mensagem\r\n\r\n"
 		;
 	}
 	
@@ -200,16 +200,16 @@ class Email{
 				$conteudo=chunk_split(base64_encode(file_get_contents($v)));
 				
 				$cabecalho=
-					'--'.$this->uid."\r\n"
-					.'Content-Type: application/octet-stream; name="'.$nome.'"'."\r\n"
-					.'Content-Transfer-Encoding: base64'."\r\n"
-					.'Content-Disposition: attachment; filename="'.$nome.'"'."\r\n\r\n"
-					.$conteudo."\r\n\r\n"
+					"--$this->uid\r\n"
+					."Content-Type: application/octet-stream; name='$nome'\r\n"
+					."Content-Transfer-Encoding: base64\r\n"
+					."Content-Disposition: attachment; filename='$nome'\r\n\r\n"
+					."$conteudo\r\n\r\n"
 				;
 			}
 		}
 		
-		$cabecalho.='--'.$this->uid.'--';
+		$cabecalho.="--$this->uid--";
 		return $cabecalho;
 	}
 	
@@ -223,6 +223,6 @@ class Email{
 	 * @return string
 	 */
 	private function codificarAssunto($charset,$assunto){
-		return '=?'.$charset.'?b?'.base64_encode($assunto).'?=';
+		return "=?$charset?b?".base64_encode($assunto).'?=';
 	}
 }

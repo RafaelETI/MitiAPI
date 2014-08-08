@@ -1,5 +1,28 @@
 <?php
 class ORMTest extends PHPUnit_Framework_TestCase{
+	public function testGetTipos(){
+		$ORM=new \miti\ORM('categoria');
+		$tipos=array('id'=>'float','nome'=>'string','status'=>'string');
+		$this->assertSame($tipos,$ORM->getTipos());
+	}
+	
+	public function testGetAnulaveis(){
+		$ORM=new \miti\ORM('categoria');
+		$anulaveis=array('id'=>false,'nome'=>false,'status'=>true);
+		$this->assertSame($anulaveis,$ORM->getAnulaveis());
+	}
+	
+	public function testGetTamanhos(){
+		$ORM=new \miti\ORM('categoria');
+		$tamanhos=array('id'=>3,'nome'=>30,'status'=>1);
+		$this->assertSame($tamanhos,$ORM->getTamanhos());
+	}
+	
+	public function testGetPk(){
+		$ORM=new \miti\ORM('categoria');
+		$this->assertSame('id',$ORM->getPk());
+	}
+	
 	public function testValidarVazio(){
 		$this->setExpectedException('Exception',"Valor vazio para o campo 'id'.");
 		

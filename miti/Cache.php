@@ -34,14 +34,14 @@ class Cache{
 
 		$DateTime=new \DateTime;
 		$agora=$DateTime->format(DateTime::RFC1123);
-		$validade=$DateTime->modify("+$segundos sec")->format(DateTime::RFC1123);
+		$validade=$DateTime->modify("$segundos sec")->format(DateTime::RFC1123);
 		
 		header("last-modified:$validade");
 
 		$header=getallheaders();
 		if(isset($header['If-Modified-Since'])){
 			if($header['If-Modified-Since']>$agora){
-				header($_SERVER["SERVER_PROTOCOL"].' 304 Not Modified');
+				header("{$_SERVER["SERVER_PROTOCOL"]} 304 Not Modified");
 				exit;
 			}
 		}
