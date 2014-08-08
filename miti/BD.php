@@ -156,8 +156,8 @@ class BD{
 	 * @return string[]
 	 */
 	private function escaparArray(array $valores){
-		foreach($valores as $i=>$v){
-			$valores[$i]=$this->conexao->real_escape_string($v);
+		foreach($valores as $i=>$valor){
+			$valores[$i]=$this->conexao->real_escape_string($valor);
 		}
 		
 		return $valores;

@@ -67,8 +67,8 @@ class Tratamento{
 	 * @return mixed[]
 	 */
 	public static function garantirIndices($vetor,array $indices,$valor=''){
-		foreach($indices as $i){
-			if(!isset($vetor[$i])){$vetor[$i]=$valor;}
+		foreach($indices as $indice){
+			if(!isset($vetor[$indice])){$vetor[$indice]=$valor;}
 		}
 		
 		return $vetor;
@@ -118,8 +118,8 @@ class Tratamento{
 	 * @return string[]
 	 */
 	private static function htmlSpecialCharsArray(array $valores,$charset){
-		foreach($valores as $i=>$v){
-			$valores[$i]=htmlspecialchars($v,ENT_QUOTES,$charset);
+		foreach($valores as $i=>$valor){
+			$valores[$i]=htmlspecialchars($valor,ENT_QUOTES,$charset);
 		}
 		
 		return $valores;
@@ -164,8 +164,10 @@ class Tratamento{
 	 * @return mixed[]
 	 */
 	private static function encurtarArray(array $valores,$tamanho){
-		foreach($valores as $i=>$v){
-			if(strlen($v)>$tamanho+2){$valores[$i]=substr($v,0,$tamanho).'...';}
+		foreach($valores as $i=>$valor){
+			if(strlen($valor)>$tamanho+2){
+				$valores[$i]=substr($valor,0,$tamanho).'...';
+			}
 		}
 		
 		return $valores;

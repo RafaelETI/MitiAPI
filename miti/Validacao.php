@@ -75,10 +75,8 @@ class Validacao{
 	 * @throws \Exception
 	 */
 	private static function vazioArray(array $valores){
-		foreach($valores as $v){
-			if(!$v){
-				throw new \Exception('Valor vazio.');
-			}
+		foreach($valores as $valor){
+			if(!$valor){throw new \Exception('Valor vazio.');}
 		}
 	}
 	
@@ -95,43 +93,36 @@ class Validacao{
 	}
 	
 	/**
-	 * Valida um arquivo em upload
-	 * 
-	 * O atributo name da tag input file do formulário HTML deve ser concatenado
-	 * à [] (colchetes), mesmo que o upload não seja múltiplo, porque o programa
-	 * manuseia uma estrutura de dados igual à que seria se o upload fosse
-	 * múltiplo.
+	 * Valida um arquivo
 	 * 
 	 * @api
-	 * @param string $file Name do input file sem colchetes.
+	 * @param array[] $arquivos No mesmo formato de $_FILES['...'] múltiplo.
 	 * @param int $peso Em kylobytes.
 	 * 
 	 * @param string[] $tipos Pedaços de strings pertencentes aos mime types
-	 * desejados
+	 * desejados.
 	 */
-	public static function upload($file,$peso,array $tipos){
-		foreach($_FILES[$file]['name'] as $i=>$v){
-			if(!$v){
-				break;
-			}
+	public static function arquivo($arquivos,$peso,array $tipos){
+		foreach($arquivos['name'] as $i=>$nome){
+			if(!$nome){break;}
 			
-			self::peso($file,$i,$peso);
-			self::tipos($file,$i,$tipos);
+			self::peso($arquivos,$i,$peso);
+			self::tipos($arquivos,$i,$tipos);
 		}
 	}
 	
 	/**
 	 * Valida o peso de um arquivo
 	 * 
-	 * @param string $file
-	 * @param int $i Índice do vetor do upload
+	 * @param array[] $arquivos
+	 * @param int $i Índice do vetor dos arquivos.
 	 * @param int $peso
 	 * @throws \Exception
 	 */
-	private static function peso($file,$i,$peso){
+	private static function peso($arquivos,$i,$peso){
 		$peso*=1024;
 		
-		if($_FILES[$file]['size'][$i]>$peso){
+		if($arquivos['size'][$i]>$peso){
 			throw new \Exception('O arquivo excede o tamanho permitido.');
 		}
 	}
@@ -139,45 +130,34 @@ class Validacao{
 	/**
 	 * Valida o tipo do arquivo
 	 * 
-	 * @param string $file
-	 * @param int $i Índice do vetor do upload
+	 * @param array[] $arquivos
+	 * @param int $i Índice do vetor dos arquivos.
 	 * @param string[] $tipos
 	 * @throws \Exception
 	 */
-	private static function tipos($file,$i,array $tipos){
+	private static function tipos($arquivos,$i,array $tipos){
 		$ok=false;
 		
-		foreach($tipos as $v){
-			if(strpos($_FILES[$file]['type'][$i],$v)!==false){
-				$ok=true;
-			}
+		foreach($tipos as $tipo){
+			if(strpos($arquivos['type'][$i],$tipo)!==false){$ok=true;}
 		}
 		
-		if(!$ok){
-			throw new \Exception('O tipo do arquivo é inválido.');
-		}
+		if(!$ok){throw new \Exception('O tipo do arquivo é inválido.');}
 	}
 	
 	/**
-	 * Valida uma imagem em upload
-	 * 
-	 * O atributo name da tag input file do formulário HTML deve ser concatenado
-	 * à [] (colchetes), mesmo que o upload não seja múltiplo, porque o programa
-	 * manuseia uma estrutura de dados igual à que seria se o upload fosse
-	 * múltiplo.
+	 * Valida uma imagem
 	 * 
 	 * @api
-	 * @param string $file Name do input file sem colchetes.
+	 * @param array[] $arquivos No mesmo formato de $_FILES['...'] múltiplo.
 	 * @param int $largura Em pixels.
 	 * @param int $altura Em pixels.
 	 */
-	public static function uploadImagem($file,$largura,$altura){
-		foreach($_FILES[$file]['name'] as $i=>$v){
-			if(!$v){
-				break;
-			}
+	public static function imagem($arquivos,$largura,$altura){
+		foreach($arquivos['name'] as $i=>$nome){
+			if(!$nome){break;}
 			
-			$dimensoes=getimagesize($_FILES[$file]['tmp_name'][$i]);
+			$dimensoes=getimagesize($arquivos['tmp_name'][$i]);
 			self::dimensoes($dimensoes,$largura,$altura);
 			self::proporcoes($dimensoes,$largura,$altura);
 		}

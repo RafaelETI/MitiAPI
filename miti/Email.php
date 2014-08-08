@@ -36,9 +36,9 @@ class Email{
 	private $replyto='';
 	
 	/**
-	 * @var string Name do formulário dos arquivos.
+	 * @var array[]
 	 */
-	private $anexos='';
+	private $anexos;
 	
 	/**
 	 * Define o UID
@@ -88,14 +88,10 @@ class Email{
 	}
 	
 	/**
-	 * Define o name do formulário dos arquivos
-	 * 
-	 * O valor deve ser passado sem colchetes, mesmo em caso de upload múltiplo,
-	 * ao passo que o name do formulário deve sempre possuí-los, mesmo se o
-	 * upload não for múltiplo.
+	 * Define o vetor de informações de arquivos
 	 * 
 	 * @api
-	 * @param string $anexos
+	 * @param array[] $anexos No mesmo formato de $_FILES['...'] múltiplo.
 	 * @return Email
 	 */
 	public function setAnexos($anexos){
@@ -194,10 +190,10 @@ class Email{
 	private function montarCabecalhoAnexos(){
 		$cabecalho='';
 		
-		if($this->anexos&&$_FILES[$this->anexos]['tmp_name'][0]){
-			foreach($_FILES[$this->anexos]['tmp_name'] as $i=>$v){
-				$nome=basename($_FILES[$this->anexos]['name'][$i]);
-				$conteudo=chunk_split(base64_encode(file_get_contents($v)));
+		if($this->anexos){
+			foreach($this->anexos['tmp_name'] as $i=>$tmp){
+				$nome=basename($this->anexos['name'][$i]);
+				$conteudo=chunk_split(base64_encode(file_get_contents($tmp)));
 				
 				$cabecalho=
 					"--$this->uid\r\n"

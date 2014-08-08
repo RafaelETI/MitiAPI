@@ -1,12 +1,15 @@
 <?php
 class ValidacaoTest extends PHPUnit_Framework_TestCase{
+	private static $arquivos=array();
+	private static $arquivos2=array();
+	
 	public static function setUpBeforeClass(){
-		$_FILES['arquivo']['name'][0]='miti.png';
-		$_FILES['arquivo']['type'][0]='image/png';
-		$_FILES['arquivo']['tmp_name'][0]=RAIZ.'/unit/arquivo/miti.png';
-		$_FILES['arquivo']['size'][0]='1457';
+		self::$arquivos['name'][0]='miti.png';
+		self::$arquivos['type'][0]='image/png';
+		self::$arquivos['tmp_name'][0]=RAIZ.'/unit/arquivo/miti.png';
+		self::$arquivos['size'][0]='1457';
 		
-		$_FILES['arquivo2']['name'][0]='';
+		self::$arquivos2['name'][0]='';
 	}
 	
 	public function testTamanhoVazio(){
@@ -54,53 +57,53 @@ class ValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testUpload(){
-		\miti\Validacao::upload('arquivo',2,array('jpeg','png','gif'));
+		\miti\Validacao::arquivo(self::$arquivos,2,array('jpeg','png','gif'));
 	}
 	
 	public function testUploadSemEnvioDeArquivo(){
-		$this->assertSame(null,\miti\Validacao::upload('arquivo2',2,array('jpeg')));
+		$this->assertSame(null,\miti\Validacao::arquivo(self::$arquivos2,2,array('jpeg')));
 	}
 	
 	public function testUploadComExcessoDePeso(){
 		$this->setExpectedException('Exception','O arquivo excede o tamanho permitido.');
-		\miti\Validacao::upload('arquivo',1,array('jpeg','png','gif'));
+		\miti\Validacao::arquivo(self::$arquivos,1,array('jpeg','png','gif'));
 	}
 	
 	public function testUploadComTipoInvalido(){
 		$this->setExpectedException('Exception','O tipo do arquivo é inválido.');
-		\miti\Validacao::upload('arquivo',2,array('doc','pdf','xls'));
+		\miti\Validacao::arquivo(self::$arquivos,2,array('doc','pdf','xls'));
 	}
 	
 	public function testUploadImagem(){
-		\miti\Validacao::uploadImagem('arquivo',16,16);
+		\miti\Validacao::imagem(self::$arquivos,16,16);
 	}
 	
 	public function testUploadImagemSemEnvioDeArquivo(){
-		$this->assertSame(null,\miti\Validacao::uploadImagem('arquivo2',16,16));
+		$this->assertSame(null,\miti\Validacao::imagem(self::$arquivos2,16,16));
 	}
 	
 	public function testUploadImagemComExcessoDeLargura(){
 		$mensagem='A largura da imagem é menor do que o mínimo permitido.';
 		$this->setExpectedException('Exception',$mensagem);
-		\miti\Validacao::uploadImagem('arquivo',20,16);
+		\miti\Validacao::imagem(self::$arquivos,20,16);
 	}
 	
 	public function testUploadImagemComExcessoDeAltura(){
 		$mensagem='A altura da imagem é menor do que o mínimo permitido.';
 		$this->setExpectedException('Exception',$mensagem);
-		\miti\Validacao::uploadImagem('arquivo',16,20);
+		\miti\Validacao::imagem(self::$arquivos,16,20);
 	}
 	
 	public function testUploadImagemComProporcaoEmExcessoNaVertical(){
 		$mensagem='A proporção da imagem é inválida, excedendo verticalmente.';
 		$this->setExpectedException('Exception',$mensagem);
-		\miti\Validacao::uploadImagem('arquivo',16,8);
+		\miti\Validacao::imagem(self::$arquivos,16,8);
 	}
 	
 	public function testUploadImagemComProporcaoEmExcessoNaHorizontal(){
 		$mensagem='A proporção da imagem é inválida, excedendo horizontalmente.';
 		$this->setExpectedException('Exception',$mensagem);
-		\miti\Validacao::uploadImagem('arquivo',8,16);
+		\miti\Validacao::imagem(self::$arquivos,8,16);
 	}
 	
 	public function testCpfVazio(){

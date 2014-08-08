@@ -137,9 +137,9 @@ class ORM{
 	 * @return ORM
 	 */
 	private function setPk(){
-		foreach($this->campos as $o){
-			if($o->flags&2){
-				$this->pk=$o->orgname;
+		foreach($this->campos as $campo){
+			if($campo->flags&2){
+				$this->pk=$campo->orgname;
 				break;
 			}
 		}
@@ -161,11 +161,11 @@ class ORM{
 	 * @return ORM
 	 */
 	private function setTipos(){
-		foreach($this->campos as $o){
-			if($o->flags&32768){
-				$this->tipos[$o->orgname]='float';
+		foreach($this->campos as $campo){
+			if($campo->flags&32768){
+				$this->tipos[$campo->orgname]='float';
 			}else{
-				$this->tipos[$o->orgname]='string';
+				$this->tipos[$campo->orgname]='string';
 			}
 		}
 		
@@ -184,11 +184,11 @@ class ORM{
 	 * @return ORM
 	 */
 	private function setAnulaveis(){
-		foreach($this->campos as $o){
-			if($o->flags&1){
-				$this->anulaveis[$o->orgname]=false;
+		foreach($this->campos as $campo){
+			if($campo->flags&1){
+				$this->anulaveis[$campo->orgname]=false;
 			}else{
-				$this->anulaveis[$o->orgname]=true;
+				$this->anulaveis[$campo->orgname]=true;
 			}
 		}
 		
@@ -205,8 +205,8 @@ class ORM{
 	 * @return ORM
 	 */
 	private function setTamanhos(){
-		foreach($this->campos as $o){
-			$this->tamanhos[$o->orgname]=$o->length;
+		foreach($this->campos as $campo){
+			$this->tamanhos[$campo->orgname]=$campo->length;
 		}
 		
 		return $this;
@@ -228,14 +228,14 @@ class ORM{
 	 * Pode-se argumentar que é uma falha de segurança.
 	 * 
 	 * @api
-	 * @param string[] $duplas Vetor indexado pelos nomes dos campos da tabela.
+	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
 	 * @return BD
 	 * @throws \Exception Implicitamente.
 	 */
-	public function criar(array $duplas){
+	public function criar(array $tupla){
 		$sql='';
-		$sql=$this->montarCampos($sql,$duplas);
-		$sql=$this->montarValores($sql,$duplas);
+		$sql=$this->montarCampos($sql,$tupla);
+		$sql=$this->montarValores($sql,$tupla);
 		return $this->BD->requisitar($sql);
 	}
 	
@@ -243,14 +243,14 @@ class ORM{
 	 * Monta o início e a parte dos campos da instrução
 	 * 
 	 * @param string $sql
-	 * @param string[] $duplas
+	 * @param string[] $tupla
 	 * @return string
 	 */
-	private function montarCampos($sql,array $duplas){
+	private function montarCampos($sql,array $tupla){
 		$sql="insert into $this->tabela(";
 		
 		$campos=array();
-		foreach($duplas as $i=>$v){$campos[]=$i;}
+		foreach($tupla as $campo=>$valor){$campos[]=$campo;}
 		
 		$sql.=implode(',',$campos);
 		$sql.=')';
@@ -262,17 +262,17 @@ class ORM{
 	 * Monta a parte dos valores e o final da instrução
 	 * 
 	 * @param string $sql
-	 * @param string[] $duplas
+	 * @param string[] $tupla
 	 * @return string
 	 */
-	private function montarValores($sql,array $duplas){
-		$this->validar($duplas);
-		$duplas=$this->tratar($duplas);
+	private function montarValores($sql,array $tupla){
+		$this->validar($tupla);
+		$tupla=$this->tratar($tupla);
 		
 		$sql.='values(';
 		
 		$values=array();
-		foreach($duplas as $v){$values[]=$v;}
+		foreach($tupla as $valor){$values[]=$valor;}
 		
 		$sql.=implode(',',$values);
 		$sql.=')';
@@ -288,14 +288,14 @@ class ORM{
 	 * Pode-se argumentar que é uma falha de segurança, mas pode valer a pena.
 	 * 
 	 * @api
-	 * @param string[] $duplas Vetor indexado pelos nomes dos campos da tabela.
+	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
 	 * @param string $pk Nome do campo da chave primária.
 	 * @return BD
 	 * @throws \Exception Implicitamente.
 	 */
-	public function atualizar(array $duplas,$pk){
+	public function atualizar(array $tupla,$pk){
 		$sql='';
-		$sql=$this->montarAtribuicoes($sql,$duplas);
+		$sql=$this->montarAtribuicoes($sql,$tupla);
 		$sql=$this->montarWhereAlteracao($sql,$pk);
 		return $this->BD->requisitar($sql);
 	}
@@ -304,18 +304,18 @@ class ORM{
 	 * Monta a parte das atribuições de valores da instrução
 	 * 
 	 * @param string $sql
-	 * @param string[] $duplas
+	 * @param string[] $tupla
 	 * @return string
 	 */
-	private function montarAtribuicoes($sql,array $duplas){
-		$this->validar($duplas);
-		$duplas=$this->tratar($duplas);
+	private function montarAtribuicoes($sql,array $tupla){
+		$this->validar($tupla);
+		$tupla=$this->tratar($tupla);
 		
 		$sql="update $this->tabela set ";
 		
 		$atribuicoes=array();
-		foreach($duplas as $i=>$v){
-			$atribuicoes[]="$i=$v";
+		foreach($tupla as $campo=>$valor){
+			$atribuicoes[]="$campo=$valor";
 		}
 		
 		$sql.=implode(',',$atribuicoes);
@@ -341,19 +341,19 @@ class ORM{
 	/**
 	 * Valida os dados à serem inseridos
 	 * 
-	 * @param string[] $duplas
+	 * @param string[] $tupla
 	 * 
 	 * @throws \Exception Se o valor for vazio e o campo não permitir nulo, ou se
 	 * o valor exceder o limite de caractéres que o campo permite.
 	 */
-	private function validar(array $duplas){
-		foreach($duplas as $i=>$v){
-			if(!$this->anulaveis[$i]&&!$v){
-				throw new \Exception("Valor vazio para o campo '$i'.");
+	private function validar(array $tupla){
+		foreach($tupla as $campo=>$valor){
+			if(!$this->anulaveis[$campo]&&!$valor){
+				throw new \Exception("Valor vazio para o campo '$campo'.");
 			}
 			
-			if(strlen($v)>$this->tamanhos[$i]){
-				throw new \Exception("Limite de caractéres excedido para o campo '$i'.");
+			if(strlen($valor)>$this->tamanhos[$campo]){
+				throw new \Exception("Limite de caractéres excedido para o campo '$campo'.");
 			}
 		}
 	}
@@ -384,7 +384,11 @@ class ORM{
 	 */
 	private function montarExclusaoArray(array $dupla){
 		$dupla=$this->tratar($dupla);
-		foreach($dupla as $i=>$v){$sql="delete from $this->tabela where $i=$v";}
+		
+		foreach($dupla as $campo=>$valor){
+			$sql="delete from $this->tabela where $campo=$valor";
+		}
+		
 		return $sql;
 	}
 	
@@ -404,24 +408,24 @@ class ORM{
 	 * 
 	 * Impede-se SQL Injection, além de outros tratamentos.
 	 * 
-	 * @param string[] $duplas
+	 * @param string[] $tupla
 	 * @return string[]
 	 */
-	private function tratar(array $duplas){
-		foreach($duplas as $i=>$v){
-			if($v===''){
-				$duplas[$i]='null';
+	private function tratar(array $tupla){
+		foreach($tupla as $campo=>$valor){
+			if($valor===''){
+				$tupla[$campo]='null';
 			}else{
-				if($this->tipos[$i]==='string'){
-					$duplas[$i]=$this->BD->escapar($v);
-					$duplas[$i]="'$duplas[$i]'";
+				if($this->tipos[$campo]==='string'){
+					$tupla[$campo]=$this->BD->escapar($valor);
+					$tupla[$campo]="'$tupla[$campo]'";
 				}else{
-					settype($duplas[$i],$this->tipos[$i]);
+					settype($tupla[$campo],$this->tipos[$campo]);
 				}
 			}
 		}
 		
-		return $duplas;
+		return $tupla;
 	}
 	
 	/**

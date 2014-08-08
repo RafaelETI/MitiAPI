@@ -29,8 +29,9 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testGarantirIndices(){
-		$_POST=\miti\Tratamento::garantirIndices($_POST,array('teste'));
-		$this->assertTrue(isset($_POST['teste']));
+		$vetor=array();
+		$vetor=\miti\Tratamento::garantirIndices($vetor,array('teste'));
+		$this->assertTrue(isset($vetor['teste']));
 	}
 	
 	public function testGarantirArquivo(){
