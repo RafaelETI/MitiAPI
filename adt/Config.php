@@ -18,7 +18,7 @@ namespace adt;
  */
 class Config{
 	/**
-	 * @var array
+	 * @var mixed[]
 	 */
 	private $config=array();
 	
