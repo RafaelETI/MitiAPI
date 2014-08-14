@@ -8,71 +8,84 @@
 namespace miti;
 
 /**
- * Operação sobre data
+ * Operação sobre tempo
  * 
  * Dois motivos importantes: oferece suporte para datas no formato brasileiro, e
  * não assume a data atual na ausência de uma outra na construção do objeto;
  * diferente da classe nativa DateTime.
  */
-class Data{
+class Tempo{
 	/**
-	 * Inverte uma data no formato brasileiro para o formato norte americano
+	 * Inverte um tempo no formato brasileiro para o formato norte americano
 	 * 
 	 * Basta trocar a barra pelo hífen que a classe DateTime reconhece como data,
 	 * ou seja, não precisa estar na ordem do formato americano. Até porque, se
 	 * precisasse, não haveria sentido em usá-la.
 	 * 
 	 * @api
-	 * @param string $data
+	 * @param string $tempo
 	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
 	 * @return string|null
 	 */
-	public static function inverterBrParaEua($data,$longo=false){
-		if(!$data){return;}
+	public static function inverterBrParaEua($tempo,$longo=false){
+		if(!$tempo){return;}
 		
-		$data=str_replace('/','-',$data);
+		$tempo=str_replace('/','-',$tempo);
 		
-		$DateTime=new \DateTime($data);
-		$data=$DateTime->format('Y-m-d H:i:s');
+		$DateTime=new \DateTime($tempo);
+		$tempo=$DateTime->format('Y-m-d H:i:s');
 		
-		if(!$longo){$data=substr($data,0,10);}
+		if(!$longo){$tempo=substr($tempo,0,10);}
 		
-		return $data;
+		return $tempo;
 	}
 	
 	/**
-	 * Inverte um data no formato norte americano para o formato brasileiro
+	 * Inverte um tempo no formato norte americano para o formato brasileiro
 	 * 
 	 * @api
-	 * @param string $data
+	 * @param string $tempo
 	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
 	 * @return string|null
 	 */
-	public static function inverterEuaParaBr($data,$longo=false){
-		if(!$data){return;}
+	public static function inverterEuaParaBr($tempo,$longo=false){
+		if(!$tempo){return;}
 		
-		$DateTime=new \DateTime($data);
-		$data=$DateTime->format('d/m/Y H:i:s');
+		$DateTime=new \DateTime($tempo);
+		$tempo=$DateTime->format('d/m/Y H:i:s');
 		
-		if(!$longo){$data=substr($data,0,10);}
+		if(!$longo){$tempo=substr($tempo,0,10);}
 		
-		return $data;
+		return $tempo;
 	}
 	
 	/**
-	 * Obtém o dia da semana à partir de uma data, em forma de texto
+	 * Gera o valor relativo de uma hora absoluta
+	 * 
+	 * @api
+	 * @param string $tempo
+	 * @return string
+	 */
+	public static function gerarValorRelativo($tempo){
+		if(!$tempo){return;}
+		$partes = explode(':',$tempo);
+		return "$partes[0] hour $partes[1] min $partes[2] sec";
+	}
+	
+	/**
+	 * Obtém o dia da semana à partir de um tempo, em forma de texto
 	 * 
 	 * É um trabalho majoritariamente de tradução.
 	 * 
 	 * @api
-	 * @param string $data
+	 * @param string $tempo
 	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
 	 * @return string|null
 	 */
-	public static function obterDiaDaSemana($data,$longo=false){
-		if(!$data){return;}
+	public static function obterDiaDaSemana($tempo,$longo=false){
+		if(!$tempo){return;}
 		
-		$DateTime=new \DateTime($data);
+		$DateTime=new \DateTime($tempo);
 		$dia=$DateTime->format('l');
 		
 		switch($dia){
@@ -91,17 +104,17 @@ class Data{
 	}
 	
 	/**
-	 * Obtém o mês à partir de uma data, em forma de texto
+	 * Obtém o mês à partir de um tempo, em forma de texto
 	 * 
 	 * @api
-	 * @param string $data
+	 * @param string $tempo
 	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
 	 * @return string|null
 	 */
-	public static function obterMes($data,$longo=false){
-		if(!$data){return;}
+	public static function obterMes($tempo,$longo=false){
+		if(!$tempo){return;}
 		
-		$DateTime=new \DateTime($data);
+		$DateTime=new \DateTime($tempo);
 		$mes=$DateTime->format('m');
 		
 		switch($mes){
@@ -125,15 +138,15 @@ class Data{
 	}
 	
 	/**
-	 * Obtém o ano à partir de uma data
+	 * Obtém o ano à partir de um tempo
 	 * 
 	 * @api
-	 * @param string $data
+	 * @param string $tempo
 	 * @return string|null
 	 */
-	public static function obterAno($data){
-		if(!$data){return;}
-		$DateTime=new \DateTime($data);
+	public static function obterAno($tempo){
+		if(!$tempo){return;}
+		$DateTime=new \DateTime($tempo);
 		return $DateTime->format('Y');
 	}
 }

@@ -67,7 +67,7 @@ class Config{
 	private function config(){
 		$this->config['ambiente']=1;
 		$this->config['sistema']='Miti API';
-		$this->config['versao']='1.3.16';
+		$this->config['versao']='1.4.16';
 		$this->config['timezone']='America/Sao_Paulo';
 		$this->config['charset']='iso-8859-1';
 		
