@@ -12,8 +12,8 @@ namespace miti;
  * 
  * Atualmente apenas interage com o MySQL, mas permite uma futura relação
  * com outros bancos. Responsável por conectar no banco, executar querys,
- * retornar id auto incrementado de inserções, tempo da requisição, quantidade
- * de registros afetados, tratar dados, etc.
+ * retornar id auto incrementado de inserções, quantidade de registros afetados,
+ * tratar dados, etc.
  * 
  * Preferencialmente utilizada através de um ORM.
  */
@@ -27,11 +27,6 @@ class BD{
 	 * @var Object Result set de uma requisição.
 	 */
 	private $requisicao;
-	
-	/**
-	 * @var string Tempo da requisição.
-	 */
-	private $tempo;
 	
 	/**
 	 * @var int Quantidade de registros afetados por uma requisição.
@@ -176,20 +171,13 @@ class BD{
 	/**
 	 * Faz uma requisição ao banco
 	 * 
-	 * A requisição é "englobada" por comandos que serão usados para medir seu
-	 * tempo.
-	 * 
 	 * @api
 	 * @param string $sql Recomenda-se o uso de um ORM para a montagem do SQL.
 	 * @return BD
 	 */
 	public function requisitar($sql){
-		$microtimes=array(microtime(true));
 		$this->requisicao=$this->conexao->query($sql);
-		$microtimes[1]=microtime(true);
-		
-		$this->verificarErroRequisicao($sql)->setTempo($microtimes)->setAfetados()->setId();
-		
+		$this->verificarErroRequisicao($sql)->setAfetados()->setId();
 		return $this;
 	}
 	
@@ -217,17 +205,6 @@ class BD{
 	}
 	
 	/**
-	 * Define o tempo da requisição
-	 * 
-	 * @param float[] $microtimes
-	 * @return BD
-	 */
-	private function setTempo($microtimes){
-		$this->tempo=Desempenho::medirTempoDeExecucao($microtimes);
-		return $this;
-	}
-	
-	/**
 	 * Define a quantidade de registros afetados
 	 * 
 	 * @return BD
@@ -245,16 +222,6 @@ class BD{
 	private function setId(){
 		$this->id=$this->conexao->insert_id;
 		return $this;
-	}
-	
-	/**
-	 * Retorna o tempo da última requisição
-	 * 
-	 * @api
-	 * @return string
-	 */
-	public function getTempo(){
-		return $this->tempo;
 	}
 	
 	/**
