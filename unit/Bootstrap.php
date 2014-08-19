@@ -50,7 +50,7 @@ class Bootstrap{
 			'servidor'=>'localhost',
 			'usuario'=>'root',
 			'senha'=>'root',
-			'banco'=>'miti_unit',
+			'banco'=>'miti_api',
 			'charset'=>'latin1',
 		);
 		

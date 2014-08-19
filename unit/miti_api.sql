@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.1
+-- version 4.2.0
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 17, 2014 at 07:53 PM
--- Server version: 5.5.37-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4
+-- Generation Time: Aug 19, 2014 at 06:10 PM
+-- Server version: 5.1.73-community
+-- PHP Version: 5.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `miti_unit`
+-- Database: `miti_api`
 --
 
 -- --------------------------------------------------------

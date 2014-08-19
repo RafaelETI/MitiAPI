@@ -11,7 +11,7 @@ class BDTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('Exception',"Unknown database 'nao_existe'");
 		
 		ini_set('display_errors',1);
-		new \miti\BD('localhost','root','root','nao_existe');
+		new \miti\BD(BD_SERVIDOR, BD_USUARIO, BD_SENHA, 'nao_existe');
 	}
 	
 	public function testErroDeConexaoComMensagemGenerica(){
@@ -19,14 +19,14 @@ class BDTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('Exception',$mensagem);
 		
 		ini_set('display_errors',0);
-		new \miti\BD('localhost','root','root','nao_existe');
+		new \miti\BD(BD_SERVIDOR, BD_USUARIO, BD_SENHA, 'nao_existe');
 	}
 	
 	public function testErroDeCharset(){
 		$mensagem='Houve um erro ao definir o charset.';
 		$this->setExpectedException('Exception',$mensagem);
 		
-		new \miti\BD('localhost','root','root','miti_unit','nao_existe');
+		new \miti\BD(BD_SERVIDOR, BD_USUARIO, BD_SENHA, BD_BANCO, 'nao_existe');
 	}
 	
 	public function testEscaparArray(){
