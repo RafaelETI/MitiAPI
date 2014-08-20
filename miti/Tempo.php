@@ -64,12 +64,14 @@ class Tempo{
 	 * 
 	 * @api
 	 * @param string $tempo
+	 * @param bool $mais
 	 * @return string
 	 */
-	public static function gerarValorRelativo($tempo){
+	public static function gerarValorRelativo($tempo, $mais = true){
 		if(!$tempo){return;}
+		$sinal = $mais ? '+' : '-';
 		$partes = explode(':',$tempo);
-		return "$partes[0] hour $partes[1] min $partes[2] sec";
+		return "$sinal$partes[0] hour $sinal$partes[1] min $sinal$partes[2] sec";
 	}
 	
 	/**

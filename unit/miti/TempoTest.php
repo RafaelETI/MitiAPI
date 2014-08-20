@@ -25,7 +25,12 @@ class TempoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testGerarValorRelativo(){
 		$hora=\miti\Tempo::gerarValorRelativo('14:34:02');
-		$this->assertSame('14 hour 34 min 02 sec',$hora);
+		$this->assertSame('+14 hour +34 min +02 sec',$hora);
+	}
+	
+	public function testGerarValorRelativoNegativo(){
+		$hora=\miti\Tempo::gerarValorRelativo('14:34:02', false);
+		$this->assertSame('-14 hour -34 min -02 sec',$hora);
 	}
 	
 	public function testObterDiaDaSemanaVazio(){
