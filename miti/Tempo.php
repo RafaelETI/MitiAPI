@@ -60,21 +60,6 @@ class Tempo{
 	}
 	
 	/**
-	 * Gera o valor relativo de uma hora absoluta
-	 * 
-	 * @api
-	 * @param string $tempo
-	 * @param bool $mais
-	 * @return string
-	 */
-	public static function gerarValorRelativo($tempo, $mais = true){
-		if(!$tempo){return;}
-		$sinal = $mais ? '+' : '-';
-		$partes = explode(':',$tempo);
-		return "$sinal$partes[0] hour $sinal$partes[1] min $sinal$partes[2] sec";
-	}
-	
-	/**
 	 * Obtém o dia da semana à partir de um tempo, em forma de texto
 	 * 
 	 * É um trabalho majoritariamente de tradução.

@@ -18,21 +18,6 @@ class TempoTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame('18/08/1991',$tempo);
 	}
 	
-	public function testGerarValorRelativoVazio(){
-		$hora=\miti\Tempo::gerarValorRelativo('');
-		$this->assertSame(null,$hora);
-	}
-	
-	public function testGerarValorRelativo(){
-		$hora=\miti\Tempo::gerarValorRelativo('14:34:02');
-		$this->assertSame('+14 hour +34 min +02 sec',$hora);
-	}
-	
-	public function testGerarValorRelativoNegativo(){
-		$hora=\miti\Tempo::gerarValorRelativo('14:34:02', false);
-		$this->assertSame('-14 hour -34 min -02 sec',$hora);
-	}
-	
 	public function testObterDiaDaSemanaVazio(){
 		$this->assertSame(null,\miti\Tempo::obterDiaDaSemana(''));
 	}
