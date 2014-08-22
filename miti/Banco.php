@@ -17,7 +17,7 @@ namespace miti;
  * 
  * Preferencialmente utilizada através de um ORM.
  */
-class BD{
+class Banco{
 	/**
 	 * @var Object
 	 */
@@ -62,11 +62,11 @@ class BD{
 	 * @param string $charset
 	 */
 	public function __construct(
-		$servidor=BD_SERVIDOR,
-		$usuario=BD_USUARIO,
-		$senha=BD_SENHA,
-		$banco=BD_BANCO,
-		$charset=BD_CHARSET
+		$servidor=BANCO_SERVIDOR,
+		$usuario=BANCO_USUARIO,
+		$senha=BANCO_SENHA,
+		$banco=BANCO_BANCO,
+		$charset=BANCO_CHARSET
 	){
 		$this->verificarExistenciaDaExtensao();
 		$this->conexao=@new \mysqli($servidor,$usuario,$senha,$banco);
@@ -173,7 +173,7 @@ class BD{
 	 * 
 	 * @api
 	 * @param string $sql Recomenda-se o uso de um ORM para a montagem do SQL.
-	 * @return BD
+	 * @return Banco
 	 */
 	public function requisitar($sql){
 		$this->requisicao=$this->conexao->query($sql);
@@ -187,7 +187,7 @@ class BD{
 	 * A mensagem será técnica ou genérica baseado na configuração do PHP sobre
 	 * a impressão de erros na tela. Mesma regra da mensagem de erro da conexão.
 	 * 
-	 * @return BD
+	 * @return Banco
 	 * @throws \Exception
 	 */
 	private function verificarErroRequisicao($sql){
@@ -207,7 +207,7 @@ class BD{
 	/**
 	 * Define a quantidade de registros afetados
 	 * 
-	 * @return BD
+	 * @return Banco
 	 */
 	private function setAfetados(){
 		$this->afetados=$this->conexao->affected_rows;
@@ -217,7 +217,7 @@ class BD{
 	/**
 	 * Define o id auto incrementado da última inserção
 	 * 
-	 * @return BD
+	 * @return Banco
 	 */
 	private function setId(){
 		$this->id=$this->conexao->insert_id;

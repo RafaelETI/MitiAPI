@@ -25,9 +25,9 @@ namespace miti;
  */
 class ORM{
 	/**
-	 * @var BD
+	 * @var Banco
 	 */
-	private $BD;
+	private $Banco;
 	
 	/**
 	 * @var ORM[] Indexado pelo alias de cada tabela externa.
@@ -112,7 +112,7 @@ class ORM{
 	 * @param string $tabela Nome da tabela principal.
 	 */
 	public function __construct($tabela){
-		$this->BD=new BD;
+		$this->Banco=new Banco;
 		$this->alias=substr($tabela,0,1);
 		$this->tabela=$tabela;
 		
@@ -127,7 +127,7 @@ class ORM{
 	 * @throws \Exception Implicitamente.
 	 */
 	private function mapearCampos(){
-		$this->campos=$this->BD->requisitar("select * from $this->tabela")->obterCampos();
+		$this->campos=$this->Banco->requisitar("select * from $this->tabela")->obterCampos();
 		return $this;
 	}
 	
@@ -229,14 +229,14 @@ class ORM{
 	 * 
 	 * @api
 	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
-	 * @return BD
+	 * @return Banco
 	 * @throws \Exception Implicitamente.
 	 */
 	public function criar(array $tupla){
 		$sql='';
 		$sql=$this->montarCampos($sql,$tupla);
 		$sql=$this->montarValores($sql,$tupla);
-		return $this->BD->requisitar($sql);
+		return $this->Banco->requisitar($sql);
 	}
 	
 	/**
@@ -290,14 +290,14 @@ class ORM{
 	 * @api
 	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
 	 * @param string $pk Nome do campo da chave primária.
-	 * @return BD
+	 * @return Banco
 	 * @throws \Exception Implicitamente.
 	 */
 	public function atualizar(array $tupla,$pk){
 		$sql='';
 		$sql=$this->montarAtribuicoes($sql,$tupla);
 		$sql=$this->montarWhereAlteracao($sql,$pk);
-		return $this->BD->requisitar($sql);
+		return $this->Banco->requisitar($sql);
 	}
 	
 	/**
@@ -363,7 +363,7 @@ class ORM{
 	 * 
 	 * @api
 	 * @param mixed|mixed[] $filtro Se for um vetor, deve conter apenas uma dupla.
-	 * @return BD
+	 * @return Banco
 	 * @throws \Exception Implicitamente.
 	 */
 	public function deletar($filtro){
@@ -373,7 +373,7 @@ class ORM{
 			$sql=$this->montarExclusaoScalar($filtro);
 		}
 		
-		return $this->BD->requisitar($sql);
+		return $this->Banco->requisitar($sql);
 	}
 	
 	/**
@@ -417,7 +417,7 @@ class ORM{
 				$tupla[$campo]='null';
 			}else{
 				if($this->tipos[$campo]==='string'){
-					$tupla[$campo]=$this->BD->escapar($valor);
+					$tupla[$campo]=$this->Banco->escapar($valor);
 					$tupla[$campo]="'$tupla[$campo]'";
 				}else{
 					settype($tupla[$campo],$this->tipos[$campo]);
@@ -438,7 +438,7 @@ class ORM{
 	 */
 	private function tratarPk($pk){
 		if($this->tipos[$this->pk]==='string'){
-			$pk=$this->BD->escapar($pk);
+			$pk=$this->Banco->escapar($pk);
 			$pk="'$pk'";
 		}else{
 			settype($pk,$this->tipos[$this->pk]);
@@ -562,9 +562,9 @@ class ORM{
 		$tipos=$alias===$this->alias?$this->tipos:$this->ORM[$alias]->getTipos();
 		
 		if($operador==='like'){
-			$valor="'%{$this->BD->escapar($valor)}%'";
+			$valor="'%{$this->Banco->escapar($valor)}%'";
 		}else if($tipos[$campo]==='string'){
-			$valor="'{$this->BD->escapar($valor)}'";
+			$valor="'{$this->Banco->escapar($valor)}'";
 		}else{
 			settype($valor,$tipos[$campo]);
 		}
@@ -648,7 +648,7 @@ class ORM{
 	 * Lê registros da tabela (Read do CRUD)
 	 * 
 	 * @api
-	 * @return BD
+	 * @return Banco
 	 * @throws \Exception Implicitamente.
 	 */
 	public function ler(){
@@ -667,7 +667,7 @@ class ORM{
 			.$this->limite
 		;
 		
-		return $this->BD->requisitar($sql);
+		return $this->Banco->requisitar($sql);
 	}
 	
 	/**

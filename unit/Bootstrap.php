@@ -127,11 +127,11 @@ class Bootstrap{
 	 * @return Bootstrap
 	 */
 	private function banco(){
-		define('BD_SERVIDOR',$this->config['banco'][AMBIENTE]['servidor']);
-		define('BD_USUARIO',$this->config['banco'][AMBIENTE]['usuario']);
-		define('BD_SENHA',$this->config['banco'][AMBIENTE]['senha']);
-		define('BD_BANCO',$this->config['banco'][AMBIENTE]['banco']);
-		define('BD_CHARSET',$this->config['banco'][AMBIENTE]['charset']);
+		define('BANCO_SERVIDOR',$this->config['banco'][AMBIENTE]['servidor']);
+		define('BANCO_USUARIO',$this->config['banco'][AMBIENTE]['usuario']);
+		define('BANCO_SENHA',$this->config['banco'][AMBIENTE]['senha']);
+		define('BANCO_BANCO',$this->config['banco'][AMBIENTE]['banco']);
+		define('BANCO_CHARSET',$this->config['banco'][AMBIENTE]['charset']);
 		
 		return $this;
 	}

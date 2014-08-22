@@ -51,7 +51,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	
 	public function testDeletarArray(){
 		$ORM=new \miti\ORM('categoria');
-		$BD=$ORM->deletar(array('status'=>'c'));
+		$Banco=$ORM->deletar(array('status'=>'c'));
 		
 		$categoria=$ORM
 			->selecionar('c','id')
@@ -60,7 +60,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->obterQuantidade()
 		;
 		
-		$BD->cometer();
+		$Banco->cometer();
 		
 		$this->assertSame(0,$categoria);
 	}
