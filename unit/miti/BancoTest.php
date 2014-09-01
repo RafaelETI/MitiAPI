@@ -11,7 +11,7 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('Exception',"Unknown database 'nao_existe'");
 		
 		ini_set('display_errors',1);
-		new \miti\Banco(BANCO_SERVIDOR, BANCO_USUARIO, BANCO_SENHA, 'nao_existe');
+		new \miti\Banco(CFG_BANCO_SERVIDOR, CFG_BANCO_USUARIO, CFG_BANCO_SENHA, 'nao_existe');
 	}
 	
 	public function testErroDeConexaoComMensagemGenerica(){
@@ -19,14 +19,14 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('Exception',$mensagem);
 		
 		ini_set('display_errors',0);
-		new \miti\Banco(BANCO_SERVIDOR, BANCO_USUARIO, BANCO_SENHA, 'nao_existe');
+		new \miti\Banco(CFG_BANCO_SERVIDOR, CFG_BANCO_USUARIO, CFG_BANCO_SENHA, 'nao_existe');
 	}
 	
 	public function testErroDeCharset(){
 		$mensagem='Houve um erro ao definir o charset.';
 		$this->setExpectedException('Exception',$mensagem);
 		
-		new \miti\Banco(BANCO_SERVIDOR, BANCO_USUARIO, BANCO_SENHA, BANCO_BANCO, 'nao_existe');
+		new \miti\Banco(CFG_BANCO_SERVIDOR, CFG_BANCO_USUARIO, CFG_BANCO_SENHA, CFG_BANCO_NOME, 'nao_existe');
 	}
 	
 	public function testEscaparArray(){

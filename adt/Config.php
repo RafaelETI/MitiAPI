@@ -47,6 +47,7 @@ class Config{
 			->sistema()
 			->timezone()
 			->charset()
+			->salt()
 			->raiz()
 			->banco()
 			->sessao($restrito,$sessao)
@@ -70,6 +71,7 @@ class Config{
 		$this->config['versao']='1.5.16';
 		$this->config['timezone']='America/Sao_Paulo';
 		$this->config['charset']='iso-8859-1';
+		$this->config['salt'] = '$1$skazicom$';
 		
 		$this->config['raiz'][0]='';
 		$this->config['raiz'][1]='MitiAPI';
@@ -112,7 +114,7 @@ class Config{
 	 * @return Config
 	 */
 	private function ambiente(){
-		define('AMBIENTE',$this->config['ambiente']);
+		define('CFG_AMBIENTE', $this->config['ambiente']);
 		return $this;
 	}
 	
@@ -127,7 +129,7 @@ class Config{
 	private function erro(){
 		error_reporting(-1);
 		
-		if(AMBIENTE===0){
+		if(CFG_AMBIENTE === 0){
 			ini_set('display_errors',0);
 			ini_set('display_startup_errors',0);
 		}else{
@@ -148,10 +150,10 @@ class Config{
 	 * @return Config
 	 */
 	private function sistema(){
-		if(AMBIENTE===0){
-			define('SISTEMA',$this->config['sistema']);
+		if(CFG_AMBIENTE === 0){
+			define('CFG_SISTEMA', $this->config['sistema']);
 		}else{
-			define('SISTEMA',$this->config['sistema'].' '.$this->config['versao']);
+			define('CFG_SISTEMA', "{$this->config['sistema']} {$this->config['versao']}");
 		}
 		
 		return $this;
@@ -179,8 +181,21 @@ class Config{
 	 * @return Config
 	 */
 	private function charset(){
-		define('CHARSET',$this->config['charset']);
-		header('content-type:text/html; charset='.CHARSET);
+		define('CFG_CHARSET', $this->config['charset']);
+		header('Content-Type: text/html; charset='.CFG_CHARSET);
+		return $this;
+	}
+	
+	/**
+	 * Configura o salt
+	 * 
+	 * Recomenda-se usar a função crypt() para passar senhas por algoritmos de
+	 * hash ({@link http://php.net/manual/en/function.crypt.php}).
+	 * 
+	 * @return Config
+	 */
+	private function salt(){
+		define('CFG_SALT', $this->config['salt']);
 		return $this;
 	}
 	
@@ -195,8 +210,8 @@ class Config{
 	 * @return Config
 	 */
 	private function raiz(){
-		define('RAIZ_OS',$_SERVER['DOCUMENT_ROOT'].'/'.$this->config['raiz'][AMBIENTE]);
-		define('RAIZ_WEB','http://'.$_SERVER['HTTP_HOST'].'/'.$this->config['raiz'][AMBIENTE]);
+		define('CFG_RAIZ_OS', "{$_SERVER['DOCUMENT_ROOT']}/{$this->config['raiz'][CFG_AMBIENTE]}");
+		define('CFG_RAIZ_WEB', "http://{$_SERVER['HTTP_HOST']}/{$this->config['raiz'][CFG_AMBIENTE]}");
 		
 		return $this;
 	}
@@ -213,11 +228,11 @@ class Config{
 	 * @return Config
 	 */
 	private function banco(){
-		define('BANCO_SERVIDOR',$this->config['banco'][AMBIENTE]['servidor']);
-		define('BANCO_USUARIO',$this->config['banco'][AMBIENTE]['usuario']);
-		define('BANCO_SENHA',$this->config['banco'][AMBIENTE]['senha']);
-		define('BANCO_BANCO',$this->config['banco'][AMBIENTE]['banco']);
-		define('BANCO_CHARSET',$this->config['banco'][AMBIENTE]['charset']);
+		define('CFG_BANCO_SERVIDOR', $this->config['banco'][CFG_AMBIENTE]['servidor']);
+		define('CFG_BANCO_USUARIO', $this->config['banco'][CFG_AMBIENTE]['usuario']);
+		define('CFG_BANCO_SENHA', $this->config['banco'][CFG_AMBIENTE]['senha']);
+		define('CFG_BANCO_NOME', $this->config['banco'][CFG_AMBIENTE]['banco']);
+		define('CFG_BANCO_CHARSET', $this->config['banco'][CFG_AMBIENTE]['charset']);
 		
 		return $this;
 	}
@@ -237,7 +252,7 @@ class Config{
 		
 		if($restrito&&!isset($_SESSION[$sessao])){
 			$_SESSION['status']='Você não está autenticado.';
-			header('location:'.RAIZ_WEB);
+			header('Location: '.CFG_RAIZ_WEB);
 			exit;
 		}
 		
@@ -278,7 +293,7 @@ class Config{
 	 * @return Config
 	 */
 	private function autoload(){
-		spl_autoload_register(function($Classe){require RAIZ_OS."/$Classe.php";});
+		spl_autoload_register(function($Classe){require CFG_RAIZ_OS."/$Classe.php";});
 		return $this;
 	}
 	
@@ -310,7 +325,7 @@ class Config{
 			try{
 				$Objeto=new $Classe;
 				$_SESSION['status']=$Objeto->$_REQUEST['metodo']($requisicao);
-				header("location:{$_REQUEST['url']}");
+				header("Location: {$_REQUEST['url']}");
 				exit;
 			}catch(\Exception $e){
 				$_SESSION['status']=$e->getMessage();

@@ -62,11 +62,11 @@ class Banco{
 	 * @param string $charset
 	 */
 	public function __construct(
-		$servidor=BANCO_SERVIDOR,
-		$usuario=BANCO_USUARIO,
-		$senha=BANCO_SENHA,
-		$banco=BANCO_BANCO,
-		$charset=BANCO_CHARSET
+		$servidor=CFG_BANCO_SERVIDOR,
+		$usuario=CFG_BANCO_USUARIO,
+		$senha=CFG_BANCO_SENHA,
+		$banco=CFG_BANCO_NOME,
+		$charset=CFG_BANCO_CHARSET
 	){
 		$this->verificarExistenciaDaExtensao();
 		$this->conexao=@new \mysqli($servidor,$usuario,$senha,$banco);

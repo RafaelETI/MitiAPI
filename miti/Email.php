@@ -118,7 +118,7 @@ class Email{
 	 * @throws \Exception
 	 */
 	public function enviar(
-		$destinatario,$assunto,$mensagem,$remetente,$charset=CHARSET
+		$destinatario,$assunto,$mensagem,$remetente,$charset=CFG_CHARSET
 	){
 		if(
 			!mail(

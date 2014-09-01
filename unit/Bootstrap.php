@@ -25,6 +25,7 @@ class Bootstrap{
 			->erro()
 			->timezone()
 			->charset()
+			->salt()
 			->raiz()
 			->banco()
 			->sessao()
@@ -42,11 +43,12 @@ class Bootstrap{
 	 * @return Bootstrap
 	 */
 	private function config(){
-		$this->config['ambiente']=0;
+		$this->config['ambiente']=1;
 		$this->config['timezone']='America/Sao_Paulo';
 		$this->config['charset']='iso-8859-1';
+		$this->config['salt'] = '$1$skazicom$';
 
-		$this->config['banco'][0]=array(
+		$this->config['banco'][1]=array(
 			'servidor'=>'localhost',
 			'usuario'=>'root',
 			'senha'=>'root',
@@ -66,7 +68,7 @@ class Bootstrap{
 	 * @return Bootstrap
 	 */
 	private function ambiente(){
-		define('AMBIENTE',$this->config['ambiente']);
+		define('CFG_AMBIENTE', $this->config['ambiente']);
 		return $this;
 	}
 	
@@ -101,7 +103,20 @@ class Bootstrap{
 	 * @return Config
 	 */
 	private function charset(){
-		define('CHARSET',$this->config['charset']);
+		define('CFG_CHARSET', $this->config['charset']);
+		return $this;
+	}
+	
+	/**
+	 * Configura o salt
+	 * 
+	 * Recomenda-se usar a função crypt() para passar senhas por algoritmos de
+	 * hash ({@link http://php.net/manual/en/function.crypt.php}).
+	 * 
+	 * @return Config
+	 */
+	private function salt(){
+		define('CFG_SALT', $this->config['salt']);
 		return $this;
 	}
 	
@@ -111,7 +126,7 @@ class Bootstrap{
 	 * @return Bootstrap
 	 */
 	private function raiz(){
-		define('RAIZ',__DIR__.'/..');
+		define('CFG_RAIZ', __DIR__.'/..');
 		return $this;
 	}
 	
@@ -127,11 +142,11 @@ class Bootstrap{
 	 * @return Bootstrap
 	 */
 	private function banco(){
-		define('BANCO_SERVIDOR',$this->config['banco'][AMBIENTE]['servidor']);
-		define('BANCO_USUARIO',$this->config['banco'][AMBIENTE]['usuario']);
-		define('BANCO_SENHA',$this->config['banco'][AMBIENTE]['senha']);
-		define('BANCO_BANCO',$this->config['banco'][AMBIENTE]['banco']);
-		define('BANCO_CHARSET',$this->config['banco'][AMBIENTE]['charset']);
+		define('CFG_BANCO_SERVIDOR', $this->config['banco'][CFG_AMBIENTE]['servidor']);
+		define('CFG_BANCO_USUARIO', $this->config['banco'][CFG_AMBIENTE]['usuario']);
+		define('CFG_BANCO_SENHA', $this->config['banco'][CFG_AMBIENTE]['senha']);
+		define('CFG_BANCO_NOME', $this->config['banco'][CFG_AMBIENTE]['banco']);
+		define('CFG_BANCO_CHARSET', $this->config['banco'][CFG_AMBIENTE]['charset']);
 		
 		return $this;
 	}
@@ -159,7 +174,7 @@ class Bootstrap{
 	 */
 	private function autoload(){
 		spl_autoload_register(function($Classe){
-			$arquivo=RAIZ."/$Classe.php";
+			$arquivo = CFG_RAIZ."/$Classe.php";
 			
 			if(file_exists($arquivo)){
 				require $arquivo;

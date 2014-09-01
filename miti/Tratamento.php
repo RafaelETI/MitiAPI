@@ -98,7 +98,7 @@ class Tratamento{
 	 * @param string $charset
 	 * @return string|string[]|null
 	 */
-	public static function htmlSpecialChars($valores,$charset=CHARSET){
+	public static function htmlSpecialChars($valores,$charset=CFG_CHARSET){
 		if(!$valores){return;}
 		
 		if(is_array($valores)){

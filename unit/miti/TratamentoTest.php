@@ -3,21 +3,21 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	public function testRequererJs(){
 		$afirmacao=
 			"<script src='"
-			.RAIZ.'/unit/arquivo/Miti.js?hash=9c8dae732b54244ad5d731c9b0ffda22'
+			.CFG_RAIZ.'/unit/arquivo/Miti.js?hash=9c8dae732b54244ad5d731c9b0ffda22'
 			."'></script>\n"
 		;
 		
-		$this->assertSame($afirmacao,\miti\Tratamento::requerer(RAIZ.'/unit/arquivo/Miti.js'));
+		$this->assertSame($afirmacao,\miti\Tratamento::requerer(CFG_RAIZ.'/unit/arquivo/Miti.js'));
 	}
 	
 	public function testRequererCss(){
 		$afirmacao=
 			"<link rel='stylesheet' href='"
-			.RAIZ.'/unit/arquivo/miti.css?hash=0460587e6b979a3273027e4f079219dd'
+			.CFG_RAIZ.'/unit/arquivo/miti.css?hash=0460587e6b979a3273027e4f079219dd'
 			."' />\n"
 		;
 		
-		$this->assertSame($afirmacao,\miti\Tratamento::requerer(RAIZ.'/unit/arquivo/miti.css'));
+		$this->assertSame($afirmacao,\miti\Tratamento::requerer(CFG_RAIZ.'/unit/arquivo/miti.css'));
 	}
 	
 	public function testNaoSubstituirValor(){
@@ -35,8 +35,8 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testGarantirArquivo(){
-		$esperado=file_get_contents(RAIZ.'/unit/arquivo/miti.txt');
-		$arquivo=\miti\Tratamento::garantirArquivo('',RAIZ.'/unit/arquivo/miti.txt');
+		$esperado=file_get_contents(CFG_RAIZ.'/unit/arquivo/miti.txt');
+		$arquivo=\miti\Tratamento::garantirArquivo('',CFG_RAIZ.'/unit/arquivo/miti.txt');
 		$this->assertSame($esperado,$arquivo);
 	}
 	
