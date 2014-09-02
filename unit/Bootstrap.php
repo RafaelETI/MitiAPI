@@ -45,16 +45,14 @@ class Bootstrap{
 	private function config(){
 		$this->config['ambiente']=1;
 		$this->config['timezone']='America/Sao_Paulo';
-		$this->config['charset']='iso-8859-1';
-		$this->config['salt'] = '$1$skazicom$';
+		$this->config['charset']='ISO-8859-1';
+		$this->config['salt'] = '$1$mitiapi$$';
 
-		$this->config['banco'][1]=array(
-			'servidor'=>'localhost',
-			'usuario'=>'root',
-			'senha'=>'root',
-			'banco'=>'miti_api',
-			'charset'=>'latin1',
-		);
+		$this->config['banco']['charset'] = 'latin1';
+		$this->config['banco'][1]['servidor'] = 'localhost';
+		$this->config['banco'][1]['usuario'] = 'root';
+		$this->config['banco'][1]['senha'] = 'root';
+		$this->config['banco'][1]['nome'] = 'miti_api';
 		
 		return $this;
 	}
@@ -142,11 +140,11 @@ class Bootstrap{
 	 * @return Bootstrap
 	 */
 	private function banco(){
+		define('CFG_BANCO_CHARSET', $this->config['banco']['charset']);
 		define('CFG_BANCO_SERVIDOR', $this->config['banco'][CFG_AMBIENTE]['servidor']);
 		define('CFG_BANCO_USUARIO', $this->config['banco'][CFG_AMBIENTE]['usuario']);
 		define('CFG_BANCO_SENHA', $this->config['banco'][CFG_AMBIENTE]['senha']);
-		define('CFG_BANCO_NOME', $this->config['banco'][CFG_AMBIENTE]['banco']);
-		define('CFG_BANCO_CHARSET', $this->config['banco'][CFG_AMBIENTE]['charset']);
+		define('CFG_BANCO_NOME', $this->config['banco'][CFG_AMBIENTE]['nome']);
 		
 		return $this;
 	}

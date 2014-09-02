@@ -110,13 +110,6 @@ class Tratamento{
 		return $valores;
 	}
 	
-	/**
-	 * Itera a função nativa htmlspecialchars sobre um vetor
-	 * 
-	 * @param string[] $valores
-	 * @param string $charset
-	 * @return string[]
-	 */
 	private static function htmlSpecialCharsArray(array $valores,$charset){
 		foreach($valores as $i=>$valor){
 			$valores[$i]=htmlspecialchars($valor,ENT_QUOTES,$charset);
@@ -125,19 +118,12 @@ class Tratamento{
 		return $valores;
 	}
 	
-	/**
-	 * Passa uma string pela função nativa htmlspecialchars
-	 * 
-	 * @param string $valor
-	 * @param string $charset
-	 * @return string
-	 */
 	private static function htmlSpecialCharsScalar($valor,$charset){
 		return htmlspecialchars($valor,ENT_QUOTES,$charset);
 	}
 	
 	/**
-	 * Encurta a quantidade de caractéres de um valor ou valores
+	 * Encurta a quantidade de caractéres de um valor
 	 * 
 	 * @api
 	 * @param mixed|mixed[] $valores
@@ -156,13 +142,6 @@ class Tratamento{
 		return $valores;
 	}
 	
-	/**
-	 * Itera um vetor encurtando todos os seus valores
-	 * 
-	 * @param mixed[] $valores
-	 * @param int $tamanho
-	 * @return mixed[]
-	 */
 	private static function encurtarArray(array $valores,$tamanho){
 		foreach($valores as $i=>$valor){
 			if(strlen($valor)>$tamanho+2){
@@ -173,15 +152,44 @@ class Tratamento{
 		return $valores;
 	}
 	
-	/**
-	 * Encurta o tamanho de um valor
-	 * 
-	 * @param mixed $valor
-	 * @param int $tamanho
-	 * @return mixed
-	 */
 	private static function encurtarScalar($valor,$tamanho){
 		if(strlen($valor)>$tamanho+2){$valor=substr($valor,0,$tamanho).'...';}
+		return $valor;
+	}
+	
+	/**
+	 * Enxuga um texto
+	 * 
+	 * Não funcionou com a função iconv().
+	 * 
+	 * @api
+	 * @param string|string[] $valores
+	 * @return string|string[]|null
+	 */
+	public static function enxugar($valores){
+		if(!$valores){return;}
+	
+		if(is_array($valores)){
+			$valores = self::enxugarArray($valores);
+		}else{
+			$valores = self::enxugarScalar($valores);
+		}
+		
+		return $valores;
+	}
+	
+	private static function enxugarArray(array $valores){
+		foreach($valores as $i => $valor){
+			$valor = strtr($valor, 'àáãéêíóôõúç ÀÁÃÉÊÍÓÔÕÚÇ', 'aaaeeiooouc_AAAEEIOOOUC');
+			$valores[$i] = strtolower($valor);
+		}
+		
+		return $valores;
+	}
+	
+	private static function enxugarScalar($valor){
+		$valor = strtr($valor, 'àáãéêíóôõúç ÀÁÃÉÊÍÓÔÕÚÇ', 'aaaeeiooouc_AAAEEIOOOUC');
+		$valor = strtolower($valor);
 		return $valor;
 	}
 }

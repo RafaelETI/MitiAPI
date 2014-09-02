@@ -68,29 +68,23 @@ class Config{
 	private function config(){
 		$this->config['ambiente']=1;
 		$this->config['sistema']='Miti API';
-		$this->config['versao']='1.5.16';
+		$this->config['versao']='1.6.16';
 		$this->config['timezone']='America/Sao_Paulo';
-		$this->config['charset']='iso-8859-1';
-		$this->config['salt'] = '$1$skazicom$';
+		$this->config['charset']='ISO-8859-1';
+		$this->config['salt'] = '$1$mitiapi$$';
 		
 		$this->config['raiz'][0]='';
-		$this->config['raiz'][1]='MitiAPI';
+		$this->config['raiz'][1]='';
 		
-		$this->config['banco'][0]=array(
-			'servidor'=>'',
-			'usuario'=>'',
-			'senha'=>'',
-			'banco'=>'',
-			'charset'=>'',
-		);
-		
-		$this->config['banco'][1]=array(
-			'servidor'=>'',
-			'usuario'=>'',
-			'senha'=>'',
-			'banco'=>'',
-			'charset'=>'',
-		);
+		$this->config['banco']['charset'] = 'latin1';
+		$this->config['banco'][0]['servidor'] = '';
+		$this->config['banco'][0]['usuario'] = '';
+		$this->config['banco'][0]['senha'] = '';
+		$this->config['banco'][0]['nome'] = '';
+		$this->config['banco'][1]['servidor'] = '';
+		$this->config['banco'][1]['usuario'] = '';
+		$this->config['banco'][1]['senha'] = '';
+		$this->config['banco'][1]['nome'] = '';
 		
 		return $this;
 	}
@@ -204,7 +198,7 @@ class Config{
 	 * 
 	 * Tanto da perspectiva do sistema operacional, quanto da internet.
 	 * 
-	 * Configura-se uma string que não seja vazia caso o sistema não esteja na
+	 * Configura-se uma string que não seja vazia, caso o sistema não esteja na
 	 * raíz do diretório web, mas em um subdiretório.
 	 * 
 	 * @return Config
@@ -228,11 +222,11 @@ class Config{
 	 * @return Config
 	 */
 	private function banco(){
+		define('CFG_BANCO_CHARSET', $this->config['banco']['charset']);
 		define('CFG_BANCO_SERVIDOR', $this->config['banco'][CFG_AMBIENTE]['servidor']);
 		define('CFG_BANCO_USUARIO', $this->config['banco'][CFG_AMBIENTE]['usuario']);
 		define('CFG_BANCO_SENHA', $this->config['banco'][CFG_AMBIENTE]['senha']);
-		define('CFG_BANCO_NOME', $this->config['banco'][CFG_AMBIENTE]['banco']);
-		define('CFG_BANCO_CHARSET', $this->config['banco'][CFG_AMBIENTE]['charset']);
+		define('CFG_BANCO_NOME', $this->config['banco'][CFG_AMBIENTE]['nome']);
 		
 		return $this;
 	}

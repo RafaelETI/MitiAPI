@@ -45,9 +45,9 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testHtmlSpecialCharsArray(){
-		$esperado=array('&#039;','&quot;','&amp;','&lt;','&gt;');
+		$esperados=array('&#039;','&quot;','&amp;','&lt;','&gt;');
 		$escapados=\miti\Tratamento::htmlSpecialChars(array("'",'"','&','<','>'));
-		$this->assertSame($esperado,$escapados);
+		$this->assertSame($esperados,$escapados);
 	}
 	
 	public function testHtmlSpecialCharsScalar(){
@@ -60,12 +60,28 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testEncurtarArray(){
-		$esperado=array('aaaaa...','bbbbb...','ccccc...');
+		$esperados=array('aaaaa...','bbbbb...','ccccc...');
 		$curtos=\miti\Tratamento::encurtar(array('aaaaaaaaaa','bbbbbbbbbb','cccccccccc'));
-		$this->assertSame($esperado,$curtos);
+		$this->assertSame($esperados,$curtos);
 	}
 	
 	public function testEncurtarScalar(){
 		$this->assertSame('aaaaa...',\miti\Tratamento::encurtar('aaaaaaaaaa'));
+	}
+	
+	public function testEnxugarVazio(){
+		$this->assertSame(null, \miti\Tratamento::enxugar(''));
+	}
+	
+	public function testEnxugarArray(){
+		$esperados = array('oaaac_', 'eeoouc_', 'aaaeie_', 'iooou');
+		$enxutos = \miti\Tratamento::enxugar(array('ôàáãÇ ', 'éêóõúç ', 'ÀÁÃÉíÊ ', 'ÍÓÔÕÚ'));
+		$this->assertSame($esperados, $enxutos);
+	}
+	
+	public function testEnxugarScalar(){
+		$esperado = 'oaaac_eeoouc_aaaeie_iooou';
+		$enxuto = \miti\Tratamento::enxugar('ôàáãÇ éêóõúç ÀÁÃÉíÊ ÍÓÔÕÚ');
+		$this->assertSame($esperado, $enxuto);
 	}
 }
