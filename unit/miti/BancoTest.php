@@ -66,6 +66,10 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame(0,$this->Banco->getId());
 	}
 	
+	public function testRebobinar(){
+		$this->Banco->requisitar('update categoria set status = "c" where id = 3')->rebobinar();
+	}
+	
 	public function testObterAssoc(){
 		$categoria=$this->Banco->obterAssoc();
 		$this->assertSame('Filme',$categoria['nome']);

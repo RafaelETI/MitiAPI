@@ -119,6 +119,10 @@ class ORM{
 		$this->mapearCampos()->setPk()->setTipos()->setAnulaveis()->setTamanhos();
 	}
 	
+	public function getBanco(){
+		return $this->Banco;
+	}
+	
 	/**
 	 * Define o vetor de objetos dos campos
 	 * 
@@ -683,5 +687,19 @@ class ORM{
 		}
 		
 		return $propriedade;
+	}
+	
+	/**
+	 * Limpa todas as instruções SQL montadas em propriedades
+	 * 
+	 * @api
+	 */
+	public function zerar(){
+		$this->selecoes = '';
+		$this->juncoes = '';
+		$this->filtros = '';
+		$this->grupos = '';
+		$this->ordens = '';
+		$this->limite = '';
 	}
 }

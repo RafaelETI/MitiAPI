@@ -1,5 +1,10 @@
 <?php
 class ORMTest extends PHPUnit_Framework_TestCase{
+	public function testGetBanco(){
+		$ORM = new \miti\ORM('memoria');
+		$this->assertTrue(is_a($ORM->getBanco(), '\miti\Banco'));
+	}
+	
 	public function testGetTipos(){
 		$ORM=new \miti\ORM('categoria');
 		$tipos=array('id'=>'float','nome'=>'string','status'=>'string');
@@ -186,5 +191,12 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 		$ORM=new \miti\ORM('memoria');
 		$quantidade=$ORM->selecionar('m','id')->limitar(1,2)->ler()->obterQuantidade();
 		$this->assertSame(1,$quantidade);
+	}
+	
+	public function testZerar(){
+		$ORM = new \miti\ORM('memoria');
+		$ORM->limitar(1)->zerar();
+		$quantidade = $ORM->selecionar('m','id')->ler()->obterQuantidade();
+		$this->assertSame(3, $quantidade);
 	}
 }

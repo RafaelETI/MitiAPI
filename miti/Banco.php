@@ -214,6 +214,10 @@ class Banco{
 		return $this;
 	}
 	
+	public function getAfetados(){
+		return $this->afetados;
+	}
+	
 	/**
 	 * Define o id auto incrementado da última inserção
 	 * 
@@ -224,25 +228,6 @@ class Banco{
 		return $this;
 	}
 	
-	/**
-	 * Retorna a quantidade de registros afetados na última requisição
-	 * 
-	 * Esses registros são aqueles relacionados à qualquer tipo de requisição
-	 * do CRUD.
-	 * 
-	 * @api
-	 * @return int
-	 */
-	public function getAfetados(){
-		return $this->afetados;
-	}
-	
-	/**
-	 * Retorna o id auto incrementado da última inserção
-	 * 
-	 * @api
-	 * @return int
-	 */
 	public function getId(){
 		return $this->id;
 	}
@@ -266,6 +251,18 @@ class Banco{
 	 */
 	public function cometer(){
 		$this->conexao->commit();
+	}
+	
+	/**
+	 * Rebobina a última transação aberta
+	 * 
+	 * As transações são rebobinadas automaticamente ao final dos processos. Essa
+	 * chamada é necessária quando queira-se rebobinar antes do final do processo.
+	 * 
+	 * @api
+	 */
+	public function rebobinar(){
+		$this->conexao->rollback();
 	}
 	
 	/**
