@@ -352,7 +352,7 @@ class ORM{
 	 */
 	private function validar(array $tupla){
 		foreach($tupla as $campo=>$valor){
-			if(!$this->anulaveis[$campo]&&!$valor){
+			if(!$this->anulaveis[$campo] && $valor === ''){
 				throw new \Exception("Valor vazio para o campo '$campo'.");
 			}
 			
