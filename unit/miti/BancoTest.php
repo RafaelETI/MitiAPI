@@ -40,7 +40,7 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testErroDeRequisicaoComMensagemTecnica(){
 		$mensagem=
-			"Duplicate entry '1' for key 'PRIMARY'\n\n"
+			"Duplicate entry '1' for key 'PRIMARY' - "
 			.'insert into categoria values(1,"Música",null)'
 		;
 		

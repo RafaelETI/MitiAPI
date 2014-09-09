@@ -193,7 +193,7 @@ class Banco{
 	private function verificarErroRequisicao($sql){
 		if($this->conexao->error){
 			if(ini_get('display_errors')){
-				$mensagem="{$this->conexao->error}\n\n$sql";
+				$mensagem="{$this->conexao->error} - $sql";
 			}else{
 				$mensagem='Houve um erro ao realizar a requisição.';
 			}
