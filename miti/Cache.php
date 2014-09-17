@@ -30,13 +30,13 @@ class Cache{
 	public static function definirTempo($minutos){
 		$segundos=$minutos*60;
 		
-		header("cache-control:max-age=$segundos");
+		header("Cache-Control: max-age=$segundos");
 
 		$DateTime=new \DateTime;
 		$agora=$DateTime->format(DateTime::RFC1123);
 		$validade=$DateTime->modify("$segundos sec")->format(DateTime::RFC1123);
 		
-		header("last-modified:$validade");
+		header("Last-Modified: $validade");
 
 		$header=getallheaders();
 		if(isset($header['If-Modified-Since'])){

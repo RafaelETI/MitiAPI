@@ -34,7 +34,7 @@ class Paginacao{
 	/**
 	 * @var int Quantidade total de botões simultâneos para troca de página.
 	 */
-	private $quantidadeBotoes;
+	private $quantidadeDeBotoes;
 	
 	/**
 	 * @var int Posição do registro inicial da página.
@@ -44,7 +44,7 @@ class Paginacao{
 	/**
 	 * @var int Quantidade total de páginas.
 	 */
-	private $quantidadePaginas;
+	private $quantidadeDePaginas;
 	
 	/**
 	 * @var int Número da página do botão inicial.
@@ -60,10 +60,10 @@ class Paginacao{
 	 * Define as propriedades
 	 * 
 	 * Os parâmetros passados de forma arbitrária pelo usuário são: $quantidade,
-	 * $pagina, e $quantidadeBotoes. O total deve ser conseguido através de uma
+	 * $pagina, e $quantidadeDeBotoes. O total deve ser conseguido através de uma
 	 * requisição ao banco, e o resto, atráves de cálculos.
 	 * 
-	 * Recomenda-se que o valor do $quantidadeBotoes seja ímpar para que o botão
+	 * Recomenda-se que o valor do $quantidadeDeBotoes seja ímpar para que o botão
 	 * da página atual fique no centro e tenha a mesma quantidade de botões de
 	 * cada lado.
 	 * 
@@ -71,19 +71,19 @@ class Paginacao{
 	 * @param int $total
 	 * @param int $quantidade
 	 * @param string $pagina
-	 * @param int $quantidadeBotoes
+	 * @param int $quantidadeDeBotoes
 	 */
-	public function __construct($total,$quantidade,$pagina,$quantidadeBotoes){
+	public function __construct($total,$quantidade,$pagina,$quantidadeDeBotoes){
 		$this->total=$total;
 		$this->quantidade=$quantidade;
 		$this->pagina=$pagina;
-		$this->quantidadeBotoes=$quantidadeBotoes;
+		$this->quantidadeDeBotoes=$quantidadeDeBotoes;
 		
 		$this->inicio=($this->pagina-1)*$this->quantidade;
 		
-		$this->quantidadePaginas=ceil($this->total/$this->quantidade)+1;
+		$this->quantidadeDePaginas=ceil($this->total/$this->quantidade)+1;
 		
-		$metade=ceil($this->quantidadeBotoes/2)-1;
+		$metade=ceil($this->quantidadeDeBotoes/2)-1;
 		$this->botaoInicial=$this->pagina-$metade;
 		$this->botaoFinal=$this->pagina+$metade;
 	}
@@ -133,23 +133,23 @@ class Paginacao{
 			$paginacao.="<span class='$off'>Anterior</span>";
 		}
 		
-		for($x=$this->botaoInicial;$x<=$this->botaoFinal;$x++){
-			if($this->pagina==$x){
-				$paginacao.="<span class='$on'>$x</span>";
+		for($botao=$this->botaoInicial;$botao<=$this->botaoFinal;$botao++){
+			if($this->pagina==$botao){
+				$paginacao.="<span class='$on'>$botao</span>";
 			}else{
-				if($x<1||$x>=$this->quantidadePaginas){continue;}
-				$paginacao.="<a href='$url$x'>$x</a>";
+				if($botao<1||$botao>=$this->quantidadeDePaginas){continue;}
+				$paginacao.="<a href='$url$botao'>$botao</a>";
 			}
 		}
 		
-		if(($this->pagina+1)<$this->quantidadePaginas){
+		if(($this->pagina+1)<$this->quantidadeDePaginas){
 			$paginacao.="<a href='$url".($this->pagina+1)."'>Próxima</a>";
 		}else{
 			$paginacao.="<span class='$off'>Próxima</span>";
 		}
 		
-		if($this->pagina!=($this->quantidadePaginas-1)){
-			$paginacao.="<a href='$url".($this->quantidadePaginas-1)."'>Última</a>";
+		if($this->pagina!=($this->quantidadeDePaginas-1)){
+			$paginacao.="<a href='$url".($this->quantidadeDePaginas-1)."'>Última</a>";
 		}else{
 			$paginacao.="<span class='$off'>Última</span>";
 		}

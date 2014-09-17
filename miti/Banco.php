@@ -21,12 +21,12 @@ class Banco{
 	/**
 	 * @var Object
 	 */
-	private $conexao;
+	private $Conexao;
 	
 	/**
 	 * @var Object Result set de uma requisição.
 	 */
-	private $requisicao;
+	private $Requisicao;
 	
 	/**
 	 * @var int Quantidade de registros afetados por uma requisição.
@@ -69,10 +69,10 @@ class Banco{
 		$charset=CFG_BANCO_CHARSET
 	){
 		$this->verificarExistenciaDaExtensao();
-		$this->conexao=@new \mysqli($servidor,$usuario,$senha,$banco);
+		$this->Conexao=@new \mysqli($servidor,$usuario,$senha,$banco);
 		$this->verificarErroDeConexao();
 		$this->definirCharset($charset);
-		$this->conexao->autocommit(false);
+		$this->Conexao->autocommit(false);
 	}
 	
 	/**
@@ -99,9 +99,9 @@ class Banco{
 	 * @throws \Exception
 	 */
 	private function verificarErroDeConexao(){
-		if($this->conexao->connect_error){
+		if($this->Conexao->connect_error){
 			if(ini_get('display_errors')){
-				$mensagem=$this->conexao->connect_error;
+				$mensagem=$this->Conexao->connect_error;
 			}else{
 				$mensagem='Não foi possível conectar ao banco de dados.';
 			}
@@ -118,7 +118,7 @@ class Banco{
 	 * @throws \Exception Muito raro de acontecer.
 	 */
 	private function definirCharset($charset){
-		if(!$this->conexao->set_charset($charset)){
+		if(!$this->Conexao->set_charset($charset)){
 			throw new \Exception('Houve um erro ao definir o charset.');
 		}
 	}
@@ -144,28 +144,16 @@ class Banco{
 		return $valores;
 	}
 	
-	/**
-	 * Escapa um array
-	 * 
-	 * @param string[] $valores
-	 * @return string[]
-	 */
 	private function escaparArray(array $valores){
 		foreach($valores as $i=>$valor){
-			$valores[$i]=$this->conexao->real_escape_string($valor);
+			$valores[$i]=$this->Conexao->real_escape_string($valor);
 		}
 		
 		return $valores;
 	}
 	
-	/**
-	 * Escapa uma string
-	 * 
-	 * @param string $valor
-	 * @return string
-	 */
 	private function escaparString($valor){
-		return $this->conexao->real_escape_string($valor);
+		return $this->Conexao->real_escape_string($valor);
 	}
 	
 	/**
@@ -176,7 +164,7 @@ class Banco{
 	 * @return Banco
 	 */
 	public function requisitar($sql){
-		$this->requisicao=$this->conexao->query($sql);
+		$this->Requisicao=$this->Conexao->query($sql);
 		$this->verificarErroRequisicao($sql)->setAfetados()->setId();
 		return $this;
 	}
@@ -191,9 +179,9 @@ class Banco{
 	 * @throws \Exception
 	 */
 	private function verificarErroRequisicao($sql){
-		if($this->conexao->error){
+		if($this->Conexao->error){
 			if(ini_get('display_errors')){
-				$mensagem="{$this->conexao->error} - $sql";
+				$mensagem="{$this->Conexao->error} - $sql";
 			}else{
 				$mensagem='Houve um erro ao realizar a requisição.';
 			}
@@ -210,7 +198,7 @@ class Banco{
 	 * @return Banco
 	 */
 	private function setAfetados(){
-		$this->afetados=$this->conexao->affected_rows;
+		$this->afetados=$this->Conexao->affected_rows;
 		return $this;
 	}
 	
@@ -224,7 +212,7 @@ class Banco{
 	 * @return Banco
 	 */
 	private function setId(){
-		$this->id=$this->conexao->insert_id;
+		$this->id=$this->Conexao->insert_id;
 		return $this;
 	}
 	
@@ -250,7 +238,7 @@ class Banco{
 	 * @api
 	 */
 	public function cometer(){
-		$this->conexao->commit();
+		$this->Conexao->commit();
 	}
 	
 	/**
@@ -262,7 +250,7 @@ class Banco{
 	 * @api
 	 */
 	public function rebobinar(){
-		$this->conexao->rollback();
+		$this->Conexao->rollback();
 	}
 	
 	/**
@@ -276,7 +264,7 @@ class Banco{
 	 * @return string[]
 	 */
 	public function obterAssoc(){
-		return $this->requisicao->fetch_assoc();
+		return $this->Requisicao->fetch_assoc();
 	}
 	
 	/**
@@ -289,7 +277,7 @@ class Banco{
 	 * @return int
 	 */
 	public function obterQuantidade(){
-		return $this->requisicao->num_rows;
+		return $this->Requisicao->num_rows;
 	}
 	
 	/**
@@ -302,13 +290,13 @@ class Banco{
 	 * @return Object[]
 	 */
 	public function obterCampos(){
-		return $this->requisicao->fetch_fields();
+		return $this->Requisicao->fetch_fields();
 	}
 	
 	/**
 	 * Fecha a conexão com o banco
 	 */
 	public function __destruct(){
-		$this->conexao->close();
+		$this->Conexao->close();
 	}
 }

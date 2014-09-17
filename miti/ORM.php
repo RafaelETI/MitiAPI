@@ -141,9 +141,9 @@ class ORM{
 	 * @return ORM
 	 */
 	private function setPk(){
-		foreach($this->campos as $campo){
-			if($campo->flags&2){
-				$this->pk=$campo->orgname;
+		foreach($this->campos as $Campo){
+			if($Campo->flags&2){
+				$this->pk=$Campo->orgname;
 				break;
 			}
 		}
@@ -165,11 +165,11 @@ class ORM{
 	 * @return ORM
 	 */
 	private function setTipos(){
-		foreach($this->campos as $campo){
-			if($campo->flags&32768){
-				$this->tipos[$campo->orgname]='float';
+		foreach($this->campos as $Campo){
+			if($Campo->flags&32768){
+				$this->tipos[$Campo->orgname]='float';
 			}else{
-				$this->tipos[$campo->orgname]='string';
+				$this->tipos[$Campo->orgname]='string';
 			}
 		}
 		
@@ -188,11 +188,11 @@ class ORM{
 	 * @return ORM
 	 */
 	private function setAnulaveis(){
-		foreach($this->campos as $campo){
-			if($campo->flags&1){
-				$this->anulaveis[$campo->orgname]=false;
+		foreach($this->campos as $Campo){
+			if($Campo->flags&1){
+				$this->anulaveis[$Campo->orgname]=false;
 			}else{
-				$this->anulaveis[$campo->orgname]=true;
+				$this->anulaveis[$Campo->orgname]=true;
 			}
 		}
 		
@@ -209,8 +209,8 @@ class ORM{
 	 * @return ORM
 	 */
 	private function setTamanhos(){
-		foreach($this->campos as $campo){
-			$this->tamanhos[$campo->orgname]=$campo->length;
+		foreach($this->campos as $Campo){
+			$this->tamanhos[$Campo->orgname]=$Campo->length;
 		}
 		
 		return $this;
@@ -380,12 +380,6 @@ class ORM{
 		return $this->Banco->requisitar($sql);
 	}
 	
-	/**
-	 * Monta a instrução com um vetor
-	 * 
-	 * @param mixed[] $dupla
-	 * @return string
-	 */
 	private function montarExclusaoArray(array $dupla){
 		$dupla=$this->tratar($dupla);
 		
@@ -396,12 +390,6 @@ class ORM{
 		return $sql;
 	}
 	
-	/**
-	 * Monta a instrução com um valor
-	 * 
-	 * @param mixed $pk
-	 * @return string
-	 */
 	private function montarExclusaoScalar($pk){
 		$pk=$this->tratarPk($pk);
 		return "delete from $this->tabela where $this->pk=$pk";
@@ -461,7 +449,7 @@ class ORM{
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
 	 * 
-	 * @param string $alias_campo Importante para resolver conflitos com campos
+	 * @param string $aliasCampo Importante para resolver conflitos com campos
 	 * de tabelas juntadas ou para simplificar nomes criados à partir do uso de
 	 * funções do banco.
 	 * 
@@ -470,11 +458,11 @@ class ORM{
 	 * 
 	 * @return ORM
 	 */
-	public function selecionar($alias,$campo,$alias_campo='',$funcao='%s'){
+	public function selecionar($alias,$campo,$aliasCampo='',$funcao='%s'){
 		$separador=$this->selecoes?',':'';
 		$campo=sprintf($funcao,"$alias.$campo");
-		if($alias_campo){$alias_campo=" as $alias_campo";}
-		$this->selecoes.="$separador $campo $alias_campo ";
+		if($aliasCampo){$aliasCampo=" as $aliasCampo";}
+		$this->selecoes.="$separador $campo $aliasCampo ";
 		return $this;
 	}
 	
@@ -488,21 +476,21 @@ class ORM{
 	 * @param string $juncao join, left join, etc.
 	 * @param string $externa Nome da tabela externa à ser juntada.
 	 * @param string $alias Da tabela externa.
-	 * @param string $alias_campo
+	 * @param string $aliasCampo
 	 * @param string $campo
-	 * @param string $alias_campo_externa
-	 * @param string $campo_externa
+	 * @param string $aliasCampoExterna
+	 * @param string $campoExterna
 	 * @return ORM
 	 */
 	public function juntar(
-		$juncao,$externa,$alias,$alias_campo,$campo,$alias_campo_externa,$campo_externa
+		$juncao,$externa,$alias,$aliasCampo,$campo,$aliasCampoExterna,$campoExterna
 	){
 		$this->ORM[$alias]=new ORM($externa);
 		
 		$this->juncoes.=
 			"$juncao $externa $alias"
-			." on $alias_campo.$campo"
-			."=$alias_campo_externa.$campo_externa "
+			." on $aliasCampo.$campo"
+			."=$aliasCampoExterna.$campoExterna "
 		;
 		
 		return $this;

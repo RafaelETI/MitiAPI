@@ -33,7 +33,7 @@ class Email{
 	/**
 	 * @var string Responder para. Ainda descobrindo a utilidade.
 	 */
-	private $replyto='';
+	private $replyTo='';
 	
 	/**
 	 * @var array[]
@@ -79,11 +79,11 @@ class Email{
 	 * Define o e-mail para resposta
 	 * 
 	 * @api
-	 * @param string $replyto
+	 * @param string $replyTo
 	 * @return Email
 	 */
-	public function setReplyTo($replyto){
-		$this->replyto=$replyto;
+	public function setReplyTo($replyTo){
+		$this->replyTo=$replyTo;
 		return $this;
 	}
 	
@@ -157,7 +157,7 @@ class Email{
 	private function montarCabecalhoBasico($remetente){
 		return
 			"From: $remetente\r\n"
-			."Reply-To: $this->replyto\r\n"
+			."Reply-To: $this->replyTo\r\n"
 			."Cc: $this->cc\r\n"
 			."Bcc: $this->bcc\r\n"
 			."MIME-Version: 1.0\r\n"
