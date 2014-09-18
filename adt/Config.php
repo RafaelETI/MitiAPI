@@ -74,7 +74,7 @@ class Config{
 		$this->config['salt'] = '$1$mitiapi$$';
 		
 		$this->config['raiz'][0]='';
-		$this->config['raiz'][1]='';
+		$this->config['raiz'][1]='/MitiAPI';
 		
 		$this->config['banco']['charset'] = 'latin1';
 		$this->config['banco'][0]['servidor'] = '';
@@ -198,14 +198,14 @@ class Config{
 	 * 
 	 * Tanto da perspectiva do sistema operacional, quanto da internet.
 	 * 
-	 * Configura-se uma string que não seja vazia, caso o sistema não esteja na
-	 * raíz do diretório web, mas em um subdiretório.
+	 * Configura-se uma string, que não seja vazia, prefixada por uma barra, caso
+	 * o sistema não esteja na raíz do diretório web, mas em um subdiretório.
 	 * 
 	 * @return Config
 	 */
 	private function raiz(){
-		define('CFG_RAIZ_OS', "{$_SERVER['DOCUMENT_ROOT']}/{$this->config['raiz'][CFG_AMBIENTE]}");
-		define('CFG_RAIZ_WEB', "http://{$_SERVER['HTTP_HOST']}/{$this->config['raiz'][CFG_AMBIENTE]}");
+		define('CFG_RAIZ_OS', $_SERVER['DOCUMENT_ROOT'].$this->config['raiz'][CFG_AMBIENTE]);
+		define('CFG_RAIZ_WEB', "http://{$_SERVER['HTTP_HOST']}{$this->config['raiz'][CFG_AMBIENTE]}");
 		
 		return $this;
 	}
@@ -287,7 +287,11 @@ class Config{
 	 * @return Config
 	 */
 	private function autoload(){
-		spl_autoload_register(function($Classe){require CFG_RAIZ_OS."/$Classe.php";});
+		spl_autoload_register(function($Classe){
+			$Classe = str_replace('\\', '/', $Classe);
+			require CFG_RAIZ_OS."/$Classe.php";
+		});
+		
 		return $this;
 	}
 	

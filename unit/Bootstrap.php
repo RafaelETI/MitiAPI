@@ -173,10 +173,7 @@ class Bootstrap{
 	private function autoload(){
 		spl_autoload_register(function($Classe){
 			$arquivo = CFG_RAIZ."/$Classe.php";
-			
-			if(file_exists($arquivo)){
-				require $arquivo;
-			}
+			if(file_exists($arquivo)){require $arquivo;}
 		});
 		
 		return $this;
