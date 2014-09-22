@@ -172,6 +172,7 @@ class Bootstrap{
 	 */
 	private function autoload(){
 		spl_autoload_register(function($Classe){
+			$Classe = str_replace('\\', '/', $Classe);
 			$arquivo = CFG_RAIZ."/$Classe.php";
 			if(file_exists($arquivo)){require $arquivo;}
 		});
