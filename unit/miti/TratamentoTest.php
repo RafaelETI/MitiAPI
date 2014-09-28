@@ -3,7 +3,7 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	public function testRequererJs(){
 		$afirmacao=
 			"<script src='"
-			.CFG_RAIZ.'/unit/arquivo/Miti.js?hash=9c8dae732b54244ad5d731c9b0ffda22'
+			.CFG_RAIZ.'/unit/arquivo/Miti.js?hash=44cac76ce9712f378cd2ce873c867d35'
 			."'></script>\n"
 		;
 		
@@ -13,7 +13,7 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	public function testRequererCss(){
 		$afirmacao=
 			"<link rel='stylesheet' href='"
-			.CFG_RAIZ.'/unit/arquivo/miti.css?hash=0460587e6b979a3273027e4f079219dd'
+			.CFG_RAIZ.'/unit/arquivo/miti.css?hash=e631c0fcfe2d0908386964fea8f43003'
 			."' />\n"
 		;
 		
