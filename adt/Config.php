@@ -340,11 +340,9 @@ class Config{
 	 * ao método tenha apenas valores importantes à ele.
 	 */
 	private function tratarRequisicao(){
-		if(!isset($_REQUEST['url'])){
-			$_REQUEST['url']=$_SERVER['HTTP_REFERER'];
-		}
+		if(!isset($_REQUEST['url'])){$_REQUEST['url'] = $_SERVER['HTTP_REFERER'];}
+		$requisicao = $_SERVER['REQUEST_METHOD'] === 'POST'? $_POST: $_GET;
 		
-		$requisicao=$_REQUEST;
 		unset($requisicao['metodo']);
 		unset($requisicao['url']);
 		

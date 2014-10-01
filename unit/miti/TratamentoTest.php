@@ -1,23 +1,15 @@
 <?php
 class TratamentoTest extends PHPUnit_Framework_TestCase{
 	public function testRequererJs(){
-		$afirmacao=
-			"<script src='"
-			.CFG_RAIZ.'/unit/arquivo/Miti.js?hash=44cac76ce9712f378cd2ce873c867d35'
-			."'></script>\n"
-		;
-		
-		$this->assertSame($afirmacao,\miti\Tratamento::requerer(CFG_RAIZ.'/unit/arquivo/Miti.js'));
+		$padrao = "/^<script src='arquivo\/Miti\.js\?hash=[a-f\d]{32}'><\/script>\\n$/i";
+		$requerimento = \miti\Tratamento::requerer('arquivo/Miti.js');
+		$this->assertSame(1, preg_match($padrao, $requerimento));
 	}
 	
 	public function testRequererCss(){
-		$afirmacao=
-			"<link rel='stylesheet' href='"
-			.CFG_RAIZ.'/unit/arquivo/miti.css?hash=e631c0fcfe2d0908386964fea8f43003'
-			."' />\n"
-		;
-		
-		$this->assertSame($afirmacao,\miti\Tratamento::requerer(CFG_RAIZ.'/unit/arquivo/miti.css'));
+		$padrao = "/^<link rel='stylesheet' href='arquivo\/miti\.css\?hash=[a-f\d]{32}' \/>\\n$/i";
+		$requerimento = \miti\Tratamento::requerer('arquivo/miti.css');
+		$this->assertSame(1, preg_match($padrao, $requerimento));
 	}
 	
 	public function testNaoSubstituirValor(){
