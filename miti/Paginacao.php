@@ -60,8 +60,8 @@ class Paginacao{
 	 * Define as propriedades
 	 * 
 	 * Os parâmetros passados de forma arbitrária pelo usuário são: $quantidade,
-	 * $pagina, e $quantidadeDeBotoes. O total deve ser conseguido através de uma
-	 * requisição ao banco, e o resto, atráves de cálculos.
+	 * $pagina, $quantidadeDeBotoes, e $filtros. O total deve ser conseguido através
+	 * de uma requisição ao banco, e o resto, atráves de cálculos.
 	 * 
 	 * Recomenda-se que o valor do $quantidadeDeBotoes seja ímpar para que o botão
 	 * da página atual fique no centro e tenha a mesma quantidade de botões de
@@ -73,19 +73,19 @@ class Paginacao{
 	 * @param string $pagina
 	 * @param int $quantidadeDeBotoes
 	 */
-	public function __construct($total,$quantidade,$pagina,$quantidadeDeBotoes){
-		$this->total=$total;
-		$this->quantidade=$quantidade;
-		$this->pagina=$pagina;
-		$this->quantidadeDeBotoes=$quantidadeDeBotoes;
+	public function __construct($total, $quantidade, $pagina, $quantidadeDeBotoes){
+		$this->total = $total;
+		$this->quantidade = $quantidade;
+		$this->pagina = $pagina;
+		$this->quantidadeDeBotoes = $quantidadeDeBotoes;
 		
-		$this->inicio=($this->pagina-1)*$this->quantidade;
+		$this->inicio = ($this->pagina - 1) * $this->quantidade;
 		
-		$this->quantidadeDePaginas=ceil($this->total/$this->quantidade)+1;
+		$this->quantidadeDePaginas = ceil($this->total / $this->quantidade) + 1;
 		
-		$metade=ceil($this->quantidadeDeBotoes/2)-1;
-		$this->botaoInicial=$this->pagina-$metade;
-		$this->botaoFinal=$this->pagina+$metade;
+		$metade = ceil($this->quantidadeDeBotoes / 2) - 1;
+		$this->botaoInicial = $this->pagina - $metade;
+		$this->botaoFinal = $this->pagina + $metade;
 	}
 	
 	/**
@@ -106,54 +106,64 @@ class Paginacao{
 	/**
 	 * Cria a paginação em HTML
 	 * 
-	 * Caso não haja um total de registros maior que zero, é retornada uma
-	 * mensagem de status.
-	 * 
 	 * São gerados os botões: Primeira, Anterior, Próxima, e Última, além dos
 	 * númericos incrementados de um em um, com o limite definido pelo usuário.
 	 * 
 	 * @api
-	 * @param string $url Pedaço da URL que antecede o número da página.
-	 * @param string $on Nome da classe css que estiliza o botão para ativado.
-	 * @param string $off Nome da classe css que estiliza o botão para desativado.
+	 * @param string $pagina Nome do parâmetro do valor da página.
+	 * @param string $on Nome da classe css que estiliza o botão ativo.
+	 * @param string $off Nome da classe css que estiliza os botões desativados.
+	 * @param string[] $filtros No formato "campo => valor".
 	 * @return string
 	 */
-	public function criar($url,$on='',$off=''){
-		if(!$this->total){return 'Não há registros para esta busca';}
+	public function criar($pagina, $on = '', $off = '', array $filtros = array()){
+		$queryString = $this->formatarQueryString($filtros, $pagina);
 		
-		if($this->pagina!=1){
-			$paginacao="<a href='{$url}1'>Primeira</a>";
-		}else{
-			$paginacao="<span class='$off'>Primeira</span>";
-		}
+		$paginacao = $this->pagina != 1?
+			"<a href='?$queryString=1'>Primeira</a>":
+			"<span class='$off'>Primeira</span>";
 		
-		if($this->pagina>1){
-			$paginacao.="<a href='$url".($this->pagina-1)."'>Anterior</a>";
-		}else{
-			$paginacao.="<span class='$off'>Anterior</span>";
-		}
+		$paginacao .= $this->pagina > 1?
+			"<a href='?$queryString=".($this->pagina - 1)."'>Anterior</a>":
+			"<span class='$off'>Anterior</span>";
 		
-		for($botao=$this->botaoInicial;$botao<=$this->botaoFinal;$botao++){
-			if($this->pagina==$botao){
-				$paginacao.="<span class='$on'>$botao</span>";
+		for($botao = $this->botaoInicial; $botao <= $this->botaoFinal; $botao++){
+			if($this->pagina == $botao){
+				$paginacao .= "<span class='$on'>$botao</span>";
 			}else{
-				if($botao<1||$botao>=$this->quantidadeDePaginas){continue;}
-				$paginacao.="<a href='$url$botao'>$botao</a>";
+				if($botao < 1 || $botao >= $this->quantidadeDePaginas){continue;}
+				$paginacao .= "<a href='?$queryString=$botao'>$botao</a>";
 			}
 		}
 		
-		if(($this->pagina+1)<$this->quantidadeDePaginas){
-			$paginacao.="<a href='$url".($this->pagina+1)."'>Próxima</a>";
-		}else{
-			$paginacao.="<span class='$off'>Próxima</span>";
-		}
+		$paginacao .= ($this->pagina + 1) < $this->quantidadeDePaginas?
+			"<a href='?$queryString=".($this->pagina + 1)."'>Próxima</a>":
+			"<span class='$off'>Próxima</span>";
 		
-		if($this->pagina!=($this->quantidadeDePaginas-1)){
-			$paginacao.="<a href='$url".($this->quantidadeDePaginas-1)."'>Última</a>";
-		}else{
-			$paginacao.="<span class='$off'>Última</span>";
-		}
+		$paginacao .= $this->pagina != ($this->quantidadeDePaginas - 1)?
+			"<a href='?$queryString=".($this->quantidadeDePaginas - 1)."'>Última</a>":
+			"<span class='$off'>Última</span>";
 		
 		return $paginacao;
+	}
+	
+	/**
+	 * Formata o vetor de filtros em texto, no padrão de uma query string
+	 * 
+	 * @param string[] $filtros
+	 * @param string $pagina
+	 * @return string
+	 */
+	private function formatarQueryString(array $filtros, $pagina){
+		$queryString = array();
+		
+		foreach($filtros as $campo => $valor){
+			if($campo === $pagina){continue;}
+			$queryString[] = "$campo=$valor";
+		}
+		
+		$queryString = implode('&amp;', $queryString);
+		$queryString .= $queryString? '&amp;'.$pagina: $pagina;
+		return $queryString;
 	}
 }
