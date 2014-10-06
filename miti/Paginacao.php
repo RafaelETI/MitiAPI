@@ -106,7 +106,7 @@ class Paginacao{
 	/**
 	 * Cria a paginação em HTML
 	 * 
-	 * São gerados os botões: Primeira, Anterior, Próxima, e Última, além dos
+	 * São gerados os botões: &laquo;, &lsaquo;, &rsaquo;, e &raquo;, além dos
 	 * númericos incrementados de um em um, com o limite definido pelo usuário.
 	 * 
 	 * @api
@@ -120,12 +120,12 @@ class Paginacao{
 		$queryString = $this->formatarQueryString($filtros, $pagina);
 		
 		$paginacao = $this->pagina != 1?
-			"<a href='?$queryString=1'>Primeira</a>":
-			"<span class='$off'>Primeira</span>";
+			"<a href='?$queryString=1'>&laquo;</a>":
+			"<span class='$off'>&laquo;</span>";
 		
 		$paginacao .= $this->pagina > 1?
-			"<a href='?$queryString=".($this->pagina - 1)."'>Anterior</a>":
-			"<span class='$off'>Anterior</span>";
+			"<a href='?$queryString=".($this->pagina - 1)."'>&lsaquo;</a>":
+			"<span class='$off'>&lsaquo;</span>";
 		
 		for($botao = $this->botaoInicial; $botao <= $this->botaoFinal; $botao++){
 			if($this->pagina == $botao){
@@ -137,12 +137,12 @@ class Paginacao{
 		}
 		
 		$paginacao .= ($this->pagina + 1) < $this->quantidadeDePaginas?
-			"<a href='?$queryString=".($this->pagina + 1)."'>Próxima</a>":
-			"<span class='$off'>Próxima</span>";
+			"<a href='?$queryString=".($this->pagina + 1)."'>&rsaquo;</a>":
+			"<span class='$off'>&rsaquo;</span>";
 		
 		$paginacao .= $this->pagina != ($this->quantidadeDePaginas - 1)?
-			"<a href='?$queryString=".($this->quantidadeDePaginas - 1)."'>Última</a>":
-			"<span class='$off'>Última</span>";
+			"<a href='?$queryString=".($this->quantidadeDePaginas - 1)."'>&raquo;</a>":
+			"<span class='$off'>&raquo;</span>";
 		
 		return $paginacao;
 	}
