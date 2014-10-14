@@ -32,7 +32,7 @@ class ORM{
 	/**
 	 * @var ORM[] Indexado pelo alias de cada tabela externa.
 	 */
-	private $ORM=array();
+	private $ORM = array();
 	
 	/**
 	 * @var string
@@ -57,42 +57,42 @@ class ORM{
 	/**
 	 * @var string[]
 	 */
-	private $tipos=array();
+	private $tipos = array();
 	
 	/**
 	 * @var int[]
 	 */
-	private $tamanhos=array();
+	private $tamanhos = array();
 	
 	/**
 	 * @var bool[]
 	 */
-	private $anulaveis=array();
+	private $anulaveis = array();
 	
 	/**
 	 * @var string
 	 */
-	private $selecoes='';
+	private $selecoes = '';
 	
 	/**
 	 * @var string
 	 */
-	private $juncoes='';
+	private $juncoes = '';
 	
 	/**
 	 * @var string
 	 */
-	private $filtros='';
+	private $filtros = '';
 	
 	/**
 	 * @var string
 	 */
-	private $grupos='';
+	private $grupos = '';
 	
 	/**
 	 * @var string
 	 */
-	private $ordens='';
+	private $ordens = '';
 	
 	/**
 	 * @var string
@@ -102,7 +102,7 @@ class ORM{
 	/**
 	 * Cria uma conexão com o banco e mapeia a tabela principal
 	 * 
-	 * O alias da principal é sempre a primeira letra no seu nome.
+	 * O alias da principal é, preferencialmente, a primeira letra do seu nome.
 	 * 
 	 * Os aliases das externas são preferencialmente também as primeiras letras,
 	 * mas em caso de conflito, pode-se usar outro nome. Eles são definidos nas
@@ -110,11 +110,12 @@ class ORM{
 	 * 
 	 * @api
 	 * @param string $tabela Nome da tabela principal.
+	 * @param string $alias Alias da tabela principal.
 	 */
-	public function __construct($tabela){
-		$this->Banco=new Banco;
-		$this->alias=substr($tabela,0,1);
-		$this->tabela=$tabela;
+	public function __construct($tabela, $alias){
+		$this->Banco = new Banco;
+		$this->alias = $alias;
+		$this->tabela = $tabela;
 		
 		$this->mapearCampos()->setPk()->setTipos()->setAnulaveis()->setTamanhos();
 	}
@@ -131,7 +132,7 @@ class ORM{
 	 * @throws \Exception Implicitamente.
 	 */
 	private function mapearCampos(){
-		$this->campos=$this->Banco->requisitar("select * from $this->tabela")->obterCampos();
+		$this->campos = $this->Banco->requisitar("select * from $this->tabela")->obterCampos();
 		return $this;
 	}
 	
@@ -142,8 +143,8 @@ class ORM{
 	 */
 	private function setPk(){
 		foreach($this->campos as $Campo){
-			if($Campo->flags&2){
-				$this->pk=$Campo->orgname;
+			if($Campo->flags & 2){
+				$this->pk = $Campo->orgname;
 				break;
 			}
 		}
@@ -166,11 +167,7 @@ class ORM{
 	 */
 	private function setTipos(){
 		foreach($this->campos as $Campo){
-			if($Campo->flags&32768){
-				$this->tipos[$Campo->orgname]='float';
-			}else{
-				$this->tipos[$Campo->orgname]='string';
-			}
+			$this->tipos[$Campo->orgname] = $Campo->flags & 32768? 'float': 'string';
 		}
 		
 		return $this;
@@ -189,11 +186,7 @@ class ORM{
 	 */
 	private function setAnulaveis(){
 		foreach($this->campos as $Campo){
-			if($Campo->flags&1){
-				$this->anulaveis[$Campo->orgname]=false;
-			}else{
-				$this->anulaveis[$Campo->orgname]=true;
-			}
+			$this->anulaveis[$Campo->orgname] = $Campo->flags & 1? false: true;
 		}
 		
 		return $this;
@@ -210,7 +203,7 @@ class ORM{
 	 */
 	private function setTamanhos(){
 		foreach($this->campos as $Campo){
-			$this->tamanhos[$Campo->orgname]=$Campo->length;
+			$this->tamanhos[$Campo->orgname] = $Campo->length;
 		}
 		
 		return $this;
@@ -237,9 +230,9 @@ class ORM{
 	 * @throws \Exception Implicitamente.
 	 */
 	public function criar(array $tupla){
-		$sql='';
-		$sql=$this->montarCampos($sql,$tupla);
-		$sql=$this->montarValores($sql,$tupla);
+		$sql = '';
+		$sql = $this->montarCampos($sql, $tupla);
+		$sql = $this->montarValores($sql, $tupla);
 		return $this->Banco->requisitar($sql);
 	}
 	
@@ -250,14 +243,14 @@ class ORM{
 	 * @param string[] $tupla
 	 * @return string
 	 */
-	private function montarCampos($sql,array $tupla){
-		$sql="insert into $this->tabela(";
+	private function montarCampos($sql, array $tupla){
+		$sql = "insert into $this->tabela (";
 		
-		$campos=array();
-		foreach($tupla as $campo=>$valor){$campos[]=$campo;}
+		$campos = array();
+		foreach($tupla as $campo => $valor){$campos[] = $campo;}
 		
-		$sql.=implode(',',$campos);
-		$sql.=')';
+		$sql .= implode(', ',$campos);
+		$sql .= ')';
 		
 		return $sql;
 	}
@@ -269,17 +262,17 @@ class ORM{
 	 * @param string[] $tupla
 	 * @return string
 	 */
-	private function montarValores($sql,array $tupla){
+	private function montarValores($sql, array $tupla){
 		$this->validar($tupla);
-		$tupla=$this->tratar($tupla);
+		$tupla = $this->tratar($tupla);
 		
-		$sql.='values(';
+		$sql .= ' values (';
 		
-		$values=array();
-		foreach($tupla as $valor){$values[]=$valor;}
+		$values = array();
+		foreach($tupla as $valor){$values[] = $valor;}
 		
-		$sql.=implode(',',$values);
-		$sql.=')';
+		$sql .= implode(', ', $values);
+		$sql .= ')';
 		
 		return $sql;
 	}
@@ -297,10 +290,10 @@ class ORM{
 	 * @return Banco
 	 * @throws \Exception Implicitamente.
 	 */
-	public function atualizar(array $tupla,$pk){
-		$sql='';
-		$sql=$this->montarAtribuicoes($sql,$tupla);
-		$sql=$this->montarWhereAlteracao($sql,$pk);
+	public function atualizar(array $tupla, $pk){
+		$sql = '';
+		$sql = $this->montarAtribuicoes($sql, $tupla);
+		$sql = $this->montarWhereAlteracao($sql, $pk);
 		return $this->Banco->requisitar($sql);
 	}
 	
@@ -311,18 +304,16 @@ class ORM{
 	 * @param string[] $tupla
 	 * @return string
 	 */
-	private function montarAtribuicoes($sql,array $tupla){
+	private function montarAtribuicoes($sql, array $tupla){
 		$this->validar($tupla);
-		$tupla=$this->tratar($tupla);
+		$tupla = $this->tratar($tupla);
 		
-		$sql="update $this->tabela set ";
+		$sql = "update $this->tabela set ";
 		
-		$atribuicoes=array();
-		foreach($tupla as $campo=>$valor){
-			$atribuicoes[]="$campo=$valor";
-		}
+		$atribuicoes = array();
+		foreach($tupla as $campo => $valor){$atribuicoes[] = "$campo = $valor";}
 		
-		$sql.=implode(',',$atribuicoes);
+		$sql .= implode(', ', $atribuicoes);
 		
 		return $sql;
 	}
@@ -337,9 +328,9 @@ class ORM{
 	 * @param string $pk
 	 * @return string
 	 */
-	private function montarWhereAlteracao($sql,$pk){
-		$pk=$this->tratarPk($pk);
-		return "$sql where $this->pk=$pk";
+	private function montarWhereAlteracao($sql, $pk){
+		$pk = $this->tratarPk($pk);
+		return "$sql where $this->pk = $pk";
 	}
 	
 	/**
@@ -351,12 +342,12 @@ class ORM{
 	 * o valor exceder o limite de caractéres que o campo permite.
 	 */
 	private function validar(array $tupla){
-		foreach($tupla as $campo=>$valor){
+		foreach($tupla as $campo => $valor){
 			if(!$this->anulaveis[$campo] && $valor === ''){
 				throw new \Exception("Valor vazio para o campo '$campo'.");
 			}
 			
-			if(strlen($valor)>$this->tamanhos[$campo]){
+			if(strlen($valor) > $this->tamanhos[$campo]){
 				throw new \Exception("Limite de caractéres excedido para o campo '$campo'.");
 			}
 		}
@@ -371,28 +362,23 @@ class ORM{
 	 * @throws \Exception Implicitamente.
 	 */
 	public function deletar($filtro){
-		if(is_array($filtro)){
-			$sql=$this->montarExclusaoArray($filtro);
-		}else{
-			$sql=$this->montarExclusaoScalar($filtro);
-		}
-		
+		$sql = is_array($filtro)? $this->montarExclusaoArray($filtro): $this->montarExclusaoScalar($filtro);
 		return $this->Banco->requisitar($sql);
 	}
 	
 	private function montarExclusaoArray(array $dupla){
-		$dupla=$this->tratar($dupla);
+		$dupla = $this->tratar($dupla);
 		
-		foreach($dupla as $campo=>$valor){
-			$sql="delete from $this->tabela where $campo=$valor";
+		foreach($dupla as $campo => $valor){
+			$sql = "delete from $this->tabela where $campo = $valor";
 		}
 		
 		return $sql;
 	}
 	
 	private function montarExclusaoScalar($pk){
-		$pk=$this->tratarPk($pk);
-		return "delete from $this->tabela where $this->pk=$pk";
+		$pk = $this->tratarPk($pk);
+		return "delete from $this->tabela where $this->pk = $pk";
 	}
 	
 	/**
@@ -404,15 +390,15 @@ class ORM{
 	 * @return string[]
 	 */
 	private function tratar(array $tupla){
-		foreach($tupla as $campo=>$valor){
-			if($valor===''){
-				$tupla[$campo]='null';
+		foreach($tupla as $campo => $valor){
+			if($valor === ''){
+				$tupla[$campo] = 'null';
 			}else{
-				if($this->tipos[$campo]==='string'){
-					$tupla[$campo]=$this->Banco->escapar($valor);
-					$tupla[$campo]="'$tupla[$campo]'";
+				if($this->tipos[$campo] === 'string'){
+					$tupla[$campo] = $this->Banco->escapar($valor);
+					$tupla[$campo] = "'$tupla[$campo]'";
 				}else{
-					settype($tupla[$campo],$this->tipos[$campo]);
+					settype($tupla[$campo], $this->tipos[$campo]);
 				}
 			}
 		}
@@ -429,11 +415,11 @@ class ORM{
 	 * @return string
 	 */
 	private function tratarPk($pk){
-		if($this->tipos[$this->pk]==='string'){
-			$pk=$this->Banco->escapar($pk);
-			$pk="'$pk'";
+		if($this->tipos[$this->pk] === 'string'){
+			$pk = $this->Banco->escapar($pk);
+			$pk = "'$pk'";
 		}else{
-			settype($pk,$this->tipos[$this->pk]);
+			settype($pk, $this->tipos[$this->pk]);
 		}
 		
 		return $pk;
@@ -458,11 +444,11 @@ class ORM{
 	 * 
 	 * @return ORM
 	 */
-	public function selecionar($alias,$campo,$aliasCampo='',$funcao='%s'){
-		$separador=$this->selecoes?',':'';
-		$campo=sprintf($funcao,"$alias.$campo");
-		if($aliasCampo){$aliasCampo=" as $aliasCampo";}
-		$this->selecoes.="$separador $campo $aliasCampo ";
+	public function selecionar($alias, $campo, $aliasCampo = '', $funcao = '%s'){
+		$separador = $this->selecoes? ', ': '';
+		$campo = sprintf($funcao, "$alias.$campo");
+		if($aliasCampo){$aliasCampo = " as $aliasCampo";}
+		$this->selecoes .= "$separador $campo $aliasCampo ";
 		return $this;
 	}
 	
@@ -473,26 +459,34 @@ class ORM{
 	 * necessárias.
 	 * 
 	 * @api
-	 * @param string $juncao join, left join, etc.
 	 * @param string $externa Nome da tabela externa à ser juntada.
 	 * @param string $alias Da tabela externa.
 	 * @param string $aliasCampo
 	 * @param string $campo
 	 * @param string $aliasCampoExterna
 	 * @param string $campoExterna
+	 * @param string $juncao join, left join, etc.
 	 * @return ORM
 	 */
-	public function juntar(
-		$juncao,$externa,$alias,$aliasCampo,$campo,$aliasCampoExterna,$campoExterna
-	){
-		$this->ORM[$alias]=new ORM($externa);
+	public function juntar($externa, $alias, $aliasCampo, $campo, $aliasCampoExterna, $campoExterna, $juncao = 'join'){
+		$this->ORM[$alias] = new ORM($externa, $alias);
 		
-		$this->juncoes.=
+		$this->juncoes .=
 			"$juncao $externa $alias"
 			." on $aliasCampo.$campo"
-			."=$aliasCampoExterna.$campoExterna "
+			." = $aliasCampoExterna.$campoExterna "
 		;
 		
+		return $this;
+	}
+	
+	public function juntarEsquerda($externa, $alias, $aliasCampo, $campo, $aliasCampoExterna, $campoExterna){
+		$this->juntar($externa, $alias, $aliasCampo, $campo, $aliasCampoExterna, $campoExterna, 'left join');
+		return $this;
+	}
+	
+	public function juntarDireita($externa, $alias, $aliasCampo, $campo, $aliasCampoExterna, $campoExterna){
+		$this->juntar($externa, $alias, $aliasCampo, $campo, $aliasCampoExterna, $campoExterna, 'right join');
 		return $this;
 	}
 	
@@ -519,20 +513,20 @@ class ORM{
 	 * 
 	 * @return ORM
 	 */
-	public function filtrar($alias,$campo,$operador,$valor,$funcao='%s',$separador=''){
-		$valor=$this->tratarLeitura($alias,$campo,$operador,$valor);
-		$campo=sprintf($funcao,"$alias.$campo");
-		$this->filtros.="$separador $campo $operador $valor ";
+	public function filtrar($alias, $campo, $operador, $valor, $funcao = '%s', $separador = ''){
+		$valor = $this->tratarLeitura($alias, $campo, $operador, $valor);
+		$campo = sprintf($funcao, "$alias.$campo");
+		$this->filtros .= "$separador $campo $operador $valor ";
 		return $this;
 	}
 	
-	public function eFiltrar($alias,$campo,$operador,$valor,$funcao='%s'){
-		$this->filtrar($alias,$campo,$operador,$valor,$funcao,'and');
+	public function eFiltrar($alias, $campo, $operador, $valor, $funcao='%s'){
+		$this->filtrar($alias, $campo, $operador, $valor, $funcao, 'and');
 		return $this;
 	}
 	
-	public function ouFiltrar($alias,$campo,$operador,$valor,$funcao='%s'){
-		$this->filtrar($alias,$campo,$operador,$valor,$funcao,'or');
+	public function ouFiltrar($alias, $campo, $operador, $valor, $funcao = '%s'){
+		$this->filtrar($alias, $campo, $operador, $valor, $funcao, 'or');
 		return $this;
 	}
 	
@@ -550,15 +544,15 @@ class ORM{
 	 * @param mixed $valor
 	 * @return mixed
 	 */
-	private function tratarLeitura($alias,$campo,$operador,$valor){
-		$tipos=$alias===$this->alias?$this->tipos:$this->ORM[$alias]->getTipos();
+	private function tratarLeitura($alias, $campo, $operador, $valor){
+		$tipos = $alias === $this->alias? $this->tipos: $this->ORM[$alias]->getTipos();
 		
-		if($operador==='like'){
-			$valor="'%{$this->Banco->escapar($valor)}%'";
-		}else if($tipos[$campo]==='string'){
-			$valor="'{$this->Banco->escapar($valor)}'";
+		if($operador === 'like'){
+			$valor = "'%{$this->Banco->escapar($valor)}%'";
+		}else if($tipos[$campo] === 'string'){
+			$valor = "'{$this->Banco->escapar($valor)}'";
 		}else{
-			settype($valor,$tipos[$campo]);
+			settype($valor, $tipos[$campo]);
 		}
 		
 		return $valor;
@@ -577,9 +571,9 @@ class ORM{
 	 * @param string $campo De qualquer tabela.
 	 * @return ORM
 	 */
-	public function agrupar($alias,$campo){
-		$separador=$this->grupos?',':'';
-		$this->grupos.="$separador $alias.$campo ";
+	public function agrupar($alias, $campo){
+		$separador = $this->grupos? ', ': '';
+		$this->grupos .= "$separador $alias.$campo ";
 		return $this;
 	}
 	
@@ -595,9 +589,9 @@ class ORM{
 	 * @param string $ordens asc ou desc.
 	 * @return ORM
 	 */
-	public function ordenar($alias,$campo,$ordens){
-		$separador=$this->ordens?',':'';
-		$this->ordens.="$separador $alias.$campo $ordens ";
+	public function ordenar($alias, $campo, $ordens){
+		$separador = $this->ordens? ', ': '';
+		$this->ordens .= "$separador $alias.$campo $ordens ";
 		return $this;
 	}
 	
@@ -611,7 +605,7 @@ class ORM{
 	 * @return ORM
 	 */
 	public function ordenarAleatoriamente(){
-		$this->ordens='rand()';
+		$this->ordens = 'rand()';
 		return $this;
 	}
 	
@@ -629,10 +623,10 @@ class ORM{
 	 * @param int $inicio Incluindo zero.
 	 * @return ORM
 	 */
-	public function limitar($quantidade,$inicio=''){
+	public function limitar($quantidade, $inicio = ''){
 		if(!$quantidade){return $this;}
-		if($inicio!==''){$inicio.=',';}
-		$this->limite=$inicio.$quantidade;
+		if($inicio !== ''){$inicio .= ', ';}
+		$this->limite = $inicio.$quantidade;
 		return $this;
 	}
 	
@@ -644,12 +638,12 @@ class ORM{
 	 * @throws \Exception Implicitamente.
 	 */
 	public function ler(){
-		$this->filtros=$this->concatenarClausula($this->filtros,'where');
-		$this->grupos=$this->concatenarClausula($this->grupos,'group by');
-		$this->ordens=$this->concatenarClausula($this->ordens,'order by');
-		$this->limite=$this->concatenarClausula($this->limite,'limit');
+		$this->filtros = $this->concatenarClausula($this->filtros, 'where');
+		$this->grupos = $this->concatenarClausula($this->grupos, 'group by');
+		$this->ordens = $this->concatenarClausula($this->ordens, 'order by');
+		$this->limite = $this->concatenarClausula($this->limite, 'limit');
 		
-		$sql=
+		$sql =
 			"select $this->selecoes"
 			."from $this->tabela $this->alias "
 			.$this->juncoes
@@ -669,9 +663,9 @@ class ORM{
 	 * @param string $sql
 	 * @return string
 	 */
-	private function concatenarClausula($propriedade,$sql){
-		if($propriedade&&strpos($propriedade,$sql)===false){
-			$propriedade="$sql $propriedade";
+	private function concatenarClausula($propriedade, $sql){
+		if($propriedade && strpos($propriedade, $sql) === false){
+			$propriedade = "$sql $propriedade";
 		}
 		
 		return $propriedade;

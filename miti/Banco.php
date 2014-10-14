@@ -61,15 +61,9 @@ class Banco{
 	 * @param string $banco
 	 * @param string $charset
 	 */
-	public function __construct(
-		$servidor=CFG_BANCO_SERVIDOR,
-		$usuario=CFG_BANCO_USUARIO,
-		$senha=CFG_BANCO_SENHA,
-		$banco=CFG_BANCO_NOME,
-		$charset=CFG_BANCO_CHARSET
-	){
+	public function __construct($servidor = CFG_BANCO_SERVIDOR, $usuario = CFG_BANCO_USUARIO, $senha = CFG_BANCO_SENHA, $banco = CFG_BANCO_NOME, $charset = CFG_BANCO_CHARSET){
 		$this->verificarExistenciaDaExtensao();
-		$this->Conexao=@new \mysqli($servidor,$usuario,$senha,$banco);
+		$this->Conexao = @new \mysqli($servidor, $usuario, $senha, $banco);
 		$this->verificarErroDeConexao();
 		$this->definirCharset($charset);
 		$this->Conexao->autocommit(false);
@@ -81,7 +75,7 @@ class Banco{
 	 * @throws \Exception Se a extensão do PHP necessária não tiver sido carregada.
 	 */
 	private function verificarExistenciaDaExtensao(){
-		if(!in_array('mysqli',get_loaded_extensions())){
+		if(!in_array('mysqli', get_loaded_extensions())){
 			throw new \Exception('A classe '.__CLASS__.' depende da extensão mysqli.');
 		}
 	}
@@ -100,11 +94,10 @@ class Banco{
 	 */
 	private function verificarErroDeConexao(){
 		if($this->Conexao->connect_error){
-			if(ini_get('display_errors')){
-				$mensagem=$this->Conexao->connect_error;
-			}else{
-				$mensagem='Não foi possível conectar ao banco de dados.';
-			}
+			$mensagem = ini_get('display_errors')?
+				$this->Conexao->connect_error:
+				'Não foi possível conectar ao banco de dados.'
+			;
 			
 			throw new \Exception($mensagem);
 		}
@@ -135,18 +128,12 @@ class Banco{
 	 * @return string[]|string
 	 */
 	public function escapar($valores){
-		if(is_array($valores)){
-			$valores=$this->escaparArray($valores);
-		}else{
-			$valores=$this->escaparString($valores);
-		}
-		
-		return $valores;
+		return is_array($valores)? $this->escaparArray($valores): $this->escaparString($valores);
 	}
 	
 	private function escaparArray(array $valores){
-		foreach($valores as $i=>$valor){
-			$valores[$i]=$this->Conexao->real_escape_string($valor);
+		foreach($valores as $i => $valor){
+			$valores[$i] = $this->Conexao->real_escape_string($valor);
 		}
 		
 		return $valores;
@@ -164,7 +151,7 @@ class Banco{
 	 * @return Banco
 	 */
 	public function requisitar($sql){
-		$this->Requisicao=$this->Conexao->query($sql);
+		$this->Requisicao = $this->Conexao->query($sql);
 		$this->verificarErroRequisicao($sql)->setAfetados()->setId();
 		return $this;
 	}
@@ -180,11 +167,10 @@ class Banco{
 	 */
 	private function verificarErroRequisicao($sql){
 		if($this->Conexao->error){
-			if(ini_get('display_errors')){
-				$mensagem="{$this->Conexao->error} - $sql";
-			}else{
-				$mensagem='Houve um erro ao realizar a requisição.';
-			}
+			$mensagem = ini_get('display_errors')?
+				"{$this->Conexao->error} - $sql":
+				'Houve um erro ao realizar a requisição.'
+			;
 			
 			throw new \Exception($mensagem);
 		}
@@ -198,7 +184,7 @@ class Banco{
 	 * @return Banco
 	 */
 	private function setAfetados(){
-		$this->afetados=$this->Conexao->affected_rows;
+		$this->afetados = $this->Conexao->affected_rows;
 		return $this;
 	}
 	
@@ -212,7 +198,7 @@ class Banco{
 	 * @return Banco
 	 */
 	private function setId(){
-		$this->id=$this->Conexao->insert_id;
+		$this->id = $this->Conexao->insert_id;
 		return $this;
 	}
 	

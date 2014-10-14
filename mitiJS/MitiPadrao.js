@@ -1,14 +1,12 @@
 function MitiPadrao(){
-	this.iniciar=function(funcao){
-		var intervalo=setInterval(
+	this.iniciar = function(funcao){
+		var intervalo = setInterval(
 			function(){
-				if(document.body!==null){
+				if(document.body !== null){
 					funcao();
 					return clearInterval(intervalo);
 				}
-			},
-			
-			1
+			}, 1
 		);
 	};
 }

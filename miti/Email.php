@@ -23,17 +23,17 @@ class Email{
 	/**
 	 * @var string Cópia carbono.
 	 */
-	private $cc='';
+	private $cc = '';
 	
 	/**
 	 * @var string Cópia carbono oculta.
 	 */
-	private $bcc='';
+	private $bcc = '';
 	
 	/**
 	 * @var string Responder para. Ainda descobrindo a utilidade.
 	 */
-	private $replyTo='';
+	private $replyTo = '';
 	
 	/**
 	 * @var array[]
@@ -46,7 +46,7 @@ class Email{
 	 * @api
 	 */
 	public function __construct(){
-		$this->uid=md5(uniqid(time()));
+		$this->uid = md5(uniqid(time()));
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class Email{
 	 * @return Email
 	 */
 	public function setCc($cc){
-		$this->cc=$cc;
+		$this->cc = $cc;
 		return $this;
 	}
 	
@@ -71,7 +71,7 @@ class Email{
 	 * @return Email
 	 */
 	public function setBcc($bcc){
-		$this->bcc=$bcc;
+		$this->bcc = $bcc;
 		return $this;
 	}
 	
@@ -83,7 +83,7 @@ class Email{
 	 * @return Email
 	 */
 	public function setReplyTo($replyTo){
-		$this->replyTo=$replyTo;
+		$this->replyTo = $replyTo;
 		return $this;
 	}
 	
@@ -95,7 +95,7 @@ class Email{
 	 * @return Email
 	 */
 	public function setAnexos($anexos){
-		$this->anexos=$anexos;
+		$this->anexos = $anexos;
 		return $this;
 	}
 	
@@ -117,17 +117,8 @@ class Email{
 	 * @param string $charset
 	 * @throws \Exception
 	 */
-	public function enviar(
-		$destinatario,$assunto,$mensagem,$remetente,$charset=CFG_CHARSET
-	){
-		if(
-			!mail(
-				$destinatario,
-				$this->codificarAssunto($charset,$assunto),
-				'',
-				$this->montarCabecalho($remetente,$mensagem,$charset)
-			)
-		){
+	public function enviar($destinatario, $assunto, $mensagem, $remetente, $charset = CFG_CHARSET){
+		if(!mail($destinatario, $this->codificarAssunto($charset, $assunto), '', $this->montarCabecalho($remetente, $mensagem, $charset))){
 			throw new \Exception('Houve um erro ao enviar o e-mail.');
 		}
 	}
@@ -140,10 +131,10 @@ class Email{
 	 * @param string $charset
 	 * @return string
 	 */
-	private function montarCabecalho($remetente,$mensagem,$charset){
+	private function montarCabecalho($remetente, $mensagem, $charset){
 		return
 			$this->montarCabecalhoBasico($remetente)
-			.$this->montarCabecalhoMensagem($charset,$mensagem)
+			.$this->montarCabecalhoMensagem($charset, $mensagem)
 			.$this->montarCabecalhoAnexos()
 		;
 	}
@@ -173,7 +164,7 @@ class Email{
 	 * @param string $mensagem
 	 * @return string
 	 */
-	private function montarCabecalhoMensagem($charset,$mensagem){
+	private function montarCabecalhoMensagem($charset, $mensagem){
 		return
 			"--$this->uid\r\n"
 			."Content-type:text/html; charset=$charset\r\n"
@@ -188,14 +179,14 @@ class Email{
 	 * @return string
 	 */
 	private function montarCabecalhoAnexos(){
-		$cabecalho='';
+		$cabecalho = '';
 		
 		if($this->anexos){
-			foreach($this->anexos['tmp_name'] as $i=>$tmp){
-				$nome=basename($this->anexos['name'][$i]);
-				$conteudo=chunk_split(base64_encode(file_get_contents($tmp)));
+			foreach($this->anexos['tmp_name'] as $i => $tmp){
+				$nome = basename($this->anexos['name'][$i]);
+				$conteudo = chunk_split(base64_encode(file_get_contents($tmp)));
 				
-				$cabecalho=
+				$cabecalho =
 					"--$this->uid\r\n"
 					."Content-Type: application/octet-stream; name='$nome'\r\n"
 					."Content-Transfer-Encoding: base64\r\n"
@@ -205,7 +196,7 @@ class Email{
 			}
 		}
 		
-		$cabecalho.="--$this->uid--";
+		$cabecalho .= "--$this->uid--";
 		return $cabecalho;
 	}
 	
@@ -218,7 +209,7 @@ class Email{
 	 * @param string $assunto
 	 * @return string
 	 */
-	private function codificarAssunto($charset,$assunto){
+	private function codificarAssunto($charset, $assunto){
 		return "=?$charset?b?".base64_encode($assunto).'?=';
 	}
 }

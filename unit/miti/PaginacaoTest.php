@@ -1,14 +1,14 @@
 <?php
 class PaginacaoTest extends PHPUnit_Framework_TestCase{
 	public function testGetInicio(){
-		$Paginacao=new \miti\Paginacao(100,15,5,10);
-		$this->assertSame(60,$Paginacao->getInicio());
+		$Paginacao = new \miti\Paginacao(100, 15, 5, 10);
+		$this->assertSame(60, $Paginacao->getInicio());
 	}
 	
 	public function testCriarComPoucosRegistros(){
-		$Paginacao=new \miti\Paginacao(1,1,1,1);
+		$Paginacao = new \miti\Paginacao(1, 1, 1, 1);
 		
-		$html=
+		$html =
 			"<span class='off'>&laquo;</span>"
 			."<span class='off'>&lsaquo;</span>"
 			."<span class='on'>1</span>"
@@ -16,13 +16,13 @@ class PaginacaoTest extends PHPUnit_Framework_TestCase{
 			."<span class='off'>&raquo;</span>"
 		;
 		
-		$this->assertSame($html,$Paginacao->criar('pagina','on','off'));
+		$this->assertSame($html, $Paginacao->criar('pagina', 'on', 'off'));
 	}
 	
 	public function testCriarComMuitosRegistros(){
-		$Paginacao=new \miti\Paginacao(100,10,2,5);
+		$Paginacao = new \miti\Paginacao(100, 10, 2, 5);
 		
-		$html=
+		$html =
 			"<a href='?pagina=1'>&laquo;</a>"
 			."<a href='?pagina=1'>&lsaquo;</a>"
 			."<a href='?pagina=1'>1</a>"
@@ -33,6 +33,6 @@ class PaginacaoTest extends PHPUnit_Framework_TestCase{
 			."<a href='?pagina=10'>&raquo;</a>"
 		;
 		
-		$this->assertSame($html,$Paginacao->criar('pagina','on','off'));
+		$this->assertSame($html, $Paginacao->criar('pagina', 'on', 'off'));
 	}
 }

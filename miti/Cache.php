@@ -28,19 +28,20 @@ class Cache{
 	 * @param int $minutos
 	 */
 	public static function definirTempo($minutos){
-		$segundos=$minutos*60;
+		$segundos = $minutos * 60;
 		
 		header("Cache-Control: max-age=$segundos");
 
-		$DateTime=new \DateTime;
-		$agora=$DateTime->format(DateTime::RFC1123);
-		$validade=$DateTime->modify("$segundos sec")->format(DateTime::RFC1123);
+		$DateTime = new \DateTime;
+		$agora = $DateTime->format(DateTime::RFC1123);
+		$validade = $DateTime->modify("$segundos sec")->format(DateTime::RFC1123);
 		
 		header("Last-Modified: $validade");
 
-		$header=getallheaders();
+		$header = getallheaders();
+		
 		if(isset($header['If-Modified-Since'])){
-			if($header['If-Modified-Since']>$agora){
+			if($header['If-Modified-Since'] > $agora){
 				header("{$_SERVER["SERVER_PROTOCOL"]} 304 Not Modified");
 				exit;
 			}

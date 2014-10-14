@@ -20,7 +20,7 @@ class Config{
 	/**
 	 * @var mixed[]
 	 */
-	private $config=array();
+	private $config = array();
 	
 	/**
 	 * Chama todos os métodos da classe
@@ -39,7 +39,7 @@ class Config{
 	 * 
 	 * @param string $sessao Nome da sessão do usuário.
 	 */
-	public function __construct($Classe,$restrito,$sessao='usuario'){
+	public function __construct($Classe, $restrito, $sessao = 'usuario'){
 		$this
 			->config()
 			->ambiente()
@@ -50,7 +50,7 @@ class Config{
 			->salt()
 			->raiz()
 			->banco()
-			->sessao($restrito,$sessao)
+			->sessao($restrito, $sessao)
 			->autoload()
 			->requisicao($Classe)
 		;
@@ -66,15 +66,15 @@ class Config{
 	 * @return Config
 	 */
 	private function config(){
-		$this->config['ambiente']=1;
-		$this->config['sistema']='Miti API';
-		$this->config['versao']='1.7.21';
-		$this->config['timezone']='America/Sao_Paulo';
-		$this->config['charset']='ISO-8859-1';
+		$this->config['ambiente'] = 1;
+		$this->config['sistema'] = 'Miti API';
+		$this->config['versao'] = '1.8.21';
+		$this->config['timezone'] = 'America/Sao_Paulo';
+		$this->config['charset'] = 'ISO-8859-1';
 		$this->config['salt'] = '$1$mitiapi$$';
 		
-		$this->config['raiz'][0]='';
-		$this->config['raiz'][1]='/MitiAPI';
+		$this->config['raiz'][0] = '';
+		$this->config['raiz'][1] = '/MitiAPI';
 		
 		$this->config['banco']['charset'] = 'latin1';
 		$this->config['banco'][0]['servidor'] = '';
@@ -124,11 +124,11 @@ class Config{
 		error_reporting(-1);
 		
 		if(CFG_AMBIENTE === 0){
-			ini_set('display_errors',0);
-			ini_set('display_startup_errors',0);
+			ini_set('display_errors', 0);
+			ini_set('display_startup_errors', 0);
 		}else{
-			ini_set('display_errors',1);
-			ini_set('display_startup_errors',1);
+			ini_set('display_errors', 1);
+			ini_set('display_startup_errors', 1);
 		}
 		
 		return $this;
@@ -241,11 +241,11 @@ class Config{
 	 * @param string $sessao
 	 * @return Config
 	 */
-	private function sessao($restrito,$sessao){
+	private function sessao($restrito, $sessao){
 		session_start();
 		
-		if($restrito&&!isset($_SESSION[$sessao])){
-			$_SESSION['status']='Você não está autenticado.';
+		if($restrito && !isset($_SESSION[$sessao])){
+			$_SESSION['status'] = 'Você não está autenticado.';
 			header('Location: '.CFG_RAIZ_WEB);
 			exit;
 		}
@@ -269,7 +269,7 @@ class Config{
 	 * @param string $sessao
 	 * @throws \Exception
 	 */
-	public static function trancar($sessao='usuario'){
+	public static function trancar($sessao = 'usuario'){
 		if(!isset($_SESSION[$sessao])){
 			throw new \Exception('Você não tem permissão.');
 		}
@@ -318,16 +318,14 @@ class Config{
 	 */
 	private function requisicao($Classe){
 		if(isset($_REQUEST['metodo'])){
-			$requisicao=$this->tratarRequisicao();
+			$requisicao = $this->tratarRequisicao();
 			
 			try{
-				$Objeto=new $Classe;
-				$_SESSION['status']=$Objeto->$_REQUEST['metodo']($requisicao);
+				$Objeto = new $Classe;
+				$_SESSION['status'] = $Objeto->$_REQUEST['metodo']($requisicao);
 				header("Location: {$_REQUEST['url']}");
 				exit;
-			}catch(\Exception $e){
-				$_SESSION['status']=$e->getMessage();
-			}
+			}catch(\Exception $e){$_SESSION['status'] = $e->getMessage();}
 		}
 		
 		return $this;

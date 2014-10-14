@@ -27,15 +27,15 @@ class Tempo{
 	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
 	 * @return string|null
 	 */
-	public static function inverterBrParaEua($tempo,$longo=false){
+	public static function inverterBrParaEua($tempo, $longo = false){
 		if(!$tempo){return;}
 		
-		$tempo=str_replace('/','-',$tempo);
+		$tempo = str_replace('/', '-', $tempo);
 		
-		$DateTime=new \DateTime($tempo);
-		$tempo=$DateTime->format('Y-m-d H:i:s');
+		$DateTime = new \DateTime($tempo);
+		$tempo = $DateTime->format('Y-m-d H:i:s');
 		
-		if(!$longo){$tempo=substr($tempo,0,10);}
+		if(!$longo){$tempo = substr($tempo,0,10);}
 		
 		return $tempo;
 	}
@@ -48,13 +48,13 @@ class Tempo{
 	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
 	 * @return string|null
 	 */
-	public static function inverterEuaParaBr($tempo,$longo=false){
+	public static function inverterEuaParaBr($tempo, $longo = false){
 		if(!$tempo){return;}
 		
-		$DateTime=new \DateTime($tempo);
-		$tempo=$DateTime->format('d/m/Y H:i:s');
+		$DateTime = new \DateTime($tempo);
+		$tempo = $DateTime->format('d/m/Y H:i:s');
 		
-		if(!$longo){$tempo=substr($tempo,0,10);}
+		if(!$longo){$tempo = substr($tempo, 0, 10);}
 		
 		return $tempo;
 	}
@@ -69,23 +69,23 @@ class Tempo{
 	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
 	 * @return string|null
 	 */
-	public static function obterDiaDaSemana($tempo,$longo=false){
+	public static function obterDiaDaSemana($tempo, $longo = false){
 		if(!$tempo){return;}
 		
-		$DateTime=new \DateTime($tempo);
-		$dia=$DateTime->format('l');
+		$DateTime = new \DateTime($tempo);
+		$dia = $DateTime->format('l');
 		
 		switch($dia){
-			case 'Sunday':$dia='Domingo'; break;
-			case 'Monday':$dia='Segunda'; break;
-			case 'Tuesday':$dia='Terça'; break;
-			case 'Wednesday':$dia='Quarta'; break;
-			case 'Thursday':$dia='Quinta'; break;
-			case 'Friday':$dia='Sexta'; break;
-			case 'Saturday':$dia='Sábado'; break;
+			case 'Sunday': $dia = 'Domingo'; break;
+			case 'Monday': $dia = 'Segunda'; break;
+			case 'Tuesday': $dia = 'Terça'; break;
+			case 'Wednesday': $dia = 'Quarta'; break;
+			case 'Thursday': $dia = 'Quinta'; break;
+			case 'Friday': $dia = 'Sexta'; break;
+			case 'Saturday': $dia = 'Sábado'; break;
 		}
 		
-		if(!$longo){$dia=substr($dia,0,3);}
+		if(!$longo){$dia = substr($dia, 0, 3);}
 		
 		return $dia;
 	}
@@ -98,28 +98,28 @@ class Tempo{
 	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
 	 * @return string|null
 	 */
-	public static function obterMes($tempo,$longo=false){
+	public static function obterMes($tempo, $longo = false){
 		if(!$tempo){return;}
 		
-		$DateTime=new \DateTime($tempo);
-		$mes=$DateTime->format('m');
+		$DateTime = new \DateTime($tempo);
+		$mes = $DateTime->format('m');
 		
 		switch($mes){
-			case '01':$mes='Janeiro'; break;
-			case '02':$mes='Fevereiro'; break;
-			case '03':$mes='Março'; break;
-			case '04':$mes='Abril'; break;
-			case '05':$mes='Maio'; break;
-			case '06':$mes='Junho'; break;
-			case '07':$mes='Julho'; break;
-			case '08':$mes='Agosto'; break;
-			case '09':$mes='Setembro'; break;
-			case '10':$mes='Outubro'; break;
-			case '11':$mes='Novembro'; break;
-			case '12':$mes='Dezembro'; break;
+			case '01': $mes = 'Janeiro'; break;
+			case '02': $mes = 'Fevereiro'; break;
+			case '03': $mes = 'Março'; break;
+			case '04': $mes = 'Abril'; break;
+			case '05': $mes = 'Maio'; break;
+			case '06': $mes = 'Junho'; break;
+			case '07': $mes = 'Julho'; break;
+			case '08': $mes = 'Agosto'; break;
+			case '09': $mes = 'Setembro'; break;
+			case '10': $mes = 'Outubro'; break;
+			case '11': $mes = 'Novembro'; break;
+			case '12': $mes = 'Dezembro'; break;
 		}
 		
-		if(!$longo){$mes=substr($mes,0,3).'.';}
+		if(!$longo){$mes = substr($mes, 0, 3).'.';}
 		
 		return $mes;
 	}
@@ -133,7 +133,7 @@ class Tempo{
 	 */
 	public static function obterAno($tempo){
 		if(!$tempo){return;}
-		$DateTime=new \DateTime($tempo);
+		$DateTime = new \DateTime($tempo);
 		return $DateTime->format('Y');
 	}
 }

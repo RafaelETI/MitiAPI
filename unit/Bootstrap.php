@@ -16,7 +16,7 @@ class Bootstrap{
 	/**
 	 * @var array 
 	 */
-	private $config=array();
+	private $config = array();
 	
 	public function __construct(){
 		$this
@@ -43,10 +43,10 @@ class Bootstrap{
 	 * @return Bootstrap
 	 */
 	private function config(){
-		$this->config['ambiente']=1;
-		$this->config['timezone']='America/Sao_Paulo';
-		$this->config['charset']='ISO-8859-1';
-		$this->config['salt'] = '$1$mitiapi$$';
+		$this->config['ambiente'] = 1;
+		$this->config['timezone'] = 'America/Sao_Paulo';
+		$this->config['charset'] = 'ISO-8859-1';
+		$this->config['salt'] = '$1$mitiapim$';
 
 		$this->config['banco']['charset'] = 'latin1';
 		$this->config['banco'][1]['servidor'] = 'localhost';
@@ -77,8 +77,8 @@ class Bootstrap{
 	 */
 	private function erro(){
 		error_reporting(-1);
-		ini_set('display_errors',1);
-		ini_set('display_startup_errors',1);
+		ini_set('display_errors', 1);
+		ini_set('display_startup_errors', 1);
 		return $this;
 	}
 	

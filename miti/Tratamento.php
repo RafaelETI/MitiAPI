@@ -27,18 +27,15 @@ class Tratamento{
 	 * @return string
 	 */
 	public static function requerer($caminho){
-		$hash=md5(file_get_contents($caminho));
+		$hash = md5(file_get_contents($caminho));
 		
-		$partes=explode('.',$caminho);
-		$extensao=end($partes);
+		$partes = explode('.', $caminho);
+		$extensao = end($partes);
 		
-		if($extensao==='js'){
-			$html="<script src='$caminho?hash=$hash'></script>\n";
-		}else if($extensao==='css'){
-			$html="<link rel='stylesheet' href='$caminho?hash=$hash' />\n";
-		}
-		
-		return $html;
+		return $extensao === 'js'?
+			"<script src='$caminho?hash=$hash'></script>\n":
+			"<link rel='stylesheet' href='$caminho?hash=$hash' />\n"
+		;
 	}
 	
 	/**
@@ -50,8 +47,8 @@ class Tratamento{
 	 * @param mixed $novo
 	 * @return mixed
 	 */
-	public static function substituirValor($valor,$condicao,$novo){
-		if($valor===$condicao){$valor=$novo;}
+	public static function substituirValor($valor, $condicao, $novo){
+		if($valor === $condicao){$valor = $novo;}
 		return $valor;
 	}
 	
@@ -66,9 +63,9 @@ class Tratamento{
 	 * @param mixed $valor
 	 * @return mixed[]
 	 */
-	public static function garantirIndices($vetor,array $indices,$valor=''){
+	public static function garantirIndices($vetor, array $indices, $valor = ''){
 		foreach($indices as $indice){
-			if(!isset($vetor[$indice])){$vetor[$indice]=$valor;}
+			if(!isset($vetor[$indice])){$vetor[$indice] = $valor;}
 		}
 		
 		return $vetor;
@@ -82,8 +79,8 @@ class Tratamento{
 	 * @param string $caminho
 	 * @return string
 	 */
-	public static function garantirArquivo($arquivo,$caminho){
-		if(!$arquivo){$arquivo=file_get_contents($caminho);}
+	public static function garantirArquivo($arquivo, $caminho){
+		if(!$arquivo){$arquivo = file_get_contents($caminho);}
 		return $arquivo;
 	}
 	
@@ -98,28 +95,21 @@ class Tratamento{
 	 * @param string $charset
 	 * @return string|string[]|null
 	 */
-	public static function htmlSpecialChars($valores,$charset=CFG_CHARSET){
+	public static function htmlSpecialChars($valores, $charset = CFG_CHARSET){
 		if(!$valores){return;}
-		
-		if(is_array($valores)){
-			$valores=self::htmlSpecialCharsArray($valores,$charset);
-		}else{
-			$valores=self::htmlSpecialCharsScalar($valores,$charset);
+		return is_array($valores)? self::htmlSpecialCharsArray($valores,$charset): self::htmlSpecialCharsScalar($valores,$charset);
+	}
+	
+	private static function htmlSpecialCharsArray(array $valores, $charset){
+		foreach($valores as $i => $valor){
+			$valores[$i] = htmlspecialchars($valor, ENT_QUOTES, $charset);
 		}
 		
 		return $valores;
 	}
 	
-	private static function htmlSpecialCharsArray(array $valores,$charset){
-		foreach($valores as $i=>$valor){
-			$valores[$i]=htmlspecialchars($valor,ENT_QUOTES,$charset);
-		}
-		
-		return $valores;
-	}
-	
-	private static function htmlSpecialCharsScalar($valor,$charset){
-		return htmlspecialchars($valor,ENT_QUOTES,$charset);
+	private static function htmlSpecialCharsScalar($valor, $charset){
+		return htmlspecialchars($valor, ENT_QUOTES, $charset);
 	}
 	
 	/**
@@ -130,30 +120,23 @@ class Tratamento{
 	 * @param int $tamanho
 	 * @return mixed|mixed[]|null
 	 */
-	public static function encurtar($valores,$tamanho=5){
+	public static function encurtar($valores, $tamanho = 5){
 		if(!$valores){return;}
-	
-		if(is_array($valores)){
-			$valores=self::encurtarArray($valores,$tamanho);
-		}else{
-			$valores=self::encurtarScalar($valores,$tamanho);
-		}
-		
-		return $valores;
+		return is_array($valores)? self::encurtarArray($valores,$tamanho): self::encurtarScalar($valores,$tamanho);
 	}
 	
-	private static function encurtarArray(array $valores,$tamanho){
-		foreach($valores as $i=>$valor){
-			if(strlen($valor)>$tamanho+2){
-				$valores[$i]=substr($valor,0,$tamanho).'...';
+	private static function encurtarArray(array $valores, $tamanho){
+		foreach($valores as $i => $valor){
+			if(strlen($valor) > $tamanho + 2){
+				$valores[$i] = substr($valor, 0, $tamanho).'...';
 			}
 		}
 		
 		return $valores;
 	}
 	
-	private static function encurtarScalar($valor,$tamanho){
-		if(strlen($valor)>$tamanho+2){$valor=substr($valor,0,$tamanho).'...';}
+	private static function encurtarScalar($valor, $tamanho){
+		if(strlen($valor) > $tamanho + 2){$valor = substr($valor, 0, $tamanho).'...';}
 		return $valor;
 	}
 	
@@ -168,14 +151,7 @@ class Tratamento{
 	 */
 	public static function enxugar($valores){
 		if(!$valores){return;}
-	
-		if(is_array($valores)){
-			$valores = self::enxugarArray($valores);
-		}else{
-			$valores = self::enxugarScalar($valores);
-		}
-		
-		return $valores;
+		return is_array($valores)? self::enxugarArray($valores): self::enxugarScalar($valores);
 	}
 	
 	private static function enxugarArray(array $valores){
