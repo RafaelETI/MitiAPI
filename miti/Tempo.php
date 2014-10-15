@@ -27,7 +27,7 @@ class Tempo{
 	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
 	 * @return string|null
 	 */
-	public static function inverterBrParaEua($tempo, $longo = false){
+	public static function brUS($tempo, $longo = false){
 		if(!$tempo){return;}
 		
 		$tempo = str_replace('/', '-', $tempo);
@@ -35,7 +35,7 @@ class Tempo{
 		$DateTime = new \DateTime($tempo);
 		$tempo = $DateTime->format('Y-m-d H:i:s');
 		
-		if(!$longo){$tempo = substr($tempo,0,10);}
+		if(!$longo){$tempo = substr($tempo, 0, 10);}
 		
 		return $tempo;
 	}
@@ -48,7 +48,7 @@ class Tempo{
 	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
 	 * @return string|null
 	 */
-	public static function inverterEuaParaBr($tempo, $longo = false){
+	public static function usBR($tempo, $longo = false){
 		if(!$tempo){return;}
 		
 		$DateTime = new \DateTime($tempo);
@@ -69,7 +69,7 @@ class Tempo{
 	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
 	 * @return string|null
 	 */
-	public static function obterDiaDaSemana($tempo, $longo = false){
+	public static function diaDaSemana($tempo, $longo = false){
 		if(!$tempo){return;}
 		
 		$DateTime = new \DateTime($tempo);
@@ -98,7 +98,7 @@ class Tempo{
 	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
 	 * @return string|null
 	 */
-	public static function obterMes($tempo, $longo = false){
+	public static function mes($tempo, $longo = false){
 		if(!$tempo){return;}
 		
 		$DateTime = new \DateTime($tempo);
@@ -119,7 +119,7 @@ class Tempo{
 			case '12': $mes = 'Dezembro'; break;
 		}
 		
-		if(!$longo){$mes = substr($mes, 0, 3).'.';}
+		if(!$longo){$mes = substr($mes, 0, 3) . '.';}
 		
 		return $mes;
 	}
@@ -131,7 +131,7 @@ class Tempo{
 	 * @param string $tempo
 	 * @return string|null
 	 */
-	public static function obterAno($tempo){
+	public static function ano($tempo){
 		if(!$tempo){return;}
 		$DateTime = new \DateTime($tempo);
 		return $DateTime->format('Y');

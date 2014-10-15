@@ -70,17 +70,17 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		$this->Banco->requisitar('update categoria set status = "c" where id = 3')->rebobinar();
 	}
 	
-	public function testObterAssoc(){
-		$categoria = $this->Banco->obterAssoc();
+	public function testVetorizar(){
+		$categoria = $this->Banco->vetorizar();
 		$this->assertSame('Filme', $categoria['nome']);
 	}
 	
-	public function testObterQuantidade(){
-		$this->assertSame(1, $this->Banco->obterQuantidade());
+	public function testQuantificar(){
+		$this->assertSame(1, $this->Banco->quantificar());
 	}
 	
-	public function testObterCampos(){
-		$categoria = $this->Banco->obterCampos();
+	public function testMapear(){
+		$categoria = $this->Banco->mapear();
 		$this->assertSame(4097, $categoria[0]->flags);
 	}
 	

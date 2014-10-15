@@ -72,7 +72,7 @@ class Banco{
 	/**
 	 * Verifica a existência da extensão do PHP para trabalhar com o banco de dados
 	 * 
-	 * @throws \Exception Se a extensão do PHP necessária não tiver sido carregada.
+	 * @throws \Exception
 	 */
 	private function verificarExistenciaDaExtensao(){
 		if(!in_array('mysqli', get_loaded_extensions())){
@@ -132,8 +132,8 @@ class Banco{
 	}
 	
 	private function escaparArray(array $valores){
-		foreach($valores as $i => $valor){
-			$valores[$i] = $this->Conexao->real_escape_string($valor);
+		foreach($valores as &$valor){
+			$valor = $this->escaparString($valor);
 		}
 		
 		return $valores;
@@ -249,7 +249,7 @@ class Banco{
 	 * @api
 	 * @return string[]
 	 */
-	public function obterAssoc(){
+	public function vetorizar(){
 		return $this->Requisicao->fetch_assoc();
 	}
 	
@@ -262,7 +262,7 @@ class Banco{
 	 * @api
 	 * @return int
 	 */
-	public function obterQuantidade(){
+	public function quantificar(){
 		return $this->Requisicao->num_rows;
 	}
 	
@@ -275,7 +275,7 @@ class Banco{
 	 * @api
 	 * @return Object[]
 	 */
-	public function obterCampos(){
+	public function mapear(){
 		return $this->Requisicao->fetch_fields();
 	}
 	

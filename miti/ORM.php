@@ -132,7 +132,7 @@ class ORM{
 	 * @throws \Exception Implicitamente.
 	 */
 	private function mapearCampos(){
-		$this->campos = $this->Banco->requisitar("select * from $this->tabela")->obterCampos();
+		$this->campos = $this->Banco->requisitar("select * from $this->tabela")->mapear();
 		return $this;
 	}
 	
@@ -249,10 +249,7 @@ class ORM{
 		$campos = array();
 		foreach($tupla as $campo => $valor){$campos[] = $campo;}
 		
-		$sql .= implode(', ',$campos);
-		$sql .= ')';
-		
-		return $sql;
+		return $sql . implode(', ', $campos) . ')';
 	}
 	
 	/**
@@ -271,10 +268,7 @@ class ORM{
 		$values = array();
 		foreach($tupla as $valor){$values[] = $valor;}
 		
-		$sql .= implode(', ', $values);
-		$sql .= ')';
-		
-		return $sql;
+		return $sql . implode(', ', $values) . ')';
 	}
 	
 	/**
@@ -313,9 +307,7 @@ class ORM{
 		$atribuicoes = array();
 		foreach($tupla as $campo => $valor){$atribuicoes[] = "$campo = $valor";}
 		
-		$sql .= implode(', ', $atribuicoes);
-		
-		return $sql;
+		return $sql . implode(', ', $atribuicoes);
 	}
 	
 	/**
@@ -337,13 +329,11 @@ class ORM{
 	 * Valida os dados à serem inseridos
 	 * 
 	 * @param string[] $tupla
-	 * 
-	 * @throws \Exception Se o valor for vazio e o campo não permitir nulo, ou se
-	 * o valor exceder o limite de caractéres que o campo permite.
+	 * @throws \Exception
 	 */
 	private function validar(array $tupla){
 		foreach($tupla as $campo => $valor){
-			if(!$this->anulaveis[$campo] && $valor === ''){
+			if(!$this->anulaveis[$campo] && ($valor === '' || $valor === null)){
 				throw new \Exception("Valor vazio para o campo '$campo'.");
 			}
 			
@@ -371,6 +361,7 @@ class ORM{
 		
 		foreach($dupla as $campo => $valor){
 			$sql = "delete from $this->tabela where $campo = $valor";
+			break;
 		}
 		
 		return $sql;
@@ -390,16 +381,14 @@ class ORM{
 	 * @return string[]
 	 */
 	private function tratar(array $tupla){
-		foreach($tupla as $campo => $valor){
-			if($valor === ''){
-				$tupla[$campo] = 'null';
+		foreach($tupla as $campo => &$valor){
+			if($valor === '' || $valor === null){
+				$valor = 'null';
 			}else{
-				if($this->tipos[$campo] === 'string'){
-					$tupla[$campo] = $this->Banco->escapar($valor);
-					$tupla[$campo] = "'$tupla[$campo]'";
-				}else{
-					settype($tupla[$campo], $this->tipos[$campo]);
-				}
+				$this->tipos[$campo] === 'string'?
+					$valor = '"' . $this->Banco->escapar($valor) . '"':
+					settype($valor, $this->tipos[$campo])
+				;
 			}
 		}
 		
@@ -415,12 +404,10 @@ class ORM{
 	 * @return string
 	 */
 	private function tratarPk($pk){
-		if($this->tipos[$this->pk] === 'string'){
-			$pk = $this->Banco->escapar($pk);
-			$pk = "'$pk'";
-		}else{
-			settype($pk, $this->tipos[$this->pk]);
-		}
+		$this->tipos[$this->pk] === 'string'?
+			$pk = '"' . $this->Banco->escapar($pk) . '"':
+			settype($pk, $this->tipos[$this->pk])
+		;
 		
 		return $pk;
 	}
@@ -520,7 +507,7 @@ class ORM{
 		return $this;
 	}
 	
-	public function eFiltrar($alias, $campo, $operador, $valor, $funcao='%s'){
+	public function eFiltrar($alias, $campo, $operador, $valor, $funcao = '%s'){
 		$this->filtrar($alias, $campo, $operador, $valor, $funcao, 'and');
 		return $this;
 	}

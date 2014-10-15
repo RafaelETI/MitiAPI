@@ -1,112 +1,112 @@
 <?php
 class TempoTest extends PHPUnit_Framework_TestCase{
-	public function testInverterBrParaEuaVazio(){
-		$this->assertSame(null, \miti\Tempo::inverterBrParaEua(''));
+	public function testBRUSVazio(){
+		$this->assertSame(null, \miti\Tempo::brUS(''));
 	}
 	
-	public function testInverterBrParaEua(){
-		$tempo = \miti\Tempo::inverterBrParaEua('18/08/1991 14:34:02');
+	public function testBRUS(){
+		$tempo = \miti\Tempo::brUS('18/08/1991 14:34:02');
 		$this->assertSame('1991-08-18', $tempo);
 	}
 	
-	public function testInverterEuaParaBrVazio(){
-		$this->assertSame(null, \miti\Tempo::inverterEuaParaBr(''));
+	public function testUSBRVazio(){
+		$this->assertSame(null, \miti\Tempo::usBR(''));
 	}
 	
-	public function testInverterEuaParaBr(){
-		$tempo = \miti\Tempo::inverterEuaParaBr('1991-08-18 14:34:02');
+	public function testUSBR(){
+		$tempo = \miti\Tempo::usBR('1991-08-18 14:34:02');
 		$this->assertSame('18/08/1991', $tempo);
 	}
 	
-	public function testObterDiaDaSemanaVazio(){
-		$this->assertSame(null, \miti\Tempo::obterDiaDaSemana(''));
+	public function testDiaDaSemanaVazio(){
+		$this->assertSame(null, \miti\Tempo::diaDaSemana(''));
 	}
 	
-	public function testObterDomingo(){
-		$this->assertSame('Dom', \miti\Tempo::obterDiaDaSemana('1991-08-18'));
+	public function testDomingo(){
+		$this->assertSame('Dom', \miti\Tempo::diaDaSemana('1991-08-18'));
 	}
 	
-	public function testObterSegunda(){
-		$this->assertSame('Seg', \miti\Tempo::obterDiaDaSemana('1991-08-19'));
+	public function testSegunda(){
+		$this->assertSame('Seg', \miti\Tempo::diaDaSemana('1991-08-19'));
 	}
 	
-	public function testObterTerca(){
-		$this->assertSame('Ter', \miti\Tempo::obterDiaDaSemana('1991-08-20'));
+	public function testTerca(){
+		$this->assertSame('Ter', \miti\Tempo::diaDaSemana('1991-08-20'));
 	}
 	
-	public function testObterQuarta(){
-		$this->assertSame('Qua', \miti\Tempo::obterDiaDaSemana('1991-08-21'));
+	public function testQuarta(){
+		$this->assertSame('Qua', \miti\Tempo::diaDaSemana('1991-08-21'));
 	}
 	
-	public function testObterQuinta(){
-		$this->assertSame('Qui', \miti\Tempo::obterDiaDaSemana('1991-08-22'));
+	public function testQuinta(){
+		$this->assertSame('Qui', \miti\Tempo::diaDaSemana('1991-08-22'));
 	}
 	
-	public function testObterSexta(){
-		$this->assertSame('Sex', \miti\Tempo::obterDiaDaSemana('1991-08-23'));
+	public function testSexta(){
+		$this->assertSame('Sex', \miti\Tempo::diaDaSemana('1991-08-23'));
 	}
 	
-	public function testObterSabado(){
-		$this->assertSame('Sáb', \miti\Tempo::obterDiaDaSemana('1991-08-24'));
+	public function testSabado(){
+		$this->assertSame('Sáb', \miti\Tempo::diaDaSemana('1991-08-24'));
 	}
 	
-	public function testObterMesVazio(){
-		$this->assertSame(null, \miti\Tempo::obterMes(''));
+	public function testMesVazio(){
+		$this->assertSame(null, \miti\Tempo::mes(''));
 	}
 	
-	public function testObterJaneiro(){
-		$this->assertSame('Jan.', \miti\Tempo::obterMes('2014-01-01'));
+	public function testJaneiro(){
+		$this->assertSame('Jan.', \miti\Tempo::mes('2014-01-01'));
 	}
 	
-	public function testObterFevereiro(){
-		$this->assertSame('Fev.', \miti\Tempo::obterMes('2014-02-01'));
+	public function testFevereiro(){
+		$this->assertSame('Fev.', \miti\Tempo::mes('2014-02-01'));
 	}
 	
-	public function testObterMarco(){
-		$this->assertSame('Mar.', \miti\Tempo::obterMes('2014-03-01'));
+	public function testMarco(){
+		$this->assertSame('Mar.', \miti\Tempo::mes('2014-03-01'));
 	}
 	
-	public function testObterAbril(){
-		$this->assertSame('Abr.', \miti\Tempo::obterMes('2014-04-01'));
+	public function testAbril(){
+		$this->assertSame('Abr.', \miti\Tempo::mes('2014-04-01'));
 	}
 	
-	public function testObterMaio(){
-		$this->assertSame('Mai.', \miti\Tempo::obterMes('2014-05-01'));
+	public function testMaio(){
+		$this->assertSame('Mai.', \miti\Tempo::mes('2014-05-01'));
 	}
 	
-	public function testObterJunho(){
-		$this->assertSame('Jun.', \miti\Tempo::obterMes('2014-06-01'));
+	public function testJunho(){
+		$this->assertSame('Jun.', \miti\Tempo::mes('2014-06-01'));
 	}
 	
-	public function testObterJulho(){
-		$this->assertSame('Jul.', \miti\Tempo::obterMes('2014-07-01'));
+	public function testJulho(){
+		$this->assertSame('Jul.', \miti\Tempo::mes('2014-07-01'));
 	}
 	
-	public function testObterAgosto(){
-		$this->assertSame('Ago.', \miti\Tempo::obterMes('2014-08-01'));
+	public function testAgosto(){
+		$this->assertSame('Ago.', \miti\Tempo::mes('2014-08-01'));
 	}
 	
-	public function testObterSetembro(){
-		$this->assertSame('Set.', \miti\Tempo::obterMes('2014-09-01'));
+	public function testSetembro(){
+		$this->assertSame('Set.', \miti\Tempo::mes('2014-09-01'));
 	}
 	
-	public function testObterOutubro(){
-		$this->assertSame('Out.', \miti\Tempo::obterMes('2014-10-01'));
+	public function testOutubro(){
+		$this->assertSame('Out.', \miti\Tempo::mes('2014-10-01'));
 	}
 	
-	public function testObterNovembro(){
-		$this->assertSame('Nov.', \miti\Tempo::obterMes('2014-11-01'));
+	public function testNovembro(){
+		$this->assertSame('Nov.', \miti\Tempo::mes('2014-11-01'));
 	}
 	
-	public function testObterDezembro(){
-		$this->assertSame('Dez.', \miti\Tempo::obterMes('2014-12-01'));
+	public function testDezembro(){
+		$this->assertSame('Dez.', \miti\Tempo::mes('2014-12-01'));
 	}
 	
-	public function testObterAnoVazio(){
-		$this->assertSame(null, \miti\Tempo::obterAno(''));
+	public function testAnoVazio(){
+		$this->assertSame(null, \miti\Tempo::ano(''));
 	}
 	
-	public function testObterAno(){
-		$this->assertSame('2014', \miti\Tempo::obterAno('2014-06-08'));
+	public function testAno(){
+		$this->assertSame('2014', \miti\Tempo::ano('2014-06-08'));
 	}
 }

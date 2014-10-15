@@ -27,7 +27,7 @@ class Cache{
 	 * @api
 	 * @param int $minutos
 	 */
-	public static function definirTempo($minutos){
+	public static function temporizar($minutos){
 		$segundos = $minutos * 60;
 		
 		header("Cache-Control: max-age=$segundos");

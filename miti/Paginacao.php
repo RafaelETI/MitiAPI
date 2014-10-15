@@ -80,7 +80,6 @@ class Paginacao{
 		$this->quantidadeDeBotoes = $quantidadeDeBotoes;
 		
 		$this->inicio = ($this->pagina - 1) * $this->quantidade;
-		
 		$this->quantidadeDePaginas = ceil($this->total / $this->quantidade) + 1;
 		
 		$metade = ceil($this->quantidadeDeBotoes / 2) - 1;
@@ -121,11 +120,13 @@ class Paginacao{
 		
 		$paginacao = $this->pagina != 1?
 			"<a href='?$queryString=1'>&laquo;</a>":
-			"<span class='$off'>&laquo;</span>";
+			"<span class='$off'>&laquo;</span>"
+		;
 		
 		$paginacao .= $this->pagina > 1?
 			"<a href='?$queryString=".($this->pagina - 1)."'>&lsaquo;</a>":
-			"<span class='$off'>&lsaquo;</span>";
+			"<span class='$off'>&lsaquo;</span>"
+		;
 		
 		for($botao = $this->botaoInicial; $botao <= $this->botaoFinal; $botao++){
 			if($this->pagina == $botao){
@@ -138,11 +139,13 @@ class Paginacao{
 		
 		$paginacao .= ($this->pagina + 1) < $this->quantidadeDePaginas?
 			"<a href='?$queryString=".($this->pagina + 1)."'>&rsaquo;</a>":
-			"<span class='$off'>&rsaquo;</span>";
+			"<span class='$off'>&rsaquo;</span>"
+		;
 		
 		$paginacao .= $this->pagina != ($this->quantidadeDePaginas - 1)?
 			"<a href='?$queryString=".($this->quantidadeDePaginas - 1)."'>&raquo;</a>":
-			"<span class='$off'>&raquo;</span>";
+			"<span class='$off'>&raquo;</span>"
+		;
 		
 		return $paginacao;
 	}

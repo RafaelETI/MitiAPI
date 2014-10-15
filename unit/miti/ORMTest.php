@@ -62,7 +62,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->selecionar('c', 'id')
 			->filtrar('c', 'status', '=', 'c')
 			->ler()
-			->obterQuantidade()
+			->quantificar()
 		;
 		
 		$Banco->cometer();
@@ -86,7 +86,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->juntar('status', 's', 'c', 'status', 's', 'id')
 			->filtrar('s', 'id', '=', 'a')
 			->ler()
-			->obterAssoc()
+			->vetorizar()
 		;
 		
 		$this->assertSame(array('id' => '1', 'des' => 'Ativo'), $memoria);
@@ -100,7 +100,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->juntarEsquerda('status', 's', 'c', 'status', 's', 'id')
 			->filtrar('c', 'id', '=', '3')
 			->ler()
-			->obterAssoc()
+			->vetorizar()
 		;
 		
 		$this->assertSame(array('nome' => 'Pintura'), $c);
@@ -114,7 +114,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->juntarDireita('categoria', 'c', 's', 'id', 'c', 'status')
 			->filtrar('c', 'id', '=', '3')
 			->ler()
-			->obterAssoc()
+			->vetorizar()
 		;
 		
 		$this->assertSame(array('nome' => 'Pintura'), $c);
@@ -128,7 +128,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->filtrar('m', 'categoria', '=', '1')
 			->eFiltrar('m', 'descricao', '=', 'Peaceful Warrior')
 			->ler()
-			->obterAssoc()
+			->vetorizar()
 		;
 		
 		$this->assertSame(array('id' => '1'), $memoria);
@@ -142,7 +142,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->filtrar('m', 'id', '=', '1')
 			->ouFiltrar('m', 'id', '=', '2')
 			->ler()
-			->obterQuantidade()
+			->quantificar()
 		;
 		
 		$this->assertSame(2, $memoria);
@@ -155,7 +155,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->selecionar('c', 'id')
 			->filtrar('c', 'nome', 'like', 'ilm')
 			->ler()
-			->obterQuantidade()
+			->quantificar()
 		;
 		
 		$this->assertSame(1, $categoria);
@@ -169,7 +169,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->ordenar('m', 'categoria', 'asc')
 			->ordenar('m', 'descricao', 'desc')
 			->ler()
-			->obterAssoc()
+			->vetorizar()
 		;
 		
 		$this->assertSame(array('descricao' => 'The Village'), $memoria);
@@ -180,10 +180,10 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 		$ORM->selecionar('m', 'id')->ordenarAleatoriamente();
 		
 		$resultado = false;
-		$controle = $ORM->ler()->obterAssoc();
+		$controle = $ORM->ler()->vetorizar();
 		
 		for($x = 1; $x <= 10; $x++){
-			$memoria = $ORM->ler()->obterAssoc();
+			$memoria = $ORM->ler()->vetorizar();
 			
 			if($memoria['id'] != $controle['id']){
 				$resultado = true;
@@ -203,7 +203,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->juntar('status', 's', 'c', 'status', 's', 'id')
 			->agrupar('s', 'prioridade')
 			->ler()
-			->obterQuantidade()
+			->quantificar()
 		;
 		
 		$this->assertSame(1, $memoria);
@@ -211,20 +211,20 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	
 	public function testLimitarZero(){
 		$ORM = new \miti\ORM('memoria', 'm');
-		$quantidade = $ORM->selecionar('m', 'id')->limitar(0)->ler()->obterQuantidade();
+		$quantidade = $ORM->selecionar('m', 'id')->limitar(0)->ler()->quantificar();
 		$this->assertSame(3, $quantidade);
 	}
 	
 	public function testLimitar(){
 		$ORM = new \miti\ORM('memoria', 'm');
-		$quantidade = $ORM->selecionar('m', 'id')->limitar(1, 2)->ler()->obterQuantidade();
+		$quantidade = $ORM->selecionar('m', 'id')->limitar(1, 2)->ler()->quantificar();
 		$this->assertSame(1, $quantidade);
 	}
 	
 	public function testZerar(){
 		$ORM = new \miti\ORM('memoria', 'm');
 		$ORM->limitar(1)->zerar();
-		$quantidade = $ORM->selecionar('m', 'id')->ler()->obterQuantidade();
+		$quantidade = $ORM->selecionar('m', 'id')->ler()->quantificar();
 		$this->assertSame(3, $quantidade);
 	}
 }

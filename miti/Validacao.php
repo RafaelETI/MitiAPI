@@ -23,7 +23,7 @@ class Validacao{
 	public static function tamanho($valor, $tamanho){
 		if(!$valor){return;}
 		
-		if(strlen($valor) != $tamanho){
+		if(strlen($valor) !== $tamanho){
 			throw new \Exception("O valor deve conter até $tamanho caractéres.");
 		}
 	}
@@ -61,9 +61,7 @@ class Validacao{
 	}
 	
 	private static function vazioArray(array $valores){
-		foreach($valores as $valor){
-			if(!$valor){throw new \Exception('Valor vazio.');}
-		}
+		foreach($valores as $valor){self::vazioScalar($valor);}
 	}
 	
 	private static function vazioScalar($valor){
@@ -98,9 +96,7 @@ class Validacao{
 	 * @throws \Exception
 	 */
 	private static function peso($arquivos, $i, $peso){
-		$peso *= 1024;
-		
-		if($arquivos['size'][$i] > $peso){
+		if($arquivos['size'][$i] > $peso * 1024){
 			throw new \Exception('O arquivo excede o tamanho permitido.');
 		}
 	}
@@ -234,8 +230,8 @@ class Validacao{
 	 * @throws \Exception
 	 */
 	private static function sequenciaIgual($cpf){
-		for($posicao = 1, $primeiroNumero = $cpf[0]; $posicao <= 10; $posicao++){
-			if($primeiroNumero != $cpf[$posicao]){break;}
+		for($posicao = 1, $numero = $cpf[0]; $posicao <= 10; $posicao++){
+			if($numero != $cpf[$posicao]){break;}
 			if($posicao == 10){throw new \Exception('#3 O CPF é inválido.');}
 		}
 	}
@@ -317,9 +313,9 @@ class Validacao{
 	 */
 	private static function digitosCnpj($cnpj){
 		for($i = 0; $i <= 1; $i++){
-			for($numero = 0, $x = 5 + $i, $soma = 0; $numero <= 11 + $i; $numero++){
-				if($numero === 4 + $i){$x = 9;}
-				$soma += $cnpj[$numero] * $x--;
+			for($numero = 0, $j = 5 + $i, $soma = 0; $numero <= 11 + $i; $numero++){
+				if($numero === 4 + $i){$j = 9;}
+				$soma += $cnpj[$numero] * $j--;
 			}
 			
 			$resto = $soma % 11;

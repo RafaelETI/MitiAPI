@@ -47,9 +47,8 @@ class Tratamento{
 	 * @param mixed $novo
 	 * @return mixed
 	 */
-	public static function substituirValor($valor, $condicao, $novo){
-		if($valor === $condicao){$valor = $novo;}
-		return $valor;
+	public static function substituir($valor, $condicao, $novo){
+		return $valor === $condicao? $novo: $valor;
 	}
 	
 	/**
@@ -63,7 +62,7 @@ class Tratamento{
 	 * @param mixed $valor
 	 * @return mixed[]
 	 */
-	public static function garantirIndices($vetor, array $indices, $valor = ''){
+	public static function indexar($vetor, array $indices, $valor = ''){
 		foreach($indices as $indice){
 			if(!isset($vetor[$indice])){$vetor[$indice] = $valor;}
 		}
@@ -79,7 +78,7 @@ class Tratamento{
 	 * @param string $caminho
 	 * @return string
 	 */
-	public static function garantirArquivo($arquivo, $caminho){
+	public static function arquivar($arquivo, $caminho){
 		if(!$arquivo){$arquivo = file_get_contents($caminho);}
 		return $arquivo;
 	}
@@ -95,20 +94,17 @@ class Tratamento{
 	 * @param string $charset
 	 * @return string|string[]|null
 	 */
-	public static function htmlSpecialChars($valores, $charset = CFG_CHARSET){
+	public static function escapar($valores, $charset = CFG_CHARSET){
 		if(!$valores){return;}
-		return is_array($valores)? self::htmlSpecialCharsArray($valores,$charset): self::htmlSpecialCharsScalar($valores,$charset);
+		return is_array($valores)? self::escaparArray($valores,$charset): self::escaparScalar($valores,$charset);
 	}
 	
-	private static function htmlSpecialCharsArray(array $valores, $charset){
-		foreach($valores as $i => $valor){
-			$valores[$i] = htmlspecialchars($valor, ENT_QUOTES, $charset);
-		}
-		
+	private static function escaparArray(array $valores, $charset){
+		foreach($valores as &$valor){$valor = self::escaparScalar($valor, $charset);}
 		return $valores;
 	}
 	
-	private static function htmlSpecialCharsScalar($valor, $charset){
+	private static function escaparScalar($valor, $charset){
 		return htmlspecialchars($valor, ENT_QUOTES, $charset);
 	}
 	
@@ -126,12 +122,7 @@ class Tratamento{
 	}
 	
 	private static function encurtarArray(array $valores, $tamanho){
-		foreach($valores as $i => $valor){
-			if(strlen($valor) > $tamanho + 2){
-				$valores[$i] = substr($valor, 0, $tamanho).'...';
-			}
-		}
-		
+		foreach($valores as &$valor){$valor = self::encurtarScalar($valor, $tamanho);}
 		return $valores;
 	}
 	
@@ -155,17 +146,11 @@ class Tratamento{
 	}
 	
 	private static function enxugarArray(array $valores){
-		foreach($valores as $i => $valor){
-			$valor = strtr($valor, 'ЮАЦИЙМСТУЗГ юациймстузг', 'aaaeeiooouc_AAAEEIOOOUC');
-			$valores[$i] = strtolower($valor);
-		}
-		
+		foreach($valores as &$valor){$valor = self::enxugarScalar($valor);}
 		return $valores;
 	}
 	
 	private static function enxugarScalar($valor){
-		$valor = strtr($valor, 'ЮАЦИЙМСТУЗГ юациймстузг', 'aaaeeiooouc_AAAEEIOOOUC');
-		$valor = strtolower($valor);
-		return $valor;
+		return strtolower(strtr($valor, 'ЮАЦИЙМСТУЗГ юациймстузг', 'aaaeeiooouc_AAAEEIOOOUC'));
 	}
 }
