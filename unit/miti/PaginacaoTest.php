@@ -23,16 +23,16 @@ class PaginacaoTest extends PHPUnit_Framework_TestCase{
 		$Paginacao = new \miti\Paginacao(100, 10, 2, 5);
 		
 		$html =
-			"<a href='?pagina=1'>&laquo;</a>"
-			."<a href='?pagina=1'>&lsaquo;</a>"
-			."<a href='?pagina=1'>1</a>"
+			"<a href='?a=b&amp;pagina=1'>&laquo;</a>"
+			."<a href='?a=b&amp;pagina=1'>&lsaquo;</a>"
+			."<a href='?a=b&amp;pagina=1'>1</a>"
 			."<span class='on'>2</span>"
-			."<a href='?pagina=3'>3</a>"
-			."<a href='?pagina=4'>4</a>"
-			."<a href='?pagina=3'>&rsaquo;</a>"
-			."<a href='?pagina=10'>&raquo;</a>"
+			."<a href='?a=b&amp;pagina=3'>3</a>"
+			."<a href='?a=b&amp;pagina=4'>4</a>"
+			."<a href='?a=b&amp;pagina=3'>&rsaquo;</a>"
+			."<a href='?a=b&amp;pagina=10'>&raquo;</a>"
 		;
 		
-		$this->assertSame($html, $Paginacao->criar('pagina', 'on', 'off'));
+		$this->assertSame($html, $Paginacao->criar('pagina', 'on', 'off', array('a' => 'b')));
 	}
 }

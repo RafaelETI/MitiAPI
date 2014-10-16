@@ -334,11 +334,11 @@ class ORM{
 	private function validar(array $tupla){
 		foreach($tupla as $campo => $valor){
 			if(!$this->anulaveis[$campo] && ($valor === '' || $valor === null)){
-				throw new \Exception("Valor vazio para o campo '$campo'.");
+				throw new \UnexpectedValueException("Valor vazio para o campo '$campo'.");
 			}
 			
 			if(strlen($valor) > $this->tamanhos[$campo]){
-				throw new \Exception("Limite de caractéres excedido para o campo '$campo'.");
+				throw new \UnexpectedValueException("Limite de caractéres excedido para o campo '$campo'.");
 			}
 		}
 	}
@@ -662,6 +662,7 @@ class ORM{
 	 * Limpa todas as instruções SQL montadas em propriedades
 	 * 
 	 * @api
+	 * @return ORM
 	 */
 	public function zerar(){
 		$this->selecoes = '';
@@ -670,5 +671,7 @@ class ORM{
 		$this->grupos = '';
 		$this->ordens = '';
 		$this->limite = '';
+		
+		return $this;
 	}
 }

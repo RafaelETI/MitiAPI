@@ -24,7 +24,7 @@ class Validacao{
 		if(!$valor){return;}
 		
 		if(strlen($valor) !== $tamanho){
-			throw new \Exception("O valor deve conter até $tamanho caractéres.");
+			throw new \UnexpectedValueException("O valor deve conter até $tamanho caractéres.");
 		}
 	}
 	
@@ -42,7 +42,7 @@ class Validacao{
 		if(!$valor){return;}
 		
 		if(!preg_match('/^\w{2,}@\w{2,}\.(\w|\.){2,}$/', $valor)){
-			throw new \Exception('O e-mail é inválido.');
+			throw new \UnexpectedValueException('O e-mail é inválido.');
 		}
 	}
 	
@@ -65,7 +65,7 @@ class Validacao{
 	}
 	
 	private static function vazioScalar($valor){
-		if(!$valor){throw new \Exception('Valor vazio.');}
+		if(!$valor){throw new \UnexpectedValueException('Valor vazio.');}
 	}
 	
 	/**
@@ -97,7 +97,7 @@ class Validacao{
 	 */
 	private static function peso($arquivos, $i, $peso){
 		if($arquivos['size'][$i] > $peso * 1024){
-			throw new \Exception('O arquivo excede o tamanho permitido.');
+			throw new \UnexpectedValueException('O arquivo excede o tamanho permitido.');
 		}
 	}
 	
@@ -118,7 +118,7 @@ class Validacao{
 			}
 		}
 		
-		if(!$ok){throw new \Exception('O tipo do arquivo é inválido.');}
+		if(!$ok){throw new \RangeException('O tipo do arquivo é inválido.');}
 	}
 	
 	/**
@@ -149,11 +149,11 @@ class Validacao{
 	 */
 	private static function dimensoes($dimensoes, $largura, $altura){
 		if($dimensoes[0] < $largura){
-			throw new \Exception('A largura da imagem é menor do que o mínimo permitido.');
+			throw new \UnexpectedValueException('A largura da imagem é menor do que o mínimo permitido.');
 		}
 		
 		if($dimensoes[1] < $altura){
-			throw new \Exception('A altura da imagem é menor do que o mínimo permitido.');
+			throw new \UnexpectedValueException('A altura da imagem é menor do que o mínimo permitido.');
 		}
 	}
 	
@@ -172,11 +172,11 @@ class Validacao{
 		$proporcaoDaImagem = $dimensoes[0] / $dimensoes[1];
 		
 		if($proporcaoDaImagem < $proporcaoMinima){
-			throw new \Exception('A proporção da imagem é inválida, excedendo verticalmente.');
+			throw new \UnexpectedValueException('A proporção da imagem é inválida, excedendo verticalmente.');
 		}
 		
 		if($proporcaoDaImagem > $proporcaoMaxima){
-			throw new \Exception('A proporção da imagem é inválida, excedendo horizontalmente.');
+			throw new \UnexpectedValueException('A proporção da imagem é inválida, excedendo horizontalmente.');
 		}
 	}
 	
@@ -207,7 +207,7 @@ class Validacao{
 	 * @throws \Exception
 	 */
 	private static function quantidadeCaracteres($cpf){
-		if(strlen($cpf) !== 11){throw new \Exception('#1 O CPF é inválido.');}
+		if(strlen($cpf) !== 11){throw new \UnexpectedValueException('#1 O CPF é inválido.');}
 	}
 	
 	/**
@@ -217,7 +217,7 @@ class Validacao{
 	 * @throws \Exception
 	 */
 	private static function apenasNumeros($cpf){
-		if(!preg_match('/\d{11}/', $cpf)){throw new \Exception('#2 O CPF é inválido.');}
+		if(!preg_match('/\d{11}/', $cpf)){throw new \UnexpectedValueException('#2 O CPF é inválido.');}
 	}
 	
 	/**
@@ -232,7 +232,7 @@ class Validacao{
 	private static function sequenciaIgual($cpf){
 		for($posicao = 1, $numero = $cpf[0]; $posicao <= 10; $posicao++){
 			if($numero != $cpf[$posicao]){break;}
-			if($posicao == 10){throw new \Exception('#3 O CPF é inválido.');}
+			if($posicao == 10){throw new \UnexpectedValueException('#3 O CPF é inválido.');}
 		}
 	}
 	
@@ -249,7 +249,7 @@ class Validacao{
 			}
 			
 			$digito = ((10 * $digito) % 11) % 10;
-			if($cpf[$numero] != $digito){throw new \Exception('#4 O CPF é inválido.');}
+			if($cpf[$numero] != $digito){throw new \RangeException('#4 O CPF é inválido.');}
 		}
 	}
 	
@@ -280,7 +280,7 @@ class Validacao{
 	 * @throws \Exception
 	 */
 	private static function quantidadeCaracteresCnpj($cnpj){
-		if(strlen($cnpj) !== 14){throw new \Exception('#1 O CNPJ é inválido.');}
+		if(strlen($cnpj) !== 14){throw new \UnexpectedValueException('#1 O CNPJ é inválido.');}
 	}
 	
 	/**
@@ -290,7 +290,7 @@ class Validacao{
 	 * @throws \Exception
 	 */
 	private static function apenasNumerosCnpj($cnpj){
-		if(!preg_match('/\d{14}/', $cnpj)){throw new \Exception('#2 O CNPJ é inválido.');}
+		if(!preg_match('/\d{14}/', $cnpj)){throw new \UnexpectedValueException('#2 O CNPJ é inválido.');}
 	}
 	
 	/**
@@ -302,7 +302,7 @@ class Validacao{
 	 * @throws \Exception
 	 */
 	private static function sequenciaZeros($cnpj){
-		if($cnpj == '00000000000000'){throw new \Exception('#3 O CNPJ é inválido.');}
+		if($cnpj == '00000000000000'){throw new \UnexpectedValueException('#3 O CNPJ é inválido.');}
 	}
 	
 	/**
@@ -320,7 +320,7 @@ class Validacao{
 			
 			$resto = $soma % 11;
 			$digito = $resto < 2? 0: 11 - $resto;
-			if($cnpj[12 + $i] != $digito){throw new \Exception('#4 O CNPJ é inválido.');}
+			if($cnpj[12 + $i] != $digito){throw new \RangeException('#4 O CNPJ é inválido.');}
 		}
 	}
 }

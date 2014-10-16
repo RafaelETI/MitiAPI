@@ -1,14 +1,14 @@
 <?php
 class TratamentoTest extends PHPUnit_Framework_TestCase{
 	public function testRequererJs(){
-		$padrao = "/^<script src='arquivo\/Miti\.js\?hash=[a-f\d]{32}'><\/script>\\n$/i";
-		$requerimento = \miti\Tratamento::requerer('arquivo/Miti.js');
+		$padrao = "/^<script src='.+\/Miti\.js\?hash=[a-f\d]{32}'><\/script>\\n$/i";
+		$requerimento = \miti\Tratamento::requerer(CFG_RAIZ . '/unit/arquivo/Miti.js');
 		$this->assertSame(1, preg_match($padrao, $requerimento));
 	}
 	
 	public function testRequererCss(){
-		$padrao = "/^<link rel='stylesheet' href='arquivo\/miti\.css\?hash=[a-f\d]{32}' \/>\\n$/i";
-		$requerimento = \miti\Tratamento::requerer('arquivo/miti.css');
+		$padrao = "/^<link rel='stylesheet' href='.+\/miti\.css\?hash=[a-f\d]{32}' \/>\\n$/i";
+		$requerimento = \miti\Tratamento::requerer(CFG_RAIZ . '/unit/arquivo/miti.css');
 		$this->assertSame(1, preg_match($padrao, $requerimento));
 	}
 	

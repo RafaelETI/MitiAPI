@@ -1,85 +1,79 @@
 <?php
 class ORMTest extends PHPUnit_Framework_TestCase{
+	private static $ORM;
+	private static $ORMMemoria;
+	private static $ORMStatus;
+	
+	public static function setUpBeforeClass(){
+		self::$ORM = new \miti\ORM('categoria', 'c');
+		self::$ORMMemoria = new \miti\ORM('memoria', 'm');
+		self::$ORMStatus = new \miti\ORM('status', 's');
+	}
+	
 	public function testGetBanco(){
-		$ORM = new \miti\ORM('memoria', 'm');
-		$this->assertTrue(is_a($ORM->getBanco(), '\miti\Banco'));
+		$this->assertTrue(is_a(self::$ORM->getBanco(), '\miti\Banco'));
 	}
 	
 	public function testGetTipos(){
-		$ORM = new \miti\ORM('categoria', 'c');
 		$tipos = array('id' => 'float', 'nome' => 'string', 'status' => 'string');
-		$this->assertSame($tipos, $ORM->getTipos());
+		$this->assertSame($tipos, self::$ORM->getTipos());
 	}
 	
 	public function testGetAnulaveis(){
-		$ORM = new \miti\ORM('categoria', 'c');
 		$anulaveis = array('id' => false, 'nome' => false, 'status' => true);
-		$this->assertSame($anulaveis, $ORM->getAnulaveis());
+		$this->assertSame($anulaveis, self::$ORM->getAnulaveis());
 	}
 	
 	public function testGetTamanhos(){
-		$ORM = new \miti\ORM('categoria', 'c');
 		$tamanhos = array('id' => 3, 'nome' => 30, 'status' => 1);
-		$this->assertSame($tamanhos, $ORM->getTamanhos());
+		$this->assertSame($tamanhos, self::$ORM->getTamanhos());
 	}
 	
 	public function testGetPk(){
-		$ORM = new \miti\ORM('categoria', 'c');
-		$this->assertSame('id', $ORM->getPk());
+		$this->assertSame('id', self::$ORM->getPk());
 	}
 	
 	public function testValidarVazio(){
-		$this->setExpectedException('Exception', "Valor vazio para o campo 'id'.");
-		
-		$ORM = new \miti\ORM('categoria', 'c');
-		$ORM->criar(array('id' => ''));
+		$this->setExpectedException('UnexpectedValueException', "Valor vazio para o campo 'id'.");
+		self::$ORM->criar(array('id' => ''));
 	}
 	
 	public function testValidarExcessoDeCaracteres(){
 		$mensagem = "Limite de caractéres excedido para o campo 'id'.";
-		$this->setExpectedException('Exception', $mensagem);
+		$this->setExpectedException('UnexpectedValueException', $mensagem);
 		
-		$ORM = new \miti\ORM('categoria', 'c');
-		$ORM->criar(array('id' => 1000));
+		self::$ORM->criar(array('id' => 1000));
 	}
 	
 	public function testCriar(){
-		$ORM = new \miti\ORM('categoria', 'c');
-		$ORM->criar(array('id' => 4, 'nome' => 'Teste', 'status' => 'c'));
-		$ORM->criar(array('id' => 5, 'nome' => 'Teste 2', 'status' => ''))->cometer();
+		self::$ORM->criar(array('id' => 4, 'nome' => 'Teste', 'status' => 'c'));
+		self::$ORM->criar(array('id' => 5, 'nome' => 'Teste 2', 'status' => ''));
 	}
 	
 	public function testAtualizar(){
-		$ORM = new \miti\ORM('categoria', 'c');
-		$ORM->atualizar(array('status' => 'c'), 5)->cometer();
+		self::$ORM->atualizar(array('status' => 'c'), 5);
 	}
 	
 	public function testDeletarArray(){
-		$ORM = new \miti\ORM('categoria', 'c');
-		$Banco = $ORM->deletar(array('status' => 'c'));
+		self::$ORM->deletar(array('status' => 'c'));
 		
-		$categoria = $ORM
+		$quantidade = self::$ORM
 			->selecionar('c', 'id')
 			->filtrar('c', 'status', '=', 'c')
 			->ler()
 			->quantificar()
 		;
 		
-		$Banco->cometer();
-		
-		$this->assertSame(0, $categoria);
+		$this->assertSame(0, $quantidade);
 	}
 	
 	public function testTratarPk(){
-		$ORM = new \miti\ORM('status', 's');
-		$ORM->criar(array('id' => 'd', 'descricao' => 'Teste', 'prioridade' => 1));
-		$ORM->deletar('d')->cometer();
+		self::$ORMStatus->criar(array('id' => 'd', 'descricao' => 'Teste', 'prioridade' => 1));
+		self::$ORMStatus->deletar('d');
 	}
 	
 	public function testJuntar(){
-		$ORM = new \miti\ORM('memoria', 'm');
-		
-		$memoria = $ORM
+		$m = self::$ORMMemoria
 			->selecionar('m', 'id')
 			->selecionar('s', 'descricao', 'des')
 			->juntar('categoria', 'c', 'm', 'categoria', 'c', 'id')
@@ -89,13 +83,13 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->vetorizar()
 		;
 		
-		$this->assertSame(array('id' => '1', 'des' => 'Ativo'), $memoria);
+		$this->assertSame(array('id' => '1', 'des' => 'Ativo'), $m);
 	}
 	
 	public function testJuntarEsquerda(){
-		$ORM = new \miti\ORM('categoria', 'c');
+		self::$ORM->zerar();
 		
-		$c = $ORM
+		$c = self::$ORM
 			->selecionar('c', 'nome')
 			->juntarEsquerda('status', 's', 'c', 'status', 's', 'id')
 			->filtrar('c', 'id', '=', '3')
@@ -107,23 +101,21 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testJuntarDireita(){
-		$ORM = new \miti\ORM('status', 's');
-		
-		$c = $ORM
-			->selecionar('c', 'nome')
+		$s = self::$ORMStatus
+			->selecionar('c', 'nome', 'c_nome')
 			->juntarDireita('categoria', 'c', 's', 'id', 'c', 'status')
 			->filtrar('c', 'id', '=', '3')
 			->ler()
 			->vetorizar()
 		;
 		
-		$this->assertSame(array('nome' => 'Pintura'), $c);
+		$this->assertSame(array('c_nome' => 'Pintura'), $s);
 	}
 	
 	public function testEFiltrar(){
-		$ORM = new \miti\ORM('memoria', 'm');
+		self::$ORMMemoria->zerar();
 		
-		$memoria = $ORM
+		$m = self::$ORMMemoria
 			->selecionar('m', 'id')
 			->filtrar('m', 'categoria', '=', '1')
 			->eFiltrar('m', 'descricao', '=', 'Peaceful Warrior')
@@ -131,13 +123,13 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->vetorizar()
 		;
 		
-		$this->assertSame(array('id' => '1'), $memoria);
+		$this->assertSame(array('id' => '1'), $m);
 	}
 	
 	public function testOuFiltrar(){
-		$ORM = new \miti\ORM('memoria', 'm');
+		self::$ORMMemoria->zerar();
 		
-		$memoria = $ORM
+		$m = self::$ORMMemoria
 			->selecionar('m', 'id')
 			->filtrar('m', 'id', '=', '1')
 			->ouFiltrar('m', 'id', '=', '2')
@@ -145,26 +137,19 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->quantificar()
 		;
 		
-		$this->assertSame(2, $memoria);
+		$this->assertSame(2, $m);
 	}
 	
 	public function testTratarLeitura(){
-		$ORM = new \miti\ORM('categoria', 'c');
-		
-		$categoria = $ORM
-			->selecionar('c', 'id')
-			->filtrar('c', 'nome', 'like', 'ilm')
-			->ler()
-			->quantificar()
-		;
-		
-		$this->assertSame(1, $categoria);
+		self::$ORM->zerar();
+		$c = self::$ORM->selecionar('c', 'id')->filtrar('c', 'nome', 'like', 'ilm')->ler()->quantificar();
+		$this->assertSame(1, $c);
 	}
 	
 	public function testOrdenar(){
-		$ORM = new \miti\ORM('memoria', 'm');
+		self::$ORMMemoria->zerar();
 		
-		$memoria = $ORM
+		$m = self::$ORMMemoria
 			->selecionar('m', 'descricao')
 			->ordenar('m', 'categoria', 'asc')
 			->ordenar('m', 'descricao', 'desc')
@@ -172,20 +157,20 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->vetorizar()
 		;
 		
-		$this->assertSame(array('descricao' => 'The Village'), $memoria);
+		$this->assertSame(array('descricao' => 'The Village'), $m);
 	}
 	
 	public function testOrdenarAleatoriamente(){
-		$ORM = new \miti\ORM('memoria', 'm');
-		$ORM->selecionar('m', 'id')->ordenarAleatoriamente();
+		self::$ORMMemoria->zerar();
+		self::$ORMMemoria->selecionar('m', 'id')->ordenarAleatoriamente();
 		
 		$resultado = false;
-		$controle = $ORM->ler()->vetorizar();
+		$controle = self::$ORMMemoria->ler()->vetorizar();
 		
-		for($x = 1; $x <= 10; $x++){
-			$memoria = $ORM->ler()->vetorizar();
+		for($i = 1; $i <= 10; $i++){
+			$m = self::$ORMMemoria->ler()->vetorizar();
 			
-			if($memoria['id'] != $controle['id']){
+			if($m['id'] != $controle['id']){
 				$resultado = true;
 				break;
 			}
@@ -195,9 +180,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testAgrupar(){
-		$ORM = new \miti\ORM('memoria', 'm');
-		
-		$memoria = $ORM
+		$m = self::$ORMMemoria
 			->selecionar('s', 'id')
 			->juntar('categoria', 'c', 'm', 'categoria', 'c', 'id')
 			->juntar('status', 's', 'c', 'status', 's', 'id')
@@ -206,25 +189,30 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 			->quantificar()
 		;
 		
-		$this->assertSame(1, $memoria);
+		$this->assertSame(1, $m);
 	}
 	
 	public function testLimitarZero(){
-		$ORM = new \miti\ORM('memoria', 'm');
-		$quantidade = $ORM->selecionar('m', 'id')->limitar(0)->ler()->quantificar();
+		self::$ORMMemoria->zerar();
+		$quantidade = self::$ORMMemoria->selecionar('m', 'id')->limitar(0)->ler()->quantificar();
 		$this->assertSame(3, $quantidade);
 	}
 	
 	public function testLimitar(){
-		$ORM = new \miti\ORM('memoria', 'm');
-		$quantidade = $ORM->selecionar('m', 'id')->limitar(1, 2)->ler()->quantificar();
+		self::$ORMMemoria->zerar();
+		$quantidade = self::$ORMMemoria->selecionar('m', 'id')->limitar(1, 2)->ler()->quantificar();
 		$this->assertSame(1, $quantidade);
 	}
 	
 	public function testZerar(){
-		$ORM = new \miti\ORM('memoria', 'm');
-		$ORM->limitar(1)->zerar();
-		$quantidade = $ORM->selecionar('m', 'id')->ler()->quantificar();
+		self::$ORMMemoria->zerar()->limitar(1)->zerar();
+		$quantidade = self::$ORMMemoria->selecionar('m', 'id')->ler()->quantificar();
 		$this->assertSame(3, $quantidade);
+	}
+	
+	public static function tearDownAfterClass(){
+		self::$ORM->getBanco()->rebobinar();
+		self::$ORMMemoria->getBanco()->rebobinar();
+		self::$ORMStatus->getBanco()->rebobinar();
 	}
 }

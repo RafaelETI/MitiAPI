@@ -76,7 +76,7 @@ class Banco{
 	 */
 	private function verificarExistenciaDaExtensao(){
 		if(!in_array('mysqli', get_loaded_extensions())){
-			throw new \Exception('A classe '.__CLASS__.' depende da extensão mysqli.');
+			throw new \RuntimeException('A classe '.__CLASS__.' depende da extensão mysqli.');
 		}
 	}
 	
@@ -99,7 +99,7 @@ class Banco{
 				'Não foi possível conectar ao banco de dados.'
 			;
 			
-			throw new \Exception($mensagem);
+			throw new \RuntimeException($mensagem);
 		}
 	}
 	
@@ -112,7 +112,7 @@ class Banco{
 	 */
 	private function definirCharset($charset){
 		if(!$this->Conexao->set_charset($charset)){
-			throw new \Exception('Houve um erro ao definir o charset.');
+			throw new \DomainException('Houve um erro ao definir o charset.');
 		}
 	}
 	
@@ -172,7 +172,7 @@ class Banco{
 				'Houve um erro ao realizar a requisição.'
 			;
 			
-			throw new \Exception($mensagem);
+			throw new \UnexpectedValueException($mensagem);
 		}
 		
 		return $this;

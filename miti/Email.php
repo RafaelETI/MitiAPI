@@ -119,7 +119,7 @@ class Email{
 	 */
 	public function enviar($destinatario, $assunto, $mensagem, $remetente, $charset = CFG_CHARSET){
 		if(!mail($destinatario, $this->codificarAssunto($charset, $assunto), '', $this->montarCabecalho($remetente, $mensagem, $charset))){
-			throw new \Exception('Houve um erro ao enviar o e-mail.');
+			throw new \RuntimeException('Houve um erro ao enviar o e-mail.');
 		}
 	}
 	
@@ -196,8 +196,7 @@ class Email{
 			}
 		}
 		
-		$cabecalho .= "--$this->uid--";
-		return $cabecalho;
+		return $cabecalho . "--$this->uid--";
 	}
 	
 	/**
