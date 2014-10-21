@@ -75,7 +75,7 @@ class Banco{
 	 * @throws \Exception
 	 */
 	private function verificarExistenciaDaExtensao(){
-		if(!in_array('mysqli', get_loaded_extensions())){
+		if(!extension_loaded('mysqli')){
 			throw new \RuntimeException('A classe '.__CLASS__.' depende da extensão mysqli.');
 		}
 	}
