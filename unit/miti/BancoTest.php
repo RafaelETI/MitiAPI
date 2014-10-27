@@ -49,12 +49,16 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		self::$Banco->requisitar('insert into categoria values(1, "Música", null)')->rebobinar();
 	}
 	
-	public function testErroDeRequisicaoComMensagemGenerica(){
-		$mensagem = 'Houve um erro ao realizar a requisição.';
-		$this->setExpectedException('UnexpectedValueException', $mensagem);
-		
+	public function testErroDeRequisicaoComMensagemEspecifica(){
+		$this->setExpectedException('UnexpectedValueException', 'O registro já existe.');
 		ini_set('display_errors', 0);
 		self::$Banco->requisitar('insert into categoria values(1, "Música", null)')->rebobinar();
+	}
+	
+	public function testErroDeRequisicaoComMensagemGenerica(){
+		$this->setExpectedException('UnexpectedValueException', 'Houve um erro ao realizar a requisição.');
+		ini_set('display_errors', 0);
+		self::$Banco->requisitar('insert into categoria values(1, null, null)')->rebobinar();
 	}
 	
 	public function testGetAfetados(){

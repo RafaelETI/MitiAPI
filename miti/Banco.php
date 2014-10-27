@@ -72,7 +72,7 @@ class Banco{
 	/**
 	 * Verifica a existência da extensão do PHP para trabalhar com o banco de dados
 	 * 
-	 * @throws \Exception
+	 * @throws \RuntimeException
 	 */
 	private function verificarExistenciaDaExtensao(){
 		if(!extension_loaded('mysqli')){
@@ -90,7 +90,7 @@ class Banco{
 	 * Geralmente acontece por causa da configuração do ambiente: diferentes
 	 * máquinas de desenvolvimento, ambiente de teste, ou de produção.
 	 * 
-	 * @throws \Exception
+	 * @throws \RuntimeException
 	 */
 	private function verificarErroDeConexao(){
 		if($this->Conexao->connect_error){
@@ -108,7 +108,7 @@ class Banco{
 	 * 
 	 * @param string $charset O valor compatível com iso-8859-1 é latin1.
 	 * 
-	 * @throws \Exception Muito raro de acontecer.
+	 * @throws \DomainException Muito raro de acontecer.
 	 */
 	private function definirCharset($charset){
 		if(!$this->Conexao->set_charset($charset)){
@@ -152,25 +152,29 @@ class Banco{
 	 */
 	public function requisitar($sql){
 		$this->Requisicao = $this->Conexao->query($sql);
-		$this->verificarErroRequisicao($sql)->setAfetados()->setId();
+		$this->verificarErroDeRequisicao($sql)->setAfetados()->setId();
 		return $this;
 	}
 	
 	/**
 	 * Verifica se houve erro na requisição
 	 * 
-	 * A mensagem será técnica ou genérica baseado na configuração do PHP sobre
-	 * a impressão de erros na tela. Mesma regra da mensagem de erro da conexão.
+	 * A mensagem será técnica, específica, ou genérica, baseado na configuração
+	 * do PHP sobre a impressão de erros na tela, e no código do erro.
 	 * 
 	 * @return Banco
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
-	private function verificarErroRequisicao($sql){
+	private function verificarErroDeRequisicao($sql){
 		if($this->Conexao->error){
-			$mensagem = ini_get('display_errors')?
-				"{$this->Conexao->error} - $sql":
-				'Houve um erro ao realizar a requisição.'
-			;
+			if(ini_get('display_errors')){
+				$mensagem = $this->Conexao->error . ' - ' . $sql;
+			}else{
+				switch($this->Conexao->errno){
+					case 1062: $mensagem = 'O registro já existe.'; break;
+					default: $mensagem = 'Houve um erro ao realizar a requisição.'; break;
+				}
+			}
 			
 			throw new \UnexpectedValueException($mensagem);
 		}

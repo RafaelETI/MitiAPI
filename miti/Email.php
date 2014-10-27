@@ -115,7 +115,7 @@ class Email{
 	 * @param string $mensagem
 	 * @param string $remetente
 	 * @param string $charset
-	 * @throws \Exception
+	 * @throws \RuntimeException
 	 */
 	public function enviar($destinatario, $assunto, $mensagem, $remetente, $charset = CFG_CHARSET){
 		if(!mail($destinatario, $this->codificarAssunto($charset, $assunto), '', $this->montarCabecalho($remetente, $mensagem, $charset))){

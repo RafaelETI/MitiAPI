@@ -18,7 +18,7 @@ class Validacao{
 	 * @param mixed $valor
 	 * @param int $tamanho
 	 * @return null
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	public static function tamanho($valor, $tamanho){
 		if(!$valor){return;}
@@ -36,7 +36,7 @@ class Validacao{
 	 * @api
 	 * @param string $valor
 	 * @return null
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	public static function email($valor){
 		if(!$valor){return;}
@@ -93,7 +93,7 @@ class Validacao{
 	 * @param array[] $arquivos
 	 * @param int $i Índice do vetor dos arquivos.
 	 * @param int $peso
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	private static function peso($arquivos, $i, $peso){
 		if($arquivos['size'][$i] > $peso * 1024){
@@ -107,7 +107,7 @@ class Validacao{
 	 * @param array[] $arquivos
 	 * @param int $i Índice do vetor dos arquivos.
 	 * @param string[] $tipos
-	 * @throws \Exception
+	 * @throws \RangeException
 	 */
 	private static function tipos($arquivos, $i, array $tipos){
 		$ok = false;
@@ -145,7 +145,7 @@ class Validacao{
 	 * @param int[] $dimensoes
 	 * @param int $largura
 	 * @param int $altura
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	private static function dimensoes($dimensoes, $largura, $altura){
 		if($dimensoes[0] < $largura){
@@ -163,7 +163,7 @@ class Validacao{
 	 * @param int[] $dimensoes
 	 * @param int $largura
 	 * @param int $altura
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	private static function proporcoes($dimensoes, $largura, $altura){
 		$proporcaoIdeal = $largura / $altura;
@@ -204,7 +204,7 @@ class Validacao{
 	 * mensagem explícita do erro, para que haja uma menor chance de burlamento.
 	 * 
 	 * @param string $cpf
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	private static function quantidadeCaracteres($cpf){
 		if(strlen($cpf) !== 11){throw new \UnexpectedValueException('#1 O CPF é inválido.');}
@@ -214,7 +214,7 @@ class Validacao{
 	 * Valida se apenas possui números
 	 * 
 	 * @param string $cpf
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	private static function apenasNumeros($cpf){
 		if(!preg_match('/\d{11}/', $cpf)){throw new \UnexpectedValueException('#2 O CPF é inválido.');}
@@ -227,7 +227,7 @@ class Validacao{
 	 * os cálculos dos dígitos verificadores.
 	 * 
 	 * @param string $cpf
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	private static function sequenciaIgual($cpf){
 		for($posicao = 1, $numero = $cpf[0]; $posicao <= 10; $posicao++){
@@ -240,7 +240,7 @@ class Validacao{
 	 * Valida os dígitos verificadores
 	 * 
 	 * @param string $cpf
-	 * @throws \Exception
+	 * @throws \RangeException
 	 */
 	private static function digitosCpf($cpf){
 		for($posicao = 9; $posicao <= 10; $posicao++){
@@ -277,7 +277,7 @@ class Validacao{
 	 * mensagem explícita do erro, para que haja uma menor chance de burlamento.
 	 * 
 	 * @param string $cnpj
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	private static function quantidadeCaracteresCnpj($cnpj){
 		if(strlen($cnpj) !== 14){throw new \UnexpectedValueException('#1 O CNPJ é inválido.');}
@@ -287,7 +287,7 @@ class Validacao{
 	 * Valida se apenas possui números
 	 * 
 	 * @param string $cnpj
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	private static function apenasNumerosCnpj($cnpj){
 		if(!preg_match('/\d{14}/', $cnpj)){throw new \UnexpectedValueException('#2 O CNPJ é inválido.');}
@@ -299,7 +299,7 @@ class Validacao{
 	 * Diferente do CPF, essa é a única sequência numérica problemática.
 	 * 
 	 * @param string $cnpj
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	private static function sequenciaZeros($cnpj){
 		if($cnpj == '00000000000000'){throw new \UnexpectedValueException('#3 O CNPJ é inválido.');}
@@ -309,7 +309,7 @@ class Validacao{
 	 * Valida os dígitos verificadores
 	 * 
 	 * @param string $cnpj
-	 * @throws \Exception
+	 * @throws \RangeException
 	 */
 	private static function digitosCnpj($cnpj){
 		for($i = 0; $i <= 1; $i++){

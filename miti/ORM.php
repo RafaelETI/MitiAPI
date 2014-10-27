@@ -129,7 +129,7 @@ class ORM{
 	 * 
 	 * @return ORM
 	 * 
-	 * @throws \Exception Implicitamente.
+	 * @throws \UnexpectedValueException Implicitamente.
 	 */
 	private function mapearCampos(){
 		$this->campos = $this->Banco->requisitar("select * from $this->tabela")->mapear();
@@ -227,7 +227,7 @@ class ORM{
 	 * @api
 	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
 	 * @return Banco
-	 * @throws \Exception Implicitamente.
+	 * @throws \UnexpectedValueException Implicitamente.
 	 */
 	public function criar(array $tupla){
 		$sql = '';
@@ -282,7 +282,7 @@ class ORM{
 	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
 	 * @param string $pk Nome do campo da chave primária.
 	 * @return Banco
-	 * @throws \Exception Implicitamente.
+	 * @throws \UnexpectedValueException Implicitamente.
 	 */
 	public function atualizar(array $tupla, $pk){
 		$sql = '';
@@ -329,7 +329,7 @@ class ORM{
 	 * Valida os dados à serem inseridos
 	 * 
 	 * @param string[] $tupla
-	 * @throws \Exception
+	 * @throws \UnexpectedValueException
 	 */
 	private function validar(array $tupla){
 		foreach($tupla as $campo => $valor){
@@ -349,7 +349,7 @@ class ORM{
 	 * @api
 	 * @param mixed|mixed[] $filtro Se for um vetor, deve conter apenas uma dupla.
 	 * @return Banco
-	 * @throws \Exception Implicitamente.
+	 * @throws \UnexpectedValueException Implicitamente.
 	 */
 	public function deletar($filtro){
 		$sql = is_array($filtro)? $this->montarExclusaoArray($filtro): $this->montarExclusaoScalar($filtro);
@@ -622,7 +622,7 @@ class ORM{
 	 * 
 	 * @api
 	 * @return Banco
-	 * @throws \Exception Implicitamente.
+	 * @throws \UnexpectedValueException Implicitamente.
 	 */
 	public function ler(){
 		$this->filtros = $this->concatenarClausula($this->filtros, 'where');
