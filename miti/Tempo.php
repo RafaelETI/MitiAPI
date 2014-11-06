@@ -136,4 +136,35 @@ class Tempo{
 		$DateTime = new \DateTime($tempo);
 		return $DateTime->format('Y');
 	}
+	
+	/**
+	 * Soma vários intervalos de tempo
+	 * 
+	 * @return \DateInterval
+	 * @todo Criar mais testes unitários
+	 */
+	public static function somar(){
+		$DateTime = new \DateTime('00:00:00');
+		$DateTime2 = new \DateTime('00:00:00');
+		
+		foreach(func_get_args() as $Intervalo){$DateTime->add($Intervalo);}
+		
+		return $DateTime->diff($DateTime2, true);
+	}
+	
+	/**
+	 * Subtrai vários intervalos de tempo
+	 * 
+	 * @return \DateInterval
+	 * @todo Criar mais testes unitários
+	 */
+	public static function subtrair(){
+		$parametros = func_get_args();
+		$DateTime = new \DateTime(array_shift($parametros)->format('%H:%I:%S'));
+		$DateTime2 = new \DateTime('00:00:00');
+		
+		foreach($parametros as $Intervalo){$DateTime->sub($Intervalo);}
+		
+		return $DateTime->diff($DateTime2, true);
+	}
 }

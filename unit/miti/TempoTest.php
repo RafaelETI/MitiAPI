@@ -109,4 +109,18 @@ class TempoTest extends PHPUnit_Framework_TestCase{
 	public function testAno(){
 		$this->assertSame('2014', \miti\Tempo::ano('2014-06-08'));
 	}
+	
+	public function testSomar(){
+		$Intervalo = new \DateInterval('PT1H42M23S');
+		$Intervalo2 = new \DateInterval('PT2M57S');
+		
+		$this->assertSame('01:45:20', \miti\Tempo::somar($Intervalo, $Intervalo2)->format('%H:%I:%S'));
+	}
+	
+	public function testSubtrair(){
+		$Intervalo = new \DateInterval('PT1H42M23S');
+		$Intervalo2 = new \DateInterval('PT2M57S');
+		
+		$this->assertSame('01:39:26', \miti\Tempo::subtrair($Intervalo, $Intervalo2)->format('%H:%I:%S'));
+	}
 }

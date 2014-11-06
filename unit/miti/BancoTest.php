@@ -39,7 +39,7 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testErroDeRequisicaoComMensagemTecnica(){
 		$mensagem =
-			"Duplicate entry '1' for key 'PRIMARY' - "
+			"#1062 Duplicate entry '1' for key 'PRIMARY' - "
 			.'insert into categoria values(1, "Música", null)'
 		;
 		
@@ -56,7 +56,7 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testErroDeRequisicaoComMensagemGenerica(){
-		$this->setExpectedException('UnexpectedValueException', 'Houve um erro ao realizar a requisição.');
+		$this->setExpectedException('UnexpectedValueException', '#1048 Houve um erro ao realizar a requisição.');
 		ini_set('display_errors', 0);
 		self::$Banco->requisitar('insert into categoria values(1, null, null)')->rebobinar();
 	}

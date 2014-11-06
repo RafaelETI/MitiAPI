@@ -168,11 +168,11 @@ class Banco{
 	private function verificarErroDeRequisicao($sql){
 		if($this->Conexao->error){
 			if(ini_get('display_errors')){
-				$mensagem = $this->Conexao->error . ' - ' . $sql;
+				$mensagem = "#{$this->Conexao->errno} {$this->Conexao->error} - $sql";
 			}else{
 				switch($this->Conexao->errno){
 					case 1062: $mensagem = 'O registro já existe.'; break;
-					default: $mensagem = 'Houve um erro ao realizar a requisição.'; break;
+					default: $mensagem = "#{$this->Conexao->errno} Houve um erro ao realizar a requisição."; break;
 				}
 			}
 			
