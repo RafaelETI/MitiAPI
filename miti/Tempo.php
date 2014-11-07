@@ -141,7 +141,6 @@ class Tempo{
 	 * Soma vários intervalos de tempo
 	 * 
 	 * @return \DateInterval
-	 * @todo Criar mais testes unitários
 	 */
 	public static function somar(){
 		$DateTime = new \DateTime('00:00:00');
@@ -156,7 +155,6 @@ class Tempo{
 	 * Subtrai vários intervalos de tempo
 	 * 
 	 * @return \DateInterval
-	 * @todo Criar mais testes unitários
 	 */
 	public static function subtrair(){
 		$parametros = func_get_args();
