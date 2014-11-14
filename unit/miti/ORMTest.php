@@ -51,25 +51,16 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testAtualizar(){
-		self::$ORM->atualizar(array('status' => 'c'), 5);
+		self::$ORM->filtrar('c', 'id', '=', '5')->atualizar(array('status' => 'c'));
 	}
 	
-	public function testDeletarArray(){
-		self::$ORM->deletar(array('status' => 'c'));
+	public function testDeletar(){
+		self::$ORM->zerar();
 		
-		$quantidade = self::$ORM
-			->selecionar('c', 'id')
-			->filtrar('c', 'status', '=', 'c')
-			->ler()
-			->quantificar()
-		;
+		self::$ORM->filtrar('c', 'status', '=', 'c')->deletar();
 		
+		$quantidade = self::$ORM->selecionar('c', 'id')->ler()->quantificar();
 		$this->assertSame(0, $quantidade);
-	}
-	
-	public function testTratarPk(){
-		self::$ORMStatus->criar(array('id' => 'd', 'descricao' => 'Teste', 'prioridade' => 1));
-		self::$ORMStatus->deletar('d');
 	}
 	
 	public function testJuntar(){
@@ -101,6 +92,8 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testJuntarDireita(){
+		self::$ORMStatus->zerar();
+		
 		$s = self::$ORMStatus
 			->selecionar('c', 'nome', 'c_nome')
 			->juntarDireita('categoria', 'c', 's', 'id', 'c', 'status')

@@ -280,49 +280,30 @@ class ORM{
 	 * 
 	 * @api
 	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
-	 * @param string $pk Nome do campo da chave primária.
 	 * @return Banco
 	 * @throws \UnexpectedValueException Implicitamente.
 	 */
-	public function atualizar(array $tupla, $pk){
-		$sql = '';
-		$sql = $this->montarAtribuicoes($sql, $tupla);
-		$sql = $this->montarWhereAlteracao($sql, $pk);
+	public function atualizar(array $tupla){
+		$sql = $this->montarAtribuicoes($tupla).' where '.$this->filtros;
 		return $this->Banco->requisitar($sql);
 	}
 	
 	/**
 	 * Monta a parte das atribuições de valores da instrução
 	 * 
-	 * @param string $sql
 	 * @param string[] $tupla
 	 * @return string
 	 */
-	private function montarAtribuicoes($sql, array $tupla){
+	private function montarAtribuicoes(array $tupla){
 		$this->validar($tupla);
 		$tupla = $this->tratar($tupla);
 		
-		$sql = "update $this->tabela set ";
+		$sql = "update $this->tabela $this->alias set ";
 		
 		$atribuicoes = array();
 		foreach($tupla as $campo => $valor){$atribuicoes[] = "$campo = $valor";}
 		
 		return $sql . implode(', ', $atribuicoes);
-	}
-	
-	/**
-	 * Monta a parte do filtro da instrução
-	 * 
-	 * Atualmente apenas pode-se filtrar pela chave primária, mas pretende-se
-	 * poder filtrar por qualquer campo, assim como com o método de exclusão.
-	 * 
-	 * @param string $sql
-	 * @param string $pk
-	 * @return string
-	 */
-	private function montarWhereAlteracao($sql, $pk){
-		$pk = $this->tratarPk($pk);
-		return "$sql where $this->pk = $pk";
 	}
 	
 	/**
@@ -347,29 +328,12 @@ class ORM{
 	 * Exclui um registro na tabela (Delete do CRUD)
 	 * 
 	 * @api
-	 * @param mixed|mixed[] $filtro Se for um vetor, deve conter apenas uma dupla.
 	 * @return Banco
 	 * @throws \UnexpectedValueException Implicitamente.
 	 */
-	public function deletar($filtro){
-		$sql = is_array($filtro)? $this->montarExclusaoArray($filtro): $this->montarExclusaoScalar($filtro);
+	public function deletar(){
+		$sql = "delete $this->alias from $this->tabela $this->alias where $this->filtros";
 		return $this->Banco->requisitar($sql);
-	}
-	
-	private function montarExclusaoArray(array $dupla){
-		$dupla = $this->tratar($dupla);
-		
-		foreach($dupla as $campo => $valor){
-			$sql = "delete from $this->tabela where $campo = $valor";
-			break;
-		}
-		
-		return $sql;
-	}
-	
-	private function montarExclusaoScalar($pk){
-		$pk = $this->tratarPk($pk);
-		return "delete from $this->tabela where $this->pk = $pk";
 	}
 	
 	/**
@@ -393,23 +357,6 @@ class ORM{
 		}
 		
 		return $tupla;
-	}
-	
-	/**
-	 * Trata o dado referente à chave primária
-	 * 
-	 * Impede-se SQL Injection.
-	 * 
-	 * @param string $pk
-	 * @return string
-	 */
-	private function tratarPk($pk){
-		$this->tipos[$this->pk] === 'string'?
-			$pk = '"' . $this->Banco->escapar($pk) . '"':
-			settype($pk, $this->tipos[$this->pk])
-		;
-		
-		return $pk;
 	}
 	
 	/**
@@ -625,10 +572,10 @@ class ORM{
 	 * @throws \UnexpectedValueException Implicitamente.
 	 */
 	public function ler(){
-		$this->filtros = $this->concatenarClausula($this->filtros, 'where');
-		$this->grupos = $this->concatenarClausula($this->grupos, 'group by');
-		$this->ordens = $this->concatenarClausula($this->ordens, 'order by');
-		$this->limite = $this->concatenarClausula($this->limite, 'limit');
+		$this->filtros = $this->concatenarClausula('where', $this->filtros);
+		$this->grupos = $this->concatenarClausula('group by', $this->grupos);
+		$this->ordens = $this->concatenarClausula('order by', $this->ordens);
+		$this->limite = $this->concatenarClausula('limit', $this->limite);
 		
 		$sql =
 			"select $this->selecoes"
@@ -646,13 +593,13 @@ class ORM{
 	/**
 	 * Concatena cláusula SQL às montagens anteriores das instruções
 	 * 
+	 * @param string $clausula
 	 * @param string $propriedade
-	 * @param string $sql
 	 * @return string
 	 */
-	private function concatenarClausula($propriedade, $sql){
-		if($propriedade && strpos($propriedade, $sql) === false){
-			$propriedade = "$sql $propriedade";
+	private function concatenarClausula($clausula, $propriedade){
+		if($propriedade && strpos($propriedade, $clausula) === false){
+			$propriedade = "$clausula $propriedade";
 		}
 		
 		return $propriedade;
