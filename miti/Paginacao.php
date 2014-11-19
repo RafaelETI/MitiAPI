@@ -105,8 +105,8 @@ class Paginacao{
 	/**
 	 * Cria a paginação em HTML
 	 * 
-	 * São gerados os botões: &#8635; (primeira), &#8592; (anterior), &#8594;
-	 * (próxima), e &#8634; (última), além dos númericos incrementados de um em
+	 * São gerados os botões: &#8634; (primeira), &#8592; (anterior), &#8594;
+	 * (próxima), e &#8635; (última), além dos númericos incrementados de um em
 	 * um, com o limite definido pelo usuário.
 	 * 
 	 * @api
@@ -120,8 +120,8 @@ class Paginacao{
 		$queryString = $this->formatarQueryString($filtros, $pagina);
 		
 		$paginacao = $this->pagina != 1?
-			"<a href='?$queryString=1'>&#8635;</a>":
-			"<span class='$off'>&#8635;</span>"
+			"<a href='?$queryString=1'>&#8634;</a>":
+			"<span class='$off'>&#8634;</span>"
 		;
 		
 		$paginacao .= $this->pagina > 1?
@@ -144,8 +144,8 @@ class Paginacao{
 		;
 		
 		$paginacao .= $this->pagina != ($this->quantidadeDePaginas - 1)?
-			"<a href='?$queryString=".($this->quantidadeDePaginas - 1)."'>&#8634;</a>":
-			"<span class='$off'>&#8634;</span>"
+			"<a href='?$queryString=".($this->quantidadeDePaginas - 1)."'>&#8635;</a>":
+			"<span class='$off'>&#8635;</span>"
 		;
 		
 		return $paginacao;

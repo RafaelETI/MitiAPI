@@ -6,7 +6,7 @@ class ValidacaoTest extends PHPUnit_Framework_TestCase{
 	public static function setUpBeforeClass(){
 		self::$arquivos['name'][0] = 'miti.png';
 		self::$arquivos['type'][0] = 'image/png';
-		self::$arquivos['tmp_name'][0] = CFG_RAIZ.'/unit/arquivo/miti.png';
+		self::$arquivos['tmp_name'][0] = CFG_RAIZ.'/unit/arquivos/miti.png';
 		self::$arquivos['size'][0] = '1457';
 		
 		self::$arquivos2['name'][0] = '';
