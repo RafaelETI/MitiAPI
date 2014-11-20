@@ -10,10 +10,6 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 		self::$ORMStatus = new \miti\ORM('status', 's');
 	}
 	
-	public function testGetBanco(){
-		$this->assertTrue(is_a(self::$ORM->getBanco(), '\miti\Banco'));
-	}
-	
 	public function testGetTipos(){
 		$tipos = array('id' => 'float', 'nome' => 'string', 'status' => 'string');
 		$this->assertSame($tipos, self::$ORM->getTipos());

@@ -120,6 +120,11 @@ class ORM{
 		$this->mapearCampos()->setPk()->setTipos()->setAnulaveis()->setTamanhos();
 	}
 	
+	public function setBanco(Banco $Banco){
+		$this->Banco = $Banco;
+		return $this;
+	}
+	
 	public function getBanco(){
 		return $this->Banco;
 	}
