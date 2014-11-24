@@ -322,7 +322,7 @@ class Config{
 			
 			try{
 				$Objeto = new $Classe;
-				$_SESSION['status'] = $Objeto->$_REQUEST['metodo']($requisicao);
+				$_SESSION['status'] = $Objeto->$_REQUEST['metodo']($requisicao, $_FILES);
 				header("Location: {$_REQUEST['url']}");
 				exit;
 			}catch(\Exception $e){$_SESSION['status'] = $e->getMessage();}
