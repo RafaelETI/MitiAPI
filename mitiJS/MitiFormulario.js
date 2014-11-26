@@ -1,11 +1,7 @@
 function MitiFormulario(cor){
 	this.contar = function(id, quantidade){
 		var elemento = MitiElemento.getId(id);
-		this.contarOnKeyUp(elemento, quantidade);
-		this.contarOnBlur(elemento);
-	};
-	
-	this.contarOnKeyUp = function(elemento, quantidade){
+		
 		elemento.onkeyup = function(){
 			var valor = elemento.value;
 			var resto = quantidade - valor.length;
@@ -18,13 +14,6 @@ function MitiFormulario(cor){
 			}else if(contagem.style.color !== 'red' && resto < 0){
 				contagem.style.color = 'red';
 			}
-		};
-	};
-	
-	this.contarOnBlur = function(elemento){
-		elemento.onblur = function(){
-			var contagem = MitiElemento.getId(elemento.id + '_miticontar');
-			contagem.innerHTML = '';
 		};
 	};
 	
