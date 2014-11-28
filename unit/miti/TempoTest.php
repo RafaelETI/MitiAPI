@@ -18,6 +18,14 @@ class TempoTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame('18/08/1991', $tempo);
 	}
 	
+	public function testDiaVazio(){
+		$this->assertSame(null, \miti\Tempo::dia(''));
+	}
+	
+	public function testDia(){
+		$this->assertSame('08', \miti\Tempo::dia('2014-06-08'));
+	}
+	
 	public function testDiaDaSemanaVazio(){
 		$this->assertSame(null, \miti\Tempo::diaDaSemana(''));
 	}

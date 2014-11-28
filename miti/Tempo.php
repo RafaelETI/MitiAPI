@@ -60,6 +60,19 @@ class Tempo{
 	}
 	
 	/**
+	 * Obtém o dia à partir de um tempo
+	 * 
+	 * @api
+	 * @param string $tempo
+	 * @return string|null
+	 */
+	public static function dia($tempo){
+		if(!$tempo){return;}
+		$DateTime = new \DateTime($tempo);
+		return $DateTime->format('d');
+	}
+	
+	/**
 	 * Obtém o dia da semana à partir de um tempo, em forma de texto
 	 * 
 	 * É um trabalho majoritariamente de tradução.
