@@ -10,31 +10,44 @@ namespace miti;
 /**
  * Controle de cache
  * 
- * Não está testada por causa da dificuldade imposta pelo framework de teste,
- * sendo que ele não é executado via servidor web, fazendo com que seja difícil
- * a manipulação do cabeçalho HTTP.
+ * Não está testada pela dificuldade imposta pelo framework de teste, sendo que
+ * ele não é executado via servidor web, fazendo com que não seja possível a
+ * manipulação do cabeçalho HTTP.
  */
 class Cache{
+	/**
+	 * Verifica a existência da extensão do PHP para trabalhar com o Apache
+	 * 
+	 * @throws \RuntimeException
+	 */
+	private static function verificarExistenciaDaExtensao(){
+		if(!extension_loaded('apache2handler')){
+			throw new \RuntimeException('A classe '.__CLASS__.' depende da extensão apache2handler.');
+		}
+	}
+	
 	/**
 	 * Define o tempo de validade do recurso
 	 * 
 	 * Por recurso entende-se o conteúdo conseguido através de uma requisição à
 	 * um URL.
 	 * 
-	 * Pode ser que aja uma dependência com o servidor Apache, porque a função
-	 * getallheaders() é um alias para a apache_request_headers().
+	 * Há uma dependência com o servidor Apache, porque a função getallheaders()
+	 * é um alias da apache_request_headers().
 	 * 
 	 * @api
 	 * @param int $minutos
 	 */
 	public static function temporizar($minutos){
+		self::verificarExistenciaDaExtensao();
+		
 		$segundos = $minutos * 60;
 		
 		header("Cache-Control: max-age=$segundos");
 
 		$DateTime = new \DateTime;
-		$agora = $DateTime->format(DateTime::RFC1123);
-		$validade = $DateTime->modify("$segundos sec")->format(DateTime::RFC1123);
+		$agora = $DateTime->format(\DateTime::RFC1123);
+		$validade = $DateTime->modify("$segundos sec")->format(\DateTime::RFC1123);
 		
 		header("Last-Modified: $validade");
 
