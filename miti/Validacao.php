@@ -47,73 +47,30 @@ class Validacao{
 	}
 	
 	/**
-	 * Valida se um valor ou valores não são equivalentes à vazio
-	 * 
-	 * Diferente da maioria dos métodos, não retorna null se o valor for
-	 * equivalente à false porque sua própria validação já verifica se o valor
-	 * é equivalente à vazio.
-	 * 
-	 * @api
-	 * @param mixed|mixed[] $valores
-	 */
-	public static function vazio($valores){
-		is_array($valores)? self::vazioArray($valores): self::vazioScalar($valores);
-	}
-	
-	private static function vazioArray(array $valores){
-		foreach($valores as $valor){self::vazioScalar($valor);}
-	}
-	
-	private static function vazioScalar($valor){
-		if(!$valor){throw new \UnexpectedValueException('Valor vazio.');}
-	}
-	
-	/**
-	 * Valida um arquivo
-	 * 
-	 * @api
-	 * @param array[] $arquivos No mesmo formato de $_FILES['...'] múltiplo.
-	 * @param int $peso Em kylobytes.
-	 * 
-	 * @param string[] $tipos Pedaços de strings pertencentes aos mime types
-	 * desejados.
-	 */
-	public static function arquivo($arquivos, $peso, array $tipos){
-		foreach($arquivos['name'] as $i => $nome){
-			if(!$nome){break;}
-			
-			self::peso($arquivos, $i, $peso);
-			self::tipos($arquivos, $i, $tipos);
-		}
-	}
-	
-	/**
 	 * Valida o peso de um arquivo
 	 * 
-	 * @param array[] $arquivos
-	 * @param int $i Índice do vetor dos arquivos.
-	 * @param int $peso
+	 * @param int $real
+	 * @param int $esperado
 	 * @throws \UnexpectedValueException
 	 */
-	private static function peso($arquivos, $i, $peso){
-		if($arquivos['size'][$i] > $peso * 1024){
-			throw new \UnexpectedValueException('O arquivo excede o tamanho permitido.');
+	public static function peso($real, $esperado){
+		if($real > $esperado * 1024){
+			throw new \UnexpectedValueException('O arquivo excede o peso permitido.');
 		}
 	}
 	
 	/**
 	 * Valida o tipo do arquivo
 	 * 
-	 * @param array[] $arquivos
-	 * @param int $i Índice do vetor dos arquivos.
-	 * @param string[] $tipos
+	 * @param string $real
+	 * @param string[] $esperados
 	 * @throws \RangeException
 	 */
-	private static function tipos($arquivos, $i, array $tipos){
+	public static function tipos($real, array $esperados){
 		$ok = false;
 		
-		foreach($tipos as $tipo){
-			if(strpos($arquivos['type'][$i], $tipo) !== false){
+		foreach($esperados as $esperado){
+			if(strpos($real, $esperado) !== false){
 				$ok = true;
 			}
 		}
@@ -125,18 +82,15 @@ class Validacao{
 	 * Valida uma imagem
 	 * 
 	 * @api
-	 * @param array[] $arquivos No mesmo formato de $_FILES['...'] múltiplo.
+	 * @param string|resource $imagem
 	 * @param int $largura Em pixels.
 	 * @param int $altura Em pixels.
 	 */
-	public static function imagem($arquivos, $largura, $altura){
-		foreach($arquivos['name'] as $i => $nome){
-			if(!$nome){break;}
-			
-			$dimensoes = getimagesize($arquivos['tmp_name'][$i]);
-			self::dimensoes($dimensoes, $largura, $altura);
-			self::proporcoes($dimensoes, $largura, $altura);
-		}
+	public static function imagem($imagem, $largura, $altura){
+		$dimensoes = is_string($imagem)? getimagesize($imagem): array(imagesx($imagem), imagesy($imagem));
+		
+		self::dimensoes($dimensoes, $largura, $altura);
+		self::proporcoes($dimensoes, $largura, $altura);
 	}
 	
 	/**
