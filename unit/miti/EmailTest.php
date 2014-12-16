@@ -4,7 +4,7 @@ class EmailTest extends PHPUnit_Framework_TestCase{
 
 	public static function setUpBeforeClass(){
 		self::$arquivos['name'][0] = 'miti.txt';
-		self::$arquivos['tmp_name'][0] = CFG_RAIZ . '/unit/arquivos/miti.txt';
+		self::$arquivos['tmp_name'][0] = CFG_RAIZ.'/unit/arquivos/miti.txt';
 	}
 	
 	public function testEnviar(){

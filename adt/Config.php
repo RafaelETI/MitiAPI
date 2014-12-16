@@ -51,6 +51,7 @@ class Config{
 			->raiz()
 			->banco()
 			->sessao($restrito, $sessao)
+			->idioma()
 			->autoload()
 			->requisicao($Classe)
 		;
@@ -71,7 +72,7 @@ class Config{
 		$this->config['versao'] = '1.10.25';
 		$this->config['timezone'] = 'America/Sao_Paulo';
 		$this->config['charset'] = 'ISO-8859-1';
-		$this->config['salt'] = '$1$mitiapi$$';
+		$this->config['salt'] = '$1$mitiapim$';
 		
 		$this->config['raiz'][0] = '';
 		$this->config['raiz'][1] = '/MitiAPI';
@@ -247,6 +248,26 @@ class Config{
 		if($restrito && !isset($_SESSION[$sessao])){
 			$_SESSION['status'] = 'Você não está autenticado.';
 			header('Location: '.CFG_RAIZ_WEB);
+			exit;
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Configura o idioma do sistema
+	 * 
+	 * Caso não haja internacionalização no sistema, há apenas a definição de um
+	 * idioma padrão.
+	 * 
+	 * @return Config
+	 */
+	private function idioma(){
+		if(!isset($_SESSION['idioma'])){$_SESSION['idioma'] = 'pt';}
+		
+		if(isset($_GET['cfgIdioma'])){
+			$_SESSION['idioma'] = $_GET['cfgIdioma'];
+			header("Location: {$_SERVER['HTTP_REFERER']}");
 			exit;
 		}
 		
