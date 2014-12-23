@@ -525,12 +525,12 @@ class ORM{
 	 * @api
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
-	 * @param string $ordens asc ou desc.
+	 * @param string $ordem asc ou desc.
 	 * @return ORM
 	 */
-	public function ordenar($alias, $campo, $ordens){
+	public function ordenar($alias, $campo, $ordem){
 		$separador = $this->ordens? ', ': '';
-		$this->ordens .= "$separador $alias.$campo $ordens ";
+		$this->ordens .= "$separador $alias.$campo $ordem ";
 		return $this;
 	}
 	
