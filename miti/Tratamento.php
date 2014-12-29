@@ -116,7 +116,7 @@ class Tratamento{
 	 * @param int $tamanho
 	 * @return mixed|mixed[]|null
 	 */
-	public static function encurtar($valores, $tamanho = 5){
+	public static function encurtar($valores, $tamanho){
 		if(!$valores){return;}
 		return is_array($valores)? self::encurtarArray($valores,$tamanho): self::encurtarScalar($valores,$tamanho);
 	}

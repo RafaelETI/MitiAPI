@@ -48,17 +48,17 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testEncurtarVazio(){
-		$this->assertSame(null, \miti\Tratamento::encurtar(''));
+		$this->assertSame(null, \miti\Tratamento::encurtar('', 10));
 	}
 	
 	public function testEncurtarArray(){
 		$esperados = array('aaaaa...', 'bbbbb...', 'ccccc...');
-		$curtos = \miti\Tratamento::encurtar(array('aaaaaaaaaa', 'bbbbbbbbbb', 'cccccccccc'));
+		$curtos = \miti\Tratamento::encurtar(array('aaaaaaaaaa', 'bbbbbbbbbb', 'cccccccccc'), 5);
 		$this->assertSame($esperados, $curtos);
 	}
 	
 	public function testEncurtarScalar(){
-		$this->assertSame('aaaaa...', \miti\Tratamento::encurtar('aaaaaaaaaa'));
+		$this->assertSame('aaa...', \miti\Tratamento::encurtar('aaaaaaaaaa', 3));
 	}
 	
 	public function testEnxugarVazio(){
