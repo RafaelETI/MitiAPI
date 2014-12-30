@@ -263,7 +263,7 @@ class Config{
 	 * @return Config
 	 */
 	private function idioma(){
-		if(!isset($_SESSION['idioma'])){$_SESSION['idioma'] = 'pt';}
+		if(!isset($_SESSION['idioma'])){$_SESSION['idioma'] = '1';}
 		
 		if(isset($_GET['cfgIdioma'])){
 			$_SESSION['idioma'] = $_GET['cfgIdioma'];
