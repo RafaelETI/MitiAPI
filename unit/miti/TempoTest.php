@@ -55,7 +55,7 @@ class TempoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testSabado(){
-		$this->assertSame('Sáb', \miti\Tempo::diaDaSemana('1991-08-24'));
+		$this->assertSame('SÃ¡b', \miti\Tempo::diaDaSemana('1991-08-24'));
 	}
 	
 	public function testMesVazio(){

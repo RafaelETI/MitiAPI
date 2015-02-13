@@ -12,24 +12,10 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 		$this->assertSame(1, preg_match($padrao, $requerimento));
 	}
 	
-	public function testNaoSubstituir(){
-		$this->assertSame('a', \miti\Tratamento::substituir('a', 'b', 'c'));
-	}
-	
-	public function testSubstituir(){
-		$this->assertSame('c', \miti\Tratamento::substituir('a', 'a', 'c'));
-	}
-	
 	public function testIndexar(){
 		$vetor = array();
 		$vetor = \miti\Tratamento::indexar($vetor, array('teste'));
 		$this->assertTrue(isset($vetor['teste']));
-	}
-	
-	public function testArquivar(){
-		$esperado = file_get_contents(CFG_RAIZ.'/unit/arquivos/miti.txt');
-		$arquivo = \miti\Tratamento::arquivar('', CFG_RAIZ.'/unit/arquivos/miti.txt');
-		$this->assertSame($esperado, $arquivo);
 	}
 	
 	public function testEscaparVazio(){
@@ -59,21 +45,5 @@ class TratamentoTest extends PHPUnit_Framework_TestCase{
 	
 	public function testEncurtarScalar(){
 		$this->assertSame('aaa...', \miti\Tratamento::encurtar('aaaaaaaaaa', 3));
-	}
-	
-	public function testEnxugarVazio(){
-		$this->assertSame(null, \miti\Tratamento::enxugar(''));
-	}
-	
-	public function testEnxugarArray(){
-		$esperados = array('oaaac_', 'eeoouc_', 'aaaeie_', 'iooou');
-		$enxutos = \miti\Tratamento::enxugar(array('ôàáãÇ ', 'éêóõúç ', 'ÀÁÃÉíÊ ', 'ÍÓÔÕÚ'));
-		$this->assertSame($esperados, $enxutos);
-	}
-	
-	public function testEnxugarScalar(){
-		$esperado = 'oaaac_eeoouc_aaaeie_iooou';
-		$enxuto = \miti\Tratamento::enxugar('ôàáãÇ éêóõúç ÀÁÃÉíÊ ÍÓÔÕÚ');
-		$this->assertSame($esperado, $enxuto);
 	}
 }

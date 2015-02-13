@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014
+ * Miti API, 2014 - 2015
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -8,26 +8,26 @@
 namespace miti;
 
 /**
- * Internacionalização da informação
+ * InternacionalizaÃ§Ã£o da informaÃ§Ã£o
  * 
- * Não vi motivo para usar a biblioteca gettext com arquivos .po.
+ * NÃ£o vi motivo para usar a biblioteca gettext com arquivos .po.
  */
 class I18n{
 	/**
-	 * @var array[] Estrutura de dados com as traduções estáticas do sistema.
+	 * @var array[] Estrutura de dados com as traduÃ§Ãµes estÃ¡ticas do sistema.
 	 */
 	private $mensagens;
 	
 	/**
-	 * @var string Um identificador de dois caractéres.
+	 * @var string Um identificador de dois caractÃ©res.
 	 */
 	private $idioma;
 	
 	/**
-	 * Requere o arquivo com os dados e suas traduções e define o idioma
+	 * Requere o arquivo com os dados e suas traduÃ§Ãµes e define o idioma
 	 * 
 	 * O arquivo deve conter o retorno de um array no seguinte formato:
-	 * array('Está vivo!' => array('en' => "It's alive!", 'fr' => 'Est vivant!'))
+	 * array('EstÃ¡ vivo!' => array('en' => "It's alive!", 'fr' => 'Est vivant!'))
 	 * 
 	 * @api
 	 */

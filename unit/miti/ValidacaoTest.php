@@ -18,7 +18,7 @@ class ValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testExcessoTamanho(){
-		$this->setExpectedException('UnexpectedValueException', 'O valor deve conter atÈ 5 caractÈres.');
+		$this->setExpectedException('UnexpectedValueException', 'O valor deve conter at√© 5 caract√©res.');
 		\miti\Validacao::tamanho('testes', 5);
 	}
 	
@@ -31,7 +31,7 @@ class ValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testEmailInvalido(){
-		$this->setExpectedException('UnexpectedValueException', 'O e-mail È inv·lido.');
+		$this->setExpectedException('UnexpectedValueException', 'O e-mail √© inv√°lido.');
 		\miti\Validacao::email('conta(at)dominio.com');
 	}
 	
@@ -49,7 +49,7 @@ class ValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testTipoInvalido(){
-		$this->setExpectedException('RangeException', 'O tipo do arquivo È inv·lido.');
+		$this->setExpectedException('RangeException', 'O tipo do arquivo √© inv√°lido.');
 		\miti\Validacao::tipos(self::$arquivos['tipo'], array('doc', 'pdf', 'xls'));
 	}
 	
@@ -58,25 +58,25 @@ class ValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testImagemComExcessoDeLargura(){
-		$mensagem = 'A largura da imagem È menor do que o mÌnimo permitido.';
+		$mensagem = 'A largura da imagem √© menor do que o m√≠nimo permitido.';
 		$this->setExpectedException('UnexpectedValueException', $mensagem);
 		\miti\Validacao::imagem(self::$arquivos['caminho'], 20, 16);
 	}
 	
 	public function testImagemComExcessoDeAltura(){
-		$mensagem = 'A altura da imagem È menor do que o mÌnimo permitido.';
+		$mensagem = 'A altura da imagem √© menor do que o m√≠nimo permitido.';
 		$this->setExpectedException('UnexpectedValueException', $mensagem);
 		\miti\Validacao::imagem(self::$arquivos['caminho'], 16, 20);
 	}
 	
 	public function testImagemComProporcaoEmExcessoNaVertical(){
-		$mensagem = 'A proporÁ„o da imagem È inv·lida, excedendo verticalmente.';
+		$mensagem = 'A propor√ß√£o da imagem √© inv√°lida, excedendo verticalmente.';
 		$this->setExpectedException('UnexpectedValueException', $mensagem);
 		\miti\Validacao::imagem(self::$arquivos['caminho'], 16, 8);
 	}
 	
 	public function testImagemComProporcaoEmExcessoNaHorizontal(){
-		$mensagem = 'A proporÁ„o da imagem È inv·lida, excedendo horizontalmente.';
+		$mensagem = 'A propor√ß√£o da imagem √© inv√°lida, excedendo horizontalmente.';
 		$this->setExpectedException('UnexpectedValueException', $mensagem);
 		\miti\Validacao::imagem(self::$arquivos['caminho'], 8, 16);
 	}
@@ -90,22 +90,22 @@ class ValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testCpfComExcessoDeCaracteres(){
-		$this->setExpectedException('UnexpectedValueException', '#1 O CPF È inv·lido.');
+		$this->setExpectedException('UnexpectedValueException', '#1 O CPF √© inv√°lido.');
 		\miti\Validacao::cpf('279810940033');
 	}
 	
 	public function testCpfComPresencaDeLetra(){
-		$this->setExpectedException('UnexpectedValueException', '#2 O CPF È inv·lido.');
+		$this->setExpectedException('UnexpectedValueException', '#2 O CPF √© inv√°lido.');
 		\miti\Validacao::cpf('279810a4003');
 	}
 	
 	public function testCpfComSequenciaIgual(){
-		$this->setExpectedException('UnexpectedValueException', '#3 O CPF È inv·lido.');
+		$this->setExpectedException('UnexpectedValueException', '#3 O CPF √© inv√°lido.');
 		\miti\Validacao::cpf('88888888888');
 	}
 	
 	public function testCpfComDigitoInvalido(){
-		$this->setExpectedException('RangeException', '#4 O CPF È inv·lido.');
+		$this->setExpectedException('RangeException', '#4 O CPF √© inv√°lido.');
 		\miti\Validacao::cpf('27981094004');
 	}
 	
@@ -118,27 +118,27 @@ class ValidacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testCnpjComExcessoDeCaracteres(){
-		$this->setExpectedException('UnexpectedValueException', '#1 O CNPJ È inv·lido.');
+		$this->setExpectedException('UnexpectedValueException', '#1 O CNPJ √© inv√°lido.');
 		\miti\Validacao::cnpj('872103430001699');
 	}
 	
 	public function testCnpjComPresencaDeLetra(){
-		$this->setExpectedException('UnexpectedValueException', '#2 O CNPJ È inv·lido.');
+		$this->setExpectedException('UnexpectedValueException', '#2 O CNPJ √© inv√°lido.');
 		\miti\Validacao::cnpj('87210343a00169');
 	}
 	
 	public function testCnpjComSequenciaDeZeros(){
-		$this->setExpectedException('UnexpectedValueException', '#3 O CNPJ È inv·lido.');
+		$this->setExpectedException('UnexpectedValueException', '#3 O CNPJ √© inv√°lido.');
 		\miti\Validacao::cnpj('00000000000000');
 	}
 	
 	public function testCnpjComDigitoInvalido(){
-		$this->setExpectedException('RangeException', '#4 O CNPJ È inv·lido.');
+		$this->setExpectedException('RangeException', '#4 O CNPJ √© inv√°lido.');
 		\miti\Validacao::cnpj('87210343000159');
 	}
 	
 	public function testCnpjComDigitoInvalidoComZero(){
-		$this->setExpectedException('RangeException', '#4 O CNPJ È inv·lido.');
+		$this->setExpectedException('RangeException', '#4 O CNPJ √© inv√°lido.');
 		\miti\Validacao::cnpj('80911582000106');
 	}
 }

@@ -35,7 +35,7 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testValidarExcessoDeCaracteres(){
-		$mensagem = "Limite de caractéres excedido para o campo 'id'.";
+		$mensagem = "Limite de caractÃ©res excedido para o campo 'id'.";
 		$this->setExpectedException('UnexpectedValueException', $mensagem);
 		
 		self::$ORM->criar(array('id' => 1000));

@@ -10,7 +10,7 @@ new Bootstrap;
 /**
  * Bootstrap para o PHPUnit
  * 
- * Essa classe È instanciada aqui mesmo.
+ * Essa classe √© instanciada aqui mesmo.
  */
 class Bootstrap{
 	/**
@@ -34,18 +34,18 @@ class Bootstrap{
 	}
 	
 	/**
-	 * Define os par‚metros de configuraÁ„o do sistema
+	 * Define os par√¢metros de configura√ß√£o do sistema
 	 * 
-	 * Esse È o ˙nico mÈtodo que deve ser alterado para a parametrizaÁ„o do sistema.
+	 * Esse √© o √∫nico m√©todo que deve ser alterado para a parametriza√ß√£o do sistema.
 	 * 
-	 * Caso surjam mais configuraÁıes de ambientes, adicion·-las onde for cabÌvel.
+	 * Caso surjam mais configura√ß√µes de ambientes, adicion√°-las onde for cab√≠vel.
 	 * 
 	 * @return Bootstrap
 	 */
 	private function config(){
 		$this->config['ambiente'] = 1;
 		$this->config['timezone'] = 'America/Sao_Paulo';
-		$this->config['charset'] = 'ISO-8859-1';
+		$this->config['charset'] = 'UTF-8';
 		$this->config['salt'] = '$1$mitiapim$';
 
 		$this->config['banco']['charset'] = 'latin1';
@@ -60,7 +60,7 @@ class Bootstrap{
 	/**
 	 * Configura o ambiente do sistema
 	 * 
-	 * H· a intenÁ„o de que esse seja o ˙nico ponto de manutenÁ„o ao trocar o
+	 * H√° a inten√ß√£o de que esse seja o √∫nico ponto de manuten√ß√£o ao trocar o
 	 * sistema de ambiente.
 	 * 
 	 * @return Bootstrap
@@ -102,13 +102,14 @@ class Bootstrap{
 	 */
 	private function charset(){
 		define('CFG_CHARSET', $this->config['charset']);
+		mb_internal_encoding(CFG_CHARSET);
 		return $this;
 	}
 	
 	/**
 	 * Configura o salt
 	 * 
-	 * Recomenda-se usar a funÁ„o crypt() para passar senhas por algoritmos de
+	 * Recomenda-se usar a fun√ß√£o crypt() para passar senhas por algoritmos de
 	 * hash ({@link http://php.net/manual/en/function.crypt.php}).
 	 * 
 	 * @return Config
@@ -129,12 +130,12 @@ class Bootstrap{
 	}
 	
 	/**
-	 * Configura a conex„o com o banco de dados
+	 * Configura a conex√£o com o banco de dados
 	 * 
 	 * O MySQL aceita, dentre outros, os charsets latin1 e utf8, escritos dessa
 	 * forma.
 	 * 
-	 * Se o servidor do banco de dados for o mesmo de onde o sistema est·
+	 * Se o servidor do banco de dados for o mesmo de onde o sistema est√°
 	 * hospedado, usar localhost.
 	 * 
 	 * @return Bootstrap
@@ -150,7 +151,7 @@ class Bootstrap{
 	}
 	
 	/**
-	 * Inicia a sess„o
+	 * Inicia a sess√£o
 	 * 
 	 * @return Bootstrap
 	 */
@@ -160,13 +161,13 @@ class Bootstrap{
 	}
 	
 	/**
-	 * Configura a funÁ„o de autoload de classes
+	 * Configura a fun√ß√£o de autoload de classes
 	 * 
-	 * Para os nomes dos namespaces devem haver pastas de mesmo nome, comeÁando
-	 * da raÌz do sistema, tendo, por fim, um arquivo com o mesmo nome da classe.
+	 * Para os nomes dos namespaces devem haver pastas de mesmo nome, come√ßando
+	 * da ra√≠z do sistema, tendo, por fim, um arquivo com o mesmo nome da classe.
 	 * 
 	 * Todos os nomes devem respeitar as mesmas caixas altas e baixas, tanto no
-	 * cÛdigo, quanto no sistema de arquivos.
+	 * c√≥digo, quanto no sistema de arquivos.
 	 * 
 	 * @return Bootstrap
 	 */

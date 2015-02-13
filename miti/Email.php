@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014
+ * Miti API, 2014 - 2015
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -10,23 +10,23 @@ namespace miti;
 /**
  * Envio de e-mail
  * 
- * É sempre enviado no formato HTML.
+ * Ã‰ sempre enviado no formato HTML.
  * 
- * Permite definições de cópias e anexos.
+ * Permite definiÃ§Ãµes de cÃ³pias e anexos.
  */
 class Email{
 	/**
-	 * @var string Delimitações do cabeçalho. Deve ser um valor único.
+	 * @var string DelimitaÃ§Ãµes do cabeÃ§alho. Deve ser um valor Ãºnico.
 	 */
 	private $uid;
 	
 	/**
-	 * @var string Cópia carbono.
+	 * @var string CÃ³pia carbono.
 	 */
 	private $cc = '';
 	
 	/**
-	 * @var string Cópia carbono oculta.
+	 * @var string CÃ³pia carbono oculta.
 	 */
 	private $bcc = '';
 	
@@ -50,7 +50,7 @@ class Email{
 	}
 	
 	/**
-	 * Define o e-mail da cópia carbono
+	 * Define o e-mail da cÃ³pia carbono
 	 * 
 	 * @api
 	 * @param string $cc
@@ -62,9 +62,9 @@ class Email{
 	}
 	
 	/**
-	 * Define o e-mail da cópia carbono oculta
+	 * Define o e-mail da cÃ³pia carbono oculta
 	 * 
-	 * Evite. É falta de educação.
+	 * Evite. Ã‰ falta de educaÃ§Ã£o.
 	 * 
 	 * @api
 	 * @param string $bcc
@@ -88,10 +88,10 @@ class Email{
 	}
 	
 	/**
-	 * Define o vetor de informações de arquivos
+	 * Define o vetor de informaÃ§Ãµes de arquivos
 	 * 
 	 * @api
-	 * @param array[] $anexos No mesmo formato de $_FILES['...'] múltiplo.
+	 * @param array[] $anexos No mesmo formato de $_FILES['...'] mÃºltiplo.
 	 * @return Email
 	 */
 	public function setAnexos($anexos){
@@ -102,11 +102,11 @@ class Email{
 	/**
 	 * Envia o e-mail
 	 * 
-	 * O remetente não é passado como parâmetro da função mail() porque ele
-	 * faz parte do cabeçalho.
+	 * O remetente nÃ£o Ã© passado como parÃ¢metro da funÃ§Ã£o mail() porque ele
+	 * faz parte do cabeÃ§alho.
 	 * 
 	 * Basta existir um arquivo, o qual foi configurado para o PHP, mesmo que
-	 * ele não faça nada, que a mail() retorna true. Isso é interessante para o
+	 * ele nÃ£o faÃ§a nada, que a mail() retorna true. Isso Ã© interessante para o
 	 * ambiente de desenvolvimento.
 	 * 
 	 * @api
@@ -124,7 +124,7 @@ class Email{
 	}
 	
 	/**
-	 * Monta a unificação de todo o cabeçalho
+	 * Monta a unificaÃ§Ã£o de todo o cabeÃ§alho
 	 * 
 	 * @param string $remetente
 	 * @param string $mensagem
@@ -140,7 +140,7 @@ class Email{
 	}
 	
 	/**
-	 * Monta a string do cabeçalho básico
+	 * Monta a string do cabeÃ§alho bÃ¡sico
 	 * 
 	 * @param string $remetente
 	 * @return string
@@ -158,7 +158,7 @@ class Email{
 	}
 	
 	/**
-	 * Monta a string do cabeçalho da mensagem
+	 * Monta a string do cabeÃ§alho da mensagem
 	 * 
 	 * @param string $charset
 	 * @param string $mensagem
@@ -174,7 +174,7 @@ class Email{
 	}
 	
 	/**
-	 * Monta a string do cabeçalho dos anexos
+	 * Monta a string do cabeÃ§alho dos anexos
 	 * 
 	 * @return string
 	 */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014
+ * Miti API, 2014 - 2015
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -8,14 +8,14 @@
 namespace miti;
 
 /**
- * Abstração de conexão com banco de dados
+ * AbstraÃ§Ã£o de conexÃ£o com banco de dados
  * 
- * Atualmente apenas interage com o MySQL, mas permite uma futura relação
- * com outros bancos. Responsável por conectar no banco, executar querys,
- * retornar id auto incrementado de inserções, quantidade de registros afetados,
+ * Atualmente apenas interage com o MySQL, mas permite uma futura relaÃ§Ã£o
+ * com outros bancos. ResponsÃ¡vel por conectar no banco, executar querys,
+ * retornar id auto incrementado de inserÃ§Ãµes, quantidade de registros afetados,
  * tratar dados, etc.
  * 
- * Preferencialmente utilizada através de um ORM.
+ * Preferencialmente utilizada atravÃ©s de um ORM.
  */
 class Banco{
 	/**
@@ -24,37 +24,37 @@ class Banco{
 	private $Conexao;
 	
 	/**
-	 * @var Object Result set de uma requisição.
+	 * @var Object Result set de uma requisiÃ§Ã£o.
 	 */
 	private $Requisicao;
 	
 	/**
-	 * @var int Quantidade de registros afetados por uma requisição.
+	 * @var int Quantidade de registros afetados por uma requisiÃ§Ã£o.
 	 */
 	private $afetados;
 	
 	/**
-	 * @var int Id auto incrementado da última inserção.
+	 * @var int Id auto incrementado da Ãºltima inserÃ§Ã£o.
 	 */
 	private $id;
 	
 	/**
-	 * Abre a conexão com o banco
+	 * Abre a conexÃ£o com o banco
 	 * 
-	 * Os parâmetros recebem, por padrão, constantes que, preferencialmente,
-	 * são declaradas em um arquivo de configuração. Caso haja a necessidade
-	 * de uma conexão com diferentes parâmetros, basta realizar uma nova
-	 * instância e informá-los.
+	 * Os parÃ¢metros recebem, por padrÃ£o, constantes que, preferencialmente,
+	 * sÃ£o declaradas em um arquivo de configuraÃ§Ã£o. Caso haja a necessidade
+	 * de uma conexÃ£o com diferentes parÃ¢metros, basta realizar uma nova
+	 * instÃ¢ncia e informÃ¡-los.
 	 * 
-	 * Há uma supressão de erro (@) no instanciamento da conexão por causa de
-	 * problema no teste unitário.
+	 * HÃ¡ uma supressÃ£o de erro (@) no instanciamento da conexÃ£o por causa de
+	 * problema no teste unitÃ¡rio.
 	 * 
-	 * As transações são configuradas para não serem cometidas automaticamente.
+	 * As transaÃ§Ãµes sÃ£o configuradas para nÃ£o serem cometidas automaticamente.
 	 * 
 	 * @api
 	 * 
 	 * @param string $servidor Nome do servidor do banco, caso seja a mesma
-	 * máquina, informar localhost.
+	 * mÃ¡quina, informar localhost.
 	 * 
 	 * @param string $usuario
 	 * @param string $senha
@@ -70,61 +70,53 @@ class Banco{
 	}
 	
 	/**
-	 * Verifica a existência da extensão do PHP para trabalhar com o banco de dados
+	 * Verifica a existÃªncia da extensÃ£o do PHP para trabalhar com o banco de dados
 	 * 
 	 * @throws \RuntimeException
 	 */
 	private function verificarExistenciaDaExtensao(){
-		if(!extension_loaded('mysqli')){
-			throw new \RuntimeException('A classe '.__CLASS__.' depende da extensão mysqli.');
-		}
+		if(!extension_loaded('mysqli')){throw new \RuntimeException('A classe '.__CLASS__.' depende da extensÃ£o mysqli.');}
 	}
 	
 	/**
 	 * Verifica erro ao conectar no banco
 	 * 
 	 * Se o ambiente estiver configurado para imprimir os erros do PHP, ou seja,
-	 * caso seja um ambiente de desenvolvimento, é lançada uma mensagem de erro
-	 * técnica, senão, é lançada uma mensagem genérica.
+	 * caso seja um ambiente de desenvolvimento, Ã© lanÃ§ada uma mensagem de erro
+	 * tÃ©cnica, senÃ£o, Ã© lanÃ§ada uma mensagem genÃ©rica.
 	 * 
-	 * Geralmente acontece por causa da configuração do ambiente: diferentes
-	 * máquinas de desenvolvimento, ambiente de teste, ou de produção.
+	 * Geralmente acontece por causa da configuraÃ§Ã£o do ambiente: diferentes
+	 * mÃ¡quinas de desenvolvimento, ambiente de teste, ou de produÃ§Ã£o.
 	 * 
 	 * @throws \RuntimeException
 	 */
 	private function verificarErroDeConexao(){
 		if($this->Conexao->connect_error){
-			$mensagem = ini_get('display_errors')?
-				$this->Conexao->connect_error:
-				'Não foi possível conectar ao banco de dados.'
-			;
-			
+			$mensagem = ini_get('display_errors')? $this->Conexao->connect_error: 'NÃ£o foi possÃ­vel conectar ao banco de dados.';
 			throw new \RuntimeException($mensagem);
 		}
 	}
 	
 	/**
-	 * Define o charset da conexão
+	 * Define o charset da conexÃ£o
 	 * 
-	 * @param string $charset O valor compatível com iso-8859-1 é latin1.
+	 * @param string $charset O valor compatÃ­vel com iso-8859-1 Ã© latin1.
 	 * 
 	 * @throws \DomainException Muito raro de acontecer.
 	 */
 	private function definirCharset($charset){
-		if(!$this->Conexao->set_charset($charset)){
-			throw new \DomainException('Houve um erro ao definir o charset.');
-		}
+		if(!$this->Conexao->set_charset($charset)){throw new \DomainException('Houve um erro ao definir o charset.');}
 	}
 	
 	/**
 	 * Escapa os dados da forma mais indicada para cada banco
 	 * 
-	 * Seu principal motivo, se não o único, é evitar SQL Injection. É necessário
-	 * quando não se usa PDO, por não ser possível diferenciar instrução SQL de
+	 * Seu principal motivo, se nÃ£o o Ãºnico, Ã© evitar SQL Injection. Ã‰ necessÃ¡rio
+	 * quando nÃ£o se usa PDO, por nÃ£o ser possÃ­vel diferenciar instruÃ§Ã£o SQL de
 	 * dados.
 	 * 
 	 * @api
-	 * @param string[]|string $valores Dados de uma fonte não confiável.
+	 * @param string[]|string $valores Dados de uma fonte nÃ£o confiÃ¡vel.
 	 * @return string[]|string
 	 */
 	public function escapar($valores){
@@ -132,19 +124,14 @@ class Banco{
 	}
 	
 	private function escaparArray(array $valores){
-		foreach($valores as &$valor){
-			$valor = $this->escaparString($valor);
-		}
-		
+		foreach($valores as &$valor){$valor = $this->escaparString($valor);}
 		return $valores;
 	}
 	
-	private function escaparString($valor){
-		return $this->Conexao->real_escape_string($valor);
-	}
+	private function escaparString($valor){return $this->Conexao->real_escape_string($valor);}
 	
 	/**
-	 * Faz uma requisição ao banco
+	 * Faz uma requisiÃ§Ã£o ao banco
 	 * 
 	 * @api
 	 * @param string $sql Recomenda-se o uso de um ORM para a montagem do SQL.
@@ -152,15 +139,19 @@ class Banco{
 	 */
 	public function requisitar($sql){
 		$this->Requisicao = $this->Conexao->query($sql);
-		$this->verificarErroDeRequisicao($sql)->setAfetados()->setId();
+		
+		$this->verificarErroDeRequisicao($sql);
+		$this->setAfetados();
+		$this->setId();
+		
 		return $this;
 	}
 	
 	/**
-	 * Verifica se houve erro na requisição
+	 * Verifica se houve erro na requisiÃ§Ã£o
 	 * 
-	 * A mensagem será técnica, específica, ou genérica, baseado na configuração
-	 * do PHP sobre a impressão de erros na tela, e no código do erro.
+	 * A mensagem serÃ¡ tÃ©cnica, especÃ­fica, ou genÃ©rica, baseado na configuraÃ§Ã£o
+	 * do PHP sobre a impressÃ£o de erros na tela, e no cÃ³digo do erro.
 	 * 
 	 * @return Banco
 	 * @throws \UnexpectedValueException
@@ -171,8 +162,8 @@ class Banco{
 				$mensagem = "#{$this->Conexao->errno} {$this->Conexao->error} - $sql";
 			}else{
 				switch($this->Conexao->errno){
-					case 1062: $mensagem = 'O registro já existe.'; break;
-					default: $mensagem = "#{$this->Conexao->errno} Houve um erro ao realizar a requisição."; break;
+					case 1062: $mensagem = 'O registro jÃ¡ existe.'; break;
+					default: $mensagem = "#{$this->Conexao->errno} Houve um erro ao realizar a requisiÃ§Ã£o."; break;
 				}
 			}
 			
@@ -187,106 +178,82 @@ class Banco{
 	 * 
 	 * @return Banco
 	 */
-	private function setAfetados(){
-		$this->afetados = $this->Conexao->affected_rows;
-		return $this;
-	}
-	
-	public function getAfetados(){
-		return $this->afetados;
-	}
+	private function setAfetados(){$this->afetados = $this->Conexao->affected_rows;}
+	public function getAfetados(){return $this->afetados;}
 	
 	/**
-	 * Define o id auto incrementado da última inserção
+	 * Define o id auto incrementado da Ãºltima inserÃ§Ã£o
 	 * 
 	 * @return Banco
 	 */
-	private function setId(){
-		$this->id = $this->Conexao->insert_id;
-		return $this;
-	}
-	
-	public function getId(){
-		return $this->id;
-	}
+	private function setId(){$this->id = $this->Conexao->insert_id;}
+	public function getId(){return $this->id;}
 	
 	/**
-	 * Comete a última transação aberta
+	 * Comete a Ãºltima transaÃ§Ã£o aberta
 	 * 
-	 * É necessário sempre ser chamado após cada requisição que altere dados
-	 * no banco. Caso contrário, a transação não persiste. Vale lembrar que não
-	 * é necessário em requisições de seleção.
+	 * Ã‰ necessÃ¡rio sempre ser chamado apÃ³s cada requisiÃ§Ã£o que altere dados
+	 * no banco. Caso contrÃ¡rio, a transaÃ§Ã£o nÃ£o persiste. Vale lembrar que nÃ£o
+	 * Ã© necessÃ¡rio em requisiÃ§Ãµes de seleÃ§Ã£o.
 	 * 
-	 * É o último método à ser chamado na corrente ao usar o padrão Fluent
+	 * Ã‰ o Ãºltimo mÃ©todo Ã  ser chamado na corrente ao usar o padrÃ£o Fluent
 	 * Interface.
 	 * 
-	 * A real utilidade dessa estratégia é quando se faz múltiplas requisições
+	 * A real utilidade dessa estratÃ©gia Ã© quando se faz mÃºltiplas requisiÃ§Ãµes
 	 * em um mesmo procedimento. Caso as primeiras sejam bem sucedidas, mas as
-	 * últimas não, nenhuma é persistida, porque haveria um lançamento de
-	 * excecão antes do script chegar à linha do cometimento.
+	 * Ãºltimas nÃ£o, nenhuma Ã© persistida, porque haveria um lanÃ§amento de
+	 * excecÃ£o antes do script chegar Ã  linha do cometimento.
 	 * 
 	 * @api
 	 */
-	public function cometer(){
-		$this->Conexao->commit();
-	}
+	public function cometer(){$this->Conexao->commit();}
 	
 	/**
-	 * Rebobina a última transação aberta
+	 * Rebobina a Ãºltima transaÃ§Ã£o aberta
 	 * 
-	 * As transações são rebobinadas automaticamente ao final dos processos. Essa
-	 * chamada é necessária quando queira-se rebobinar antes do final do processo.
+	 * As transaÃ§Ãµes sÃ£o rebobinadas automaticamente ao final dos processos. Essa
+	 * chamada Ã© necessÃ¡ria quando queira-se rebobinar antes do final do processo.
 	 * 
 	 * @api
 	 */
-	public function rebobinar(){
-		$this->Conexao->rollback();
-	}
+	public function rebobinar(){$this->Conexao->rollback();}
 	
 	/**
-	 * Retorna o último result set em forma de array associativo
+	 * Retorna o Ãºltimo result set em forma de array associativo
 	 * 
-	 * Os índices desse vetor são os nomes dos campos do banco ou os aliases
-	 * definidos na requisição. Pode e deve ser iterado para o acesso à todos
-	 * os registros quando a seleção busca mais de uma linha.
+	 * Os Ã­ndices desse vetor sÃ£o os nomes dos campos do banco ou os aliases
+	 * definidos na requisiÃ§Ã£o. Pode e deve ser iterado para o acesso Ã  todos
+	 * os registros quando a seleÃ§Ã£o busca mais de uma linha.
 	 * 
 	 * @api
 	 * @return string[]
 	 */
-	public function vetorizar(){
-		return $this->Requisicao->fetch_assoc();
-	}
+	public function vetorizar(){return $this->Requisicao->fetch_assoc();}
 	
 	/**
-	 * Retorna o número de linhas de uma seleção
+	 * Retorna o nÃºmero de linhas de uma seleÃ§Ã£o
 	 * 
-	 * Diferente do getAfetados(), essa quantidade só existe para seleções,
-	 * e não para todos os procedimentos do CRUD.
+	 * Diferente do getAfetados(), essa quantidade sÃ³ existe para seleÃ§Ãµes,
+	 * e nÃ£o para todos os procedimentos do CRUD.
 	 * 
 	 * @api
 	 * @return int
 	 */
-	public function quantificar(){
-		return $this->Requisicao->num_rows;
-	}
+	public function quantificar(){return $this->Requisicao->num_rows;}
 	
 	/**
-	 * Retorna objetos que representam as características dos campos da tabela
+	 * Retorna objetos que representam as caracterÃ­sticas dos campos da tabela
 	 * selecionada
 	 * 
-	 * Crucial para fazer um ORM automático.
+	 * Crucial para fazer um ORM automÃ¡tico.
 	 * 
 	 * @api
 	 * @return Object[]
 	 */
-	public function mapear(){
-		return $this->Requisicao->fetch_fields();
-	}
+	public function mapear(){return $this->Requisicao->fetch_fields();}
 	
 	/**
-	 * Fecha a conexão com o banco
+	 * Fecha a conexÃ£o com o banco
 	 */
-	public function __destruct(){
-		$this->Conexao->close();
-	}
+	public function __destruct(){$this->Conexao->close();}
 }

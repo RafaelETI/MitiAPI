@@ -6,7 +6,7 @@ class StatusTest extends PHPUnit_Framework_TestCase{
 	
 	public function testAlertarComSucesso(){
 		$_SESSION['status'] = true;
-		$js = "<script>alert('Concluído com sucesso.');</script>";
+		$js = "<script>alert('ConcluÃ­do com sucesso.');</script>";
 		$this->assertSame($js, \miti\Status::alertar());
 	}
 	

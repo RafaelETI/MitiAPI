@@ -1,4 +1,4 @@
-function MitiFormulario(cor){
+function MitiFormulario(){
 	this.contar = function(id, quantidade){
 		var elemento = MitiElemento.getId(id);
 		
@@ -8,12 +8,6 @@ function MitiFormulario(cor){
 			
 			var contagem = MitiElemento.getId(elemento.id + '_miticontar');
 			contagem.innerHTML = resto;
-			
-			if(contagem.style.color !== cor && resto >= 0){
-				contagem.style.color = cor;
-			}else if(contagem.style.color !== 'red' && resto < 0){
-				contagem.style.color = 'red';
-			}
 		};
 	};
 	
@@ -55,7 +49,7 @@ function MitiFormulario(cor){
 						vazios[i].focus();
 						return false;
 					}else{
-						vazios[i].style.borderColor = cor;
+						vazios[i].style.borderColor = 'blue';
 					}
 				}
 			};

@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014
+ * Miti API, 2014 - 2015
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -8,23 +8,23 @@
 namespace miti;
 
 /**
- * Operação sobre tempo
+ * OperaÃ§Ã£o sobre tempo
  * 
  * Dois motivos importantes: oferece suporte para datas no formato brasileiro, e
- * não assume a data atual na ausência de uma outra na construção do objeto;
+ * nÃ£o assume a data atual na ausÃªncia de uma outra na construÃ§Ã£o do objeto;
  * diferente da classe nativa DateTime.
  */
 class Tempo{
 	/**
 	 * Inverte um tempo no formato brasileiro para o formato norte americano
 	 * 
-	 * Basta trocar a barra pelo hífen que a classe DateTime reconhece como data,
-	 * ou seja, não precisa estar na ordem do formato americano. Até porque, se
-	 * precisasse, não haveria sentido em usá-la.
+	 * Basta trocar a barra pelo hÃ­fen que a classe DateTime reconhece como data,
+	 * ou seja, nÃ£o precisa estar na ordem do formato americano. AtÃ© porque, se
+	 * precisasse, nÃ£o haveria sentido em usÃ¡-la.
 	 * 
 	 * @api
 	 * @param string $tempo
-	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
+	 * @param bool $longo Se for true, retorna-se tambÃ©m a hora (timestamp).
 	 * @return string|null
 	 */
 	public static function brUS($tempo, $longo = false){
@@ -35,7 +35,7 @@ class Tempo{
 		$DateTime = new \DateTime($tempo);
 		$tempo = $DateTime->format('Y-m-d H:i:s');
 		
-		if(!$longo){$tempo = substr($tempo, 0, 10);}
+		if(!$longo){$tempo = mb_substr($tempo, 0, 10);}
 		
 		return $tempo;
 	}
@@ -45,7 +45,7 @@ class Tempo{
 	 * 
 	 * @api
 	 * @param string $tempo
-	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
+	 * @param bool $longo Se for true, retorna-se tambÃ©m a hora (timestamp).
 	 * @return string|null
 	 */
 	public static function usBR($tempo, $longo = false){
@@ -54,13 +54,13 @@ class Tempo{
 		$DateTime = new \DateTime($tempo);
 		$tempo = $DateTime->format('d/m/Y H:i:s');
 		
-		if(!$longo){$tempo = substr($tempo, 0, 10);}
+		if(!$longo){$tempo = mb_substr($tempo, 0, 10);}
 		
 		return $tempo;
 	}
 	
 	/**
-	 * Obtém o dia à partir de um tempo
+	 * ObtÃ©m o dia Ã  partir de um tempo
 	 * 
 	 * @api
 	 * @param string $tempo
@@ -73,13 +73,13 @@ class Tempo{
 	}
 	
 	/**
-	 * Obtém o dia da semana à partir de um tempo, em forma de texto
+	 * ObtÃ©m o dia da semana Ã  partir de um tempo, em forma de texto
 	 * 
-	 * É um trabalho majoritariamente de tradução.
+	 * Ã‰ um trabalho majoritariamente de traduÃ§Ã£o.
 	 * 
 	 * @api
 	 * @param string $tempo
-	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
+	 * @param bool $longo Se for false, retorna apenas as trÃªs primeiras letras.
 	 * @return string|null
 	 */
 	public static function diaDaSemana($tempo, $longo = false){
@@ -91,24 +91,24 @@ class Tempo{
 		switch($dia){
 			case 'Sunday': $dia = 'Domingo'; break;
 			case 'Monday': $dia = 'Segunda'; break;
-			case 'Tuesday': $dia = 'Terça'; break;
+			case 'Tuesday': $dia = 'TerÃ§a'; break;
 			case 'Wednesday': $dia = 'Quarta'; break;
 			case 'Thursday': $dia = 'Quinta'; break;
 			case 'Friday': $dia = 'Sexta'; break;
-			case 'Saturday': $dia = 'Sábado'; break;
+			case 'Saturday': $dia = 'SÃ¡bado'; break;
 		}
 		
-		if(!$longo){$dia = substr($dia, 0, 3);}
+		if(!$longo){$dia = mb_substr($dia, 0, 3);}
 		
 		return $dia;
 	}
 	
 	/**
-	 * Obtém o mês à partir de um tempo, em forma de texto
+	 * ObtÃ©m o mÃªs Ã  partir de um tempo, em forma de texto
 	 * 
 	 * @api
 	 * @param string $tempo
-	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
+	 * @param bool $longo Se for false, retorna apenas as trÃªs primeiras letras.
 	 * @return string|null
 	 */
 	public static function mes($tempo, $longo = false){
@@ -120,7 +120,7 @@ class Tempo{
 		switch($mes){
 			case '01': $mes = 'Janeiro'; break;
 			case '02': $mes = 'Fevereiro'; break;
-			case '03': $mes = 'Março'; break;
+			case '03': $mes = 'MarÃ§o'; break;
 			case '04': $mes = 'Abril'; break;
 			case '05': $mes = 'Maio'; break;
 			case '06': $mes = 'Junho'; break;
@@ -132,13 +132,13 @@ class Tempo{
 			case '12': $mes = 'Dezembro'; break;
 		}
 		
-		if(!$longo){$mes = substr($mes, 0, 3) . '.';}
+		if(!$longo){$mes = mb_substr($mes, 0, 3) . '.';}
 		
 		return $mes;
 	}
 	
 	/**
-	 * Obtém o ano à partir de um tempo
+	 * ObtÃ©m o ano Ã  partir de um tempo
 	 * 
 	 * @api
 	 * @param string $tempo
@@ -151,7 +151,7 @@ class Tempo{
 	}
 	
 	/**
-	 * Soma vários intervalos de tempo
+	 * Soma vÃ¡rios intervalos de tempo
 	 * 
 	 * @return \DateInterval
 	 */
@@ -165,7 +165,7 @@ class Tempo{
 	}
 	
 	/**
-	 * Subtrai vários intervalos de tempo
+	 * Subtrai vÃ¡rios intervalos de tempo
 	 * 
 	 * @return \DateInterval
 	 */

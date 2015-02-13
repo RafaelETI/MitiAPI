@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014
+ * Miti API, 2014 - 2015
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -8,11 +8,11 @@
 namespace miti;
 
 /**
- * ValidaÁ„o de dados
+ * Valida√ß√£o de dados
  */
 class Validacao{
 	/**
-	 * Valida a quantidade de caractÈres de um valor
+	 * Valida a quantidade de caract√©res de um valor
 	 * 
 	 * @api
 	 * @param mixed $valor
@@ -23,8 +23,8 @@ class Validacao{
 	public static function tamanho($valor, $tamanho){
 		if(!$valor){return;}
 		
-		if(strlen($valor) !== $tamanho){
-			throw new \UnexpectedValueException("O valor deve conter atÈ $tamanho caractÈres.");
+		if(mb_strlen($valor) !== $tamanho){
+			throw new \UnexpectedValueException("O valor deve conter at√© $tamanho caract√©res.");
 		}
 	}
 	
@@ -42,7 +42,7 @@ class Validacao{
 		if(!$valor){return;}
 		
 		if(!preg_match('/^\w{2,}@\w{2,}\.(\w|\.){2,}$/', $valor)){
-			throw new \UnexpectedValueException('O e-mail È inv·lido.');
+			throw new \UnexpectedValueException('O e-mail √© inv√°lido.');
 		}
 	}
 	
@@ -70,12 +70,10 @@ class Validacao{
 		$ok = false;
 		
 		foreach($esperados as $esperado){
-			if(strpos($real, $esperado) !== false){
-				$ok = true;
-			}
+			if(mb_strpos($real, $esperado) !== false){$ok = true;}
 		}
 		
-		if(!$ok){throw new \RangeException('O tipo do arquivo È inv·lido.');}
+		if(!$ok){throw new \RangeException('O tipo do arquivo √© inv√°lido.');}
 	}
 	
 	/**
@@ -94,7 +92,7 @@ class Validacao{
 	}
 	
 	/**
-	 * Valida as dimensıes de uma imagem
+	 * Valida as dimens√µes de uma imagem
 	 * 
 	 * @param int[] $dimensoes
 	 * @param int $largura
@@ -103,16 +101,16 @@ class Validacao{
 	 */
 	private static function dimensoes($dimensoes, $largura, $altura){
 		if($dimensoes[0] < $largura){
-			throw new \UnexpectedValueException('A largura da imagem È menor do que o mÌnimo permitido.');
+			throw new \UnexpectedValueException('A largura da imagem √© menor do que o m√≠nimo permitido.');
 		}
 		
 		if($dimensoes[1] < $altura){
-			throw new \UnexpectedValueException('A altura da imagem È menor do que o mÌnimo permitido.');
+			throw new \UnexpectedValueException('A altura da imagem √© menor do que o m√≠nimo permitido.');
 		}
 	}
 	
 	/**
-	 * Valida as proporÁıes de uma imagem
+	 * Valida as propor√ß√µes de uma imagem
 	 * 
 	 * @param int[] $dimensoes
 	 * @param int $largura
@@ -126,11 +124,11 @@ class Validacao{
 		$proporcaoDaImagem = $dimensoes[0] / $dimensoes[1];
 		
 		if($proporcaoDaImagem < $proporcaoMinima){
-			throw new \UnexpectedValueException('A proporÁ„o da imagem È inv·lida, excedendo verticalmente.');
+			throw new \UnexpectedValueException('A propor√ß√£o da imagem √© inv√°lida, excedendo verticalmente.');
 		}
 		
 		if($proporcaoDaImagem > $proporcaoMaxima){
-			throw new \UnexpectedValueException('A proporÁ„o da imagem È inv·lida, excedendo horizontalmente.');
+			throw new \UnexpectedValueException('A propor√ß√£o da imagem √© inv√°lida, excedendo horizontalmente.');
 		}
 	}
 	
@@ -151,34 +149,34 @@ class Validacao{
 	}
 	
 	/**
-	 * Valida a quantidade de caractÈres
+	 * Valida a quantidade de caract√©res
 	 * 
-	 * A numeraÁ„o na mensagem de exceÁ„o È para que o desenvolvedor consiga
-	 * localizar o cÛdigo que lanÁou a exceÁ„o sem que o usu·rio tenha uma
-	 * mensagem explÌcita do erro, para que haja uma menor chance de burlamento.
+	 * A numera√ß√£o na mensagem de exce√ß√£o √© para que o desenvolvedor consiga
+	 * localizar o c√≥digo que lan√ßou a exce√ß√£o sem que o usu√°rio tenha uma
+	 * mensagem expl√≠cita do erro, para que haja uma menor chance de burlamento.
 	 * 
 	 * @param string $cpf
 	 * @throws \UnexpectedValueException
 	 */
 	private static function quantidadeCaracteres($cpf){
-		if(strlen($cpf) !== 11){throw new \UnexpectedValueException('#1 O CPF È inv·lido.');}
+		if(mb_strlen($cpf) !== 11){throw new \UnexpectedValueException('#1 O CPF √© inv√°lido.');}
 	}
 	
 	/**
-	 * Valida se apenas possui n˙meros
+	 * Valida se apenas possui n√∫meros
 	 * 
 	 * @param string $cpf
 	 * @throws \UnexpectedValueException
 	 */
 	private static function apenasNumeros($cpf){
-		if(!preg_match('/\d{11}/', $cpf)){throw new \UnexpectedValueException('#2 O CPF È inv·lido.');}
+		if(!preg_match('/\d{11}/', $cpf)){throw new \UnexpectedValueException('#2 O CPF √© inv√°lido.');}
 	}
 	
 	/**
-	 * Valida se È uma sequÍncia de n˙meros repetidos
+	 * Valida se √© uma sequ√™ncia de n√∫meros repetidos
 	 * 
-	 * Por incrÌvel que pareÁa, repetiÁıes de sequÍncias de um ‡ nove satisfazem
-	 * os c·lculos dos dÌgitos verificadores.
+	 * Por incr√≠vel que pare√ßa, repeti√ß√µes de sequ√™ncias de um √† nove satisfazem
+	 * os c√°lculos dos d√≠gitos verificadores.
 	 * 
 	 * @param string $cpf
 	 * @throws \UnexpectedValueException
@@ -186,12 +184,12 @@ class Validacao{
 	private static function sequenciaIgual($cpf){
 		for($posicao = 1, $numero = $cpf[0]; $posicao <= 10; $posicao++){
 			if($numero != $cpf[$posicao]){break;}
-			if($posicao == 10){throw new \UnexpectedValueException('#3 O CPF È inv·lido.');}
+			if($posicao == 10){throw new \UnexpectedValueException('#3 O CPF √© inv√°lido.');}
 		}
 	}
 	
 	/**
-	 * Valida os dÌgitos verificadores
+	 * Valida os d√≠gitos verificadores
 	 * 
 	 * @param string $cpf
 	 * @throws \RangeException
@@ -203,7 +201,7 @@ class Validacao{
 			}
 			
 			$digito = ((10 * $digito) % 11) % 10;
-			if($cpf[$numero] != $digito){throw new \RangeException('#4 O CPF È inv·lido.');}
+			if($cpf[$numero] != $digito){throw new \RangeException('#4 O CPF √© inv√°lido.');}
 		}
 	}
 	
@@ -224,43 +222,43 @@ class Validacao{
 	}
 	
 	/**
-	 * Valida a quantidade de caractÈres
+	 * Valida a quantidade de caract√©res
 	 * 
-	 * A numeraÁ„o na mensagem de exceÁ„o È para que o desenvolvedor consiga
-	 * localizar o cÛdigo que lanÁou a exceÁ„o sem que o usu·rio tenha uma
-	 * mensagem explÌcita do erro, para que haja uma menor chance de burlamento.
+	 * A numera√ß√£o na mensagem de exce√ß√£o √© para que o desenvolvedor consiga
+	 * localizar o c√≥digo que lan√ßou a exce√ß√£o sem que o usu√°rio tenha uma
+	 * mensagem expl√≠cita do erro, para que haja uma menor chance de burlamento.
 	 * 
 	 * @param string $cnpj
 	 * @throws \UnexpectedValueException
 	 */
 	private static function quantidadeCaracteresCnpj($cnpj){
-		if(strlen($cnpj) !== 14){throw new \UnexpectedValueException('#1 O CNPJ È inv·lido.');}
+		if(mb_strlen($cnpj) !== 14){throw new \UnexpectedValueException('#1 O CNPJ √© inv√°lido.');}
 	}
 	
 	/**
-	 * Valida se apenas possui n˙meros
+	 * Valida se apenas possui n√∫meros
 	 * 
 	 * @param string $cnpj
 	 * @throws \UnexpectedValueException
 	 */
 	private static function apenasNumerosCnpj($cnpj){
-		if(!preg_match('/\d{14}/', $cnpj)){throw new \UnexpectedValueException('#2 O CNPJ È inv·lido.');}
+		if(!preg_match('/\d{14}/', $cnpj)){throw new \UnexpectedValueException('#2 O CNPJ √© inv√°lido.');}
 	}
 	
 	/**
-	 * Valida se È uma sequÍncia de zeros
+	 * Valida se √© uma sequ√™ncia de zeros
 	 * 
-	 * Diferente do CPF, essa È a ˙nica sequÍncia numÈrica problem·tica.
+	 * Diferente do CPF, essa √© a √∫nica sequ√™ncia num√©rica problem√°tica.
 	 * 
 	 * @param string $cnpj
 	 * @throws \UnexpectedValueException
 	 */
 	private static function sequenciaZeros($cnpj){
-		if($cnpj == '00000000000000'){throw new \UnexpectedValueException('#3 O CNPJ È inv·lido.');}
+		if($cnpj == '00000000000000'){throw new \UnexpectedValueException('#3 O CNPJ √© inv√°lido.');}
 	}
 	
 	/**
-	 * Valida os dÌgitos verificadores
+	 * Valida os d√≠gitos verificadores
 	 * 
 	 * @param string $cnpj
 	 * @throws \RangeException
@@ -274,7 +272,7 @@ class Validacao{
 			
 			$resto = $soma % 11;
 			$digito = $resto < 2? 0: 11 - $resto;
-			if($cnpj[12 + $i] != $digito){throw new \RangeException('#4 O CNPJ È inv·lido.');}
+			if($cnpj[12 + $i] != $digito){throw new \RangeException('#4 O CNPJ √© inv√°lido.');}
 		}
 	}
 }

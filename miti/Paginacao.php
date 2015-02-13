@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014
+ * Miti API, 2014 - 2015
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -8,63 +8,63 @@
 namespace miti;
 
 /**
- * PaginaÁ„o HTML
+ * Pagina√ß√£o HTML
  * 
- * Dica: considerando os possÌveis filtros na definiÁ„o do total de registros e
- * passando esses filtros na query string dos botıes html, consegue-se realizar
- * uma paginaÁ„o que leva em conta a busca do usu·rio.
+ * Dica: considerando os poss√≠veis filtros na defini√ß√£o do total de registros e
+ * passando esses filtros na query string dos bot√µes html, consegue-se realizar
+ * uma pagina√ß√£o que leva em conta a busca do usu√°rio.
  */
 class Paginacao{
 	/**
-	 * @var int Total de registros selecionados na requisiÁ„o.
+	 * @var int Total de registros selecionados na requisi√ß√£o.
 	 */
 	private $total;
 	
 	/**
-	 * @var int Quantidade de registros por p·gina.
+	 * @var int Quantidade de registros por p√°gina.
 	 */
 	private $quantidade;
 	
 	/**
-	 * @var string P·gina atual. O tipo È string porque esse valor geralmente
+	 * @var string P√°gina atual. O tipo √© string porque esse valor geralmente
 	 * vem pela super global $_GET.
 	 */
 	private $pagina;
 	
 	/**
-	 * @var int Quantidade total de botıes simult‚neos para troca de p·gina.
+	 * @var int Quantidade total de bot√µes simult√¢neos para troca de p√°gina.
 	 */
 	private $quantidadeDeBotoes;
 	
 	/**
-	 * @var int PosiÁ„o do registro inicial da p·gina.
+	 * @var int Posi√ß√£o do registro inicial da p√°gina.
 	 */
 	private $inicio;
 	
 	/**
-	 * @var int Quantidade total de p·ginas.
+	 * @var int Quantidade total de p√°ginas.
 	 */
 	private $quantidadeDePaginas;
 	
 	/**
-	 * @var int N˙mero da p·gina do bot„o inicial.
+	 * @var int N√∫mero da p√°gina do bot√£o inicial.
 	 */
 	private $botaoInicial;
 	
 	/**
-	 * @var int N˙mero da p·gina do bot„o final.
+	 * @var int N√∫mero da p√°gina do bot√£o final.
 	 */
 	private $botaoFinal;
 	
 	/**
 	 * Define as propriedades
 	 * 
-	 * Os par‚metros passados de forma arbitr·ria pelo usu·rio s„o: $quantidade,
-	 * $pagina, $quantidadeDeBotoes, e $filtros. O total deve ser conseguido atravÈs
-	 * de uma requisiÁ„o ao banco, e o resto, atr·ves de c·lculos.
+	 * Os par√¢metros passados de forma arbitr√°ria pelo usu√°rio s√£o: $quantidade,
+	 * $pagina, $quantidadeDeBotoes, e $filtros. O total deve ser conseguido atrav√©s
+	 * de uma requisi√ß√£o ao banco, e o resto, atr√°ves de c√°lculos.
 	 * 
-	 * Recomenda-se que o valor do $quantidadeDeBotoes seja Ìmpar para que o bot„o
-	 * da p·gina atual fique no centro e tenha a mesma quantidade de botıes de
+	 * Recomenda-se que o valor do $quantidadeDeBotoes seja √≠mpar para que o bot√£o
+	 * da p√°gina atual fique no centro e tenha a mesma quantidade de bot√µes de
 	 * cada lado.
 	 * 
 	 * @api
@@ -90,29 +90,27 @@ class Paginacao{
 	/**
 	 * Retorna o registro inicial da busca no banco
 	 * 
-	 * Deve ser usado como o segundo par‚metro da instruÁ„o SQL de limite.
+	 * Deve ser usado como o segundo par√¢metro da instru√ß√£o SQL de limite.
 	 * 
-	 * N„o h· um getLimite() porque esse valor È definido arbitrariamente pelo
-	 * usu·rio que j· o usa do lado de fora.
+	 * N√£o h√° um getLimite() porque esse valor √© definido arbitrariamente pelo
+	 * usu√°rio que j√° o usa do lado de fora.
 	 * 
 	 * @api
 	 * @return int
 	 */
-	public function getInicio(){
-		return $this->inicio;
-	}
+	public function getInicio(){return $this->inicio;}
 	
 	/**
-	 * Cria a paginaÁ„o em HTML
+	 * Cria a pagina√ß√£o em HTML
 	 * 
-	 * S„o gerados os botıes: &#8634; (primeira), &#8592; (anterior), &#8594;
-	 * (prÛxima), e &#8635; (˙ltima), alÈm dos n˙mericos incrementados de um em
-	 * um, com o limite definido pelo usu·rio.
+	 * S√£o gerados os bot√µes: &#8634; (primeira), &#8592; (anterior), &#8594;
+	 * (pr√≥xima), e &#8635; (√∫ltima), al√©m dos n√∫mericos incrementados de um em
+	 * um, com o limite definido pelo usu√°rio.
 	 * 
 	 * @api
-	 * @param string $pagina Nome do par‚metro do valor da p·gina.
-	 * @param string $on Nome da classe css que estiliza o bot„o ativo.
-	 * @param string $off Nome da classe css que estiliza os botıes desativados.
+	 * @param string $pagina Nome do par√¢metro do valor da p√°gina.
+	 * @param string $on Nome da classe css que estiliza o bot√£o ativo.
+	 * @param string $off Nome da classe css que estiliza os bot√µes desativados.
 	 * @param string[] $filtros No formato "campo => valor".
 	 * @return string
 	 */
@@ -152,7 +150,7 @@ class Paginacao{
 	}
 	
 	/**
-	 * Formata o vetor de filtros em texto, no padr„o de uma query string
+	 * Formata o vetor de filtros em texto, no padr√£o de uma query string
 	 * 
 	 * @param string[] $filtros
 	 * @param string $pagina

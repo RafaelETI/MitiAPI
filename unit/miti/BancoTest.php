@@ -14,7 +14,7 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testErroDeConexaoComMensagemGenerica(){
-		$mensagem = 'Não foi possível conectar ao banco de dados.';
+		$mensagem = 'NÃ£o foi possÃ­vel conectar ao banco de dados.';
 		$this->setExpectedException('RuntimeException', $mensagem);
 		
 		ini_set('display_errors', 0);
@@ -40,23 +40,23 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 	public function testErroDeRequisicaoComMensagemTecnica(){
 		$mensagem =
 			"#1062 Duplicate entry '1' for key 'PRIMARY' - "
-			.'insert into categoria values(1, "Música", null)'
+			.'insert into categoria values(1, "MÃºsica", null)'
 		;
 		
 		$this->setExpectedException('UnexpectedValueException', $mensagem);
 		
 		ini_set('display_errors', 1);
-		self::$Banco->requisitar('insert into categoria values(1, "Música", null)')->rebobinar();
+		self::$Banco->requisitar('insert into categoria values(1, "MÃºsica", null)')->rebobinar();
 	}
 	
 	public function testErroDeRequisicaoComMensagemEspecifica(){
-		$this->setExpectedException('UnexpectedValueException', 'O registro já existe.');
+		$this->setExpectedException('UnexpectedValueException', 'O registro jÃ¡ existe.');
 		ini_set('display_errors', 0);
-		self::$Banco->requisitar('insert into categoria values(1, "Música", null)')->rebobinar();
+		self::$Banco->requisitar('insert into categoria values(1, "MÃºsica", null)')->rebobinar();
 	}
 	
 	public function testErroDeRequisicaoComMensagemGenerica(){
-		$this->setExpectedException('UnexpectedValueException', '#1048 Houve um erro ao realizar a requisição.');
+		$this->setExpectedException('UnexpectedValueException', '#1048 Houve um erro ao realizar a requisiÃ§Ã£o.');
 		ini_set('display_errors', 0);
 		self::$Banco->requisitar('insert into categoria values(1, null, null)')->rebobinar();
 	}

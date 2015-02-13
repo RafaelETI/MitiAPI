@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014
+ * Miti API, 2014 - 2015
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -12,15 +12,15 @@ namespace miti;
  */
 class Tratamento{
 	/**
-	 * Cria o html para inclusão de arquivos CSS e JS
+	 * Cria o html para inclusÃ£o de arquivos CSS e JS
 	 * 
-	 * A diferença de chamar diretamente é que esse método parametriza o link
-	 * com o hash do arquivo, fazendo com que sempre que haja uma alteração
-	 * no conteúdo do arquivo, o navegador veja como um novo arquivo e não use
-	 * o que já está em cache.
+	 * A diferenÃ§a de chamar diretamente Ã© que esse mÃ©todo parametriza o link
+	 * com o hash do arquivo, fazendo com que sempre que haja uma alteraÃ§Ã£o
+	 * no conteÃºdo do arquivo, o navegador veja como um novo arquivo e nÃ£o use
+	 * o que jÃ¡ estÃ¡ em cache.
 	 * 
-	 * Não é interessante de se usar com arquivos de terceiros, visto que esses,
-	 * à princípio, não são alterados permanecendo com o mesmo nome.
+	 * NÃ£o Ã© interessante de se usar com arquivos de terceiros, visto que esses,
+	 * Ã  princÃ­pio, nÃ£o sÃ£o alterados permanecendo com o mesmo nome.
 	 * 
 	 * @api
 	 * @param string $caminho
@@ -39,22 +39,9 @@ class Tratamento{
 	}
 	
 	/**
-	 * Substitui um valor baseado em um valor condicional
+	 * Garante a existÃªncia de Ã­ndices de um vetor
 	 * 
-	 * @api
-	 * @param mixed $valor
-	 * @param mixed $condicao
-	 * @param mixed $novo
-	 * @return mixed
-	 */
-	public static function substituir($valor, $condicao, $novo){
-		return $valor === $condicao? $novo: $valor;
-	}
-	
-	/**
-	 * Garante a existência de índices de um vetor
-	 * 
-	 * O valor com o qual os índices são inicializados é passado por parâmetro.
+	 * O valor com o qual os Ã­ndices sÃ£o inicializados Ã© passado por parÃ¢metro.
 	 * 
 	 * @api
 	 * @param mixed[] $vetor
@@ -71,23 +58,10 @@ class Tratamento{
 	}
 	
 	/**
-	 * Garante o conteúdo do código fonte de um arquivo
+	 * Extende a capacidade da funÃ§Ã£o nativa htmlspecialchars()
 	 * 
-	 * @api
-	 * @param string $arquivo
-	 * @param string $caminho
-	 * @return string
-	 */
-	public static function arquivar($arquivo, $caminho){
-		if(!$arquivo){$arquivo = file_get_contents($caminho);}
-		return $arquivo;
-	}
-	
-	/**
-	 * Extende a capacidade da função nativa htmlspecialchars()
-	 * 
-	 * Faz com que ela aceite também vetores, que considere aspas, e que
-	 * considere outra codificação por padrão.
+	 * Faz com que ela aceite tambÃ©m vetores, que considere aspas, e que
+	 * considere outra codificaÃ§Ã£o por padrÃ£o.
 	 * 
 	 * @api
 	 * @param string|string[] $valores
@@ -109,7 +83,7 @@ class Tratamento{
 	}
 	
 	/**
-	 * Encurta a quantidade de caractéres de um valor
+	 * Encurta a quantidade de caractÃ©res de um valor
 	 * 
 	 * @api
 	 * @param mixed|mixed[] $valores
@@ -127,30 +101,7 @@ class Tratamento{
 	}
 	
 	private static function encurtarScalar($valor, $tamanho){
-		if(strlen($valor) > $tamanho + 2){$valor = substr($valor, 0, $tamanho).'...';}
+		if(strlen($valor) > $tamanho + 2){$valor = mb_substr($valor, 0, $tamanho).'...';}
 		return $valor;
-	}
-	
-	/**
-	 * Enxuga um texto
-	 * 
-	 * Não funcionou com a função iconv().
-	 * 
-	 * @api
-	 * @param string|string[] $valores
-	 * @return string|string[]|null
-	 */
-	public static function enxugar($valores){
-		if(!$valores){return;}
-		return is_array($valores)? self::enxugarArray($valores): self::enxugarScalar($valores);
-	}
-	
-	private static function enxugarArray(array $valores){
-		foreach($valores as &$valor){$valor = self::enxugarScalar($valor);}
-		return $valores;
-	}
-	
-	private static function enxugarScalar($valor){
-		return strtolower(strtr($valor, 'àáãéêíóôõúç ÀÁÃÉÊÍÓÔÕÚÇ', 'aaaeeiooouc_AAAEEIOOOUC'));
 	}
 }

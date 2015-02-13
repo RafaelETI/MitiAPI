@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014
+ * Miti API, 2014 - 2015
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -8,12 +8,12 @@
 namespace adt;
 
 /**
- * ConfiguraÁ„o do sistema
+ * Configura√ß√£o do sistema
  * 
- * Esse arquivo deve ser requerido, e a classe deve ser instanciada, no comeÁo
- * de todas as p·ginas do sistema.
+ * Esse arquivo deve ser requerido, e a classe deve ser instanciada, no come√ßo
+ * de todas as p√°ginas do sistema.
  * 
- * Como È nessa classe que È definida a funÁ„o de autoload, ela È a ˙nica em que
+ * Como √© nessa classe que √© definida a fun√ß√£o de autoload, ela √© a √∫nica em que
  * o arquivo deve ser requerido manualmente.
  */
 class Config{
@@ -23,21 +23,21 @@ class Config{
 	private $config = array();
 	
 	/**
-	 * Chama todos os mÈtodos da classe
+	 * Chama todos os m√©todos da classe
 	 * 
-	 * … aqui que se parametriza algumas configuraÁıes do sistema, o que È feito
-	 * por p·gina.
+	 * √â aqui que se parametriza algumas configura√ß√µes do sistema, o que √© feito
+	 * por p√°gina.
 	 * 
 	 * @api
 	 * 
-	 * @param string $Classe Nome da classe respons·vel por tratar requisiÁıes
-	 * na p·gina. Com isso, apenas uma classe, no m·ximo, fica respons·vel por
-	 * p·gina. Caso tenha o valor vazio, n„o haver· classe que trate requisiÁıes.
+	 * @param string $Classe Nome da classe respons√°vel por tratar requisi√ß√µes
+	 * na p√°gina. Com isso, apenas uma classe, no m√°ximo, fica respons√°vel por
+	 * p√°gina. Caso tenha o valor vazio, n√£o haver√° classe que trate requisi√ß√µes.
 	 * 
-	 * @param bool $restrito Define se a p·gina È restrita ao acesso, ou seja,
-	 * se apenas pode ser acessada se o usu·rio possuir uma sess„o ativa.
+	 * @param bool $restrito Define se a p√°gina √© restrita ao acesso, ou seja,
+	 * se apenas pode ser acessada se o usu√°rio possuir uma sess√£o ativa.
 	 * 
-	 * @param string $sessao Nome da sess„o do usu·rio.
+	 * @param string $sessao Nome da sess√£o do usu√°rio.
 	 */
 	public function __construct($Classe, $restrito, $sessao = 'usuario'){
 		$this
@@ -58,11 +58,11 @@ class Config{
 	}
 	
 	/**
-	 * Define os par‚metros de configuraÁ„o do sistema
+	 * Define os par√¢metros de configura√ß√£o do sistema
 	 * 
-	 * Esse È o ˙nico mÈtodo que deve ser alterado para a parametrizaÁ„o do sistema.
+	 * Esse √© o √∫nico m√©todo que deve ser alterado para a parametriza√ß√£o do sistema.
 	 * 
-	 * Caso surjam mais configuraÁıes de ambientes, adicion·-las onde for cabÌvel.
+	 * Caso surjam mais configura√ß√µes de ambientes, adicion√°-las onde for cab√≠vel.
 	 * 
 	 * @return Config
 	 */
@@ -71,7 +71,7 @@ class Config{
 		$this->config['sistema'] = 'Miti API';
 		$this->config['versao'] = '1.10.25';
 		$this->config['timezone'] = 'America/Sao_Paulo';
-		$this->config['charset'] = 'ISO-8859-1';
+		$this->config['charset'] = 'UTF-8';
 		$this->config['salt'] = '$1$mitiapim$';
 		
 		$this->config['raiz'][0] = '';
@@ -93,18 +93,18 @@ class Config{
 	/**
 	 * Configura o ambiente do sistema
 	 * 
-	 * Por convenÁ„o, o ambiente de produÁ„o È o de valor zero, e os outros s„o
+	 * Por conven√ß√£o, o ambiente de produ√ß√£o √© o de valor zero, e os outros s√£o
 	 * incrementados em um!
 	 * 
-	 * H· a intenÁ„o de que esse seja o ˙nico ponto de manutenÁ„o ao trocar o
-	 * sistema de ambiente. Muito cuidado para n„o enviar esse arquivo para a
-	 * produÁ„o, estando configurado para o desenvolvimento! Nesse caso, muito
-	 * prov·vel que as configuraÁıes de banco de dados estejam erradas e os
+	 * H√° a inten√ß√£o de que esse seja o √∫nico ponto de manuten√ß√£o ao trocar o
+	 * sistema de ambiente. Muito cuidado para n√£o enviar esse arquivo para a
+	 * produ√ß√£o, estando configurado para o desenvolvimento! Nesse caso, muito
+	 * prov√°vel que as configura√ß√µes de banco de dados estejam erradas e os
 	 * erros sejam mostrados na tela. Sempre conferir o sistema on-line quando
 	 * subir esse arquivo.
 	 * 
-	 * O mais importante da declaraÁ„o dessa constante È o seu docblock, alÈm da
-	 * facilidade de leitura nos mÈtodos seguintes.
+	 * O mais importante da declara√ß√£o dessa constante √© o seu docblock, al√©m da
+	 * facilidade de leitura nos m√©todos seguintes.
 	 * 
 	 * @return Config
 	 */
@@ -116,8 +116,8 @@ class Config{
 	/**
 	 * Configura como o PHP trata os erros do sistema
 	 * 
-	 * … uma das principais configuraÁıes de seguranÁa. Nunca mostre os erros
-	 * emitidos pelo PHP diretamente na tela, no ambiente de produÁ„o!
+	 * √â uma das principais configura√ß√µes de seguran√ßa. Nunca mostre os erros
+	 * emitidos pelo PHP diretamente na tela, no ambiente de produ√ß√£o!
 	 * 
 	 * @return Config
 	 */
@@ -136,11 +136,11 @@ class Config{
 	}
 	
 	/**
-	 * Configura o nome e a vers„o do sistema
+	 * Configura o nome e a vers√£o do sistema
 	 * 
-	 * Recomenda-se chamar essa constante em algum lugar visÌvel de todas as
-	 * interfaces para que possa-se identificar facilmente se o sistema est·
-	 * configurado para o ambiente de produÁ„o ou n„o.
+	 * Recomenda-se chamar essa constante em algum lugar vis√≠vel de todas as
+	 * interfaces para que possa-se identificar facilmente se o sistema est√°
+	 * configurado para o ambiente de produ√ß√£o ou n√£o.
 	 * 
 	 * @return Config
 	 */
@@ -168,23 +168,24 @@ class Config{
 	}
 	
 	/**
-	 * Configura o tipo do conte˙do e o charset da p·gina
+	 * Configura o tipo do conte√∫do e o charset da p√°gina
 	 * 
-	 * Dessa forma o charset j· È definido no cabeÁalho do HTTP, portanto, n„o
-	 * h· a necessidade de usar a meta tag do HTML para isso.
+	 * Dessa forma o charset j√° √© definido no cabe√ßalho do HTTP, portanto, n√£o
+	 * h√° a necessidade de usar a meta tag do HTML para isso.
 	 * 
 	 * @return Config
 	 */
 	private function charset(){
 		define('CFG_CHARSET', $this->config['charset']);
 		header('Content-Type: text/html; charset='.CFG_CHARSET);
+		mb_internal_encoding(CFG_CHARSET);
 		return $this;
 	}
 	
 	/**
 	 * Configura o salt
 	 * 
-	 * Recomenda-se usar a funÁ„o crypt() para passar senhas por algoritmos de
+	 * Recomenda-se usar a fun√ß√£o crypt() para passar senhas por algoritmos de
 	 * hash ({@link http://php.net/manual/en/function.crypt.php}).
 	 * 
 	 * @return Config
@@ -195,12 +196,12 @@ class Config{
 	}
 	
 	/**
-	 * Configura os caminhos para o diretÛrio raiz do sistema
+	 * Configura os caminhos para o diret√≥rio raiz do sistema
 	 * 
 	 * Tanto da perspectiva do sistema operacional, quanto da internet.
 	 * 
-	 * Configura-se uma string, que n„o seja vazia, prefixada por uma barra, caso
-	 * o sistema n„o esteja na raÌz do diretÛrio web, mas em um subdiretÛrio.
+	 * Configura-se uma string, que n√£o seja vazia, prefixada por uma barra, caso
+	 * o sistema n√£o esteja na ra√≠z do diret√≥rio web, mas em um subdiret√≥rio.
 	 * 
 	 * @return Config
 	 */
@@ -212,12 +213,12 @@ class Config{
 	}
 	
 	/**
-	 * Configura a conex„o com o banco de dados
+	 * Configura a conex√£o com o banco de dados
 	 * 
 	 * No caso do MySQL, ele aceita, dentre outros, os charsets latin1 e utf8
 	 * (escritos dessa forma).
 	 * 
-	 * Se o servidor do banco de dados for o mesmo de onde o sistema est·
+	 * Se o servidor do banco de dados for o mesmo de onde o sistema est√°
 	 * hospedado, usar localhost.
 	 * 
 	 * @return Config
@@ -233,10 +234,10 @@ class Config{
 	}
 	
 	/**
-	 * Verifica a sess„o do usu·rio, ‡ nÌvel de p·gina
+	 * Verifica a sess√£o do usu√°rio, √† n√≠vel de p√°gina
 	 * 
 	 * Deve-se escolher o local de destino do redirecionamento em caso de
-	 * restriÁ„o, pois o que est· por padr„o pode, facilmente, n„o ser o desejado.
+	 * restri√ß√£o, pois o que est√° por padr√£o pode, facilmente, n√£o ser o desejado.
 	 * 
 	 * @param bool $restrito
 	 * @param string $sessao
@@ -246,7 +247,7 @@ class Config{
 		session_start();
 		
 		if($restrito && !isset($_SESSION[$sessao])){
-			$_SESSION['status'] = 'VocÍ n„o est· autenticado.';
+			$_SESSION['status'] = 'Voc√™ n√£o est√° autenticado.';
 			header('Location: '.CFG_RAIZ_WEB);
 			exit;
 		}
@@ -257,8 +258,8 @@ class Config{
 	/**
 	 * Configura o idioma do sistema
 	 * 
-	 * Caso n„o haja internacionalizaÁ„o no sistema, h· apenas a definiÁ„o de um
-	 * idioma padr„o.
+	 * Caso n√£o haja internacionaliza√ß√£o no sistema, h√° apenas a defini√ß√£o de um
+	 * idioma padr√£o.
 	 * 
 	 * @return Config
 	 */
@@ -275,35 +276,33 @@ class Config{
 	}
 	
 	/**
-	 * Verifica a sess„o do usu·rio, ‡ nÌvel de mÈtodo
+	 * Verifica a sess√£o do usu√°rio, √† n√≠vel de m√©todo
 	 * 
-	 * Chamar esse mÈtodo em todos os mÈtodos que precisem de uma sess„o ativa
-	 * para serem executados, visto que podem existir p·ginas que n„o estejam
-	 * fechadas para a sess„o, e que podem estar configuradas para receberem
-	 * requisiÁıes para determinada classe. … uma segunda camada de proteÁ„o.
+	 * Chamar esse m√©todo em todos os m√©todos que precisem de uma sess√£o ativa
+	 * para serem executados, visto que podem existir p√°ginas que n√£o estejam
+	 * fechadas para a sess√£o, e que podem estar configuradas para receberem
+	 * requisi√ß√µes para determinada classe. √â uma segunda camada de prote√ß√£o.
 	 * 
-	 * Lembrar que, em caso de haverem v·rios usu·rios compartilhando o mesmo
-	 * nome de sess„o no sistema, deve-se verificar se o usu·rio que est·
-	 * executando o procedimento tem permiss„o.
+	 * Lembrar que, em caso de haverem v√°rios usu√°rios compartilhando o mesmo
+	 * nome de sess√£o no sistema, deve-se verificar se o usu√°rio que est√°
+	 * executando o procedimento tem permiss√£o.
 	 * 
 	 * @api
 	 * @param string $sessao
 	 * @throws \Exception
 	 */
 	public static function trancar($sessao = 'usuario'){
-		if(!isset($_SESSION[$sessao])){
-			throw new \Exception('VocÍ n„o tem permiss„o.');
-		}
+		if(!isset($_SESSION[$sessao])){throw new \Exception('Voc√™ n√£o tem permiss√£o.');}
 	}
 	
 	/**
-	 * Configura a funÁ„o de autoload de classes
+	 * Configura a fun√ß√£o de autoload de classes
 	 * 
-	 * Para os nomes dos namespaces devem haver pastas de mesmo nome, comeÁando
-	 * da raÌz do sistema, tendo, por fim, um arquivo com o mesmo nome da classe.
+	 * Para os nomes dos namespaces devem haver pastas de mesmo nome, come√ßando
+	 * da ra√≠z do sistema, tendo, por fim, um arquivo com o mesmo nome da classe.
 	 * 
 	 * Todos os nomes devem respeitar as mesmas caixas altas e baixas, tanto no
-	 * cÛdigo, quanto no sistema de arquivos.
+	 * c√≥digo, quanto no sistema de arquivos.
 	 * 
 	 * @return Config
 	 */
@@ -317,22 +316,22 @@ class Config{
 	}
 	
 	/**
-	 * Configura o recebimento de requisiÁıes na p·gina
+	 * Configura o recebimento de requisi√ß√µes na p√°gina
 	 * 
-	 * Esse procedimento pretende ser genÈrico o suficiente para todas as
-	 * situaÁıes.
+	 * Esse procedimento pretende ser gen√©rico o suficiente para todas as
+	 * situa√ß√µes.
 	 * 
-	 * Ele È ativado caso exista uma vari·vel de nome "metodo" na requisiÁ„o.
+	 * Ele √© ativado caso exista uma vari√°vel de nome "metodo" na requisi√ß√£o.
 	 * 
-	 * A classe requisitada È a que responde pela p·gina.
+	 * A classe requisitada √© a que responde pela p√°gina.
 	 * 
 	 * Em caso de sucesso, atendendo ao design pattern POST/Redirect/GET
 	 * ({@link http://en.wikipedia.org/wiki/Post/Redirect/Get}), ele gera uma
-	 * requisiÁ„o GET. Em caso de erro, ele n„o redireciona, para que as
-	 * informaÁıes da requisiÁ„o n„o sejam perdidas.
+	 * requisi√ß√£o GET. Em caso de erro, ele n√£o redireciona, para que as
+	 * informa√ß√µes da requisi√ß√£o n√£o sejam perdidas.
 	 * 
-	 * A vari·vel "url" da requisiÁ„o È a que define para onde ser· feita a
-	 * requisiÁ„o GET, em caso de sucesso.
+	 * A vari√°vel "url" da requisi√ß√£o √© a que define para onde ser√° feita a
+	 * requisi√ß√£o GET, em caso de sucesso.
 	 * 
 	 * @param string $Classe
 	 * @return Config
@@ -353,10 +352,10 @@ class Config{
 	}
 	
 	/**
-	 * Trata as vari·veis da requisiÁ„o
+	 * Trata as vari√°veis da requisi√ß√£o
 	 * 
-	 * As vari·veis "metodo" e "url" s„o eliminadas para que o par‚metro passado
-	 * ao mÈtodo tenha apenas valores importantes ‡ ele.
+	 * As vari√°veis "metodo" e "url" s√£o eliminadas para que o par√¢metro passado
+	 * ao m√©todo tenha apenas valores importantes √† ele.
 	 */
 	private function tratarRequisicao(){
 		if(!isset($_REQUEST['url'])){$_REQUEST['url'] = $_SERVER['HTTP_REFERER'];}
