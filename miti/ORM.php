@@ -25,6 +25,11 @@ namespace miti;
  */
 class ORM{
 	/**
+	 * @var mixed[]
+	 */
+	private $config;
+	
+	/**
 	 * @var Banco
 	 */
 	private $Banco;
@@ -112,8 +117,9 @@ class ORM{
 	 * @param string $tabela Nome da tabela principal.
 	 * @param string $alias Alias da tabela principal.
 	 */
-	public function __construct($tabela, $alias){
-		$this->Banco = new Banco;
+	public function __construct(array $config, $tabela, $alias){
+		$this->config = $config;
+		$this->Banco = new Banco($config);
 		$this->alias = $alias;
 		$this->tabela = $tabela;
 		
@@ -394,7 +400,7 @@ class ORM{
 	 * @return ORM
 	 */
 	public function juntar($externa, $alias, $aliasCampo, $campo, $aliasCampoExterna, $campoExterna, $juncao = 'join'){
-		$this->ORM[$alias] = new ORM($externa, $alias);
+		$this->ORM[$alias] = new ORM($this->config, $externa, $alias);
 		$this->juncoes .= "$juncao $externa $alias on $aliasCampo.$campo = $aliasCampoExterna.$campoExterna ";
 		
 		return $this;

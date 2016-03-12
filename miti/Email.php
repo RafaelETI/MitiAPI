@@ -117,7 +117,7 @@ class Email{
 	 * @param string $charset
 	 * @throws \RuntimeException
 	 */
-	public function enviar($destinatario, $assunto, $mensagem, $remetente, $charset = CFG_CHARSET){
+	public function enviar($destinatario, $assunto, $mensagem, $remetente, $charset = 'UTF-8'){
 		if(!mail($destinatario, $this->codificarAssunto($charset, $assunto), '', $this->montarCabecalho($remetente, $mensagem, $charset))){
 			throw new \RuntimeException('Houve um erro ao enviar o e-mail.');
 		}

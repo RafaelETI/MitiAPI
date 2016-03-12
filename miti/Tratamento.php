@@ -68,7 +68,7 @@ class Tratamento{
 	 * @param string $charset
 	 * @return string|string[]|null
 	 */
-	public static function escapar($valores, $charset = CFG_CHARSET){
+	public static function escapar($valores, $charset = 'UTF-8'){
 		if(!$valores){return;}
 		return is_array($valores)? self::escaparArray($valores,$charset): self::escaparScalar($valores,$charset);
 	}

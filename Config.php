@@ -1,11 +1,10 @@
 <?php
 /**
- * Miti API, 2014 - 2015
+ * Miti API, 2014 - 2016
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
  */
-namespace adt;
 
 /**
  * Configuração do sistema
@@ -20,15 +19,13 @@ class Config{
 	/**
 	 * @var mixed[]
 	 */
-	private $config = array();
+	private $config = [];
 	
 	/**
 	 * Chama todos os métodos da classe
 	 * 
 	 * É aqui que se parametriza algumas configurações do sistema, o que é feito
 	 * por página.
-	 * 
-	 * @api
 	 * 
 	 * @param string $Classe Nome da classe responsável por tratar requisições
 	 * na página. Com isso, apenas uma classe, no máximo, fica responsável por
@@ -39,15 +36,13 @@ class Config{
 	 * 
 	 * @param string $sessao Nome da sessão do usuário.
 	 */
-	public function __construct($Classe, $restrito, $sessao = 'usuario'){
+	public function __construct($Classe = null, $restrito = false, $sessao = 'usuario'){
 		$this
 			->config()
-			->ambiente()
 			->erro()
 			->sistema()
 			->timezone()
 			->charset()
-			->salt()
 			->raiz()
 			->banco()
 			->sessao($restrito, $sessao)
@@ -69,95 +64,66 @@ class Config{
 	private function config(){
 		$this->config['ambiente'] = 1;
 		$this->config['sistema'] = 'Miti API';
-		$this->config['versao'] = '1.10.25';
+		$this->config['versao'] = '1.36';
 		$this->config['timezone'] = 'America/Sao_Paulo';
 		$this->config['charset'] = 'UTF-8';
 		$this->config['salt'] = '$1$mitiapim$';
 		
-		$this->config['raiz'][0] = '';
+		$this->config['raiz'][0] = '/';
 		$this->config['raiz'][1] = '/MitiAPI';
 		
-		$this->config['banco']['charset'] = 'latin1';
+		$this->config['banco']['charset'] = 'utf8';
 		$this->config['banco'][0]['servidor'] = '';
 		$this->config['banco'][0]['usuario'] = '';
 		$this->config['banco'][0]['senha'] = '';
 		$this->config['banco'][0]['nome'] = '';
-		$this->config['banco'][1]['servidor'] = '';
-		$this->config['banco'][1]['usuario'] = '';
-		$this->config['banco'][1]['senha'] = '';
-		$this->config['banco'][1]['nome'] = '';
+		$this->config['banco'][1]['servidor'] = 'localhost';
+		$this->config['banco'][1]['usuario'] = 'root';
+		$this->config['banco'][1]['senha'] = 'root';
+		$this->config['banco'][1]['nome'] = 'miti_api';
+		
+		$this->config['rest']['servidor'] = 'http://service.example.com/rest.php';
+		$this->config['rest']['usuario'] = 'usuario';
+		$this->config['rest']['senha'] = 'senha';
 		
 		return $this;
 	}
 	
-	/**
-	 * Configura o ambiente do sistema
-	 * 
-	 * Por convenção, o ambiente de produção é o de valor zero, e os outros são
-	 * incrementados em um!
-	 * 
-	 * Há a intenção de que esse seja o único ponto de manutenção ao trocar o
-	 * sistema de ambiente. Muito cuidado para não enviar esse arquivo para a
-	 * produção, estando configurado para o desenvolvimento! Nesse caso, muito
-	 * provável que as configurações de banco de dados estejam erradas e os
-	 * erros sejam mostrados na tela. Sempre conferir o sistema on-line quando
-	 * subir esse arquivo.
-	 * 
-	 * O mais importante da declaração dessa constante é o seu docblock, além da
-	 * facilidade de leitura nos métodos seguintes.
-	 * 
-	 * @return Config
-	 */
-	private function ambiente(){
-		define('CFG_AMBIENTE', $this->config['ambiente']);
-		return $this;
-	}
+	public function getConfig(){return $this->config;}
 	
 	/**
 	 * Configura como o PHP trata os erros do sistema
 	 * 
 	 * É uma das principais configurações de segurança. Nunca mostre os erros
-	 * emitidos pelo PHP diretamente na tela, no ambiente de produção!
+	 * emitidos pelo PHP, diretamente na tela, no ambiente de produção!
 	 * 
 	 * @return Config
 	 */
 	private function erro(){
 		error_reporting(-1);
-		
-		if(CFG_AMBIENTE === 0){
-			ini_set('display_errors', 0);
-			ini_set('display_startup_errors', 0);
-		}else{
-			ini_set('display_errors', 1);
-			ini_set('display_startup_errors', 1);
-		}
-		
+		ini_set('display_errors', $this->config['ambiente']);
 		return $this;
 	}
 	
 	/**
 	 * Configura o nome e a versão do sistema
 	 * 
-	 * Recomenda-se chamar essa constante em algum lugar visível de todas as
-	 * interfaces para que possa-se identificar facilmente se o sistema está
-	 * configurado para o ambiente de produção ou não.
+	 * Recomenda-se chamar esse parâmetro em algum lugar visível de todas as
+	 * interfaces do sistema para que possa-se identificar facilmente se o sistema está
+	 * configurado para o ambiente de produção ou não: se estiver mostrando a versão,
+	 * está configurado para ambiente de desenvolvimento.
 	 * 
 	 * @return Config
 	 */
 	private function sistema(){
-		if(CFG_AMBIENTE === 0){
-			define('CFG_SISTEMA', $this->config['sistema']);
-		}else{
-			define('CFG_SISTEMA', "{$this->config['sistema']} {$this->config['versao']}");
-		}
-		
+		if($this->config['ambiente']){$this->config['sistema'] .= ' '.$this->config['versao'];}
 		return $this;
 	}
 	
 	/**
 	 * Configura a timezone do PHP
 	 * 
-	 * Vide a lista de timezones que o PHP suporta:
+	 * Vide lista de timezones que o PHP suporta:
 	 * {@link http://php.net/manual/en/timezones.php}.
 	 * 
 	 * @return Config
@@ -176,22 +142,8 @@ class Config{
 	 * @return Config
 	 */
 	private function charset(){
-		define('CFG_CHARSET', $this->config['charset']);
-		header('Content-Type: text/html; charset='.CFG_CHARSET);
-		mb_internal_encoding(CFG_CHARSET);
-		return $this;
-	}
-	
-	/**
-	 * Configura o salt
-	 * 
-	 * Recomenda-se usar a função crypt() para passar senhas por algoritmos de
-	 * hash ({@link http://php.net/manual/en/function.crypt.php}).
-	 * 
-	 * @return Config
-	 */
-	private function salt(){
-		define('CFG_SALT', $this->config['salt']);
+		header('Content-Type: text/html; charset='.$this->config['charset']);
+		mb_internal_encoding($this->config['charset']);
 		return $this;
 	}
 	
@@ -200,14 +152,11 @@ class Config{
 	 * 
 	 * Tanto da perspectiva do sistema operacional, quanto da internet.
 	 * 
-	 * Configura-se uma string, que não seja vazia, prefixada por uma barra, caso
-	 * o sistema não esteja na raíz do diretório web, mas em um subdiretório.
-	 * 
 	 * @return Config
 	 */
 	private function raiz(){
-		define('CFG_RAIZ_OS', $_SERVER['DOCUMENT_ROOT'].$this->config['raiz'][CFG_AMBIENTE]);
-		define('CFG_RAIZ_WEB', "http://{$_SERVER['HTTP_HOST']}{$this->config['raiz'][CFG_AMBIENTE]}");
+		$this->config['raizOS'] = $_SERVER['DOCUMENT_ROOT'].$this->config['raiz'][$this->config['ambiente']];
+		$this->config['raizWEB'] = "http://{$_SERVER['HTTP_HOST']}{$this->config['raiz'][$this->config['ambiente']]}";
 		
 		return $this;
 	}
@@ -224,17 +173,16 @@ class Config{
 	 * @return Config
 	 */
 	private function banco(){
-		define('CFG_BANCO_CHARSET', $this->config['banco']['charset']);
-		define('CFG_BANCO_SERVIDOR', $this->config['banco'][CFG_AMBIENTE]['servidor']);
-		define('CFG_BANCO_USUARIO', $this->config['banco'][CFG_AMBIENTE]['usuario']);
-		define('CFG_BANCO_SENHA', $this->config['banco'][CFG_AMBIENTE]['senha']);
-		define('CFG_BANCO_NOME', $this->config['banco'][CFG_AMBIENTE]['nome']);
+		$this->config['banco']['servidor'] = $this->config['banco'][$this->config['ambiente']]['servidor'];
+		$this->config['banco']['usuario'] = $this->config['banco'][$this->config['ambiente']]['usuario'];
+		$this->config['banco']['senha'] = $this->config['banco'][$this->config['ambiente']]['senha'];
+		$this->config['banco']['nome'] = $this->config['banco'][$this->config['ambiente']]['nome'];
 		
 		return $this;
 	}
 	
 	/**
-	 * Verifica a sessão do usuário, à nível de página
+	 * Verifica a sessão do usuário
 	 * 
 	 * Deve-se escolher o local de destino do redirecionamento em caso de
 	 * restrição, pois o que está por padrão pode, facilmente, não ser o desejado.
@@ -248,7 +196,7 @@ class Config{
 		
 		if($restrito && !isset($_SESSION[$sessao])){
 			$_SESSION['status'] = 'Você não está autenticado.';
-			header('Location: '.CFG_RAIZ_WEB);
+			header('Location: '.$this->config['raizWEB']);
 			exit;
 		}
 		
@@ -276,9 +224,9 @@ class Config{
 	}
 	
 	/**
-	 * Verifica a sessão do usuário, à nível de método
+	 * Verifica a sessão do usuário
 	 * 
-	 * Chamar esse método em todos os métodos que precisem de uma sessão ativa
+	 * Chamar esse método antes de todos os métodos que precisem de uma sessão ativa
 	 * para serem executados, visto que podem existir páginas que não estejam
 	 * fechadas para a sessão, e que podem estar configuradas para receberem
 	 * requisições para determinada classe. É uma segunda camada de proteção.
@@ -292,26 +240,18 @@ class Config{
 	 * @throws \Exception
 	 */
 	public static function trancar($sessao = 'usuario'){
-		if(!isset($_SESSION[$sessao])){throw new \Exception('Você não tem permissão.');}
+		if(!isset($_SESSION[$sessao])){
+			throw new \Exception('Você não tem permissão.');
+		}
 	}
 	
 	/**
-	 * Configura a função de autoload de classes
-	 * 
-	 * Para os nomes dos namespaces devem haver pastas de mesmo nome, começando
-	 * da raíz do sistema, tendo, por fim, um arquivo com o mesmo nome da classe.
-	 * 
-	 * Todos os nomes devem respeitar as mesmas caixas altas e baixas, tanto no
-	 * código, quanto no sistema de arquivos.
+	 * Chama o arquivo de autoload criado pelo Composer
 	 * 
 	 * @return Config
 	 */
 	private function autoload(){
-		spl_autoload_register(function($Classe){
-			$Classe = str_replace('\\', '/', $Classe);
-			require CFG_RAIZ_OS."/$Classe.php";
-		});
-		
+		require 'vendor/autoload.php';
 		return $this;
 	}
 	
@@ -345,7 +285,7 @@ class Config{
 				$_SESSION['status'] = $Objeto->$_REQUEST['metodo']($requisicao, $_FILES);
 				header("Location: {$_REQUEST['url']}");
 				exit;
-			}catch(\Exception $e){$_SESSION['status'] = $e->getMessage();}
+			}catch(\Exception $ex){$_SESSION['status'] = $ex->getMessage();}
 		}
 		
 		return $this;

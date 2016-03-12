@@ -1,10 +1,9 @@
 <?php
 class ValidacaoTest extends PHPUnit_Framework_TestCase{
 	private static $arquivos = array();
-	private static $arquivos2 = array();
 	
 	public static function setUpBeforeClass(){
-		self::$arquivos['caminho'] = CFG_RAIZ.'/unit/arquivos/miti.png';
+		self::$arquivos['caminho'] = '../tests/arquivos/miti.png';
 		self::$arquivos['tipo'] = 'image/png';
 		self::$arquivos['peso'] = '1457';
 	}

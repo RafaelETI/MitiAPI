@@ -41,11 +41,6 @@ class Banco{
 	/**
 	 * Abre a conexão com o banco
 	 * 
-	 * Os parâmetros recebem, por padrão, constantes que, preferencialmente,
-	 * são declaradas em um arquivo de configuração. Caso haja a necessidade
-	 * de uma conexão com diferentes parâmetros, basta realizar uma nova
-	 * instância e informá-los.
-	 * 
 	 * Há uma supressão de erro (@) no instanciamento da conexão por causa de
 	 * problema no teste unitário.
 	 * 
@@ -61,11 +56,11 @@ class Banco{
 	 * @param string $banco
 	 * @param string $charset
 	 */
-	public function __construct($servidor = CFG_BANCO_SERVIDOR, $usuario = CFG_BANCO_USUARIO, $senha = CFG_BANCO_SENHA, $banco = CFG_BANCO_NOME, $charset = CFG_BANCO_CHARSET){
+	public function __construct(array $config){
 		$this->verificarExistenciaDaExtensao();
-		$this->Conexao = @new \mysqli($servidor, $usuario, $senha, $banco);
+		$this->Conexao = @new \mysqli($config['banco']['servidor'], $config['banco']['usuario'], $config['banco']['senha'], $config['banco']['nome']);
 		$this->verificarErroDeConexao();
-		$this->definirCharset($charset);
+		$this->definirCharset($config['banco']['charset']);
 		$this->Conexao->autocommit(false);
 	}
 	

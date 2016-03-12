@@ -1,16 +1,20 @@
 <?php
 class BancoTest extends PHPUnit_Framework_TestCase{
+	private static $config;
 	private static $Banco;
 	
 	public static function setUpBeforeClass(){
-		self::$Banco = new \miti\Banco;
+		self::$config = ['banco' => ['servidor' => 'localhost', 'usuario' => 'root', 'senha' => 'root', 'nome' => 'miti_api', 'charset' => 'utf8']];
+		self::$Banco = new \miti\Banco(self::$config);
 	}
 	
 	public function testErroDeConexaoComMensagemTecnica(){
 		$this->setExpectedException('RuntimeException', "Unknown database 'nao_existe'");
 		
 		ini_set('display_errors', 1);
-		new \miti\Banco(CFG_BANCO_SERVIDOR, CFG_BANCO_USUARIO, CFG_BANCO_SENHA, 'nao_existe');
+		$config = self::$config;
+		$config['banco']['nome'] = 'nao_existe';
+		new \miti\Banco($config);
 	}
 	
 	public function testErroDeConexaoComMensagemGenerica(){
@@ -18,14 +22,18 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('RuntimeException', $mensagem);
 		
 		ini_set('display_errors', 0);
-		new \miti\Banco(CFG_BANCO_SERVIDOR, CFG_BANCO_USUARIO, CFG_BANCO_SENHA, 'nao_existe');
+		$config = self::$config;
+		$config['banco']['nome'] = 'nao_existe';
+		new \miti\Banco($config);
 	}
 	
 	public function testErroDeCharset(){
 		$mensagem = 'Houve um erro ao definir o charset.';
 		$this->setExpectedException('DomainException', $mensagem);
 		
-		new \miti\Banco(CFG_BANCO_SERVIDOR, CFG_BANCO_USUARIO, CFG_BANCO_SENHA, CFG_BANCO_NOME, 'nao_existe');
+		$config = self::$config;
+		$config['banco']['charset'] = 'nao_existe';
+		new \miti\Banco($config);
 	}
 	
 	public function testEscaparArray(){

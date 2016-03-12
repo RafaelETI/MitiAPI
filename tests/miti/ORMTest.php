@@ -5,9 +5,11 @@ class ORMTest extends PHPUnit_Framework_TestCase{
 	private static $ORMStatus;
 	
 	public static function setUpBeforeClass(){
-		self::$ORM = new \miti\ORM('categoria', 'c');
-		self::$ORMMemoria = new \miti\ORM('memoria', 'm');
-		self::$ORMStatus = new \miti\ORM('status', 's');
+		$config = ['banco' => ['servidor' => 'localhost', 'usuario' => 'root', 'senha' => 'root', 'nome' => 'miti_api', 'charset' => 'latin1']];
+		
+		self::$ORM = new \miti\ORM($config, 'categoria', 'c');
+		self::$ORMMemoria = new \miti\ORM($config, 'memoria', 'm');
+		self::$ORMStatus = new \miti\ORM($config, 'status', 's');
 	}
 	
 	public function testGetTipos(){
