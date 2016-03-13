@@ -113,7 +113,6 @@ class ORM{
 	 * mas em caso de conflito, pode-se usar outro nome. Eles são definidos nas
 	 * junções, assim como os objetos de mapeamento respectivos.
 	 * 
-	 * @api
 	 * @param string $tabela Nome da tabela principal.
 	 * @param string $alias Alias da tabela principal.
 	 */
@@ -221,9 +220,10 @@ class ORM{
 	 * aos names dos campos do formulário, os mesmos nomes do campos da tabela.
 	 * Pode-se argumentar que é uma falha de segurança.
 	 * 
-	 * @api
 	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
+	 * 
 	 * @return Banco
+	 * 
 	 * @throws \UnexpectedValueException Implicitamente.
 	 */
 	public function criar(array $tupla){
@@ -275,9 +275,10 @@ class ORM{
 	 * aos names dos campos do formulário, os mesmos nomes do campos da tabela.
 	 * Pode-se argumentar que é uma falha de segurança, mas pode valer a pena.
 	 * 
-	 * @api
 	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
+	 * 
 	 * @return Banco
+	 * 
 	 * @throws \UnexpectedValueException Implicitamente.
 	 */
 	public function atualizar(array $tupla){
@@ -324,8 +325,8 @@ class ORM{
 	/**
 	 * Exclui um registro na tabela (Delete do CRUD)
 	 * 
-	 * @api
 	 * @return Banco
+	 * 
 	 * @throws \UnexpectedValueException Implicitamente.
 	 */
 	public function deletar(){
@@ -362,7 +363,6 @@ class ORM{
 	 * Para selecionar-se mais de um campo, chamar esse método quantas vezes
 	 * forem necessárias.
 	 * 
-	 * @api
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
 	 * 
@@ -389,7 +389,6 @@ class ORM{
 	 * Para juntar-se mais de uma tabela, chamar esse método quantas vezes forem
 	 * necessárias.
 	 * 
-	 * @api
 	 * @param string $externa Nome da tabela externa à ser juntada.
 	 * @param string $alias Da tabela externa.
 	 * @param string $aliasCampo
@@ -397,6 +396,7 @@ class ORM{
 	 * @param string $aliasCampoExterna
 	 * @param string $campoExterna
 	 * @param string $juncao join, left join, etc.
+	 * 
 	 * @return ORM
 	 */
 	public function juntar($externa, $alias, $aliasCampo, $campo, $aliasCampoExterna, $campoExterna, $juncao = 'join'){
@@ -425,7 +425,6 @@ class ORM{
 	 * Esse docblock vale também, em grande parte, para os métodos eFiltrar() e
 	 * ouFiltrar().
 	 * 
-	 * @api
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
 	 * @param string $operador =, !=, like, >, >=, etc.
@@ -492,9 +491,9 @@ class ORM{
 	 * 
 	 * Geralmente usado em conjunto com uma função de agregação do banco.
 	 * 
-	 * @api
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
+	 * 
 	 * @return ORM
 	 */
 	public function agrupar($alias, $campo){
@@ -509,10 +508,10 @@ class ORM{
 	 * Para ordenar mais de um campo, chamar esse método quantas vezes forem
 	 * necessárias.
 	 * 
-	 * @api
 	 * @param string $alias De qualquer tabela.
 	 * @param string $campo De qualquer tabela.
 	 * @param string $ordem asc ou desc.
+	 * 
 	 * @return ORM
 	 */
 	public function ordenar($alias, $campo, $ordem){
@@ -527,7 +526,6 @@ class ORM{
 	 * Não criar outras ordens quando usar este método, podem surgir resultados
 	 * inesperados.
 	 * 
-	 * @api
 	 * @return ORM
 	 */
 	public function ordenarAleatoriamente(){
@@ -544,9 +542,9 @@ class ORM{
 	 * trabalho ao usuário informar apenas uma quantidade, sem início. O que é
 	 * muito comum.
 	 * 
-	 * @api
 	 * @param int $quantidade
 	 * @param int $inicio Incluindo zero.
+	 * 
 	 * @return ORM
 	 */
 	public function limitar($quantidade, $inicio = ''){
@@ -559,8 +557,8 @@ class ORM{
 	/**
 	 * Lê registros da tabela (Read do CRUD)
 	 * 
-	 * @api
 	 * @return Banco
+	 * 
 	 * @throws \UnexpectedValueException Implicitamente.
 	 */
 	public function ler(){
@@ -600,7 +598,6 @@ class ORM{
 	/**
 	 * Limpa todas as instruções SQL montadas em propriedades
 	 * 
-	 * @api
 	 * @return ORM
 	 */
 	public function zerar(){

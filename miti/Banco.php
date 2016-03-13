@@ -46,8 +46,6 @@ class Banco{
 	 * 
 	 * As transações são configuradas para não serem cometidas automaticamente.
 	 * 
-	 * @api
-	 * 
 	 * @param string $servidor Nome do servidor do banco, caso seja a mesma
 	 * máquina, informar localhost.
 	 * 
@@ -110,8 +108,8 @@ class Banco{
 	 * quando não se usa PDO, por não ser possível diferenciar instrução SQL de
 	 * dados.
 	 * 
-	 * @api
 	 * @param string[]|string $valores Dados de uma fonte não confiável.
+	 * 
 	 * @return string[]|string
 	 */
 	public function escapar($valores){
@@ -128,8 +126,8 @@ class Banco{
 	/**
 	 * Faz uma requisição ao banco
 	 * 
-	 * @api
 	 * @param string $sql Recomenda-se o uso de um ORM para a montagem do SQL.
+	 * 
 	 * @return Banco
 	 */
 	public function requisitar($sql){
@@ -198,8 +196,6 @@ class Banco{
 	 * em um mesmo procedimento. Caso as primeiras sejam bem sucedidas, mas as
 	 * últimas não, nenhuma é persistida, porque haveria um lançamento de
 	 * excecão antes do script chegar à linha do cometimento.
-	 * 
-	 * @api
 	 */
 	public function cometer(){$this->Conexao->commit();}
 	
@@ -208,8 +204,6 @@ class Banco{
 	 * 
 	 * As transações são rebobinadas automaticamente ao final dos processos. Essa
 	 * chamada é necessária quando queira-se rebobinar antes do final do processo.
-	 * 
-	 * @api
 	 */
 	public function rebobinar(){$this->Conexao->rollback();}
 	
@@ -220,7 +214,6 @@ class Banco{
 	 * definidos na requisição. Pode e deve ser iterado para o acesso à todos
 	 * os registros quando a seleção busca mais de uma linha.
 	 * 
-	 * @api
 	 * @return string[]
 	 */
 	public function vetorizar(){return $this->Requisicao->fetch_assoc();}
@@ -231,7 +224,6 @@ class Banco{
 	 * Diferente do getAfetados(), essa quantidade só existe para seleções,
 	 * e não para todos os procedimentos do CRUD.
 	 * 
-	 * @api
 	 * @return int
 	 */
 	public function quantificar(){return $this->Requisicao->num_rows;}
@@ -242,7 +234,6 @@ class Banco{
 	 * 
 	 * Crucial para fazer um ORM automático.
 	 * 
-	 * @api
 	 * @return Object[]
 	 */
 	public function mapear(){return $this->Requisicao->fetch_fields();}

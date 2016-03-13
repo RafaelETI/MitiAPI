@@ -22,9 +22,9 @@ class Tempo{
 	 * ou seja, não precisa estar na ordem do formato americano. Até porque, se
 	 * precisasse, não haveria sentido em usá-la.
 	 * 
-	 * @api
 	 * @param string $tempo
 	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
+	 * 
 	 * @return string|null
 	 */
 	public static function brUS($tempo, $longo = false){
@@ -43,9 +43,9 @@ class Tempo{
 	/**
 	 * Inverte um tempo no formato norte americano para o formato brasileiro
 	 * 
-	 * @api
 	 * @param string $tempo
 	 * @param bool $longo Se for true, retorna-se também a hora (timestamp).
+	 * 
 	 * @return string|null
 	 */
 	public static function usBR($tempo, $longo = false){
@@ -62,8 +62,8 @@ class Tempo{
 	/**
 	 * Obtém o dia à partir de um tempo
 	 * 
-	 * @api
 	 * @param string $tempo
+	 * 
 	 * @return string|null
 	 */
 	public static function dia($tempo){
@@ -77,9 +77,9 @@ class Tempo{
 	 * 
 	 * É um trabalho majoritariamente de tradução.
 	 * 
-	 * @api
 	 * @param string $tempo
 	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
+	 * 
 	 * @return string|null
 	 */
 	public static function diaDaSemana($tempo, $longo = false){
@@ -106,9 +106,9 @@ class Tempo{
 	/**
 	 * Obtém o mês à partir de um tempo, em forma de texto
 	 * 
-	 * @api
 	 * @param string $tempo
 	 * @param bool $longo Se for false, retorna apenas as três primeiras letras.
+	 * 
 	 * @return string|null
 	 */
 	public static function mes($tempo, $longo = false){
@@ -140,8 +140,8 @@ class Tempo{
 	/**
 	 * Obtém o ano à partir de um tempo
 	 * 
-	 * @api
 	 * @param string $tempo
+	 * 
 	 * @return string|null
 	 */
 	public static function ano($tempo){

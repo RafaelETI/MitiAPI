@@ -35,7 +35,6 @@ class Cache{
 	 * Há uma dependência com o servidor Apache, porque a função getallheaders()
 	 * é um alias da apache_request_headers().
 	 * 
-	 * @api
 	 * @param int $minutos
 	 */
 	public static function temporizar($minutos){

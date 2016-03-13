@@ -28,8 +28,8 @@ class Status{
 	 * Remove-se a sessão para que a mensagem não seja mostrada novamente em
 	 * caso de recarregamento da página.
 	 * 
-	 * @api
 	 * @global string[] $_SESSION Dependência do escopo global.
+	 * 
 	 * @return string
 	 */
 	public static function alertar(){

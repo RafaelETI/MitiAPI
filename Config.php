@@ -64,7 +64,7 @@ class Config{
 	private function config(){
 		$this->config['ambiente'] = 1;
 		$this->config['sistema'] = 'Miti API';
-		$this->config['versao'] = '1.36';
+		$this->config['versao'] = '1.37';
 		$this->config['timezone'] = 'America/Sao_Paulo';
 		$this->config['charset'] = 'UTF-8';
 		$this->config['salt'] = '$1$mitiapim$';
@@ -156,7 +156,7 @@ class Config{
 	 */
 	private function raiz(){
 		$this->config['raizOS'] = $_SERVER['DOCUMENT_ROOT'].$this->config['raiz'][$this->config['ambiente']];
-		$this->config['raizWEB'] = "http://{$_SERVER['HTTP_HOST']}{$this->config['raiz'][$this->config['ambiente']]}";
+		$this->config['raizWEB'] = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}{$this->config['raiz'][$this->config['ambiente']]}";
 		
 		return $this;
 	}
@@ -189,6 +189,7 @@ class Config{
 	 * 
 	 * @param bool $restrito
 	 * @param string $sessao
+	 * 
 	 * @return Config
 	 */
 	private function sessao($restrito, $sessao){
@@ -258,6 +259,8 @@ class Config{
 	/**
 	 * Configura o recebimento de requisições na página
 	 * 
+	 * Crucial para a arquitetura do sistema.
+	 * 
 	 * Esse procedimento pretende ser genérico o suficiente para todas as
 	 * situações.
 	 * 
@@ -274,6 +277,7 @@ class Config{
 	 * requisição GET, em caso de sucesso.
 	 * 
 	 * @param string $Classe
+	 * 
 	 * @return Config
 	 */
 	private function requisicao($Classe){
@@ -298,7 +302,12 @@ class Config{
 	 * ao método tenha apenas valores importantes à ele.
 	 */
 	private function tratarRequisicao(){
-		if(!isset($_REQUEST['url'])){$_REQUEST['url'] = $_SERVER['HTTP_REFERER'];}
+		if(!isset($_REQUEST['url'])){
+			$_REQUEST['url'] = $_SERVER['HTTP_REFERER'];
+		}elseif($_REQUEST['url'] === 'self'){
+			$_REQUEST['url'] = $_SERVER['PHP_SELF'];
+		}
+		
 		$requisicao = $_SERVER['REQUEST_METHOD'] === 'POST'? $_POST: $_GET;
 		
 		unset($requisicao['metodo']);

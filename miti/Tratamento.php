@@ -22,8 +22,8 @@ class Tratamento{
 	 * Não é interessante de se usar com arquivos de terceiros, visto que esses,
 	 * à princípio, não são alterados permanecendo com o mesmo nome.
 	 * 
-	 * @api
 	 * @param string $caminho
+	 * 
 	 * @return string
 	 */
 	public static function requerer($caminho){
@@ -43,10 +43,10 @@ class Tratamento{
 	 * 
 	 * O valor com o qual os índices são inicializados é passado por parâmetro.
 	 * 
-	 * @api
 	 * @param mixed[] $vetor
 	 * @param string[] $indices
 	 * @param mixed $valor
+	 * 
 	 * @return mixed[]
 	 */
 	public static function indexar($vetor, array $indices, $valor = ''){
@@ -63,9 +63,9 @@ class Tratamento{
 	 * Faz com que ela aceite também vetores, que considere aspas, e que
 	 * considere outra codificação por padrão.
 	 * 
-	 * @api
 	 * @param string|string[] $valores
 	 * @param string $charset
+	 * 
 	 * @return string|string[]|null
 	 */
 	public static function escapar($valores, $charset = 'UTF-8'){
@@ -85,9 +85,9 @@ class Tratamento{
 	/**
 	 * Encurta a quantidade de caractéres de um valor
 	 * 
-	 * @api
 	 * @param mixed|mixed[] $valores
 	 * @param int $tamanho
+	 * 
 	 * @return mixed|mixed[]|null
 	 */
 	public static function encurtar($valores, $tamanho){

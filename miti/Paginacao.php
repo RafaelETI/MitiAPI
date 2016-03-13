@@ -67,7 +67,6 @@ class Paginacao{
 	 * da página atual fique no centro e tenha a mesma quantidade de botões de
 	 * cada lado.
 	 * 
-	 * @api
 	 * @param int $total
 	 * @param int $quantidade
 	 * @param string $pagina
@@ -95,7 +94,6 @@ class Paginacao{
 	 * Não há um getLimite() porque esse valor é definido arbitrariamente pelo
 	 * usuário que já o usa do lado de fora.
 	 * 
-	 * @api
 	 * @return int
 	 */
 	public function getInicio(){return $this->inicio;}
@@ -107,11 +105,11 @@ class Paginacao{
 	 * (próxima), e &#8635; (última), além dos númericos incrementados de um em
 	 * um, com o limite definido pelo usuário.
 	 * 
-	 * @api
 	 * @param string $pagina Nome do parâmetro do valor da página.
 	 * @param string $on Nome da classe css que estiliza o botão ativo.
 	 * @param string $off Nome da classe css que estiliza os botões desativados.
 	 * @param string[] $filtros No formato "campo => valor".
+	 * 
 	 * @return string
 	 */
 	public function criar($pagina, $on = '', $off = '', array $filtros = array()){

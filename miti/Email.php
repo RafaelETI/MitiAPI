@@ -42,8 +42,6 @@ class Email{
 	
 	/**
 	 * Define o UID
-	 * 
-	 * @api
 	 */
 	public function __construct(){
 		$this->uid = md5(uniqid(time()));
@@ -52,8 +50,8 @@ class Email{
 	/**
 	 * Define o e-mail da cópia carbono
 	 * 
-	 * @api
 	 * @param string $cc
+	 * 
 	 * @return Email
 	 */
 	public function setCc($cc){
@@ -66,8 +64,8 @@ class Email{
 	 * 
 	 * Evite. É falta de educação.
 	 * 
-	 * @api
 	 * @param string $bcc
+	 * 
 	 * @return Email
 	 */
 	public function setBcc($bcc){
@@ -78,8 +76,8 @@ class Email{
 	/**
 	 * Define o e-mail para resposta
 	 * 
-	 * @api
 	 * @param string $replyTo
+	 * 
 	 * @return Email
 	 */
 	public function setReplyTo($replyTo){
@@ -90,8 +88,8 @@ class Email{
 	/**
 	 * Define o vetor de informações de arquivos
 	 * 
-	 * @api
 	 * @param array[] $anexos No mesmo formato de $_FILES['...'] múltiplo.
+	 * 
 	 * @return Email
 	 */
 	public function setAnexos($anexos){
@@ -109,12 +107,12 @@ class Email{
 	 * ele não faça nada, que a mail() retorna true. Isso é interessante para o
 	 * ambiente de desenvolvimento.
 	 * 
-	 * @api
 	 * @param string $destinatario
 	 * @param string $assunto
 	 * @param string $mensagem
 	 * @param string $remetente
 	 * @param string $charset
+	 * 
 	 * @throws \RuntimeException
 	 */
 	public function enviar($destinatario, $assunto, $mensagem, $remetente, $charset = 'UTF-8'){

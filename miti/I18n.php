@@ -28,8 +28,6 @@ class I18n{
 	 * 
 	 * O arquivo deve conter o retorno de um array no seguinte formato:
 	 * array('Está vivo!' => array('en' => "It's alive!", 'fr' => 'Est vivant!'))
-	 * 
-	 * @api
 	 */
 	public function __construct($caminho, $idioma){
 		$this->mensagens = require $caminho;
@@ -39,7 +37,6 @@ class I18n{
 	/**
 	 * Traduz o texto
 	 * 
-	 * @api
 	 * @param string $texto
 	 */
 	public function traduzir($texto){

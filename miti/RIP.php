@@ -80,6 +80,7 @@ class RIP{
 	 * 
 	 * @param string $metodo
 	 * @param mixed[] $parametros
+	 * 
 	 * @return Object
 	 * 
 	 * @throws \Exception

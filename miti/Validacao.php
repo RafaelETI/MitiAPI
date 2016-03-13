@@ -14,10 +14,11 @@ class Validacao{
 	/**
 	 * Valida a quantidade de caractéres de um valor
 	 * 
-	 * @api
 	 * @param mixed $valor
 	 * @param int $tamanho
+	 * 
 	 * @return null
+	 * 
 	 * @throws \UnexpectedValueException
 	 */
 	public static function tamanho($valor, $tamanho){
@@ -33,9 +34,10 @@ class Validacao{
 	 * 
 	 * O formato deve ser algo parecido com: aa(at)aa.aa
 	 * 
-	 * @api
 	 * @param string $valor
+	 * 
 	 * @return null
+	 * 
 	 * @throws \UnexpectedValueException
 	 */
 	public static function email($valor){
@@ -79,7 +81,6 @@ class Validacao{
 	/**
 	 * Valida uma imagem
 	 * 
-	 * @api
 	 * @param string|resource $imagem
 	 * @param int $largura Em pixels.
 	 * @param int $altura Em pixels.
@@ -135,8 +136,8 @@ class Validacao{
 	/**
 	 * Valida um CPF
 	 * 
-	 * @api
 	 * @param string $cpf
+	 * 
 	 * @return null
 	 */
 	public static function cpf($cpf){
@@ -208,8 +209,8 @@ class Validacao{
 	/**
 	 * Valida um CNPJ
 	 * 
-	 * @api
 	 * @param string $cnpj
+	 * 
 	 * @return null
 	 */
 	public static function cnpj($cnpj){
