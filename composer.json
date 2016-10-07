@@ -1,0 +1,26 @@
+{
+    "name": "miti/lib",
+    "type": "library",
+    "description": "Biblioteca de utilidades variadas",
+    "keywords": ["database","cache","email","i18n","orm","pagination","rest","status","datetime","sanitation","validation"],
+    "homepage": "https://github.com/RafaelETI/MitiAPI",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rafael Barros",
+            "email": "admin@rafaelbarros.eti.br",
+            "homepage": "http://rafaelbarros.eti.br",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-mysqli": "*",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Miti": "src"
+        }
+    }
+}
