@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Biblioteca de utilidades variadas",
     "keywords": ["database","cache","email","i18n","orm","pagination","rest","status","datetime","sanitation","validation"],
-    "homepage": "https://github.com/RafaelETI/MitiAPI",
+    "homepage": "https://github.com/RafaelETI/miti-lib",
     "license": "MIT",
     "authors": [
         {
@@ -19,8 +19,6 @@
         "ext-curl": "*"
     },
     "autoload": {
-        "psr-4": {
-            "Miti": "src"
-        }
+        "psr-4": {"Miti\\": "src/"}
     }
 }
