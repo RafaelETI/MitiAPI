@@ -9,7 +9,7 @@ class EmailTest extends PHPUnit_Framework_TestCase{
 	
         //todo: mail(): Multiple or malformed newlines found in additional_header
 //	public function testEnviar(){
-//		$this->Email = new \miti\Email;
+//		$this->Email = new \Miti\Email;
 //		
 //		$this->Email
 //			->setCc('cc@dominio.com')

@@ -1,12 +1,12 @@
 <?php
 class PaginacaoTest extends PHPUnit_Framework_TestCase{
 	public function testGetInicio(){
-		$Paginacao = new \miti\Paginacao(100, 15, 5, 10);
+		$Paginacao = new \Miti\Paginacao(100, 15, 5, 10);
 		$this->assertSame(60, $Paginacao->getInicio());
 	}
 	
 	public function testCriarComPoucosRegistros(){
-		$Paginacao = new \miti\Paginacao(1, 1, 1, 1);
+		$Paginacao = new \Miti\Paginacao(1, 1, 1, 1);
 		
 		$html =
 			"<span class='off'>&#8634;</span>"
@@ -20,7 +20,7 @@ class PaginacaoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testCriarComMuitosRegistros(){
-		$Paginacao = new \miti\Paginacao(100, 10, 2, 5);
+		$Paginacao = new \Miti\Paginacao(100, 10, 2, 5);
 		
 		$html =
 			"<a href='?a=b&amp;pagina=1'>&#8634;</a>"

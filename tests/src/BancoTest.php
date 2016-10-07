@@ -5,7 +5,7 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 	
 	public static function setUpBeforeClass(){
 		self::$config = ['banco' => ['servidor' => 'localhost', 'usuario' => 'root', 'senha' => 'root', 'nome' => 'miti_api', 'charset' => 'utf8']];
-		self::$Banco = new \miti\Banco(self::$config);
+		self::$Banco = new \Miti\Banco(self::$config);
 	}
 	
 	public function testErroDeConexaoComMensagemTecnica(){
@@ -14,7 +14,7 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		ini_set('display_errors', 1);
 		$config = self::$config;
 		$config['banco']['nome'] = 'nao_existe';
-		new \miti\Banco($config);
+		new \Miti\Banco($config);
 	}
 	
 	public function testErroDeConexaoComMensagemGenerica(){
@@ -24,7 +24,7 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		ini_set('display_errors', 0);
 		$config = self::$config;
 		$config['banco']['nome'] = 'nao_existe';
-		new \miti\Banco($config);
+		new \Miti\Banco($config);
 	}
 	
 	public function testErroDeCharset(){
@@ -33,7 +33,7 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		
 		$config = self::$config;
 		$config['banco']['charset'] = 'nao_existe';
-		new \miti\Banco($config);
+		new \Miti\Banco($config);
 	}
 	
 	public function testEscaparArray(){
