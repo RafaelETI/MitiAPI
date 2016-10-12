@@ -13,11 +13,14 @@
             "role": "Developer"
         }
     ],
+	
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.4.0",
+		"ext-mbstring": "*",
         "ext-mysqli": "*",
         "ext-curl": "*"
     },
+	
     "autoload": {
         "psr-4": {"Miti\\": "src/"}
     }

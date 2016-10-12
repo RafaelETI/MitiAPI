@@ -2,13 +2,13 @@
 class TratamentoTest extends PHPUnit_Framework_TestCase{
 	public function testRequererJs(){
 		$padrao = "/^<script src='.+\/Miti\.js\?hash=[a-f\d]{32}'><\/script>\\n$/i";
-		$requerimento = \Miti\Tratamento::requerer('../tests/arquivos/Miti.js');
+		$requerimento = \Miti\Tratamento::requerer('/../tests/arquivos/Miti.js');
 		$this->assertSame(1, preg_match($padrao, $requerimento));
 	}
 	
 	public function testRequererCss(){
 		$padrao = "/^<link rel='stylesheet' href='.+\/miti\.css\?hash=[a-f\d]{32}' \/>\\n$/i";
-		$requerimento = \Miti\Tratamento::requerer('../tests/arquivos/miti.css');
+		$requerimento = \Miti\Tratamento::requerer('/../tests/arquivos/miti.css');
 		$this->assertSame(1, preg_match($padrao, $requerimento));
 	}
 	

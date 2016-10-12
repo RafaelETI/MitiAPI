@@ -27,7 +27,8 @@ class Tratamento{
 	 * @return string
 	 */
 	public static function requerer($caminho){
-		$hash = md5(file_get_contents($caminho));
+		$caminhoSemBarra = mb_substr($caminho, 1);
+		$hash = md5(file_get_contents($caminhoSemBarra));
 		
 		$partes = explode('.', $caminho);
 		$extensao = end($partes);
