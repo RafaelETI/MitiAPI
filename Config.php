@@ -20,7 +20,7 @@ class Config{
 	 */
 	public function __construct(){
 		session_start();
-		$this->config()->erro()->sistema()->timezone()->charset()->raiz()->banco()->idioma()->autoload();
+		$this->config()->erro()->sistema()->timezone()->charset()->banco()->idioma()->autoload();
 	}
 	
 	/**
@@ -35,7 +35,7 @@ class Config{
 	private function config(){
 		$this->config['ambiente'] = 1;
 		$this->config['sistema'] = 'Miti API';
-		$this->config['versao'] = '1.37';
+		$this->config['versao'] = '1.38';
 		$this->config['timezone'] = 'America/Sao_Paulo';
 		$this->config['charset'] = 'UTF-8';
 		$this->config['salt'] = '$1$mitiapim$';
@@ -110,6 +110,7 @@ class Config{
 	 * @return Config
 	 */
 	private function charset(){
+		if(!extension_loaded('mbstring')){throw new \RuntimeException('A classe '.__CLASS__.' depende da extensão mbstring.');}
 		header('Content-Type: text/html; charset='.$this->config['charset']);
 		mb_internal_encoding($this->config['charset']);
 		return $this;
@@ -177,8 +178,6 @@ class Config{
 	 * @throws \Exception
 	 */
 	public static function trancar($sessao = 'usuario'){
-		if(!isset($_SESSION[$sessao])){
-			throw new \Exception('Você não tem permissão.');
-		}
+		if(!isset($_SESSION[$sessao])){throw new \Exception('Você não tem permissão.');}
 	}
 }
