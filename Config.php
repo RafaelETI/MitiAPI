@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014 - 2016
+ * Miti Lib, 2014 - 2016
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -34,8 +34,8 @@ class Config{
 	 */
 	private function config(){
 		$this->config['ambiente'] = 1;
-		$this->config['sistema'] = 'Miti API';
-		$this->config['versao'] = '1.38';
+		$this->config['sistema'] = 'Miti Lib';
+		$this->config['versao'] = '1.39';
 		$this->config['timezone'] = 'America/Sao_Paulo';
 		$this->config['charset'] = 'UTF-8';
 		$this->config['salt'] = '$1$mitiapim$';

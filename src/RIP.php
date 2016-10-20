@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014 - 2016
+ * Miti Lib, 2014 - 2016
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
@@ -39,30 +39,9 @@ class RIP{
 		
 		$this->config = $config;
 		$this->curl = curl_init($config['rest']['servidor']);
-		
-		$this->logIn();
 	}
 	
 	public function getId(){return $this->id;}
-	
-	/**
-	 * Cria uma sessão com o servidor
-	 * 
-	 * Armazena o id dessa sessão em uma propriedade para utilização em
-	 * posteriores requisições.
-	 * 
-	 * @throws \Exception
-	 */
-	private function logIn(){
-		$autenticacao = [[
-			'user_name' => $this->config['rest']['usuario'],
-			'password' => md5($this->config['rest']['senha'])
-		]];
-		
-		$requisicao = $this->requisitar('login', $autenticacao);
-		if(isset($requisicao->number)){throw new \Exception($requisicao->description);}
-		$this->id = $requisicao->id;
-	}
 	
 	/**
 	 * Verifica carregamento de extensão para trabalhar com requisição HTTP
@@ -85,7 +64,7 @@ class RIP{
 	 * 
 	 * @throws \Exception
 	 */
-	public function requisitar($metodo, array $parametros){
+	public function requisitar($metodo = null, array $parametros = []){
 		$this->parametrizar($metodo, $parametros);
 		
 		$requisicao = json_decode(explode("\r\n\r\n", curl_exec($this->curl))[1]);

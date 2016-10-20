@@ -1,6 +1,6 @@
 <?php
 /**
- * Miti API, 2014 - 2015
+ * Miti Lib, 2014 - 2015
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
  * @link https://github.com/RafaelETI/MitiAPI
