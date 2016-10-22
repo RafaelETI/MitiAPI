@@ -1,26 +1,7 @@
 <?php
-/**
- * Miti Lib, 2014 - 2015
- * 
- * @author Rafael Barros <admin@rafaelbarros.eti.br>
- * @link https://github.com/RafaelETI/MitiAPI
- */
 namespace Miti;
 
-/**
- * Validação de dados
- */
 class Validacao{
-	/**
-	 * Valida a quantidade de caractéres de um valor
-	 * 
-	 * @param mixed $valor
-	 * @param int $tamanho
-	 * 
-	 * @return null
-	 * 
-	 * @throws \UnexpectedValueException
-	 */
 	public static function tamanho($valor, $tamanho){
 		if(!$valor){return;}
 		
@@ -29,17 +10,6 @@ class Validacao{
 		}
 	}
 	
-	/**
-	 * Valida o formato de um e-mail
-	 * 
-	 * O formato deve ser algo parecido com: aa(at)aa.aa
-	 * 
-	 * @param string $valor
-	 * 
-	 * @return null
-	 * 
-	 * @throws \UnexpectedValueException
-	 */
 	public static function email($valor){
 		if(!$valor){return;}
 		
@@ -48,26 +18,12 @@ class Validacao{
 		}
 	}
 	
-	/**
-	 * Valida o peso de um arquivo
-	 * 
-	 * @param int $real
-	 * @param int $esperado
-	 * @throws \UnexpectedValueException
-	 */
 	public static function peso($real, $esperado){
 		if($real > $esperado * 1024){
 			throw new \UnexpectedValueException('O arquivo excede o peso permitido.');
 		}
 	}
 	
-	/**
-	 * Valida o tipo do arquivo
-	 * 
-	 * @param string $real
-	 * @param string[] $esperados
-	 * @throws \RangeException
-	 */
 	public static function tipos($real, array $esperados){
 		$ok = false;
 		
@@ -78,13 +34,6 @@ class Validacao{
 		if(!$ok){throw new \RangeException('O tipo do arquivo é inválido.');}
 	}
 	
-	/**
-	 * Valida uma imagem
-	 * 
-	 * @param string|resource $imagem
-	 * @param int $largura Em pixels.
-	 * @param int $altura Em pixels.
-	 */
 	public static function imagem($imagem, $largura, $altura){
 		$dimensoes = is_string($imagem)? getimagesize($imagem): array(imagesx($imagem), imagesy($imagem));
 		
@@ -92,14 +41,6 @@ class Validacao{
 		self::proporcoes($dimensoes, $largura, $altura);
 	}
 	
-	/**
-	 * Valida as dimensões de uma imagem
-	 * 
-	 * @param int[] $dimensoes
-	 * @param int $largura
-	 * @param int $altura
-	 * @throws \UnexpectedValueException
-	 */
 	private static function dimensoes($dimensoes, $largura, $altura){
 		if($dimensoes[0] < $largura){
 			throw new \UnexpectedValueException('A largura da imagem é menor do que o mínimo permitido.');
@@ -110,14 +51,6 @@ class Validacao{
 		}
 	}
 	
-	/**
-	 * Valida as proporções de uma imagem
-	 * 
-	 * @param int[] $dimensoes
-	 * @param int $largura
-	 * @param int $altura
-	 * @throws \UnexpectedValueException
-	 */
 	private static function proporcoes($dimensoes, $largura, $altura){
 		$proporcaoIdeal = $largura / $altura;
 		$proporcaoMinima = $proporcaoIdeal - 0.1;
@@ -133,13 +66,6 @@ class Validacao{
 		}
 	}
 	
-	/**
-	 * Valida um CPF
-	 * 
-	 * @param string $cpf
-	 * 
-	 * @return null
-	 */
 	public static function cpf($cpf){
 		if(!$cpf){return;}
 		
@@ -149,39 +75,14 @@ class Validacao{
 		self::digitosCpf($cpf);
 	}
 	
-	/**
-	 * Valida a quantidade de caractéres
-	 * 
-	 * A numeração na mensagem de exceção é para que o desenvolvedor consiga
-	 * localizar o código que lançou a exceção sem que o usuário tenha uma
-	 * mensagem explícita do erro, para que haja uma menor chance de burlamento.
-	 * 
-	 * @param string $cpf
-	 * @throws \UnexpectedValueException
-	 */
 	private static function quantidadeCaracteres($cpf){
 		if(mb_strlen($cpf) !== 11){throw new \UnexpectedValueException('#1 O CPF é inválido.');}
 	}
 	
-	/**
-	 * Valida se apenas possui números
-	 * 
-	 * @param string $cpf
-	 * @throws \UnexpectedValueException
-	 */
 	private static function apenasNumeros($cpf){
 		if(!preg_match('/\d{11}/', $cpf)){throw new \UnexpectedValueException('#2 O CPF é inválido.');}
 	}
 	
-	/**
-	 * Valida se é uma sequência de números repetidos
-	 * 
-	 * Por incrível que pareça, repetições de sequências de um à nove satisfazem
-	 * os cálculos dos dígitos verificadores.
-	 * 
-	 * @param string $cpf
-	 * @throws \UnexpectedValueException
-	 */
 	private static function sequenciaIgual($cpf){
 		for($posicao = 1, $numero = $cpf[0]; $posicao <= 10; $posicao++){
 			if($numero != $cpf[$posicao]){break;}
@@ -189,12 +90,6 @@ class Validacao{
 		}
 	}
 	
-	/**
-	 * Valida os dígitos verificadores
-	 * 
-	 * @param string $cpf
-	 * @throws \RangeException
-	 */
 	private static function digitosCpf($cpf){
 		for($posicao = 9; $posicao <= 10; $posicao++){
 			for($digito = 0, $numero = 0; $numero < $posicao; $numero++){
@@ -206,13 +101,6 @@ class Validacao{
 		}
 	}
 	
-	/**
-	 * Valida um CNPJ
-	 * 
-	 * @param string $cnpj
-	 * 
-	 * @return null
-	 */
 	public static function cnpj($cnpj){
 		if(!$cnpj){return;}
 		
@@ -222,48 +110,18 @@ class Validacao{
 		self::digitosCnpj($cnpj);
 	}
 	
-	/**
-	 * Valida a quantidade de caractéres
-	 * 
-	 * A numeração na mensagem de exceção é para que o desenvolvedor consiga
-	 * localizar o código que lançou a exceção sem que o usuário tenha uma
-	 * mensagem explícita do erro, para que haja uma menor chance de burlamento.
-	 * 
-	 * @param string $cnpj
-	 * @throws \UnexpectedValueException
-	 */
 	private static function quantidadeCaracteresCnpj($cnpj){
 		if(mb_strlen($cnpj) !== 14){throw new \UnexpectedValueException('#1 O CNPJ é inválido.');}
 	}
 	
-	/**
-	 * Valida se apenas possui números
-	 * 
-	 * @param string $cnpj
-	 * @throws \UnexpectedValueException
-	 */
 	private static function apenasNumerosCnpj($cnpj){
 		if(!preg_match('/\d{14}/', $cnpj)){throw new \UnexpectedValueException('#2 O CNPJ é inválido.');}
 	}
 	
-	/**
-	 * Valida se é uma sequência de zeros
-	 * 
-	 * Diferente do CPF, essa é a única sequência numérica problemática.
-	 * 
-	 * @param string $cnpj
-	 * @throws \UnexpectedValueException
-	 */
 	private static function sequenciaZeros($cnpj){
 		if($cnpj == '00000000000000'){throw new \UnexpectedValueException('#3 O CNPJ é inválido.');}
 	}
 	
-	/**
-	 * Valida os dígitos verificadores
-	 * 
-	 * @param string $cnpj
-	 * @throws \RangeException
-	 */
 	private static function digitosCnpj($cnpj){
 		for($i = 0; $i <= 1; $i++){
 			for($numero = 0, $j = 5 + $i, $soma = 0; $numero <= 11 + $i; $numero++){

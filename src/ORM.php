@@ -1,121 +1,24 @@
 <?php
-/**
- * Miti Lib, 2014 - 2015
- * 
- * @author Rafael Barros <admin@rafaelbarros.eti.br>
- * @link https://github.com/RafaelETI/MitiAPI
- */
 namespace Miti;
 
-/**
- * ORM (Object Relational Mapping)
- * 
- * A característica mais visível para o usuário, ao utilizar essa classe, é a
- * eliminação da necessidade de se escrever códigos SQL. Além desta, existem
- * outras vantagens como a eliminação da necessidade de se preocupar com
- * abertura e fechamento de conexão com o banco, com tratamento contra SQL
- * Injection, assim como para cadastro de valores null, com validações de
- * tamanho e tipo de dados, etc.
- * 
- * Uma regra importante de se ter em mente ao realizar requisições select por
- * essa classe é a seguinte: existem duas perspectivas de tabelas do banco: a
- * tabela principal, e as externas. A principal é a que a requisição é direcionada,
- * ou seja, a que é designada após a cláusula from do SQL; as externas são as
- * que são juntadas à principal através de cláusulas join.
- */
 class ORM{
-	/**
-	 * @var mixed[]
-	 */
 	private $config;
-	
-	/**
-	 * @var Banco
-	 */
 	private $Banco;
-	
-	/**
-	 * @var ORM[] Indexado pelo alias de cada tabela externa.
-	 */
-	private $ORM = array();
-	
-	/**
-	 * @var string
-	 */
+	private $ORM = [];
 	private $alias;
-	
-	/**
-	 * @var string
-	 */
 	private $tabela;
-	
-	/**
-	 * @var Object[]
-	 */
 	private $campos;
-	
-	/**
-	 * @var string Não oferece suporte para chave primária composta.
-	 */
 	private $pk;
-	
-	/**
-	 * @var string[]
-	 */
-	private $tipos = array();
-	
-	/**
-	 * @var int[]
-	 */
-	private $tamanhos = array();
-	
-	/**
-	 * @var bool[]
-	 */
-	private $anulaveis = array();
-	
-	/**
-	 * @var string
-	 */
+	private $tipos = [];
+	private $tamanhos = [];
+	private $anulaveis = [];
 	private $selecoes = '';
-	
-	/**
-	 * @var string
-	 */
 	private $juncoes = '';
-	
-	/**
-	 * @var string
-	 */
 	private $filtros = '';
-	
-	/**
-	 * @var string
-	 */
 	private $grupos = '';
-	
-	/**
-	 * @var string
-	 */
 	private $ordens = '';
-	
-	/**
-	 * @var string
-	 */
 	private $limite;
-	
-	/**
-	 * Cria uma conexão com o banco e mapeia a tabela principal
-	 * 
-	 * O alias da principal é, preferencialmente, a primeira letra do seu nome.
-	 * 
-	 * Os aliases das externas são preferencialmente também as primeiras letras,
-	 * mas em caso de conflito, pode-se usar outro nome. Eles são definidos nas
-	 * junções, assim como os objetos de mapeamento respectivos.
-	 * 
-	 * @param string $tabela Nome da tabela principal.
-	 * @param string $alias Alias da tabela principal.
-	 */
+
 	public function __construct(array $config, $tabela, $alias){
 		$this->config = $config;
 		$this->Banco = new Banco($config);
@@ -128,23 +31,11 @@ class ORM{
 	public function setBanco(Banco $Banco){$this->Banco = $Banco;}
 	public function getBanco(){return $this->Banco;}
 	
-	/**
-	 * Define o vetor de objetos dos campos
-	 * 
-	 * @return ORM
-	 * 
-	 * @throws \UnexpectedValueException Implicitamente.
-	 */
 	private function mapearCampos(){
 		$this->campos = $this->Banco->requisitar("select * from $this->tabela")->mapear();
 		return $this;
 	}
 	
-	/**
-	 * Define o nome do campo da chave primária
-	 * 
-	 * @return ORM
-	 */
 	private function setPk(){
 		foreach($this->campos as $Campo){
 			if($Campo->flags & 2){
@@ -158,15 +49,6 @@ class ORM{
 	
 	public function getPk(){return $this->pk;}
 	
-	/**
-	 * Define o tipo de cada campo
-	 * 
-	 * Considera-se apenas duas situações: todo número é identificado como
-	 * float, e o resto como string. Esses dois valores bastam por motivo de
-	 * escape para manuseio do banco.
-	 * 
-	 * @return ORM
-	 */
 	private function setTipos(){
 		foreach($this->campos as $Campo){
 			$this->tipos[$Campo->orgname] = $Campo->flags & 32768? 'float': 'string';
@@ -177,13 +59,6 @@ class ORM{
 	
 	public function getTipos(){return $this->tipos;}
 	
-	/**
-	 * Define a permissão de nulidade de cada campo
-	 * 
-	 * true significa que o campo aceita valor nulo, e false, que não aceita.
-	 * 
-	 * @return ORM
-	 */
 	private function setAnulaveis(){
 		foreach($this->campos as $Campo){
 			$this->anulaveis[$Campo->orgname] = $Campo->flags & 1? false: true;
@@ -194,11 +69,6 @@ class ORM{
 	
 	public function getAnulaveis(){return $this->anulaveis;}
 	
-	/**
-	 * Define o tamanho máximo de cada campo
-	 * 
-	 * @return ORM
-	 */
 	private function setTamanhos(){
 		foreach($this->campos as $Campo){
 			$this->tamanhos[$Campo->orgname] = $Campo->length;
@@ -209,23 +79,6 @@ class ORM{
 	
 	public function getTamanhos(){return $this->tamanhos;}
 	
-	/**
-	 * Cria um registro na tabela (Create do CRUD)
-	 * 
-	 * Uma das principais informações conseguidas através do retorno é o valor
-	 * do id auto incrementado gerado pelo banco para o registro que acabara de
-	 * ser inserido.
-	 * 
-	 * A forma mais prática de se criar o vetor à ser enviado ao banco é dar
-	 * aos names dos campos do formulário, os mesmos nomes do campos da tabela.
-	 * Pode-se argumentar que é uma falha de segurança.
-	 * 
-	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
-	 * 
-	 * @return Banco
-	 * 
-	 * @throws \UnexpectedValueException Implicitamente.
-	 */
 	public function criar(array $tupla){
 		$sql = '';
 		$sql = $this->montarCampos($sql, $tupla);
@@ -233,13 +86,6 @@ class ORM{
 		return $this->Banco->requisitar($sql);
 	}
 	
-	/**
-	 * Monta o início e a parte dos campos da instrução
-	 * 
-	 * @param string $sql
-	 * @param string[] $tupla
-	 * @return string
-	 */
 	private function montarCampos($sql, array $tupla){
 		$sql = "insert into $this->tabela (";
 		
@@ -249,67 +95,35 @@ class ORM{
 		return $sql . implode(', ', $campos) . ')';
 	}
 	
-	/**
-	 * Monta a parte dos valores e o final da instrução
-	 * 
-	 * @param string $sql
-	 * @param string[] $tupla
-	 * @return string
-	 */
 	private function montarValores($sql, array $tupla){
 		$this->validar($tupla);
 		$tupla = $this->tratar($tupla);
 		
 		$sql .= ' values (';
 		
-		$values = array();
+		$values = [];
 		foreach($tupla as $valor){$values[] = $valor;}
 		
 		return $sql . implode(', ', $values) . ')';
 	}
 	
-	/**
-	 * Atualiza um registro na tabela (Update do CRUD)
-	 * 
-	 * A forma mais prática de se criar o vetor à ser enviado ao banco é dar
-	 * aos names dos campos do formulário, os mesmos nomes do campos da tabela.
-	 * Pode-se argumentar que é uma falha de segurança, mas pode valer a pena.
-	 * 
-	 * @param string[] $tupla Vetor indexado pelos nomes dos campos da tabela.
-	 * 
-	 * @return Banco
-	 * 
-	 * @throws \UnexpectedValueException Implicitamente.
-	 */
 	public function atualizar(array $tupla){
 		$sql = $this->montarAtribuicoes($tupla).' where '.$this->filtros;
 		return $this->Banco->requisitar($sql);
 	}
 	
-	/**
-	 * Monta a parte das atribuições de valores da instrução
-	 * 
-	 * @param string[] $tupla
-	 * @return string
-	 */
 	private function montarAtribuicoes(array $tupla){
 		$this->validar($tupla);
 		$tupla = $this->tratar($tupla);
 		
 		$sql = "update $this->tabela $this->alias set ";
 		
-		$atribuicoes = array();
+		$atribuicoes = [];
 		foreach($tupla as $campo => $valor){$atribuicoes[] = "$campo = $valor";}
 		
 		return $sql . implode(', ', $atribuicoes);
 	}
 	
-	/**
-	 * Valida os dados à serem inseridos
-	 * 
-	 * @param string[] $tupla
-	 * @throws \UnexpectedValueException
-	 */
 	private function validar(array $tupla){
 		foreach($tupla as $campo => $valor){
 			if(!$this->anulaveis[$campo] && ($valor === '' || $valor === null)){
@@ -322,26 +136,11 @@ class ORM{
 		}
 	}
 	
-	/**
-	 * Exclui um registro na tabela (Delete do CRUD)
-	 * 
-	 * @return Banco
-	 * 
-	 * @throws \UnexpectedValueException Implicitamente.
-	 */
 	public function deletar(){
 		$sql = "delete $this->alias from $this->tabela $this->alias where $this->filtros";
 		return $this->Banco->requisitar($sql);
 	}
 	
-	/**
-	 * Trata os dados à serem inseridos no banco
-	 * 
-	 * Impede-se SQL Injection, além de outros tratamentos.
-	 * 
-	 * @param string[] $tupla
-	 * @return string[]
-	 */
 	private function tratar(array $tupla){
 		foreach($tupla as $campo => &$valor){
 			if($valor === '' || $valor === null){
@@ -357,24 +156,6 @@ class ORM{
 		return $tupla;
 	}
 	
-	/**
-	 * Seleciona um campo de uma tabela
-	 * 
-	 * Para selecionar-se mais de um campo, chamar esse método quantas vezes
-	 * forem necessárias.
-	 * 
-	 * @param string $alias De qualquer tabela.
-	 * @param string $campo De qualquer tabela.
-	 * 
-	 * @param string $aliasCampo Importante para resolver conflitos com campos
-	 * de tabelas juntadas ou para simplificar nomes criados à partir do uso de
-	 * funções do banco.
-	 * 
-	 * @param string $funcao Função do banco a ser chamada passando $alias.$campo
-	 * como %s.
-	 * 
-	 * @return ORM
-	 */
 	public function selecionar($alias, $campo, $aliasCampo = '', $funcao = '%s'){
 		$separador = $this->selecoes? ', ': '';
 		$campo = sprintf($funcao, "$alias.$campo");
@@ -383,22 +164,6 @@ class ORM{
 		return $this;
 	}
 	
-	/**
-	 * Junta a tabela principal com uma tabela externa
-	 * 
-	 * Para juntar-se mais de uma tabela, chamar esse método quantas vezes forem
-	 * necessárias.
-	 * 
-	 * @param string $externa Nome da tabela externa à ser juntada.
-	 * @param string $alias Da tabela externa.
-	 * @param string $aliasCampo
-	 * @param string $campo
-	 * @param string $aliasCampoExterna
-	 * @param string $campoExterna
-	 * @param string $juncao join, left join, etc.
-	 * 
-	 * @return ORM
-	 */
 	public function juntar($externa, $alias, $aliasCampo, $campo, $aliasCampoExterna, $campoExterna, $juncao = 'join'){
 		$this->ORM[$alias] = new ORM($this->config, $externa, $alias);
 		$this->juncoes .= "$juncao $externa $alias on $aliasCampo.$campo = $aliasCampoExterna.$campoExterna ";
@@ -416,28 +181,6 @@ class ORM{
 		return $this;
 	}
 	
-	/**
-	 * Filtra os registros de uma seleção
-	 * 
-	 * Chamá-lo apenas uma vez. Na necessidade de mais de um filtro, usar os
-	 * outros métodos de filtragem.
-	 * 
-	 * Esse docblock vale também, em grande parte, para os métodos eFiltrar() e
-	 * ouFiltrar().
-	 * 
-	 * @param string $alias De qualquer tabela.
-	 * @param string $campo De qualquer tabela.
-	 * @param string $operador =, !=, like, >, >=, etc.
-	 * @param mixed $valor
-	 * 
-	 * @param string $funcao Função do banco a ser chamada passando $alias.$campo
-	 * como %s.
-	 * 
-	 * @param string $separador Utilizado, preferencialmente, pelos outros métodos
-	 * de filtragem.
-	 * 
-	 * @return ORM
-	 */
 	public function filtrar($alias, $campo, $operador, $valor, $funcao = '%s', $separador = ''){
 		$valor = $this->tratarLeitura($alias, $campo, $operador, $valor);
 		$campo = sprintf($funcao, "$alias.$campo");
@@ -455,20 +198,6 @@ class ORM{
 		return $this;
 	}
 	
-	/**
-	 * Trata os dados passados em um filtro
-	 * 
-	 * Impede-se SQL Injection, além de outros tratamentos.
-	 * 
-	 * Em caso de operação like, sempre considera curingas dos dois lados do
-	 * dado.
-	 * 
-	 * @param string $alias
-	 * @param string $campo
-	 * @param string $operador
-	 * @param mixed $valor
-	 * @return mixed
-	 */
 	private function tratarLeitura($alias, $campo, $operador, $valor){
 		$tipos = $alias === $this->alias? $this->tipos: $this->ORM[$alias]->getTipos();
 		
@@ -483,70 +212,23 @@ class ORM{
 		return $valor;
 	}
 	
-	/**
-	 * Agrupa os registros selecionados, à partir de um campo
-	 * 
-	 * Para agrupar mais de um campo, chamar esse método quantas vezes forem
-	 * necessárias.
-	 * 
-	 * Geralmente usado em conjunto com uma função de agregação do banco.
-	 * 
-	 * @param string $alias De qualquer tabela.
-	 * @param string $campo De qualquer tabela.
-	 * 
-	 * @return ORM
-	 */
 	public function agrupar($alias, $campo){
 		$separador = $this->grupos? ', ': '';
 		$this->grupos .= "$separador $alias.$campo ";
 		return $this;
 	}
 	
-	/**
-	 * Ordena os registros selecionados, à partir de um campo
-	 * 
-	 * Para ordenar mais de um campo, chamar esse método quantas vezes forem
-	 * necessárias.
-	 * 
-	 * @param string $alias De qualquer tabela.
-	 * @param string $campo De qualquer tabela.
-	 * @param string $ordem asc ou desc.
-	 * 
-	 * @return ORM
-	 */
 	public function ordenar($alias, $campo, $ordem){
 		$separador = $this->ordens? ', ': '';
 		$this->ordens .= "$separador $alias.$campo $ordem ";
 		return $this;
 	}
 	
-	/**
-	 * Ordena os registros selecionados, aleatoriamente
-	 * 
-	 * Não criar outras ordens quando usar este método, podem surgir resultados
-	 * inesperados.
-	 * 
-	 * @return ORM
-	 */
 	public function ordenarAleatoriamente(){
 		$this->ordens = 'rand()';
 		return $this;
 	}
 	
-	/**
-	 * Limita a quantidade e posições dos registros.
-	 * 
-	 * O primeiro registro da seleção tem a posição zero.
-	 * 
-	 * A ordem dos parâmetros é o contrário da linguagem SQL para que dê menos
-	 * trabalho ao usuário informar apenas uma quantidade, sem início. O que é
-	 * muito comum.
-	 * 
-	 * @param int $quantidade
-	 * @param int $inicio Incluindo zero.
-	 * 
-	 * @return ORM
-	 */
 	public function limitar($quantidade, $inicio = ''){
 		if(!$quantidade){return $this;}
 		if($inicio !== ''){$inicio .= ', ';}
@@ -554,13 +236,6 @@ class ORM{
 		return $this;
 	}
 	
-	/**
-	 * Lê registros da tabela (Read do CRUD)
-	 * 
-	 * @return Banco
-	 * 
-	 * @throws \UnexpectedValueException Implicitamente.
-	 */
 	public function ler(){
 		$this->filtros = $this->concatenarClausula('where', $this->filtros);
 		$this->grupos = $this->concatenarClausula('group by', $this->grupos);
@@ -580,13 +255,6 @@ class ORM{
 		return $this->Banco->requisitar($sql);
 	}
 	
-	/**
-	 * Concatena cláusula SQL às montagens anteriores das instruções
-	 * 
-	 * @param string $clausula
-	 * @param string $propriedade
-	 * @return string
-	 */
 	private function concatenarClausula($clausula, $propriedade){
 		if($propriedade && strpos($propriedade, $clausula) === false){
 			$propriedade = "$clausula $propriedade";
@@ -595,11 +263,6 @@ class ORM{
 		return $propriedade;
 	}
 	
-	/**
-	 * Limpa todas as instruções SQL montadas em propriedades
-	 * 
-	 * @return ORM
-	 */
 	public function zerar(){
 		$this->selecoes = '';
 		$this->juncoes = '';

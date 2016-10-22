@@ -1,41 +1,22 @@
 <?php
 /**
- * Miti Lib, 2014 - 2016
+ * MitiLib, 2014 - 2016
  * 
  * @author Rafael Barros <admin@rafaelbarros.eti.br>
- * @link https://github.com/RafaelETI/MitiAPI
- */
-
-/**
- * Configuração do sistema
+ * @link https://github.com/RafaelETI/miti-lib
  */
 class Config{
-	/**
-	 * @var mixed[]
-	 */
 	private $config = [];
 	
-	/**
-	 * Chama todos os métodos da classe
-	 */
 	public function __construct(){
 		session_start();
 		$this->config()->erro()->sistema()->timezone()->charset()->banco()->idioma()->autoload();
 	}
 	
-	/**
-	 * Define os parâmetros de configuração do sistema
-	 * 
-	 * Esse é o único método que deve ser alterado para a parametrização do sistema.
-	 * 
-	 * Caso surjam mais configurações de ambientes, adicioná-las onde for cabível.
-	 * 
-	 * @return Config
-	 */
 	private function config(){
 		$this->config['ambiente'] = 1;
-		$this->config['sistema'] = 'Miti Lib';
-		$this->config['versao'] = '1.39';
+		$this->config['sistema'] = 'MitiLib';
+		$this->config['versao'] = '1.0.40';
 		$this->config['timezone'] = 'America/Sao_Paulo';
 		$this->config['charset'] = 'UTF-8';
 		$this->config['salt'] = '$1$mitiapim$';
@@ -57,58 +38,26 @@ class Config{
 		return $this;
 	}
 	
-	public function getConfig(){return $this->config;}
+	public function getConfig(){
+		return $this->config;
+	}
 	
-	/**
-	 * Configura como o PHP trata os erros do sistema
-	 * 
-	 * É uma das principais configurações de segurança. Nunca mostre os erros
-	 * emitidos pelo PHP, diretamente na tela, no ambiente de produção!
-	 * 
-	 * @return Config
-	 */
 	private function erro(){
 		error_reporting(-1);
 		ini_set('display_errors', $this->config['ambiente']);
 		return $this;
 	}
 	
-	/**
-	 * Configura o nome e a versão do sistema
-	 * 
-	 * Recomenda-se chamar esse parâmetro em algum lugar visível de todas as
-	 * interfaces do sistema para que possa-se identificar facilmente se o sistema está
-	 * configurado para o ambiente de produção ou não: se estiver mostrando a versão,
-	 * está configurado para ambiente de desenvolvimento.
-	 * 
-	 * @return Config
-	 */
 	private function sistema(){
-		if($this->config['ambiente']){$this->config['sistema'] .= ' '.$this->config['versao'];}
+		if($this->config['ambiente']){$this->config['sistema'] .= '* '/*.$this->config['versao']*/;}
 		return $this;
 	}
 	
-	/**
-	 * Configura a timezone do PHP
-	 * 
-	 * Vide lista de timezones que o PHP suporta:
-	 * {@link http://php.net/manual/en/timezones.php}.
-	 * 
-	 * @return Config
-	 */
 	private function timezone(){
 		date_default_timezone_set($this->config['timezone']);
 		return $this;
 	}
 	
-	/**
-	 * Configura o tipo do conteúdo e o charset da página
-	 * 
-	 * Dessa forma o charset já é definido no cabeçalho do HTTP, portanto, não
-	 * há a necessidade de usar a meta tag do HTML para isso.
-	 * 
-	 * @return Config
-	 */
 	private function charset(){
 		if(!extension_loaded('mbstring')){throw new \RuntimeException('A classe '.__CLASS__.' depende da extensão mbstring.');}
 		header('Content-Type: text/html; charset='.$this->config['charset']);
@@ -116,17 +65,6 @@ class Config{
 		return $this;
 	}
 	
-	/**
-	 * Configura a conexão com o banco de dados
-	 * 
-	 * No caso do MySQL, ele aceita, dentre outros, os charsets latin1 e utf8
-	 * (escritos dessa forma).
-	 * 
-	 * Se o servidor do banco de dados for o mesmo de onde o sistema está
-	 * hospedado, usar localhost.
-	 * 
-	 * @return Config
-	 */
 	private function banco(){
 		$this->config['banco']['servidor'] = $this->config['banco'][$this->config['ambiente']]['servidor'];
 		$this->config['banco']['usuario'] = $this->config['banco'][$this->config['ambiente']]['usuario'];
@@ -136,14 +74,6 @@ class Config{
 		return $this;
 	}
 	
-	/**
-	 * Configura o idioma do sistema
-	 * 
-	 * Caso não haja internacionalização no sistema, há apenas a definição de um
-	 * idioma padrão.
-	 * 
-	 * @return Config
-	 */
 	private function idioma(){
 		if(!isset($_SESSION['idioma'])){$_SESSION['idioma'] = '1';}
 		
@@ -156,27 +86,11 @@ class Config{
 		return $this;
 	}
 	
-	/**
-	 * Chama o arquivo de autoload criado pelo Composer
-	 * 
-	 * @return Config
-	 */
 	private function autoload(){
 		require '../vendor/autoload.php';
 		return $this;
 	}
 	
-	/**
-	 * Verifica a sessão do usuário
-	 * 
-	 * Lembrar que, em caso de haverem vários usuários compartilhando o mesmo
-	 * nome de sessão no sistema, deve-se verificar se o usuário que está
-	 * executando o procedimento tem permissão.
-	 * 
-	 * @api
-	 * @param string $sessao
-	 * @throws \Exception
-	 */
 	public static function trancar($sessao = 'usuario'){
 		if(!isset($_SESSION[$sessao])){throw new \Exception('Você não tem permissão.');}
 	}

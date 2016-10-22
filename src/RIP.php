@@ -1,39 +1,11 @@
 <?php
-/**
- * Miti Lib, 2014 - 2016
- * 
- * @author Rafael Barros <admin@rafaelbarros.eti.br>
- * @link https://github.com/RafaelETI/MitiAPI
- */
 namespace Miti;
 
-/**
- * Consumo de serviço REST
- */
 class RIP{
-	/**
-	 * @var mixed[] Configurações de sistema. É esperado um índice 'rest' contendo
-	 * um array com os índices 'servidor', 'usuario' e 'senha'.
-	 */
 	private $config;
-	
-	/**
-	 * @var resource
-	 */
 	private $curl;
-	
-	/**
-	 * @var string Identificador de uma sessão de transação
-	 */
 	private $id;
-	
-	/**
-	 * Estabelece uma conexão HTTP
-	 * 
-	 * @param mixed[] $config
-	 * 
-	 * @throws \Exception
-	 */
+
 	public function __construct(array $config){
 		$this->verificarExtensao();
 		
@@ -43,27 +15,12 @@ class RIP{
 	
 	public function getId(){return $this->id;}
 	
-	/**
-	 * Verifica carregamento de extensão para trabalhar com requisição HTTP
-	 * 
-	 * @throws \Exception
-	 */
 	private function verificarExtensao(){
 		if(!extension_loaded('curl')){
 			throw new \Exception('A classe '.__CLASS__.' depende da extensão curl.');
 		}
 	}
 	
-	/**
-	 * Faz uma requisição ao servidor
-	 * 
-	 * @param string $metodo
-	 * @param mixed[] $parametros
-	 * 
-	 * @return Object
-	 * 
-	 * @throws \Exception
-	 */
 	public function requisitar($metodo = null, array $parametros = []){
 		$this->parametrizar($metodo, $parametros);
 		
@@ -75,12 +32,6 @@ class RIP{
 		return $requisicao;
 	}
 	
-	/**
-	 * Define parâmetros da requisição
-	 * 
-	 * @param string $metodo
-	 * @param mixed[] $parametros
-	 */
 	private function parametrizar($metodo, $parametros){
 		curl_setopt($this->curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
 		curl_setopt($this->curl, CURLOPT_HEADER, true);
@@ -91,9 +42,6 @@ class RIP{
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, $post);
 	}
 
-	/**
-	 * Fecha a conexão com o servidor
-	 */
 	public function __destruct(){
 		curl_close($this->curl);
 	}

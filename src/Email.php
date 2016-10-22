@@ -1,134 +1,43 @@
 <?php
-/**
- * Miti Lib, 2014 - 2015
- * 
- * @author Rafael Barros <admin@rafaelbarros.eti.br>
- * @link https://github.com/RafaelETI/MitiAPI
- */
 namespace Miti;
 
-/**
- * Envio de e-mail
- * 
- * É sempre enviado no formato HTML.
- * 
- * Permite definições de cópias e anexos.
- */
 class Email{
-	/**
-	 * @var string Delimitações do cabeçalho. Deve ser um valor único.
-	 */
 	private $uid;
-	
-	/**
-	 * @var string Cópia carbono.
-	 */
 	private $cc = '';
-	
-	/**
-	 * @var string Cópia carbono oculta.
-	 */
 	private $bcc = '';
-	
-	/**
-	 * @var string Responder para. Ainda descobrindo a utilidade.
-	 */
 	private $replyTo = '';
-	
-	/**
-	 * @var array[]
-	 */
 	private $anexos;
 	
-	/**
-	 * Define o UID
-	 */
 	public function __construct(){
 		$this->uid = md5(uniqid(time()));
 	}
 	
-	/**
-	 * Define o e-mail da cópia carbono
-	 * 
-	 * @param string $cc
-	 * 
-	 * @return Email
-	 */
 	public function setCc($cc){
 		$this->cc = $cc;
 		return $this;
 	}
 	
-	/**
-	 * Define o e-mail da cópia carbono oculta
-	 * 
-	 * Evite. É falta de educação.
-	 * 
-	 * @param string $bcc
-	 * 
-	 * @return Email
-	 */
 	public function setBcc($bcc){
 		$this->bcc = $bcc;
 		return $this;
 	}
 	
-	/**
-	 * Define o e-mail para resposta
-	 * 
-	 * @param string $replyTo
-	 * 
-	 * @return Email
-	 */
 	public function setReplyTo($replyTo){
 		$this->replyTo = $replyTo;
 		return $this;
 	}
 	
-	/**
-	 * Define o vetor de informações de arquivos
-	 * 
-	 * @param array[] $anexos No mesmo formato de $_FILES['...'] múltiplo.
-	 * 
-	 * @return Email
-	 */
 	public function setAnexos($anexos){
 		$this->anexos = $anexos;
 		return $this;
 	}
 	
-	/**
-	 * Envia o e-mail
-	 * 
-	 * O remetente não é passado como parâmetro da função mail() porque ele
-	 * faz parte do cabeçalho.
-	 * 
-	 * Basta existir um arquivo, o qual foi configurado para o PHP, mesmo que
-	 * ele não faça nada, que a mail() retorna true. Isso é interessante para o
-	 * ambiente de desenvolvimento.
-	 * 
-	 * @param string $destinatario
-	 * @param string $assunto
-	 * @param string $mensagem
-	 * @param string $remetente
-	 * @param string $charset
-	 * 
-	 * @throws \RuntimeException
-	 */
 	public function enviar($destinatario, $assunto, $mensagem, $remetente, $charset = 'UTF-8'){
 		if(!mail($destinatario, $this->codificarAssunto($charset, $assunto), '', $this->montarCabecalho($remetente, $mensagem, $charset))){
 			throw new \RuntimeException('Houve um erro ao enviar o e-mail.');
 		}
 	}
 	
-	/**
-	 * Monta a unificação de todo o cabeçalho
-	 * 
-	 * @param string $remetente
-	 * @param string $mensagem
-	 * @param string $charset
-	 * @return string
-	 */
 	private function montarCabecalho($remetente, $mensagem, $charset){
 		return
 			$this->montarCabecalhoBasico($remetente)
@@ -137,12 +46,6 @@ class Email{
 		;
 	}
 	
-	/**
-	 * Monta a string do cabeçalho básico
-	 * 
-	 * @param string $remetente
-	 * @return string
-	 */
 	private function montarCabecalhoBasico($remetente){
 		return
 			"From: $remetente\r\n"
@@ -155,13 +58,6 @@ class Email{
 		;
 	}
 	
-	/**
-	 * Monta a string do cabeçalho da mensagem
-	 * 
-	 * @param string $charset
-	 * @param string $mensagem
-	 * @return string
-	 */
 	private function montarCabecalhoMensagem($charset, $mensagem){
 		return
 			"--$this->uid\r\n"
@@ -171,11 +67,6 @@ class Email{
 		;
 	}
 	
-	/**
-	 * Monta a string do cabeçalho dos anexos
-	 * 
-	 * @return string
-	 */
 	private function montarCabecalhoAnexos(){
 		$cabecalho = '';
 		
@@ -197,15 +88,6 @@ class Email{
 		return $cabecalho . "--$this->uid--";
 	}
 	
-	/**
-	 * Codifica o assunto
-	 * 
-	 * Estranho, mas funciona.
-	 * 
-	 * @param string $charset
-	 * @param string $assunto
-	 * @return string
-	 */
 	private function codificarAssunto($charset, $assunto){
 		return "=?$charset?b?".base64_encode($assunto).'?=';
 	}
