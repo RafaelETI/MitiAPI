@@ -3,8 +3,8 @@ namespace Miti;
 
 class ORM{
 	private $config;
-	private $Banco;
-	private $ORM = [];
+	private $banco;
+	private $orm = [];
 	private $alias;
 	private $tabela;
 	private $campos;
@@ -21,25 +21,31 @@ class ORM{
 
 	public function __construct(array $config, $tabela, $alias){
 		$this->config = $config;
-		$this->Banco = new Banco($config);
+		$this->banco = new Banco($config);
 		$this->alias = $alias;
 		$this->tabela = $tabela;
 		
-		$this->mapearCampos()->setPk()->setTipos()->setAnulaveis()->setTamanhos();
+		$this->mapearCampos();
 	}
 	
-	public function setBanco(Banco $Banco){$this->Banco = $Banco;}
-	public function getBanco(){return $this->Banco;}
+	public function setBanco(Banco $banco){
+		$this->banco = $banco;
+        return $this;
+	}
+	
+	public function getBanco(){
+		return $this->banco;
+	}
 	
 	private function mapearCampos(){
-		$this->campos = $this->Banco->requisitar("select * from $this->tabela")->mapear();
-		return $this;
+		$this->campos = $this->banco->requisitar("select * from $this->tabela")->mapear();
+		$this->setPk()->setTipos()->setAnulaveis()->setTamanhos();
 	}
 	
 	private function setPk(){
-		foreach($this->campos as $Campo){
-			if($Campo->flags & 2){
-				$this->pk = $Campo->orgname;
+		foreach($this->campos as $campo){
+			if($campo->flags & 2){
+				$this->pk = $campo->orgname;
 				break;
 			}
 		}
@@ -47,43 +53,54 @@ class ORM{
 		return $this;
 	}
 	
-	public function getPk(){return $this->pk;}
+	public function getPk(){
+		return $this->pk;
+	}
 	
 	private function setTipos(){
-		foreach($this->campos as $Campo){
-			$this->tipos[$Campo->orgname] = $Campo->flags & 32768? 'float': 'string';
+		foreach($this->campos as $campo){
+			$this->tipos[$campo->orgname] = $campo->flags & 32768? 'float': 'string';
 		}
 		
 		return $this;
 	}
 	
-	public function getTipos(){return $this->tipos;}
+	public function getTipos(){
+		return $this->tipos;
+	}
 	
 	private function setAnulaveis(){
-		foreach($this->campos as $Campo){
-			$this->anulaveis[$Campo->orgname] = $Campo->flags & 1? false: true;
+		foreach($this->campos as $campo){
+			$this->anulaveis[$campo->orgname] = $campo->flags & 1? false: true;
 		}
 		
 		return $this;
 	}
 	
-	public function getAnulaveis(){return $this->anulaveis;}
+	public function getAnulaveis(){
+		return $this->anulaveis;
+	}
 	
 	private function setTamanhos(){
-		foreach($this->campos as $Campo){
-			$this->tamanhos[$Campo->orgname] = $Campo->length;
+		foreach($this->campos as $campo){
+			$this->tamanhos[$campo->orgname] =
+				$this->tipos[$campo->orgname] === 'string'?
+				$campo->length / 3:
+				$campo->length;
 		}
 		
 		return $this;
 	}
 	
-	public function getTamanhos(){return $this->tamanhos;}
+	public function getTamanhos(){
+		return $this->tamanhos;
+	}
 	
 	public function criar(array $tupla){
 		$sql = '';
 		$sql = $this->montarCampos($sql, $tupla);
 		$sql = $this->montarValores($sql, $tupla);
-		return $this->Banco->requisitar($sql);
+		return $this->banco->requisitar($sql);
 	}
 	
 	private function montarCampos($sql, array $tupla){
@@ -109,7 +126,7 @@ class ORM{
 	
 	public function atualizar(array $tupla){
 		$sql = $this->montarAtribuicoes($tupla).' where '.$this->filtros;
-		return $this->Banco->requisitar($sql);
+		return $this->banco->requisitar($sql);
 	}
 	
 	private function montarAtribuicoes(array $tupla){
@@ -138,16 +155,15 @@ class ORM{
 	
 	public function deletar(){
 		$sql = "delete $this->alias from $this->tabela $this->alias where $this->filtros";
-		return $this->Banco->requisitar($sql);
+		return $this->banco->requisitar($sql);
 	}
 	
 	private function tratar(array $tupla){
 		foreach($tupla as $campo => &$valor){
-			if($valor === '' || $valor === null){
-				$valor = 'null';
-			}else{
+			if($valor === '' || $valor === null){$valor = 'null';}
+			else{
 				$this->tipos[$campo] === 'string'?
-					$valor = '"' . $this->Banco->escapar($valor) . '"':
+					$valor = '"' . $this->banco->escapar($valor) . '"':
 					settype($valor, $this->tipos[$campo])
 				;
 			}
@@ -165,7 +181,7 @@ class ORM{
 	}
 	
 	public function juntar($externa, $alias, $aliasCampo, $campo, $aliasCampoExterna, $campoExterna, $juncao = 'join'){
-		$this->ORM[$alias] = new ORM($this->config, $externa, $alias);
+		$this->orm[$alias] = new ORM($this->config, $externa, $alias);
 		$this->juncoes .= "$juncao $externa $alias on $aliasCampo.$campo = $aliasCampoExterna.$campoExterna ";
 		
 		return $this;
@@ -199,15 +215,11 @@ class ORM{
 	}
 	
 	private function tratarLeitura($alias, $campo, $operador, $valor){
-		$tipos = $alias === $this->alias? $this->tipos: $this->ORM[$alias]->getTipos();
+		$tipos = $alias === $this->alias? $this->tipos: $this->orm[$alias]->getTipos();
 		
-		if($operador === 'like'){
-			$valor = "'%{$this->Banco->escapar($valor)}%'";
-		}else if($tipos[$campo] === 'string'){
-			$valor = "'{$this->Banco->escapar($valor)}'";
-		}else{
-			settype($valor, $tipos[$campo]);
-		}
+		if($operador === 'like'){$valor = "'%{$this->banco->escapar($valor)}%'";}
+		elseif($tipos[$campo] === 'string'){$valor = "'{$this->banco->escapar($valor)}'";}
+		else{settype($valor, $tipos[$campo]);}
 		
 		return $valor;
 	}
@@ -252,7 +264,7 @@ class ORM{
 			.$this->limite
 		;
 		
-		return $this->Banco->requisitar($sql);
+		return $this->banco->requisitar($sql);
 	}
 	
 	private function concatenarClausula($clausula, $propriedade){

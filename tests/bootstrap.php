@@ -1,5 +1,15 @@
 <?php
-mb_internal_encoding('UTF-8');
+ini_set('display_errors', 1);
+
+$config = [];
+
+$config['rest']['servidor'] = 'http://validate.jsontest.com';
+
+$config['banco']['charset'] = 'utf8';
+$config['banco']['servidor'] = 'localhost';
+$config['banco']['usuario'] = 'root';
+$config['banco']['senha'] = 'root';
+$config['banco']['nome'] = 'miti_api';
 
 spl_autoload_register(function($Classe){
 	$Classe = str_replace('\\', '/', $Classe);

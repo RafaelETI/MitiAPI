@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">/var/www/html/miti-lib/src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

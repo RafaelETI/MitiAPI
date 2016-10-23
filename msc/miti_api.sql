@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `id` tinyint(3) unsigned NOT NULL,
   `nome` varchar(30) NOT NULL,
   `status` char(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `categoria`
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `memoria` (
   `id` tinyint(4) NOT NULL,
   `descricao` varchar(1000) NOT NULL,
   `categoria` tinyint(3) unsigned NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `memoria`
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `status` (
   `id` char(1) NOT NULL,
   `descricao` varchar(20) NOT NULL,
   `prioridade` tinyint(3) unsigned NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `status`

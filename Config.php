@@ -16,7 +16,7 @@ class Config{
 	private function config(){
 		$this->config['ambiente'] = 1;
 		$this->config['sistema'] = 'MitiLib';
-		$this->config['versao'] = '1.0.40';
+		$this->config['versao'] = '1.0.41';
 		$this->config['timezone'] = 'America/Sao_Paulo';
 		$this->config['charset'] = 'UTF-8';
 		$this->config['salt'] = '$1$mitiapim$';

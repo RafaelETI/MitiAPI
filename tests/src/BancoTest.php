@@ -1,14 +1,23 @@
 <?php
 class BancoTest extends PHPUnit_Framework_TestCase{
 	private static $config;
-	private static $Banco;
+	private $banco;
 	
 	public static function setUpBeforeClass(){
-		self::$config = ['banco' => ['servidor' => 'localhost', 'usuario' => 'root', 'senha' => 'root', 'nome' => 'miti_api', 'charset' => 'utf8']];
-		self::$Banco = new \Miti\Banco(self::$config);
+		global $config;
+		self::$config = $config;
 	}
 	
-	public function testErroDeConexaoComMensagemTecnica(){
+    protected function setUp(){
+        $this->banco = new \Miti\Banco(self::$config);
+    }
+    
+    protected function tearDown(){
+        $this->banco->rebobinar();
+        unset($this->banco);
+    }
+    
+	public function testErroConexaoMensagemTecnica(){
 		$this->setExpectedException('RuntimeException', "Unknown database 'nao_existe'");
 		
 		ini_set('display_errors', 1);
@@ -17,9 +26,8 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		new \Miti\Banco($config);
 	}
 	
-	public function testErroDeConexaoComMensagemGenerica(){
-		$mensagem = 'Não foi possível conectar ao banco de dados.';
-		$this->setExpectedException('RuntimeException', $mensagem);
+	public function testErroConexaoMensagemGenerica(){
+		$this->setExpectedException('RuntimeException', 'Não foi possível conectar ao banco de dados.');
 		
 		ini_set('display_errors', 0);
 		$config = self::$config;
@@ -27,7 +35,7 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		new \Miti\Banco($config);
 	}
 	
-	public function testErroDeCharset(){
+	public function testErroCharset(){
 		$mensagem = 'Houve um erro ao definir o charset.';
 		$this->setExpectedException('DomainException', $mensagem);
 		
@@ -37,15 +45,14 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testEscaparArray(){
-		$especiais = self::$Banco->escapar(array("'", '"', '\\'));
-		$this->assertSame(array("\\'", '\\"', '\\\\'), $especiais);
+		$this->assertSame(["\\'", '\\"', '\\\\'], $this->banco->escapar(["'", '"', '\\']));
 	}
 	
 	public function testEscaparString(){
-		$this->assertSame('\\\'\\"\\\\', self::$Banco->escapar('\'"\\'));
+		$this->assertSame('\\\'\\"\\\\', $this->banco->escapar('\'"\\'));
 	}
 	
-	public function testErroDeRequisicaoComMensagemTecnica(){
+	public function testErroRequisicaoMensagemTecnica(){
 		$mensagem =
 			"#1062 Duplicate entry '1' for key 'PRIMARY' - "
 			.'insert into categoria values(1, "Música", null)'
@@ -54,46 +61,40 @@ class BancoTest extends PHPUnit_Framework_TestCase{
 		$this->setExpectedException('UnexpectedValueException', $mensagem);
 		
 		ini_set('display_errors', 1);
-		self::$Banco->requisitar('insert into categoria values(1, "Música", null)')->rebobinar();
+        
+		$this->banco->requisitar('insert into categoria values(1, "Música", null)');
 	}
 	
-	public function testErroDeRequisicaoComMensagemEspecifica(){
+	public function testErroRequisicaoMensagemEspecifica(){
 		$this->setExpectedException('UnexpectedValueException', 'O registro já existe.');
 		ini_set('display_errors', 0);
-		self::$Banco->requisitar('insert into categoria values(1, "Música", null)')->rebobinar();
+		$this->banco->requisitar('insert into categoria values(1, "Música", null)');
 	}
 	
-	public function testErroDeRequisicaoComMensagemGenerica(){
+	public function testErroRequisicaoMensagemGenerica(){
 		$this->setExpectedException('UnexpectedValueException', '#1048 Houve um erro ao realizar a requisição.');
 		ini_set('display_errors', 0);
-		self::$Banco->requisitar('insert into categoria values(1, null, null)')->rebobinar();
+		$this->banco->requisitar('insert into categoria values(1, null, null)');
 	}
 	
 	public function testGetAfetados(){
-		self::$Banco->requisitar('select nome from categoria where id = 1');
-		$this->assertSame(1, self::$Banco->getAfetados());
+		$this->assertSame(1, $this->banco->requisitar('select nome from categoria where id = 1')->getAfetados());
 	}
 	
 	public function testGetId(){
-		self::$Banco->requisitar('select nome from categoria where id = 1');
-		$this->assertSame(0, self::$Banco->getId());
+		$this->assertSame(0, $this->banco->requisitar('select nome from categoria where id = 1')->getId());
 	}
 	
 	public function testVetorizar(){
-		self::$Banco->requisitar('select nome from categoria where id = 1');
-		$c = self::$Banco->vetorizar();
-		$this->assertSame('Filme', $c['nome']);
+		$this->assertSame('Filme', $this->banco->requisitar('select nome from categoria where id = 1')->vetorizar()['nome']);
 	}
 	
 	public function testQuantificar(){
-		self::$Banco->requisitar('select nome from categoria where id = 1');
-		$this->assertSame(1, self::$Banco->quantificar());
+		$this->assertSame(1, $this->banco->requisitar('select nome from categoria where id = 1')->quantificar());
 	}
 	
 	public function testMapear(){
-		self::$Banco->requisitar('select nome from categoria where id = 1');
-		$c = self::$Banco->mapear();
-		$this->assertSame(4097, $c[0]->flags);
+		$this->assertSame(4097, $this->banco->requisitar('select nome from categoria where id = 1')->mapear()[0]->flags);
 	}
 	
 	public static function tearDownAfterClass(){

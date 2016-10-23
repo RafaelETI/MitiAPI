@@ -1,13 +1,25 @@
 <?php
 class RIPTest extends PHPUnit_Framework_TestCase{
-	private static $config = ['rest' => ['servidor' => 'http://ip.jsontest.com/']];
-	private static $rip;
+	private static $config;
 	
 	public static function setUpBeforeClass(){
-		self::$rip = new \Miti\RIP(self::$config);
+		global $config;
+        self::$config = $config;
 	}
 	
-	public function testRequisitar(){
-		$this->assertSame('177.182.179.194', self::$rip->requisitar()->ip);
+	public function testGetRequisitarJson(){
+        $rip = new \Miti\RIP(self::$config);
+        $rip->setGet();
+        $rip->setHeader('');
+        $rip->setUrl('?json={0:true}');
+		$this->assertSame(true, $rip->requisitarJson()->validate);
+	}
+    
+    public function testPostRequisitarJson(){
+        $rip = new \Miti\RIP(self::$config);
+        $rip->setPost();
+        $rip->setUrl('?json={0:true}');
+        $rip->setPostFields([]);
+		$this->assertSame(true, $rip->requisitarJson()->validate);
 	}
 }
