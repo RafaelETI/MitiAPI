@@ -5,12 +5,14 @@ class RIP{
     private $config;
     private $curl;
     private $header = [];
+    private $id;
 
     public function __construct(array $config){
         $this->verificarExtensao();
         $this->config = $config;
         $this->curl = curl_init($this->config['rest']['servidor']);
 
+        $this->setHttp();
         curl_setopt($this->curl, CURLOPT_HEADER, true);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
     }
@@ -18,8 +20,16 @@ class RIP{
     private function verificarExtensao(){
         if(!extension_loaded('curl')){throw new \Exception('A classe '.__CLASS__.' depende da extensão curl.');}
     }
-
-    public function setHttp($http = CURL_HTTP_VERSION_1_1){
+    
+    public function setId($id){
+        $this->id = $id;
+    }
+    
+    public function getId(){
+        return $this->id;
+    }
+    
+    public function setHttp($http = CURL_HTTP_VERSION_1_0){
         curl_setopt($this->curl, CURLOPT_HTTP_VERSION, $http);
     }
     
