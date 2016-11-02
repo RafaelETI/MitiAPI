@@ -1,7 +1,7 @@
 <?php
-return array(
-	'Está vivo!' => array(
+return [
+	'Está vivo!' => [
 		'en' => "It's alive!",
 		'fr' => 'Est vivant!',
-	),
-);
+	],
+];

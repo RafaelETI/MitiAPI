@@ -1,5 +1,7 @@
 <?php
-class RIPTest extends PHPUnit_Framework_TestCase{
+use PHPUnit\Framework\TestCase;
+
+class RIPTest extends TestCase{
 	private static $config;
 	
 	public static function setUpBeforeClass(){

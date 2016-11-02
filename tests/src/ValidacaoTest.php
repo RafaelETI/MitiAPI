@@ -1,5 +1,7 @@
 <?php
-class ValidacaoTest extends PHPUnit_Framework_TestCase{
+use PHPUnit\Framework\TestCase;
+
+class ValidacaoTest extends TestCase{
 	private static $arquivos = array();
 	
 	public static function setUpBeforeClass(){

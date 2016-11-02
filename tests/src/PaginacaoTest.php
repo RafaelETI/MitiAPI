@@ -1,5 +1,7 @@
 <?php
-class PaginacaoTest extends PHPUnit_Framework_TestCase{
+use PHPUnit\Framework\TestCase;
+
+class PaginacaoTest extends TestCase{
 	public function testGetInicio(){
 		$Paginacao = new \Miti\Paginacao(100, 15, 5, 10);
 		$this->assertSame(60, $Paginacao->getInicio());

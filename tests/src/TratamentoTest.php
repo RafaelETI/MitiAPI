@@ -1,5 +1,7 @@
 <?php
-class TratamentoTest extends PHPUnit_Framework_TestCase{
+use PHPUnit\Framework\TestCase;
+
+class TratamentoTest extends TestCase{
 	public function testRequererJs(){
 		$padrao = "/^<script src='.+\/Miti\.js\?hash=[a-f\d]{32}'><\/script>\\n$/i";
 		$requerimento = \Miti\Tratamento::requerer('/../tests/arquivos/Miti.js');

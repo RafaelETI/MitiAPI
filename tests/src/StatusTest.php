@@ -1,5 +1,7 @@
 <?php
-class StatusTest extends PHPUnit_Framework_TestCase{
+use PHPUnit\Framework\TestCase;
+
+class StatusTest extends TestCase{
 	public function testAlertarSemSessao(){
 		$this->assertSame(null, \Miti\Status::alertar());
 	}

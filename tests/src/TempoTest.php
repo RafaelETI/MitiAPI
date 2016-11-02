@@ -1,5 +1,7 @@
 <?php
-class TempoTest extends PHPUnit_Framework_TestCase{
+use PHPUnit\Framework\TestCase;
+
+class TempoTest extends TestCase{
 	public function testBRUSVazio(){
 		$this->assertSame(null, \Miti\Tempo::brUS(''));
 	}
