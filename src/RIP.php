@@ -40,6 +40,11 @@ class RIP{
     public function setPost(){
         curl_setopt($this->curl, CURLOPT_POST, true);
     }
+    
+    public function setPut(){
+        curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+        $this->setHeader('Content-Type: application/json');
+    }
 
     public function setHeader($valor){
         $this->header[] = $valor;
