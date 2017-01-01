@@ -1,13 +1,15 @@
 <?php
 namespace Miti;
 
-class RIP{
+class RIP
+{
     private $config;
     private $curl;
     private $header = [];
     private $id;
 
-    public function __construct(array $config){
+    public function __construct(array $config)
+    {
         $this->verificarExtensao();
         $this->config = $config;
         $this->curl = curl_init($this->config['rest']['servidor']);
@@ -17,58 +19,77 @@ class RIP{
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
     }
 
-    private function verificarExtensao(){
-        if(!extension_loaded('curl')){throw new \Exception('A classe '.__CLASS__.' depende da extensão curl.');}
+    private function verificarExtensao()
+    {
+        if (!extension_loaded('curl')) {
+            throw new \Exception('A classe '.__CLASS__.' depende da extensão curl');
+        }
     }
-    
-    public function setId($id){
+
+    public function setId($id)
+    {
         $this->id = $id;
     }
-    
-    public function getId(){
+
+    public function getId()
+    {
         return $this->id;
     }
-    
-    public function setHttp($http = CURL_HTTP_VERSION_1_0){
+
+    public function setHttp($http = CURL_HTTP_VERSION_1_0)
+    {
         curl_setopt($this->curl, CURLOPT_HTTP_VERSION, $http);
     }
-    
-    public function setGet(){
+
+    public function setGet()
+    {
         curl_setopt($this->curl, CURLOPT_HTTPGET, true);
     }
 
-    public function setPost(){
+    public function setPost()
+    {
         curl_setopt($this->curl, CURLOPT_POST, true);
     }
-    
-    public function setPut(){
+
+    public function setPut()
+    {
         curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, 'PUT');
         $this->setHeader('Content-Type: application/json');
     }
 
-    public function setHeader($valor){
+    public function setHeader($valor)
+    {
         $this->header[] = $valor;
     }
 
-    public function setUrl($url){
+    public function setUrl($url)
+    {
         curl_setopt($this->curl, CURLOPT_URL, $this->config['rest']['servidor'].$url);
     }
 
-    public function setPostFields($post){
+    public function setPostFields($post)
+    {
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $post);
     }
 
-    public function requisitar(){
+    public function requisitar()
+    {
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->header);
-        if(!$requisicao = curl_exec($this->curl)){throw new \Exception('Falha na requisição.');}
+        
+        if (!$requisicao = curl_exec($this->curl)) {
+            throw new \Exception('Falha na requisição');
+        }
+        
         return $requisicao;
     }
 
-    public function requisitarJson(){
+    public function requisitarJson()
+    {
         return json_decode(explode("\r\n\r\n", $this->requisitar())[1]);
     }
 
-    public function __destruct(){
+    public function __destruct()
+    {
         curl_close($this->curl);
     }
 }

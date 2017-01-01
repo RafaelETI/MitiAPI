@@ -10,7 +10,7 @@ class Config{
 
     public function __construct(){
         session_start();
-        $this->config()->erro()->sistema()->timezone()->charset()->banco()->idioma()->autoload();
+        $this->config()->erro()->sistema()->timezone()->charset()->banco()->autoload();
     }
 
     private function config(){
@@ -70,18 +70,6 @@ class Config{
         $this->config['banco']['usuario'] = $this->config['banco'][$this->config['ambiente']]['usuario'];
         $this->config['banco']['senha'] = $this->config['banco'][$this->config['ambiente']]['senha'];
         $this->config['banco']['nome'] = $this->config['banco'][$this->config['ambiente']]['nome'];
-
-        return $this;
-    }
-
-    private function idioma(){
-        if(!isset($_SESSION['idioma'])){$_SESSION['idioma'] = '1';}
-
-        if(isset($_GET['cfgIdioma'])){
-            $_SESSION['idioma'] = $_GET['cfgIdioma'];
-            header("Location: {$_SERVER['HTTP_REFERER']}");
-            exit;
-        }
 
         return $this;
     }
