@@ -2,7 +2,7 @@
     "name": "miti/lib",
     "type": "library",
     "description": "Biblioteca de utilidades variadas",
-    "keywords": ["database","i18n","orm","pagination","rest","status","datetime","sanitation","validation"],
+    "keywords": ["database","sql","pagination","rest","datetime","sanitation","validation"],
     "homepage": "https://github.com/RafaelETI/miti-lib",
     "license": "MIT",
     "authors": [
